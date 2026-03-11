@@ -30,9 +30,9 @@ export function PhotoCard({ photo, onClick }: PhotoCardProps) {
         <div className={`flex h-full w-full items-center justify-center absolute inset-0 ${photo.imageUrl ? "hidden" : ""}`}>
           <ImageOff className="h-8 w-8 text-muted-foreground/40" />
         </div>
-        <Badge className={`absolute top-2 left-2 text-[9px] px-1.5 py-0.5 ${providerColor[photo.provider] ?? ""}`}>
+        <span className="absolute top-1.5 left-1.5 bg-white/90 text-[8px] text-neutral-500 px-1.5 py-0.5 leading-tight">
           {photo.provider}
-        </Badge>
+        </span>
       </div>
       <div className="p-3">
         <h3 className="text-sm font-bold leading-tight text-card-foreground line-clamp-2">
