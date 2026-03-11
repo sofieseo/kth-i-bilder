@@ -41,7 +41,7 @@ const Index = () => {
             KTH Campus · Tidslinje
           </h1>
           <p className="text-[10px] text-muted-foreground">
-            Utforska 200 år av historia på Valhallavägen
+            Utforska 200 år av historia på campus
           </p>
         </div>
       </div>
