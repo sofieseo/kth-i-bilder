@@ -177,14 +177,26 @@ async function fetchEuropeana(year: number): Promise<UnifiedPhoto[]> {
   }
 }
 
-// ── Combined fetch ──────────────────────────────────────────────
-export async function fetchAllPhotos(year: number): Promise<UnifiedPhoto[]> {
-  const [dimu, sthlm, euro] = await Promise.all([
+// ── Streaming fetch – calls onUpdate as each source resolves ────
+export async function fetchAllPhotosStreaming(
+  year: number,
+  onUpdate: (photos: UnifiedPhoto[]) => void,
+): Promise<void> {
+  const accumulated: UnifiedPhoto[] = [];
+
+  const sources = [
     fetchDigitaltMuseum(year),
     fetchStockholmskallan(year),
     fetchEuropeana(year),
-  ]);
+  ];
 
-  const all = [...dimu, ...sthlm, ...euro];
-  return all.filter(isKthRelevant).slice(0, 30);
+  for (const promise of sources) {
+    promise.then((photos) => {
+      const relevant = photos.filter(isKthRelevant);
+      accumulated.push(...relevant);
+      onUpdate(accumulated.slice(0, 40));
+    }).catch(() => {});
+  }
+
+  await Promise.allSettled(sources);
 }
