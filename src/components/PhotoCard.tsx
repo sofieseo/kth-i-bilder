@@ -12,7 +12,7 @@ export function PhotoCard({ photo, onClick }: PhotoCardProps) {
   return (
     <button
       onClick={onClick}
-      className="w-full text-left bg-white p-2 pb-8 shadow-md transition-all hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary"
+      className="relative w-full text-left bg-white p-2 pb-8 shadow-md transition-all hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary"
     >
       <div className="relative aspect-square bg-muted">
         {photo.imageUrl ? (
@@ -44,7 +44,7 @@ export function PhotoCard({ photo, onClick }: PhotoCardProps) {
           <p className="text-[9px] text-neutral-500 line-clamp-1">{photo.description}</p>
         )}
         {photo.year && (
-          <p className="text-[9px] text-neutral-500">{photo.year}</p>
+          <p className="absolute bottom-1.5 right-2 text-sm text-neutral-600" style={{ fontFamily: "'Caveat', cursive" }}>{photo.year}</p>
         )}
         
         <p className="text-[8px] text-neutral-400">{photo.source}</p>
