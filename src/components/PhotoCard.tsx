@@ -3,11 +3,15 @@ import type { DimuPhoto } from "@/data/digitaltMuseum";
 
 interface PhotoCardProps {
   photo: DimuPhoto;
+  onClick: () => void;
 }
 
-export function PhotoCard({ photo }: PhotoCardProps) {
+export function PhotoCard({ photo, onClick }: PhotoCardProps) {
   return (
-    <div className="rounded-lg border border-border bg-card overflow-hidden shadow-sm transition-all hover:shadow-md">
+    <button
+      onClick={onClick}
+      className="w-full text-left rounded-lg border border-border bg-card overflow-hidden shadow-sm transition-all hover:shadow-md hover:ring-2 hover:ring-primary/30 focus:outline-none focus:ring-2 focus:ring-primary"
+    >
       <div className="relative h-36 bg-muted">
         {photo.imageUrl ? (
           <img
@@ -42,6 +46,6 @@ export function PhotoCard({ photo }: PhotoCardProps) {
           )}
         </div>
       </div>
-    </div>
+    </button>
   );
 }
