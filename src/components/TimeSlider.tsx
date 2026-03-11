@@ -11,7 +11,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
       <div className="mb-1.5 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Clock className="h-4 w-4 text-primary" />
-          <span className="font-display text-sm font-semibold text-foreground">Tidsresa</span>
+          <span className="font-display text-sm font-semibold text-foreground">År</span>
         </div>
         <span className="bg-primary px-3 py-0.5 font-display text-sm font-bold text-primary-foreground">
           {year}
