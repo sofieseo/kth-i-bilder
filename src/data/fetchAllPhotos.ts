@@ -11,12 +11,12 @@ export interface UnifiedPhoto {
   license: string;
   place: string;
   originalLink: string;
-  provider: "DigitaltMuseum" | "Stockholmskällan" | "Europeana";
+  provider: "DigitaltMuseum" | "Europeana";
 }
 
 const KTH_KEYWORDS = [
   "kth", "kungliga tekniska", "tekniska högskolan", "valhallavägen",
-  "stockholm", "teknis", "östermalmsgatan",
+  "teknis", "östermalmsgatan",
 ];
 
 function isKthRelevant(photo: UnifiedPhoto): boolean {
@@ -42,60 +42,33 @@ async function fetchDigitaltMuseum(year: number): Promise<UnifiedPhoto[]> {
     "artifact.hasPictures:true",
   ].map((f) => `fq=${encodeURIComponent(f)}`).join("&");
 
-  const url = `${DIMU_API}?q=${query}&${fq}&wt=json&rows=40&api.key=demo`;
-  const res = await fetch(url);
-  if (!res.ok) return [];
-  const data = await res.json();
-  const docs: any[] = data?.response?.docs ?? [];
-
-  return docs.map((doc) => {
-    const mediaId = doc["artifact.defaultMediaIdentifier"] ?? null;
-    const uniqueId = doc["artifact.uniqueId"] ?? "";
-    return {
-      id: `dimu-${uniqueId || Math.random()}`,
-      title: doc["artifact.ingress.title"] ?? "Utan titel",
-      source: doc["identifier.owner"] ?? "Okänd källa",
-      year: doc["artifact.ingress.production.fromYear"] ?? null,
-      imageUrl: mediaId ? `${DIMU_IMG}/${mediaId}?dimension=400x400` : null,
-      imageUrlFull: mediaId ? `${DIMU_IMG}/${mediaId}?dimension=1200x1200` : null,
-      description: doc["artifact.ingress.classification"] ?? doc["artifact.ingress.subjects"]?.[0] ?? "",
-      coordinate: doc["artifact.coordinate"] ?? null,
-      subjects: doc["artifact.ingress.subjects"] ?? [],
-      license: doc["artifact.ingress.license"] ?? "",
-      place: doc["artifact.ingress.production.place"] ?? "",
-      originalLink: uniqueId ? `https://digitaltmuseum.org/${uniqueId}` : "",
-      provider: "DigitaltMuseum" as const,
-    };
-  });
-}
-
-// ── Stockholmskällan ────────────────────────────────────────────
-async function fetchStockholmskallan(year: number): Promise<UnifiedPhoto[]> {
-  const from = year - 5;
-  const to = year + 5;
+  // Note: demo API key caps rows at 10
+  const url = `${DIMU_API}?q=${query}&${fq}&wt=json&rows=100&api.key=demo`;
   try {
-    const url = `https://stockholmskallan.stockholm.se/api/search/?query=KTH+Valhallavägen&from_year=${from}&to_year=${to}&type=image&format=json&limit=20`;
     const res = await fetch(url);
     if (!res.ok) return [];
     const data = await res.json();
-    const items: any[] = data?.results ?? data?.items ?? data ?? [];
-    if (!Array.isArray(items)) return [];
+    const docs: any[] = data?.response?.docs ?? [];
 
-    return items.map((item: any, i: number) => ({
-      id: `sthlmk-${item.id ?? i}`,
-      title: item.title ?? item.name ?? "Utan titel",
-      source: item.institution ?? "Stockholmskällan",
-      year: item.year ?? item.date_start ?? null,
-      imageUrl: item.thumbnail ?? item.image ?? null,
-      imageUrlFull: item.image ?? item.thumbnail ?? null,
-      description: item.description ?? "",
-      coordinate: null,
-      subjects: [],
-      license: item.license ?? "",
-      place: item.place ?? "",
-      originalLink: item.url ?? item.link ?? "",
-      provider: "Stockholmskällan" as const,
-    }));
+    return docs.map((doc) => {
+      const mediaId = doc["artifact.defaultMediaIdentifier"] ?? null;
+      const uniqueId = doc["artifact.uniqueId"] ?? "";
+      return {
+        id: `dimu-${uniqueId || Math.random()}`,
+        title: doc["artifact.ingress.title"] ?? "Utan titel",
+        source: doc["identifier.owner"] ?? "Okänd källa",
+        year: doc["artifact.ingress.production.fromYear"] ?? null,
+        imageUrl: mediaId ? `${DIMU_IMG}/${mediaId}?dimension=400x400` : null,
+        imageUrlFull: mediaId ? `${DIMU_IMG}/${mediaId}?dimension=1200x1200` : null,
+        description: doc["artifact.ingress.classification"] ?? doc["artifact.ingress.subjects"]?.[0] ?? "",
+        coordinate: doc["artifact.coordinate"] ?? null,
+        subjects: doc["artifact.ingress.subjects"] ?? [],
+        license: doc["artifact.ingress.license"] ?? "",
+        place: doc["artifact.ingress.production.place"] ?? "",
+        originalLink: uniqueId ? `https://digitaltmuseum.org/${uniqueId}` : "",
+        provider: "DigitaltMuseum" as const,
+      };
+    });
   } catch {
     return [];
   }
@@ -106,8 +79,12 @@ const EUROPEANA_API = "https://api.europeana.eu/record/v2/search.json";
 const EUROPEANA_API_KEY = "gotiatertom";
 
 async function fetchEuropeana(year: number): Promise<UnifiedPhoto[]> {
+  const from = year - 5;
+  const to = year + 5;
   try {
-    const url = `${EUROPEANA_API}?wskey=${EUROPEANA_API_KEY}&query=KTH+Stockholm&qf=where:Sweden&qf=YEAR:${year}&qf=TYPE:IMAGE&rows=50&profile=standard`;
+    // Broader query: year range, no country filter (was blocking results)
+    const query = encodeURIComponent("KTH OR \"Kungliga Tekniska Högskolan\" OR \"Tekniska Högskolan Stockholm\"");
+    const url = `${EUROPEANA_API}?wskey=${EUROPEANA_API_KEY}&query=${query}&qf=YEAR:[${from} TO ${to}]&qf=TYPE:IMAGE&rows=50&profile=standard`;
     const res = await fetch(url);
     if (!res.ok) return [];
     const data = await res.json();
@@ -135,12 +112,11 @@ async function fetchEuropeana(year: number): Promise<UnifiedPhoto[]> {
 
 // ── Combined fetch ──────────────────────────────────────────────
 export async function fetchAllPhotos(year: number): Promise<UnifiedPhoto[]> {
-  const [dimu, sthlm, euro] = await Promise.all([
+  const [dimu, euro] = await Promise.all([
     fetchDigitaltMuseum(year),
-    fetchStockholmskallan(year),
     fetchEuropeana(year),
   ]);
 
-  const all = [...dimu, ...sthlm, ...euro];
+  const all = [...dimu, ...euro];
   return all.filter(isKthRelevant).slice(0, 30);
 }
