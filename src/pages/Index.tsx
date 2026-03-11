@@ -1,14 +1,14 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useCallback, useRef } from "react";
 import { PanelRightOpen } from "lucide-react";
 import { CampusMap } from "@/components/CampusMap";
 import { TimeSlider } from "@/components/TimeSlider";
 import { SidePanel } from "@/components/SidePanel";
-import { fetchMockResults, type HistoryResult } from "@/data/mockResults";
+import { fetchDigitaltMuseum, type DimuPhoto } from "@/data/digitaltMuseum";
 
 const Index = () => {
   const [year, setYear] = useState(1917);
   const [panelOpen, setPanelOpen] = useState(false);
-  const [results, setResults] = useState<HistoryResult[]>([]);
+  const [results, setResults] = useState<DimuPhoto[]>([]);
   const [loading, setLoading] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout>>();
 
@@ -19,30 +19,33 @@ const Index = () => {
 
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(async () => {
-      const data = await fetchMockResults(newYear);
-      setResults(data);
-      setLoading(false);
-    }, 500);
+      try {
+        const data = await fetchDigitaltMuseum(newYear);
+        setResults(data);
+      } catch (err) {
+        console.error("DigitaltMuseum fetch error:", err);
+        setResults([]);
+      } finally {
+        setLoading(false);
+      }
+    }, 600);
   }, []);
 
   return (
     <div className="relative h-screen w-screen overflow-hidden">
-      {/* Map */}
       <CampusMap year={year} />
 
-      {/* Top bar */}
       <div className="fixed left-4 top-4 z-[1000] flex items-center gap-3">
         <div className="panel-glass rounded-xl border border-border px-4 py-2 shadow-lg">
-          <h1 className="font-display text-lg font-bold text-foreground">
+          <h1 className="text-lg font-bold text-foreground">
             KTH Campus · Tidslinje
           </h1>
           <p className="text-[10px] text-muted-foreground">
-            Explore 200 years of history on Valhallavägen
+            Utforska 200 år av historia på Valhallavägen
           </p>
         </div>
       </div>
 
-      {/* Panel toggle */}
       {!panelOpen && (
         <button
           onClick={() => setPanelOpen(true)}
@@ -52,7 +55,6 @@ const Index = () => {
         </button>
       )}
 
-      {/* Side panel */}
       <SidePanel
         open={panelOpen}
         onClose={() => setPanelOpen(false)}
@@ -61,7 +63,6 @@ const Index = () => {
         loading={loading}
       />
 
-      {/* Time slider */}
       <TimeSlider year={year} onChange={handleYearChange} />
     </div>
   );
