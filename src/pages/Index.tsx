@@ -42,7 +42,7 @@ const Index = () => {
     <div className="flex h-screen w-screen flex-col" style={{ background: "url('/images/brick-bg.jpg') center/cover fixed" }}>
       {/* Header */}
       <header className="shrink-0 border-b border-border px-4 py-3">
-        <h1 className="text-lg font-bold text-foreground">KTH 200 år</h1>
+        <h1 className="text-3xl font-extrabold text-primary-foreground">KTH 200 år</h1>
         <p className="text-[10px] text-muted-foreground">Utforska KTH i bilder</p>
       </header>
 
