@@ -1,11 +1,11 @@
-import { X, Search, Loader2 } from "lucide-react";
-import { HistoryCard } from "./HistoryCard";
-import type { HistoryResult } from "@/data/mockResults";
+import { X, Search, Loader2, ImageOff } from "lucide-react";
+import { PhotoCard } from "./PhotoCard";
+import type { DimuPhoto } from "@/data/digitaltMuseum";
 
 interface SidePanelProps {
   open: boolean;
   onClose: () => void;
-  results: HistoryResult[];
+  results: DimuPhoto[];
   year: number;
   loading: boolean;
 }
@@ -20,8 +20,8 @@ export function SidePanel({ open, onClose, results, year, loading }: SidePanelPr
       <div className="flex items-center justify-between border-b border-border px-4 py-3">
         <div className="flex items-center gap-2">
           <Search className="h-4 w-4 text-primary" />
-          <h2 className="font-display text-base font-bold text-foreground">
-            Records · {year}
+          <h2 className="text-base font-bold text-foreground">
+            Foton · {year}
           </h2>
         </div>
         <button
@@ -36,15 +36,24 @@ export function SidePanel({ open, onClose, results, year, loading }: SidePanelPr
         {loading ? (
           <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
             <Loader2 className="h-6 w-6 animate-spin text-primary" />
-            <span className="mt-2 text-xs">Searching archives…</span>
+            <span className="mt-2 text-xs">Söker i DigitaltMuseum…</span>
           </div>
         ) : results.length === 0 ? (
-          <p className="py-16 text-center text-sm text-muted-foreground">
-            Move the time slider to search historical records.
-          </p>
+          <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
+            <ImageOff className="h-8 w-8 text-muted-foreground/40 mb-2" />
+            <p className="text-sm text-center px-4">
+              Inga foton hittades för detta årtal – prova att dra i tidslinjen!
+            </p>
+          </div>
         ) : (
-          results.map((r) => <HistoryCard key={r.id} result={r} />)
+          results.map((photo) => <PhotoCard key={photo.id} photo={photo} />)
         )}
+      </div>
+
+      <div className="border-t border-border px-3 py-2">
+        <p className="text-[10px] text-muted-foreground text-center">
+          Data från <a href="https://digitaltmuseum.org" target="_blank" rel="noopener noreferrer" className="underline text-primary">DigitaltMuseum</a>
+        </p>
       </div>
     </div>
   );
