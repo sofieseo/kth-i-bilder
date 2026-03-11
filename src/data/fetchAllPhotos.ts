@@ -22,6 +22,8 @@ const KTH_KEYWORDS = [
 const EXCLUDED_SOURCES = [
   "museum of far eastern antiquities",
   "östasiatiska museet",
+  "museum of mediterranean and near eastern antiquities",
+  "medelhavsmuseet",
 ];
 
 function isKthRelevant(photo: UnifiedPhoto): boolean {
