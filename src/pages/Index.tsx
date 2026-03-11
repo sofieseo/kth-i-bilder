@@ -33,7 +33,7 @@ const Index = () => {
 
   return (
     <div className="relative h-screen w-screen overflow-hidden">
-      <CampusMap year={year} />
+      <CampusMap />
 
       <div className="fixed left-4 top-4 z-[1000] flex items-center gap-3">
         <div className="panel-glass rounded-xl border border-border px-4 py-2 shadow-lg">
