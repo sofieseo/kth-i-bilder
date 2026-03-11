@@ -11,7 +11,7 @@ export interface UnifiedPhoto {
   license: string;
   place: string;
   originalLink: string;
-  provider: "DigitaltMuseum" | "Stockholmskällan" | "Europeana";
+  provider: "DigitaltMuseum" | "Europeana";
 }
 
 const KTH_KEYWORDS = [
@@ -25,13 +25,6 @@ function isKthRelevant(photo: UnifiedPhoto): boolean {
     ...photo.subjects,
   ].join(" ").toLowerCase();
   return KTH_KEYWORDS.some((kw) => searchable.includes(kw));
-}
-
-// ── CORS proxy helper ───────────────────────────────────────────
-const CORS_PROXY = "https://api.allorigins.win/raw?url=";
-
-async function fetchWithProxy(url: string): Promise<Response> {
-  return fetch(`${CORS_PROXY}${encodeURIComponent(url)}`);
 }
 
 // ── Museum code → full name mapping ─────────────────────────────
@@ -105,39 +98,6 @@ async function fetchDigitaltMuseum(year: number): Promise<UnifiedPhoto[]> {
   }
 }
 
-// ── Stockholmskällan (via CORS proxy) ───────────────────────────
-async function fetchStockholmskallan(year: number): Promise<UnifiedPhoto[]> {
-  const from = year - 5;
-  const to = year + 5;
-  try {
-    const apiUrl = `https://stockholmskallan.stockholm.se/api/search/?query=KTH+Valhallavägen&from_year=${from}&to_year=${to}&type=image&format=json&limit=20`;
-    const res = await fetchWithProxy(apiUrl);
-    if (!res.ok) return [];
-    const text = await res.text();
-    if (!text.trim()) return [];
-    const data = JSON.parse(text);
-    const items: any[] = data?.results ?? data?.items ?? (Array.isArray(data) ? data : []);
-    if (!Array.isArray(items) || items.length === 0) return [];
-
-    return items.map((item: any, i: number) => ({
-      id: `sthlmk-${item.id ?? i}`,
-      title: item.title ?? item.name ?? "Utan titel",
-      source: item.institution ?? "Stockholmskällan",
-      year: item.year ?? item.date_start ?? null,
-      imageUrl: item.thumbnail ?? item.image ?? null,
-      imageUrlFull: item.image ?? item.thumbnail ?? null,
-      description: item.description ?? "",
-      coordinate: null,
-      subjects: [],
-      license: item.license ?? "",
-      place: item.place ?? "",
-      originalLink: item.url ?? item.link ?? "",
-      provider: "Stockholmskällan" as const,
-    }));
-  } catch {
-    return [];
-  }
-}
 
 // ── Europeana ───────────────────────────────────────────────────
 const EUROPEANA_API = "https://api.europeana.eu/record/v2/search.json";
@@ -186,7 +146,6 @@ export async function fetchAllPhotosStreaming(
 
   const sources = [
     fetchDigitaltMuseum(year),
-    fetchStockholmskallan(year),
     fetchEuropeana(year),
   ];
 
