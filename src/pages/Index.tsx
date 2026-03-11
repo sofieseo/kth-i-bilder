@@ -4,7 +4,7 @@ import { PhotoGallery } from "@/components/PhotoGallery";
 import { fetchAllPhotosStreaming, type UnifiedPhoto } from "@/data/fetchAllPhotos";
 
 const Index = () => {
-  const [year, setYear] = useState(1917);
+  const [year, setYear] = useState(1920);
   const [results, setResults] = useState<UnifiedPhoto[]>([]);
   const [loading, setLoading] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout>>();
