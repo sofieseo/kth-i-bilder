@@ -19,7 +19,15 @@ const KTH_KEYWORDS = [
   "teknis", "östermalmsgatan",
 ];
 
+const EXCLUDED_SOURCES = [
+  "museum of far eastern antiquities",
+  "östasiatiska museet",
+];
+
 function isKthRelevant(photo: UnifiedPhoto): boolean {
+  const sourceLower = photo.source.toLowerCase();
+  if (EXCLUDED_SOURCES.some((ex) => sourceLower.includes(ex))) return false;
+
   const searchable = [
     photo.title, photo.description, photo.place, photo.source,
     ...photo.subjects,
