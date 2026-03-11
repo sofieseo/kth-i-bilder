@@ -11,7 +11,7 @@ export interface UnifiedPhoto {
   license: string;
   place: string;
   originalLink: string;
-  provider: "DigitaltMuseum" | "Stockholmskällan" | "Europeana";
+  provider: "DigitaltMuseum" | "Europeana";
 }
 
 const KTH_KEYWORDS = [
