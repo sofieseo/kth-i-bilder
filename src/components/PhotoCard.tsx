@@ -40,12 +40,10 @@ export function PhotoCard({ photo, onClick }: PhotoCardProps) {
         {photo.description && (
           <p className="text-[9px] text-neutral-500 line-clamp-1">{photo.description}</p>
         )}
-        <div className="flex items-center justify-between">
-          {photo.year && (
-            <span className="text-[9px] text-neutral-500">{photo.year}</span>
-          )}
-          <span className="text-[8px] text-neutral-400 ml-auto">{photo.provider}</span>
-        </div>
+        <span className="text-[8px] text-neutral-400">{photo.provider}</span>
+        {photo.year && (
+          <span className="text-[9px] text-neutral-500">{photo.year}</span>
+        )}
       </div>
     </button>
   );
