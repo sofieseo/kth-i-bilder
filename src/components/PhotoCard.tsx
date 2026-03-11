@@ -41,9 +41,9 @@ export function PhotoCard({ photo, onClick }: PhotoCardProps) {
           <p className="text-[9px] text-neutral-500 line-clamp-1">{photo.description}</p>
         )}
         {photo.year && (
-          <span className="text-[9px] text-neutral-500">{photo.year}</span>
+          <p className="text-[9px] text-neutral-500">{photo.year}</p>
         )}
-        <span className="text-[8px] text-neutral-400">{photo.provider}</span>
+        <p className="text-[8px] text-neutral-400">{photo.provider}</p>
       </div>
     </button>
   );
