@@ -15,8 +15,15 @@ export interface UnifiedPhoto {
 }
 
 const KTH_KEYWORDS = [
-  "kth", "kungliga tekniska", "tekniska högskolan", "valhallavägen",
+  "kth", "k.t.h.", "kungliga tekniska", "kungl. tekniska",
+  "tekniska högskolan", "tekniska högskolans", "tekn. högskolan",
+  "teknologiska institutet",
+  "valhallavägen", "drottninggatan 95",
   "teknis", "östermalmsgatan",
+];
+
+const EXCLUDED_OTHER_UNIVERSITIES = [
+  "chalmers", "lund", "luleå", "linköping", "göteborg",
 ];
 
 const EXCLUDED_SOURCES = [
@@ -40,6 +47,7 @@ function isKthRelevant(photo: UnifiedPhoto): boolean {
   ].join(" ").toLowerCase();
 
   if (EXCLUDED_TERMS.some((term) => searchable.includes(term))) return false;
+  if (EXCLUDED_OTHER_UNIVERSITIES.some((uni) => searchable.includes(uni))) return false;
 
   return KTH_KEYWORDS.some((kw) => searchable.includes(kw));
 }
@@ -77,7 +85,7 @@ async function fetchDigitaltMuseum(year: number): Promise<UnifiedPhoto[]> {
   const from = year - 5;
   const to = year + 5;
   const query = encodeURIComponent(
-    "\"KTH\" OR \"Kungliga Tekniska Högskolan\" OR \"Tekniska Högskolan Stockholm\""
+    "\"KTH\" OR \"Kungliga Tekniska Högskolan\" OR \"Tekniska Högskolan Stockholm\" OR \"Teknologiska institutet\" OR \"K.T.H.\""
   );
   const fq = [
     `artifact.ingress.production.fromYear:[${from} TO ${to}]`,
@@ -127,7 +135,7 @@ async function fetchEuropeana(year: number): Promise<UnifiedPhoto[]> {
     // Encode brackets to avoid URL parsing issues
     const yearRange = encodeURIComponent(`YEAR:[${from} TO ${to}]`);
     const typeFilter = encodeURIComponent("TYPE:IMAGE");
-    const query = encodeURIComponent("KTH OR \"Kungliga Tekniska Högskolan\"");
+    const query = encodeURIComponent("KTH OR \"Kungliga Tekniska Högskolan\" OR \"Teknologiska institutet\" OR \"K.T.H.\"");
     const url = `${EUROPEANA_API}?wskey=${EUROPEANA_API_KEY}&query=${query}&qf=${yearRange}&qf=${typeFilter}&rows=50&profile=standard`;
     const res = await fetch(url);
     if (!res.ok) return [];
@@ -160,7 +168,7 @@ const KSAMSOK_API = "https://kulturarvsdata.se/ksamsok/api";
 async function fetchKsamsok(year: number): Promise<UnifiedPhoto[]> {
   try {
     const query = encodeURIComponent(
-      `text="KTH" OR text="Kungliga Tekniska Högskolan" AND itemType=foto`
+      `text="KTH" OR text="Kungliga Tekniska Högskolan" OR text="Teknologiska institutet" AND itemType=foto`
     );
     const url = `${KSAMSOK_API}?method=search&hitsPerPage=30&query=${query}&x-api=test`;
     const res = await fetch(url);
