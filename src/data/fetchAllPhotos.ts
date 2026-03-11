@@ -11,7 +11,7 @@ export interface UnifiedPhoto {
   license: string;
   place: string;
   originalLink: string;
-  provider: "DigitaltMuseum" | "Europeana";
+  provider: "DigitaltMuseum" | "Europeana" | "K-samsök";
 }
 
 const KTH_KEYWORDS = [
@@ -145,6 +145,65 @@ async function fetchEuropeana(year: number): Promise<UnifiedPhoto[]> {
   }
 }
 
+// ── K-samsök (SOCH) ─────────────────────────────────────────────
+const KSAMSOK_API = "https://kulturarvsdata.se/ksamsok/api";
+
+async function fetchKsamsok(year: number): Promise<UnifiedPhoto[]> {
+  try {
+    const query = encodeURIComponent(
+      `text="KTH" OR text="Kungliga Tekniska Högskolan" AND itemType=foto`
+    );
+    const url = `${KSAMSOK_API}?method=search&hitsPerPage=30&query=${query}&x-api=test`;
+    const res = await fetch(url);
+    if (!res.ok) return [];
+    const text = await res.text();
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(text, "text/xml");
+    const records = xml.querySelectorAll("record");
+    const results: UnifiedPhoto[] = [];
+
+    records.forEach((record, i) => {
+      const entity = record.querySelector("entity");
+      if (!entity) return;
+
+      const getTag = (tag: string) => {
+        const el = entity.querySelector(tag);
+        return el?.textContent?.trim() ?? "";
+      };
+
+      const thumbnail = getTag("thumbnail");
+      const lowres = entity.querySelector("lowressource")?.textContent?.trim() ?? "";
+      const highres = entity.querySelector("highressource")?.textContent?.trim() ?? "";
+      const title = getTag("itemlabel");
+      const org = getTag("serviceorganizationfull") || getTag("collection");
+      const desc = entity.querySelector("itemdescription desc")?.textContent?.trim() ?? "";
+      const link = getTag("url");
+
+      if (!thumbnail && !lowres) return;
+
+      results.push({
+        id: `soch-${entity.getAttribute("rdf:about") ?? i}`,
+        title: title || "Utan titel",
+        source: org || "K-samsök",
+        year: null,
+        imageUrl: lowres || thumbnail,
+        imageUrlFull: highres || lowres || thumbnail,
+        description: desc,
+        coordinate: null,
+        subjects: [],
+        license: "",
+        place: "",
+        originalLink: link,
+        provider: "K-samsök" as const,
+      });
+    });
+
+    return results;
+  } catch {
+    return [];
+  }
+}
+
 // ── Streaming fetch – calls onUpdate as each source resolves ────
 export async function fetchAllPhotosStreaming(
   year: number,
@@ -155,6 +214,7 @@ export async function fetchAllPhotosStreaming(
   const sources = [
     fetchDigitaltMuseum(year),
     fetchEuropeana(year),
+    fetchKsamsok(year),
   ];
 
   for (const promise of sources) {
