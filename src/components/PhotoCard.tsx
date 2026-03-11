@@ -12,9 +12,9 @@ export function PhotoCard({ photo, onClick }: PhotoCardProps) {
   return (
     <button
       onClick={onClick}
-      className="w-full text-left bg-white p-1 pb-5 shadow-md transition-all hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary"
+      className="w-full text-left bg-white p-2 pb-8 shadow-md transition-all hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary"
     >
-      <div className="relative aspect-[4/3] bg-muted">
+      <div className="relative aspect-square bg-muted">
         {photo.imageUrl ? (
           <img
             src={photo.imageUrl}
