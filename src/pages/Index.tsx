@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect, useMemo } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { TimeSlider } from "@/components/TimeSlider";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { fetchAllPhotosStreaming, type UnifiedPhoto } from "@/data/fetchAllPhotos";
@@ -10,8 +10,9 @@ const Index = () => {
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const debounceRef = useRef<ReturnType<typeof setTimeout>>();
+  const searchDebounceRef = useRef<ReturnType<typeof setTimeout>>();
 
-  const fetchPhotos = useCallback((targetYear: number) => {
+  const fetchPhotos = useCallback((targetYear: number, query?: string) => {
     setLoading(true);
     setResults([]);
 
@@ -20,7 +21,7 @@ const Index = () => {
       try {
         await fetchAllPhotosStreaming(targetYear, (photos) => {
           setResults([...photos]);
-        });
+        }, query || undefined);
       } catch (err) {
         console.error("Fetch error:", err);
       } finally {
@@ -31,25 +32,22 @@ const Index = () => {
 
   const handleYearChange = useCallback((newYear: number) => {
     setYear(newYear);
-    fetchPhotos(newYear);
-  }, [fetchPhotos]);
+    fetchPhotos(newYear, searchQuery);
+  }, [fetchPhotos, searchQuery]);
+
+  const handleSearchChange = useCallback((value: string) => {
+    setSearchQuery(value);
+    if (searchDebounceRef.current) clearTimeout(searchDebounceRef.current);
+    searchDebounceRef.current = setTimeout(() => {
+      fetchPhotos(year, value);
+    }, 600);
+  }, [fetchPhotos, year]);
 
   // Load initial results
   useEffect(() => {
     fetchPhotos(year);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const filteredResults = useMemo(() => {
-    if (!searchQuery.trim()) return results;
-    const q = searchQuery.toLowerCase();
-    return results.filter((photo) =>
-      [photo.title, photo.description, photo.place, ...photo.subjects]
-        .join(" ")
-        .toLowerCase()
-        .includes(q)
-    );
-  }, [results, searchQuery]);
 
   return (
     <div className="flex h-screen w-screen flex-col" style={{ background: "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('/images/brick-bg.jpg') center/cover fixed" }}>
@@ -64,14 +62,14 @@ const Index = () => {
             type="text"
             placeholder="Sök bland bilder..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             className="h-8 w-40 rounded-none border border-border bg-background/80 pl-8 pr-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
           />
         </div>
       </header>
 
       {/* Gallery */}
-      <PhotoGallery results={filteredResults} year={year} loading={loading} />
+      <PhotoGallery results={results} year={year} loading={loading} />
 
       {/* Time slider */}
       <TimeSlider year={year} onChange={handleYearChange} />
