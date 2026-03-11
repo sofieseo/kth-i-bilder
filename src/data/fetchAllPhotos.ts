@@ -82,16 +82,19 @@ function resolveMuseumName(code: string): string {
 const DIMU_API = "https://api.dimu.org/api/solr/select";
 const DIMU_IMG = "https://mm.dimu.org/image";
 
-async function fetchDigitaltMuseum(year: number): Promise<UnifiedPhoto[]> {
+async function fetchDigitaltMuseum(year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
   const from = year - 5;
   const to = year + 5;
-  const query = encodeURIComponent(
-    "\"KTH\" OR \"Kungliga Tekniska Högskolan\" OR \"Tekniska Högskolan Stockholm\" OR \"Teknologiska institutet\" OR \"K.T.H.\""
-  );
-  const fq = [
-    `artifact.ingress.production.fromYear:[${from} TO ${to}]`,
+  const baseTerms = "\"KTH\" OR \"Kungliga Tekniska Högskolan\" OR \"Tekniska Högskolan Stockholm\" OR \"Teknologiska institutet\" OR \"K.T.H.\"";
+  const queryStr = searchQuery
+    ? `(${baseTerms}) AND "${searchQuery}"`
+    : baseTerms;
+  const query = encodeURIComponent(queryStr);
+  const fqParts = [
     "artifact.hasPictures:true",
-  ].map((f) => `fq=${encodeURIComponent(f)}`).join("&");
+    ...(searchQuery ? [] : [`artifact.ingress.production.fromYear:[${from} TO ${to}]`]),
+  ];
+  const fq = fqParts.map((f) => `fq=${encodeURIComponent(f)}`).join("&");
 
   const url = `${DIMU_API}?q=${query}&${fq}&wt=json&rows=100&api.key=demo`;
   try {
@@ -129,15 +132,18 @@ async function fetchDigitaltMuseum(year: number): Promise<UnifiedPhoto[]> {
 const EUROPEANA_API = "https://api.europeana.eu/record/v2/search.json";
 const EUROPEANA_API_KEY = "gotiatertom";
 
-async function fetchEuropeana(year: number): Promise<UnifiedPhoto[]> {
+async function fetchEuropeana(year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
   const from = year - 5;
   const to = year + 5;
   try {
-    // Encode brackets to avoid URL parsing issues
-    const yearRange = encodeURIComponent(`YEAR:[${from} TO ${to}]`);
     const typeFilter = encodeURIComponent("TYPE:IMAGE");
-    const query = encodeURIComponent("KTH OR \"Kungliga Tekniska Högskolan\" OR \"Teknologiska institutet\" OR \"K.T.H.\"");
-    const url = `${EUROPEANA_API}?wskey=${EUROPEANA_API_KEY}&query=${query}&qf=${yearRange}&qf=${typeFilter}&rows=50&profile=standard`;
+    const baseTerms = "KTH OR \"Kungliga Tekniska Högskolan\" OR \"Teknologiska institutet\" OR \"K.T.H.\"";
+    const queryStr = searchQuery
+      ? `(${baseTerms}) AND "${searchQuery}"`
+      : baseTerms;
+    const query = encodeURIComponent(queryStr);
+    const qfParts = [`qf=${typeFilter}`, ...(searchQuery ? [] : [`qf=${encodeURIComponent(`YEAR:[${from} TO ${to}]`)}`])];
+    const url = `${EUROPEANA_API}?wskey=${EUROPEANA_API_KEY}&query=${query}&${qfParts.join("&")}&rows=50&profile=standard`;
     const res = await fetch(url);
     if (!res.ok) return [];
     const data = await res.json();
@@ -166,11 +172,13 @@ async function fetchEuropeana(year: number): Promise<UnifiedPhoto[]> {
 // ── K-samsök (SOCH) ─────────────────────────────────────────────
 const KSAMSOK_API = "https://kulturarvsdata.se/ksamsok/api";
 
-async function fetchKsamsok(year: number): Promise<UnifiedPhoto[]> {
+async function fetchKsamsok(year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
   try {
-    const query = encodeURIComponent(
-      `text="KTH" OR text="Kungliga Tekniska Högskolan" OR text="Teknologiska institutet" AND itemType=foto`
-    );
+    const baseTerms = `text="KTH" OR text="Kungliga Tekniska Högskolan" OR text="Teknologiska institutet"`;
+    const queryStr = searchQuery
+      ? `(${baseTerms}) AND text="${searchQuery}" AND itemType=foto`
+      : `${baseTerms} AND itemType=foto`;
+    const query = encodeURIComponent(queryStr);
     const url = `${KSAMSOK_API}?method=search&hitsPerPage=30&query=${query}&x-api=test`;
     const res = await fetch(url);
     if (!res.ok) return [];
@@ -226,13 +234,14 @@ async function fetchKsamsok(year: number): Promise<UnifiedPhoto[]> {
 export async function fetchAllPhotosStreaming(
   year: number,
   onUpdate: (photos: UnifiedPhoto[]) => void,
+  searchQuery?: string,
 ): Promise<void> {
   const accumulated: UnifiedPhoto[] = [];
 
   const sources = [
-    fetchDigitaltMuseum(year),
-    fetchEuropeana(year),
-    fetchKsamsok(year),
+    fetchDigitaltMuseum(year, searchQuery),
+    fetchEuropeana(year, searchQuery),
+    fetchKsamsok(year, searchQuery),
   ];
 
   for (const promise of sources) {
