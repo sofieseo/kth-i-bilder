@@ -7,13 +7,13 @@ interface TimeSliderProps {
 
 export function TimeSlider({ year, onChange }: TimeSliderProps) {
   return (
-    <div className="fixed bottom-6 left-1/2 z-[1000] w-[min(600px,90vw)] -translate-x-1/2 rounded-2xl panel-glass border border-border px-5 py-3 shadow-xl">
+    <div className="fixed bottom-6 left-1/2 z-[1000] w-[min(600px,90vw)] -translate-x-1/2 panel-glass border border-border px-5 py-3 shadow-xl">
       <div className="mb-1.5 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Clock className="h-4 w-4 text-primary" />
           <span className="font-display text-sm font-semibold text-foreground">Tidsresa</span>
         </div>
-        <span className="rounded-full bg-primary px-3 py-0.5 font-display text-sm font-bold text-primary-foreground">
+        <span className="bg-primary px-3 py-0.5 font-display text-sm font-bold text-primary-foreground">
           {year}
         </span>
       </div>

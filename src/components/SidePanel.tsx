@@ -27,7 +27,7 @@ export function SidePanel({ open, onClose, results, year, loading }: SidePanelPr
             <Search className="h-4 w-4 text-primary" />
             <h2 className="text-base font-bold text-foreground">Foton · {year}</h2>
           </div>
-          <button onClick={onClose} className="rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
+          <button onClick={onClose} className="p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
             <X className="h-4 w-4" />
           </button>
         </div>

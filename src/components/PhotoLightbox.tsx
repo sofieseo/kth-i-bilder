@@ -12,12 +12,12 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
     <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
       <div
-        className="relative z-10 w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-border bg-card shadow-2xl"
+        className="relative z-10 w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-border bg-card shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="sticky top-3 float-right mr-3 z-20 rounded-full bg-black/50 p-1.5 text-white hover:bg-black/70 transition-colors"
+          className="sticky top-3 float-right mr-3 z-20 bg-black/50 p-1.5 text-white hover:bg-black/70 transition-colors"
         >
           <X className="h-4 w-4" />
         </button>
@@ -63,7 +63,7 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
                 <Tag className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                 <div className="flex flex-wrap gap-1.5">
                   {photo.subjects.map((s, i) => (
-                    <span key={i} className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">{s}</span>
+                    <span key={i} className="bg-muted px-2 py-0.5 text-xs text-muted-foreground">{s}</span>
                   ))}
                 </div>
               </div>
@@ -73,7 +73,7 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
 
           {photo.originalLink && (
             <a href={photo.originalLink} target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors">
+              className="inline-flex items-center gap-1.5 bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors">
               <ExternalLink className="h-3.5 w-3.5" />
               Visa originalkälla
             </a>

@@ -36,7 +36,7 @@ const Index = () => {
       <CampusMap />
 
       <div className="fixed left-4 top-4 z-[1000] flex items-center gap-3">
-        <div className="panel-glass rounded-xl border border-border px-4 py-2 shadow-lg">
+        <div className="panel-glass border border-border px-4 py-2 shadow-lg">
           <h1 className="text-lg font-bold text-foreground">KTH Campus · Tidslinje</h1>
           <p className="text-[10px] text-muted-foreground">Utforska 200 år av historia på campus</p>
         </div>
@@ -45,7 +45,7 @@ const Index = () => {
       {!panelOpen && (
         <button
           onClick={() => setPanelOpen(true)}
-          className="fixed right-4 top-4 z-[1000] rounded-xl panel-glass border border-border p-2.5 shadow-lg text-foreground hover:bg-muted transition-colors"
+          className="fixed right-4 top-4 z-[1000] panel-glass border border-border p-2.5 shadow-lg text-foreground hover:bg-muted transition-colors"
         >
           <PanelRightOpen className="h-5 w-5" />
         </button>
