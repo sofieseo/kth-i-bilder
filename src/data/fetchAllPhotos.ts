@@ -34,6 +34,31 @@ async function fetchWithProxy(url: string): Promise<Response> {
   return fetch(`${CORS_PROXY}${encodeURIComponent(url)}`);
 }
 
+// ── Museum code → full name mapping ─────────────────────────────
+const MUSEUM_NAMES: Record<string, string> = {
+  "S-TEK": "Tekniska museet",
+  "S-NM": "Nordiska museet",
+  "S-NMA": "Nordiska museet",
+  "S-SPV": "Statens porträttsamling / Nationalmuseum",
+  "S-VGM": "Västergötlands museum",
+  "S-FV": "Flygvapenmuseum",
+  "S-KPS": "Kulturparken Småland",
+  "S-VLM": "Värmlands museum",
+  "S-SMM-VM": "Sjöhistoriska museet / Vasamuseet",
+  "S-SSM": "Stockholms stadsmuseum",
+  "S-SM": "Stockholms stadsmuseum",
+  "S-ATA": "Antikvarisk-topografiska arkivet",
+  "S-RM": "Riksmuseet",
+  "S-LSH": "Livrustkammaren",
+  "S-HM": "Historiska museet",
+  "S-MM": "Marinmuseum",
+  "S-AM": "Armémuseum",
+};
+
+function resolveMuseumName(code: string): string {
+  return MUSEUM_NAMES[code] ?? code;
+}
+
 // ── DigitaltMuseum ──────────────────────────────────────────────
 const DIMU_API = "https://api.dimu.org/api/solr/select";
 const DIMU_IMG = "https://mm.dimu.org/image";
