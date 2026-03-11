@@ -4,8 +4,8 @@ import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 
 const providerColor: Record<string, string> = {
   DigitaltMuseum: "bg-primary text-primary-foreground",
-  Stockholmskällan: "bg-accent text-accent-foreground",
   Europeana: "bg-secondary text-secondary-foreground",
+  "K-samsök": "bg-accent text-accent-foreground",
 };
 
 interface PhotoCardProps {
