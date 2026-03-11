@@ -28,7 +28,7 @@ function isKthRelevant(photo: UnifiedPhoto): boolean {
 }
 
 // ── CORS proxy helper ───────────────────────────────────────────
-const CORS_PROXY = "https://corsproxy.io/?";
+const CORS_PROXY = "https://api.allorigins.win/raw?url=";
 
 async function fetchWithProxy(url: string): Promise<Response> {
   return fetch(`${CORS_PROXY}${encodeURIComponent(url)}`);
@@ -85,7 +85,7 @@ async function fetchStockholmskallan(year: number): Promise<UnifiedPhoto[]> {
   const from = year - 5;
   const to = year + 5;
   try {
-    const apiUrl = `https://stockholmskallan.stockholm.se/api/search/?query=KTH+Valhallavägen&from_year=${from}&to_year=${to}&tidsperiod=${from}-${to}&type=image&format=json&limit=20`;
+    const apiUrl = `https://stockholmskallan.stockholm.se/api/search/?query=KTH+Valhallavägen&from_year=${from}&to_year=${to}&type=image&format=json&limit=20`;
     const res = await fetchWithProxy(apiUrl);
     if (!res.ok) return [];
     const text = await res.text();
@@ -122,8 +122,11 @@ async function fetchEuropeana(year: number): Promise<UnifiedPhoto[]> {
   const from = year - 5;
   const to = year + 5;
   try {
-    const query = encodeURIComponent("KTH OR \"Kungliga Tekniska Högskolan\" OR \"Tekniska Högskolan Stockholm\"");
-    const url = `${EUROPEANA_API}?wskey=${EUROPEANA_API_KEY}&query=${query}&qf=YEAR:[${from} TO ${to}]&qf=TYPE:IMAGE&rows=50&profile=standard`;
+    // Encode brackets to avoid URL parsing issues
+    const yearRange = encodeURIComponent(`YEAR:[${from} TO ${to}]`);
+    const typeFilter = encodeURIComponent("TYPE:IMAGE");
+    const query = encodeURIComponent("KTH OR \"Kungliga Tekniska Högskolan\"");
+    const url = `${EUROPEANA_API}?wskey=${EUROPEANA_API_KEY}&query=${query}&qf=${yearRange}&qf=${typeFilter}&rows=50&profile=standard`;
     const res = await fetch(url);
     if (!res.ok) return [];
     const data = await res.json();
