@@ -82,16 +82,19 @@ function resolveMuseumName(code: string): string {
 const DIMU_API = "https://api.dimu.org/api/solr/select";
 const DIMU_IMG = "https://mm.dimu.org/image";
 
-async function fetchDigitaltMuseum(year: number): Promise<UnifiedPhoto[]> {
+async function fetchDigitaltMuseum(year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
   const from = year - 5;
   const to = year + 5;
-  const query = encodeURIComponent(
-    "\"KTH\" OR \"Kungliga Tekniska Högskolan\" OR \"Tekniska Högskolan Stockholm\" OR \"Teknologiska institutet\" OR \"K.T.H.\""
-  );
-  const fq = [
-    `artifact.ingress.production.fromYear:[${from} TO ${to}]`,
+  const baseTerms = "\"KTH\" OR \"Kungliga Tekniska Högskolan\" OR \"Tekniska Högskolan Stockholm\" OR \"Teknologiska institutet\" OR \"K.T.H.\"";
+  const queryStr = searchQuery
+    ? `(${baseTerms}) AND "${searchQuery}"`
+    : baseTerms;
+  const query = encodeURIComponent(queryStr);
+  const fqParts = [
     "artifact.hasPictures:true",
-  ].map((f) => `fq=${encodeURIComponent(f)}`).join("&");
+    ...(searchQuery ? [] : [`artifact.ingress.production.fromYear:[${from} TO ${to}]`]),
+  ];
+  const fq = fqParts.map((f) => `fq=${encodeURIComponent(f)}`).join("&");
 
   const url = `${DIMU_API}?q=${query}&${fq}&wt=json&rows=100&api.key=demo`;
   try {
