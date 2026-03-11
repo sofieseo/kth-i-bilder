@@ -44,6 +44,7 @@ export function PhotoCard({ photo, onClick }: PhotoCardProps) {
           <p className="text-[9px] text-neutral-500">{photo.year}</p>
         )}
         <p className="text-[8px] text-neutral-400">{photo.provider}</p>
+        <p className="text-[8px] text-neutral-400">{photo.source}</p>
       </div>
     </button>
   );
