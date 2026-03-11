@@ -3,7 +3,7 @@ import { PanelRightOpen } from "lucide-react";
 import { CampusMap } from "@/components/CampusMap";
 import { TimeSlider } from "@/components/TimeSlider";
 import { SidePanel } from "@/components/SidePanel";
-import { fetchAllPhotos, type UnifiedPhoto } from "@/data/fetchAllPhotos";
+import { fetchAllPhotosStreaming, type UnifiedPhoto } from "@/data/fetchAllPhotos";
 
 const Index = () => {
   const [year, setYear] = useState(1917);
@@ -16,19 +16,20 @@ const Index = () => {
     setYear(newYear);
     setPanelOpen(true);
     setLoading(true);
+    setResults([]);
 
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(async () => {
       try {
-        const data = await fetchAllPhotos(newYear);
-        setResults(data);
+        await fetchAllPhotosStreaming(newYear, (photos) => {
+          setResults([...photos]);
+        });
       } catch (err) {
         console.error("Fetch error:", err);
-        setResults([]);
       } finally {
         setLoading(false);
       }
-    }, 600);
+    }, 400);
   }, []);
 
   return (
