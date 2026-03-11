@@ -135,7 +135,7 @@ async function fetchEuropeana(year: number): Promise<UnifiedPhoto[]> {
     // Encode brackets to avoid URL parsing issues
     const yearRange = encodeURIComponent(`YEAR:[${from} TO ${to}]`);
     const typeFilter = encodeURIComponent("TYPE:IMAGE");
-    const query = encodeURIComponent("KTH OR \"Kungliga Tekniska Högskolan\"");
+    const query = encodeURIComponent("KTH OR \"Kungliga Tekniska Högskolan\" OR \"Teknologiska institutet\" OR \"K.T.H.\"");
     const url = `${EUROPEANA_API}?wskey=${EUROPEANA_API_KEY}&query=${query}&qf=${yearRange}&qf=${typeFilter}&rows=50&profile=standard`;
     const res = await fetch(url);
     if (!res.ok) return [];
