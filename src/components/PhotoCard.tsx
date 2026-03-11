@@ -30,6 +30,9 @@ export function PhotoCard({ photo, onClick }: PhotoCardProps) {
         <div className={`flex h-full w-full items-center justify-center absolute inset-0 ${photo.imageUrl ? "hidden" : ""}`}>
           <ImageOff className="h-8 w-8 text-muted-foreground/40" />
         </div>
+        <span className="absolute top-1 left-1 bg-white/85 text-[7px] text-neutral-500 px-1 py-0.5 leading-tight">
+          {photo.provider}
+        </span>
         {/* Polaroid inset shadow overlay */}
         <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 4px 1px rgba(0,0,0,0.3)" }} />
       </div>
@@ -43,7 +46,7 @@ export function PhotoCard({ photo, onClick }: PhotoCardProps) {
         {photo.year && (
           <p className="text-[9px] text-neutral-500">{photo.year}</p>
         )}
-        <p className="text-[8px] text-neutral-400">{photo.provider}</p>
+        
         <p className="text-[8px] text-neutral-400">{photo.source}</p>
       </div>
     </button>
