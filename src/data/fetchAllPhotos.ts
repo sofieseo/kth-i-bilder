@@ -27,13 +27,6 @@ function isKthRelevant(photo: UnifiedPhoto): boolean {
   return KTH_KEYWORDS.some((kw) => searchable.includes(kw));
 }
 
-// ── CORS proxy helper ───────────────────────────────────────────
-const CORS_PROXY = "https://api.allorigins.win/raw?url=";
-
-async function fetchWithProxy(url: string): Promise<Response> {
-  return fetch(`${CORS_PROXY}${encodeURIComponent(url)}`);
-}
-
 // ── Museum code → full name mapping ─────────────────────────────
 const MUSEUM_NAMES: Record<string, string> = {
   "S-TEK": "Tekniska museet",
