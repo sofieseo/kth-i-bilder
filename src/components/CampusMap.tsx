@@ -58,7 +58,7 @@ export function CampusMap({ year }: CampusMapProps) {
         const y = yearRef.current;
         const relevantFacts = hs.facts.filter((f) => f.year <= y);
         const fact = relevantFacts.length > 0 ? relevantFacts[relevantFacts.length - 1] : null;
-        return `<div style="min-width:200px;max-width:260px;font-family:'DM Sans',sans-serif;">
+        return `<div style="min-width:200px;max-width:260px;font-family:'Figtree',sans-serif;">
           <h3 style="font-family:'Playfair Display',serif;font-weight:700;font-size:14px;margin:0 0 6px;">${hs.name}</h3>
           ${fact
             ? `<span style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:hsl(36,90%,55%);">${fact.year}</span>
