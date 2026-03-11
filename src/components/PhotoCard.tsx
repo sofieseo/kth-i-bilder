@@ -2,11 +2,6 @@ import { ImageOff, Building2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 
-const providerColor: Record<string, string> = {
-  DigitaltMuseum: "bg-primary text-primary-foreground",
-  Europeana: "bg-secondary text-secondary-foreground",
-  "K-samsök": "bg-accent text-accent-foreground",
-};
 
 interface PhotoCardProps {
   photo: UnifiedPhoto;
