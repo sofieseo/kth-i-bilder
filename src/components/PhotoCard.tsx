@@ -1,8 +1,15 @@
 import { ImageOff, Building2 } from "lucide-react";
-import type { DimuPhoto } from "@/data/digitaltMuseum";
+import { Badge } from "@/components/ui/badge";
+import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
+
+const providerColor: Record<string, string> = {
+  DigitaltMuseum: "bg-primary text-primary-foreground",
+  Stockholmskällan: "bg-accent text-accent-foreground",
+  Europeana: "bg-secondary text-secondary-foreground",
+};
 
 interface PhotoCardProps {
-  photo: DimuPhoto;
+  photo: UnifiedPhoto;
   onClick: () => void;
 }
 
@@ -28,6 +35,9 @@ export function PhotoCard({ photo, onClick }: PhotoCardProps) {
         <div className={`flex h-full w-full items-center justify-center absolute inset-0 ${photo.imageUrl ? "hidden" : ""}`}>
           <ImageOff className="h-8 w-8 text-muted-foreground/40" />
         </div>
+        <Badge className={`absolute top-2 left-2 text-[9px] px-1.5 py-0.5 ${providerColor[photo.provider] ?? ""}`}>
+          {photo.provider}
+        </Badge>
       </div>
       <div className="p-3">
         <h3 className="text-sm font-bold leading-tight text-card-foreground line-clamp-2">
