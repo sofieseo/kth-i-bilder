@@ -1,4 +1,4 @@
-import { Clock } from "lucide-react";
+
 
 const DECADES = [
   1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890,
