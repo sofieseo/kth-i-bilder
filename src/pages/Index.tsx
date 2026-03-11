@@ -3,12 +3,12 @@ import { PanelRightOpen } from "lucide-react";
 import { CampusMap } from "@/components/CampusMap";
 import { TimeSlider } from "@/components/TimeSlider";
 import { SidePanel } from "@/components/SidePanel";
-import { fetchDigitaltMuseum, type DimuPhoto } from "@/data/digitaltMuseum";
+import { fetchAllPhotos, type UnifiedPhoto } from "@/data/fetchAllPhotos";
 
 const Index = () => {
   const [year, setYear] = useState(1917);
   const [panelOpen, setPanelOpen] = useState(false);
-  const [results, setResults] = useState<DimuPhoto[]>([]);
+  const [results, setResults] = useState<UnifiedPhoto[]>([]);
   const [loading, setLoading] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout>>();
 
@@ -20,10 +20,10 @@ const Index = () => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(async () => {
       try {
-        const data = await fetchDigitaltMuseum(newYear);
+        const data = await fetchAllPhotos(newYear);
         setResults(data);
       } catch (err) {
-        console.error("DigitaltMuseum fetch error:", err);
+        console.error("Fetch error:", err);
         setResults([]);
       } finally {
         setLoading(false);
@@ -37,12 +37,8 @@ const Index = () => {
 
       <div className="fixed left-4 top-4 z-[1000] flex items-center gap-3">
         <div className="panel-glass rounded-xl border border-border px-4 py-2 shadow-lg">
-          <h1 className="text-lg font-bold text-foreground">
-            KTH Campus · Tidslinje
-          </h1>
-          <p className="text-[10px] text-muted-foreground">
-            Utforska 200 år av historia på campus
-          </p>
+          <h1 className="text-lg font-bold text-foreground">KTH Campus · Tidslinje</h1>
+          <p className="text-[10px] text-muted-foreground">Utforska 200 år av historia på campus</p>
         </div>
       </div>
 
@@ -55,14 +51,7 @@ const Index = () => {
         </button>
       )}
 
-      <SidePanel
-        open={panelOpen}
-        onClose={() => setPanelOpen(false)}
-        results={results}
-        year={year}
-        loading={loading}
-      />
-
+      <SidePanel open={panelOpen} onClose={() => setPanelOpen(false)} results={results} year={year} loading={loading} />
       <TimeSlider year={year} onChange={handleYearChange} />
     </div>
   );
