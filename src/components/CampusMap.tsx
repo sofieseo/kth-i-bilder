@@ -50,8 +50,12 @@ export function CampusMap({ year }: CampusMapProps) {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
 
-    // Ensure tiles render fully after layout
-    setTimeout(() => map.invalidateSize(), 200);
+    const resizeMap = () => map.invalidateSize();
+    const timer1 = window.setTimeout(resizeMap, 0);
+    const timer2 = window.setTimeout(resizeMap, 200);
+    const timer3 = window.setTimeout(resizeMap, 600);
+
+    window.addEventListener("resize", resizeMap);
 
     const icon = hotspotIcon();
 
@@ -74,6 +78,10 @@ export function CampusMap({ year }: CampusMapProps) {
     });
 
     return () => {
+      window.removeEventListener("resize", resizeMap);
+      window.clearTimeout(timer1);
+      window.clearTimeout(timer2);
+      window.clearTimeout(timer3);
       map.remove();
       mapRef.current = null;
     };
