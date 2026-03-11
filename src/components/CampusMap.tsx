@@ -50,6 +50,9 @@ export function CampusMap({ year }: CampusMapProps) {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
 
+    // Ensure tiles render fully after layout
+    setTimeout(() => map.invalidateSize(), 200);
+
     const icon = hotspotIcon();
 
     hotspots.forEach((hs) => {
@@ -58,8 +61,8 @@ export function CampusMap({ year }: CampusMapProps) {
         const y = yearRef.current;
         const relevantFacts = hs.facts.filter((f) => f.year <= y);
         const fact = relevantFacts.length > 0 ? relevantFacts[relevantFacts.length - 1] : null;
-        return `<div style="min-width:200px;max-width:260px;font-family:'DM Sans',sans-serif;">
-          <h3 style="font-family:'Playfair Display',serif;font-weight:700;font-size:14px;margin:0 0 6px;">${hs.name}</h3>
+        return `<div style="min-width:200px;max-width:260px;font-family:'Figtree',sans-serif;">
+          <h3 style="font-family:'Figtree',sans-serif;font-weight:700;font-size:14px;margin:0 0 6px;">${hs.name}</h3>
           ${fact
             ? `<span style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:hsl(36,90%,55%);">${fact.year}</span>
                <p style="font-size:12px;line-height:1.5;margin:4px 0 0;color:#333;">${fact.text}</p>`
