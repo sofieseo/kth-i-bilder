@@ -50,6 +50,9 @@ export function CampusMap({ year }: CampusMapProps) {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
 
+    // Ensure tiles render fully after layout
+    setTimeout(() => map.invalidateSize(), 200);
+
     const icon = hotspotIcon();
 
     hotspots.forEach((hs) => {
