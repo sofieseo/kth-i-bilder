@@ -26,6 +26,10 @@ const EXCLUDED_SOURCES = [
   "medelhavsmuseet",
 ];
 
+const EXCLUDED_TERMS = [
+  "världsutställning", "paris", "world exhibition", "exposition universelle",
+];
+
 function isKthRelevant(photo: UnifiedPhoto): boolean {
   const sourceLower = photo.source.toLowerCase();
   if (EXCLUDED_SOURCES.some((ex) => sourceLower.includes(ex))) return false;
@@ -34,6 +38,9 @@ function isKthRelevant(photo: UnifiedPhoto): boolean {
     photo.title, photo.description, photo.place, photo.source,
     ...photo.subjects,
   ].join(" ").toLowerCase();
+
+  if (EXCLUDED_TERMS.some((term) => searchable.includes(term))) return false;
+
   return KTH_KEYWORDS.some((kw) => searchable.includes(kw));
 }
 
