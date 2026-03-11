@@ -172,11 +172,13 @@ async function fetchEuropeana(year: number, searchQuery?: string): Promise<Unifi
 // ── K-samsök (SOCH) ─────────────────────────────────────────────
 const KSAMSOK_API = "https://kulturarvsdata.se/ksamsok/api";
 
-async function fetchKsamsok(year: number): Promise<UnifiedPhoto[]> {
+async function fetchKsamsok(year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
   try {
-    const query = encodeURIComponent(
-      `text="KTH" OR text="Kungliga Tekniska Högskolan" OR text="Teknologiska institutet" AND itemType=foto`
-    );
+    const baseTerms = `text="KTH" OR text="Kungliga Tekniska Högskolan" OR text="Teknologiska institutet"`;
+    const queryStr = searchQuery
+      ? `(${baseTerms}) AND text="${searchQuery}" AND itemType=foto`
+      : `${baseTerms} AND itemType=foto`;
+    const query = encodeURIComponent(queryStr);
     const url = `${KSAMSOK_API}?method=search&hitsPerPage=30&query=${query}&x-api=test`;
     const res = await fetch(url);
     if (!res.ok) return [];
