@@ -47,6 +47,7 @@ function isKthRelevant(photo: UnifiedPhoto): boolean {
   ].join(" ").toLowerCase();
 
   if (EXCLUDED_TERMS.some((term) => searchable.includes(term))) return false;
+  if (EXCLUDED_OTHER_UNIVERSITIES.some((uni) => searchable.includes(uni))) return false;
 
   return KTH_KEYWORDS.some((kw) => searchable.includes(kw));
 }
