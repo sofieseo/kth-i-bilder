@@ -44,7 +44,7 @@ const Index = () => {
       <header className="shrink-0 border-b border-border px-4 py-3">
         <div className="w-full">
           <h1 className="w-full text-3xl font-extrabold text-primary-foreground">KTH 200 år</h1>
-          <p className="w-full text-sm font-bold text-primary-foreground tracking-[0.35em]">Utforska KTH i bilder</p>
+          <p className="w-full text-sm font-bold text-primary-foreground tracking-[0.2em]">Utforska KTH i bilder</p>
         </div>
       </header>
 
