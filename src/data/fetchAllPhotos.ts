@@ -153,7 +153,6 @@ export async function fetchAllPhotosStreaming(
 
   const sources = [
     fetchDigitaltMuseum(year),
-    fetchStockholmskallan(year),
     fetchEuropeana(year),
   ];
 
