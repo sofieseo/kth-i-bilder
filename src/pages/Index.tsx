@@ -45,7 +45,7 @@ const Index = () => {
       {!panelOpen && (
         <button
           onClick={() => setPanelOpen(true)}
-          className="fixed right-4 top-4 z-[1000] rounded-xl panel-glass border border-border p-2.5 shadow-lg text-foreground hover:bg-muted transition-colors"
+          className="fixed right-4 top-4 z-[1000] panel-glass border border-border p-2.5 shadow-lg text-foreground hover:bg-muted transition-colors"
         >
           <PanelRightOpen className="h-5 w-5" />
         </button>

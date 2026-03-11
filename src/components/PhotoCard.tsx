@@ -17,7 +17,7 @@ export function PhotoCard({ photo, onClick }: PhotoCardProps) {
   return (
     <button
       onClick={onClick}
-      className="w-full text-left rounded-lg border border-border bg-card overflow-hidden shadow-sm transition-all hover:shadow-md hover:ring-2 hover:ring-primary/30 focus:outline-none focus:ring-2 focus:ring-primary"
+      className="w-full text-left border border-border bg-card overflow-hidden shadow-sm transition-all hover:shadow-md hover:ring-2 hover:ring-primary/30 focus:outline-none focus:ring-2 focus:ring-primary"
     >
       <div className="relative h-36 bg-muted">
         {photo.imageUrl ? (

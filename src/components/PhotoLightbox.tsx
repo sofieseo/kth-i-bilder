@@ -73,7 +73,7 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
 
           {photo.originalLink && (
             <a href={photo.originalLink} target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors">
+              className="inline-flex items-center gap-1.5 bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors">
               <ExternalLink className="h-3.5 w-3.5" />
               Visa originalkälla
             </a>

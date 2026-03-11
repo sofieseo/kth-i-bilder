@@ -13,7 +13,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
           <Clock className="h-4 w-4 text-primary" />
           <span className="font-display text-sm font-semibold text-foreground">Tidsresa</span>
         </div>
-        <span className="rounded-full bg-primary px-3 py-0.5 font-display text-sm font-bold text-primary-foreground">
+        <span className="bg-primary px-3 py-0.5 font-display text-sm font-bold text-primary-foreground">
           {year}
         </span>
       </div>
