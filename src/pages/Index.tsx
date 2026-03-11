@@ -54,20 +54,20 @@ const Index = () => {
   return (
     <div className="flex h-screen w-screen flex-col" style={{ background: "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('/images/brick-bg.jpg') center/cover fixed" }}>
       {/* Header */}
-      <header className="shrink-0 border-b border-border px-4 py-3 flex items-center gap-3">
-        <div className="relative">
+      <header className="shrink-0 border-b border-border px-4 py-3 flex items-center justify-between gap-3">
+        <h1 className="text-2xl font-bold text-primary-foreground" style={{ fontFamily: "'Caveat', cursive" }}>
+          Utforska KTH i bilder
+        </h1>
+        <div className="relative shrink-0">
           <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <input
             type="text"
             placeholder="Sök bland bilder..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-8 w-44 rounded-md border border-border bg-background/80 pl-8 pr-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+            className="h-8 w-40 rounded-none border border-border bg-background/80 pl-8 pr-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
           />
         </div>
-        <h1 className="text-3xl font-bold text-primary-foreground" style={{ fontFamily: "'Caveat', cursive" }}>
-          Utforska KTH i bilder
-        </h1>
       </header>
 
       {/* Gallery */}
