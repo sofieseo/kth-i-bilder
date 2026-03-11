@@ -46,7 +46,7 @@ export function PhotoCard({ photo, onClick }: PhotoCardProps) {
         {photo.year && (
           <p className="absolute bottom-1.5 right-2 text-sm text-neutral-600" style={{ fontFamily: "'Caveat', cursive" }}>{photo.year}</p>
         )}
-        <p className="absolute bottom-1.5 left-2 text-[8px] uppercase text-neutral-600 line-clamp-1 max-w-[60%]" style={{ fontFamily: "'Caveat', cursive" }}>{photo.source}</p>
+        <p className="absolute bottom-1.5 left-2 text-sm text-neutral-600 line-clamp-1 max-w-[60%]" style={{ fontFamily: "'Caveat', cursive" }}>{photo.source}</p>
       </div>
     </button>
   );
