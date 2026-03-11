@@ -85,7 +85,7 @@ async function fetchDigitaltMuseum(year: number): Promise<UnifiedPhoto[]> {
   const from = year - 5;
   const to = year + 5;
   const query = encodeURIComponent(
-    "\"KTH\" OR \"Kungliga Tekniska Högskolan\" OR \"Tekniska Högskolan Stockholm\""
+    "\"KTH\" OR \"Kungliga Tekniska Högskolan\" OR \"Tekniska Högskolan Stockholm\" OR \"Teknologiska institutet\" OR \"K.T.H.\""
   );
   const fq = [
     `artifact.ingress.production.fromYear:[${from} TO ${to}]`,
