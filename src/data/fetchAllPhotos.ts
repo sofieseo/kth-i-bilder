@@ -15,8 +15,15 @@ export interface UnifiedPhoto {
 }
 
 const KTH_KEYWORDS = [
-  "kth", "kungliga tekniska", "tekniska högskolan", "valhallavägen",
+  "kth", "k.t.h.", "kungliga tekniska", "kungl. tekniska",
+  "tekniska högskolan", "tekniska högskolans", "tekn. högskolan",
+  "teknologiska institutet",
+  "valhallavägen", "drottninggatan 95",
   "teknis", "östermalmsgatan",
+];
+
+const EXCLUDED_OTHER_UNIVERSITIES = [
+  "chalmers", "lund", "luleå", "linköping", "göteborg",
 ];
 
 const EXCLUDED_SOURCES = [
