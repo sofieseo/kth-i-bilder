@@ -87,7 +87,7 @@ async function fetchDigitaltMuseum(year: number): Promise<UnifiedPhoto[]> {
       return {
         id: `dimu-${uniqueId || Math.random()}`,
         title: doc["artifact.ingress.title"] ?? "Utan titel",
-        source: doc["identifier.owner"] ?? "Okänd källa",
+        source: resolveMuseumName(doc["identifier.owner"] ?? "Okänd källa"),
         year: doc["artifact.ingress.production.fromYear"] ?? null,
         imageUrl: mediaId ? `${DIMU_IMG}/${mediaId}?dimension=400x400` : null,
         imageUrlFull: mediaId ? `${DIMU_IMG}/${mediaId}?dimension=1200x1200` : null,
