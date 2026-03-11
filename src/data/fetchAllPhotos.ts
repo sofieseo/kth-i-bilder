@@ -103,14 +103,11 @@ async function fetchStockholmskallan(year: number): Promise<UnifiedPhoto[]> {
 
 // ── Europeana ───────────────────────────────────────────────────
 const EUROPEANA_API = "https://api.europeana.eu/record/v2/search.json";
-const EUROPEANA_KEY = "apidemo"; // public demo key
+const EUROPEANA_API_KEY = "gotiatertom";
 
 async function fetchEuropeana(year: number): Promise<UnifiedPhoto[]> {
-  const from = year - 5;
-  const to = year + 5;
   try {
-    const query = encodeURIComponent("KTH Stockholm");
-    const url = `${EUROPEANA_API}?wskey=${EUROPEANA_KEY}&query=${query}&qf=YEAR:[${from} TO ${to}]&qf=COUNTRY:sweden&qf=TYPE:IMAGE&rows=20&profile=standard`;
+    const url = `${EUROPEANA_API}?wskey=${EUROPEANA_API_KEY}&query=KTH+Stockholm&qf=where:Sweden&qf=YEAR:${year}&qf=TYPE:IMAGE&rows=50&profile=standard`;
     const res = await fetch(url);
     if (!res.ok) return [];
     const data = await res.json();
