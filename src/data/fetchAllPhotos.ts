@@ -234,13 +234,14 @@ async function fetchKsamsok(year: number, searchQuery?: string): Promise<Unified
 export async function fetchAllPhotosStreaming(
   year: number,
   onUpdate: (photos: UnifiedPhoto[]) => void,
+  searchQuery?: string,
 ): Promise<void> {
   const accumulated: UnifiedPhoto[] = [];
 
   const sources = [
-    fetchDigitaltMuseum(year),
-    fetchEuropeana(year),
-    fetchKsamsok(year),
+    fetchDigitaltMuseum(year, searchQuery),
+    fetchEuropeana(year, searchQuery),
+    fetchKsamsok(year, searchQuery),
   ];
 
   for (const promise of sources) {
