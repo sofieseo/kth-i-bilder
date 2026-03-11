@@ -42,7 +42,7 @@ function isKthRelevant(photo: UnifiedPhoto): boolean {
   if (EXCLUDED_SOURCES.some((ex) => sourceLower.includes(ex))) return false;
 
   const searchable = [
-    photo.title, photo.description, photo.place, photo.source,
+    photo.title, photo.description, photo.place,
     ...photo.subjects,
   ].join(" ").toLowerCase();
 
