@@ -12,28 +12,28 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
     <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
       <div
-        className="relative z-10 flex max-h-[90vh] w-full max-w-2xl flex-col rounded-2xl border border-border bg-card shadow-2xl"
+        className="relative z-10 w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-border bg-card shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute right-3 top-3 z-20 rounded-full bg-black/50 p-1.5 text-white hover:bg-black/70 transition-colors"
+          className="sticky top-3 float-right mr-3 z-20 rounded-full bg-black/50 p-1.5 text-white hover:bg-black/70 transition-colors"
         >
           <X className="h-4 w-4" />
         </button>
 
-        <div className="shrink-0 max-h-[35vh] bg-muted overflow-hidden rounded-t-2xl">
+        <div className="bg-muted">
           {photo.imageUrlFull ? (
-            <img src={photo.imageUrlFull} alt={photo.title} className="h-full w-full object-contain max-h-[35vh]"
+            <img src={photo.imageUrlFull} alt={photo.title} className="w-full object-contain"
               onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
           ) : (
-            <div className="flex h-32 items-center justify-center">
+            <div className="flex h-48 items-center justify-center">
               <ImageOff className="h-12 w-12 text-muted-foreground/40" />
             </div>
           )}
         </div>
 
-        <div className="flex-1 overflow-y-auto p-5 space-y-3">
+        <div className="p-5 space-y-3">
           <div className="flex items-start justify-between gap-2">
             <h2 className="text-lg font-bold text-card-foreground leading-tight">{photo.title}</h2>
             <Badge variant="secondary" className="shrink-0 text-[10px]">{photo.provider}</Badge>
