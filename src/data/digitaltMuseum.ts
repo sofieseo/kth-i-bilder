@@ -52,7 +52,7 @@ export async function fetchDigitaltMuseum(year: number): Promise<DimuPhoto[]> {
       const mediaId = doc["artifact.defaultMediaIdentifier"] ?? null;
       const uniqueId = doc["artifact.uniqueId"] ?? "";
       return {
-        id: uniqueId || doc["identifier.id"] ?? String(Math.random()),
+        id: uniqueId || (doc["identifier.id"] ?? String(Math.random())),
         title: doc["artifact.ingress.title"] ?? "Utan titel",
         source: doc["identifier.owner"] ?? "Okänd källa",
         year: doc["artifact.ingress.production.fromYear"] ?? null,
