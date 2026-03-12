@@ -264,7 +264,7 @@ export async function fetchAllPhotosStreaming(
       // When not searching, filter by year range client-side as well
       if (!searchQuery) {
         relevant = relevant.filter((p) => {
-          if (p.year == null) return true; // keep undated photos
+          if (p.year == null) return false; // hide undated photos when browsing by decade
           return p.year >= from && p.year <= to;
         });
       }
