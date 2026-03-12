@@ -54,7 +54,7 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
             )}
             {photo.photographer && (
               <div className="flex items-center gap-2">
-                <Camera className="h-4 w-4 text-primary shrink-0" />
+                <Camera className="h-4 w-4 text-black shrink-0" />
                 <span className="text-card-foreground">Foto: {photo.photographer}</span>
               </div>
             )}
