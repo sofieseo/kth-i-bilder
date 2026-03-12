@@ -39,19 +39,14 @@ export async function fetchAllPhotosStreaming(
     }
   }
 
-  const sources = isUndatedMode
+  const sources: Promise<UnifiedPhoto[]>[] = isUndatedMode
     ? [fetchKsamsok(year, searchQuery), fetchDigitaltMuseum(year, searchQuery), fetchEuropeana(year, searchQuery)]
     : [fetchDigitaltMuseum(year, searchQuery), fetchEuropeana(year, searchQuery), fetchKsamsok(year, searchQuery)];
 
   // Fetch Wikimedia Commons (no search query support – curated categories only)
   if (!searchQuery) {
     const { fetchWikimediaCommons } = await import("./wikimediaCommons");
-    const wmcPromise = fetchWikimediaCommons(year);
-    wmcPromise.then((photos) => {
-      accumulated.push(...photos);
-      onUpdate(deduplicatePhotos(accumulated).slice(0, 50));
-    }).catch(() => {});
-    sources.push(wmcPromise as any);
+    sources.unshift(fetchWikimediaCommons(year));
   }
 
   for (const promise of sources) {
@@ -67,7 +62,15 @@ export async function fetchAllPhotosStreaming(
           });
         }
       }
-      accumulated.push(...relevant);
+
+      // Keep Wikimedia photos visible in the top-50 mix
+      const isWikimediaBatch = relevant.some((p) => p.provider === "Wikimedia Commons");
+      if (isWikimediaBatch) {
+        accumulated.unshift(...relevant);
+      } else {
+        accumulated.push(...relevant);
+      }
+
       onUpdate(deduplicatePhotos(accumulated).slice(0, 50));
     }).catch(() => {});
   }

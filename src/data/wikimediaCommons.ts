@@ -1,4 +1,4 @@
-import type { UnifiedPhoto } from "./fetchAllPhotos";
+import type { UnifiedPhoto } from "./types";
 
 /**
  * Fetches images from specified Wikimedia Commons categories.
