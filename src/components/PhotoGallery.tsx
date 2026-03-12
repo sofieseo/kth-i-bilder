@@ -32,8 +32,8 @@ export function PhotoGallery({ results, year, loading }: PhotoGalleryProps) {
         ) : (
           <>
             {loading && (
-              <div className="flex items-center gap-2 mb-3 text-xs text-muted-foreground">
-                <Loader2 className="h-3 w-3 animate-spin" />
+              <div className="flex items-center gap-2 mb-3 text-xs text-white/80">
+                <Loader2 className="h-3 w-3 animate-spin text-white" />
                 <span>Söker i fler arkiv…</span>
               </div>
             )}
