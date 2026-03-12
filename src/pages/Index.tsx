@@ -43,7 +43,7 @@ const Index = () => {
         <h1 className="text-2xl font-bold text-primary-foreground font-sans uppercase tracking-wide">
           Utforska KTH i bilder
         </h1>
-        <p className="text-[11px] text-white/50 font-sans mt-0.5">
+        <p className="text-xs text-white/80 font-sans mt-0.5">
           Bilder från DigitaltMuseum, Europeana och K-samsök
         </p>
       </header>
