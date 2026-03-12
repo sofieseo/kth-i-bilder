@@ -1,24 +1,27 @@
 [
   {
-    "year": 1917,
+    "year": 1880,
     "title": "Arkitekten Erik Lallerstedt",
-    "imageUrl": "https://api.museum-digital.de/san/images/202302/13103215284.jpg",
+    "imageUrl": "https://ems.dimu.org/image/069ELggP4DvfP?dimension=400x400",
+    "imageUrlFull": "https://ems.dimu.org/image/069ELggP4DvfP?dimension=1200x1200",
     "description": "Porträtt av Erik Lallerstedt, mannen som ritade KTH:s campus på Valhallavägen.",
     "source": "DigitaltMuseum",
     "link": "https://digitaltmuseum.se/0210116458034/arkitekten-lallerstedt"
   },
   {
-    "year": 1920,
+    "year": 1953,
     "title": "Valhallavägen och KTH",
-    "imageUrl": "https://api.museum-digital.de/san/images/202301/21171802958.jpg",
-    "description": "Vy över Valhallavägen med de då nybyggda KTH-byggnaderna i fonden.",
+    "imageUrl": "https://ems.dimu.org/image/019EGHhrGNeAc?dimension=400x400",
+    "imageUrlFull": "https://ems.dimu.org/image/019EGHhrGNeAc?dimension=1200x1200",
+    "description": "Vy över Valhallavägen med KTH-byggnaderna i fonden.",
     "source": "DigitaltMuseum",
     "link": "https://digitaltmuseum.se/0210114658412/valhallavagen-med-tekniska-hogskolan"
   },
   {
     "year": 1917,
     "title": "KTH Huvudfasad",
-    "imageUrl": "https://api.museum-digital.de/san/images/202308/21124625292.jpg",
+    "imageUrl": "https://ems.dimu.org/image/0234ARy2BY8d?dimension=400x400",
+    "imageUrlFull": "https://ems.dimu.org/image/0234ARy2BY8d?dimension=1200x1200",
     "description": "Framsidan mot Valhallavägen till, tidigt 1900-tal.",
     "source": "DigitaltMuseum",
     "link": "https://digitaltmuseum.se/021018575060/kungliga-tekniska-hogskolan-i-stockholm-framsidan-mot-vallhallavagen-till"
@@ -26,7 +29,8 @@
   {
     "year": 1925,
     "title": "Vinterdag på KTH",
-    "imageUrl": "https://api.museum-digital.de/san/images/202308/21124838029.jpg",
+    "imageUrl": "https://ems.dimu.org/image/0234ARy2BY8e?dimension=400x400",
+    "imageUrlFull": "https://ems.dimu.org/image/0234ARy2BY8e?dimension=1200x1200",
     "description": "En snöig vinterdag vid KTH:s pampiga entré.",
     "source": "DigitaltMuseum",
     "link": "https://digitaltmuseum.se/021018575063/kungliga-tekniska-hogskolan-i-stockholm-en-snoig-vinterdag-vid-fotot-text"
@@ -34,7 +38,8 @@
   {
     "year": 1870,
     "title": "Teknologiska Institutet",
-    "imageUrl": "https://api.museum-digital.de/san/images/202307/11130101683.jpg",
+    "imageUrl": "https://ems.dimu.org/image/0231xxCw2DNS?dimension=400x400",
+    "imageUrlFull": "https://ems.dimu.org/image/0231xxCw2DNS?dimension=1200x1200",
     "description": "Illustration av Teknologiska Institutet (föregångaren till KTH) ur Svenska Familj-Journalen.",
     "source": "DigitaltMuseum",
     "link": "https://digitaltmuseum.se/021017982604/teknologiska-institutet-i-stockholm-ur-svenska-familje-journalen"
@@ -42,7 +47,8 @@
   {
     "year": 1950,
     "title": "Professor Helmer Bäckström i labbet",
-    "imageUrl": "https://api.museum-digital.de/san/images/202304/25134205572.jpg",
+    "imageUrl": "https://ems.dimu.org/image/032wZVhNKNU4?dimension=400x400",
+    "imageUrlFull": "https://ems.dimu.org/image/032wZVhNKNU4?dimension=1200x1200",
     "description": "Professor Helmer Bäckström vid sin arbetsplats på institutionen för fotografi.",
     "source": "DigitaltMuseum",
     "link": "https://digitaltmuseum.se/021016316032/fotografi-av-professor-helmer-backstrom-pa-hans-arbetsplats-vid-institutionen"
@@ -50,7 +56,8 @@
   {
     "year": 1951,
     "title": "Laboratoriearbete",
-    "imageUrl": "https://api.museum-digital.de/san/images/202304/25134229606.jpg",
+    "imageUrl": "https://ems.dimu.org/image/032wZVhNKNYP?dimension=400x400",
+    "imageUrlFull": "https://ems.dimu.org/image/032wZVhNKNYP?dimension=1200x1200",
     "description": "Närbild på professor Helmer Bäckström under vetenskapligt arbete.",
     "source": "DigitaltMuseum",
     "link": "https://digitaltmuseum.se/021016316033/fotografi-av-professor-helmer-backstrom-pa-hans-arbetsplats-vid-institutionen"

@@ -412,7 +412,7 @@ export async function fetchAllPhotosStreaming(
   // Inject manually curated images
   if (!searchQuery) {
     const manualImages = (await import("./manualImages.json")).default as Array<{
-      year: number; title: string; imageUrl: string; description: string; source: string; link: string;
+      year: number; title: string; imageUrl: string; imageUrlFull?: string; description: string; source: string; link: string;
     }>;
     const manualPhotos: UnifiedPhoto[] = manualImages
       .filter((img) => {
@@ -425,7 +425,7 @@ export async function fetchAllPhotosStreaming(
         source: img.source,
         year: img.year,
         imageUrl: img.imageUrl,
-        imageUrlFull: img.imageUrl,
+        imageUrlFull: img.imageUrlFull ?? img.imageUrl,
         description: img.description,
         coordinate: null,
         subjects: [],
