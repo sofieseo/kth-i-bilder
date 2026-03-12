@@ -249,6 +249,9 @@ export async function fetchAllPhotosStreaming(
 ): Promise<void> {
   const accumulated: UnifiedPhoto[] = [];
 
+  const from = year - 5;
+  const to = year + 5;
+
   const sources = [
     fetchDigitaltMuseum(year, searchQuery),
     fetchEuropeana(year, searchQuery),
@@ -257,7 +260,14 @@ export async function fetchAllPhotosStreaming(
 
   for (const promise of sources) {
     promise.then((photos) => {
-      const relevant = photos.filter(isKthRelevant);
+      let relevant = photos.filter(isKthRelevant);
+      // When not searching, filter by year range client-side as well
+      if (!searchQuery) {
+        relevant = relevant.filter((p) => {
+          if (p.year == null) return true; // keep undated photos
+          return p.year >= from && p.year <= to;
+        });
+      }
       accumulated.push(...relevant);
       onUpdate(accumulated.slice(0, 40));
     }).catch(() => {});
