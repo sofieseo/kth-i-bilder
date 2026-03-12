@@ -147,9 +147,7 @@ async function fetchDigitaltMuseum(year: number, searchQuery?: string): Promise<
 const EUROPEANA_API = "https://api.europeana.eu/record/v2/search.json";
 const EUROPEANA_API_KEY = "gotiatertom";
 
-async function fetchEuropeana(year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
-  const from = year;
-  const to = year + 9;
+async function fetchEuropeana(_year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
   try {
     const typeFilter = encodeURIComponent("TYPE:IMAGE");
     const baseTerms = "KTH OR \"Kungliga Tekniska Högskolan\" OR \"Teknologiska institutet\" OR \"K.T.H.\"";
@@ -157,7 +155,7 @@ async function fetchEuropeana(year: number, searchQuery?: string): Promise<Unifi
       ? `(${baseTerms}) AND "${searchQuery}"`
       : baseTerms;
     const query = encodeURIComponent(queryStr);
-    const qfParts = [`qf=${typeFilter}`, ...(searchQuery ? [] : [`qf=${encodeURIComponent(`YEAR:[${from} TO ${to}]`)}`])];
+    const qfParts = [`qf=${typeFilter}`];
     const url = `${EUROPEANA_API}?wskey=${EUROPEANA_API_KEY}&query=${query}&${qfParts.join("&")}&rows=50&profile=standard`;
     const res = await fetch(url);
     if (!res.ok) return [];
