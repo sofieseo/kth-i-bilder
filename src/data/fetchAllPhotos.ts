@@ -188,13 +188,17 @@ async function fetchKsamsok(year: number, searchQuery?: string): Promise<Unified
     const records = xml.querySelectorAll("record");
     const results: UnifiedPhoto[] = [];
 
-    // Helper: find element by local name (ignoring namespace prefixes)
-    const getByLocal = (parent: Element, localName: string): Element | null => {
+    // Helper: find elements by local name (ignoring namespace prefixes)
+    const getAllByLocal = (parent: Element, localName: string): Element[] => {
       const els = parent.getElementsByTagName("*");
+      const matches: Element[] = [];
       for (let j = 0; j < els.length; j++) {
-        if (els[j].localName === localName) return els[j];
+        if (els[j].localName === localName) matches.push(els[j]);
       }
-      return null;
+      return matches;
+    };
+    const getByLocal = (parent: Element, localName: string): Element | null => {
+      return getAllByLocal(parent, localName)[0] ?? null;
     };
     const getTextByLocal = (parent: Element, localName: string): string => {
       return getByLocal(parent, localName)?.textContent?.trim() ?? "";
