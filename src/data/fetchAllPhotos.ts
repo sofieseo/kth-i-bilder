@@ -307,15 +307,28 @@ function parseKsamsokXml(xmlText: string): UnifiedPhoto[] {
 }
 
 // ── Deduplication helper ────────────────────────────────────────
+function normalizeTitle(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-zåäö0-9]/g, "")
+    .trim();
+}
+
 function deduplicatePhotos(photos: UnifiedPhoto[]): UnifiedPhoto[] {
   const seen = new Set<string>();
   return photos.filter((p) => {
-    // Deduplicate by image URL (most reliable) or title+year combo
-    const imageKey = p.imageUrl ?? "";
-    const titleKey = `${p.title}|${p.year}`;
-    const key = imageKey || titleKey;
-    if (seen.has(key)) return false;
-    seen.add(key);
+    const keys: string[] = [];
+    // Key 1: image URL
+    if (p.imageUrl) keys.push(`img:${p.imageUrl}`);
+    // Key 2: normalized title + year
+    const norm = normalizeTitle(p.title);
+    if (norm.length > 3) keys.push(`title:${norm}|${p.year ?? "?"}`);
+    // Key 3: normalized title alone (catches same photo with different year metadata)
+    if (norm.length > 10) keys.push(`titleonly:${norm}`);
+
+    // If any key was already seen, it's a duplicate
+    if (keys.some((k) => seen.has(k))) return false;
+    keys.forEach((k) => seen.add(k));
     return true;
   });
 }
