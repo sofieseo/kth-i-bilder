@@ -37,12 +37,22 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
         className="w-full cursor-pointer h-1.5"
         style={{ accentColor: '#ffffff' }}
       />
-      <div className="mt-0.5 flex justify-between text-[9px] text-white font-sans font-bold tracking-wide">
-        <span>?</span>
-        <span>1900</span>
-        <span>1950</span>
-        <span>2000</span>
-        <span>2020</span>
+      <div className="relative mt-0.5 h-3 text-[9px] text-white font-sans font-bold tracking-wide">
+        {[
+          { label: "?", index: 0 },
+          { label: "1900", index: 9 },
+          { label: "1950", index: 14 },
+          { label: "2000", index: 19 },
+          { label: "2020", index: 21 },
+        ].map(({ label, index }) => (
+          <span
+            key={label}
+            className="absolute -translate-x-1/2"
+            style={{ left: `${(index / (DECADES.length - 1)) * 100}%` }}
+          >
+            {label}
+          </span>
+        ))}
       </div>
     </div>
   );
