@@ -188,12 +188,38 @@ const KSAMSOK_API = "https://kulturarvsdata.se/ksamsok/api";
 
 async function fetchKsamsok(year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
   try {
-    const baseTerms = `(text="KTH" OR text="Kungliga Tekniska Högskolan" OR text="Teknologiska institutet")`;
-    const queryStr = searchQuery
-      ? `${baseTerms} AND text="${searchQuery}" AND thumbnailExists=j`
-      : `${baseTerms} AND thumbnailExists=j`;
-    const query = encodeURIComponent(queryStr);
-    const url = `${KSAMSOK_API}?method=search&hitsPerPage=100&query=${query}&x-api=test`;
+    // Run two queries: one broad ("KTH") and one for the full name, then merge
+    const queries = [
+      `text=KTH AND thumbnailExists=j`,
+      `text="Kungliga Tekniska Högskolan" AND thumbnailExists=j`,
+    ];
+    if (searchQuery) {
+      queries.length = 0;
+      queries.push(`text=KTH AND text="${searchQuery}" AND thumbnailExists=j`);
+      queries.push(`text="Kungliga Tekniska Högskolan" AND text="${searchQuery}" AND thumbnailExists=j`);
+    }
+
+    const fetches = queries.map(async (q) => {
+      const url = `${KSAMSOK_API}?method=search&hitsPerPage=500&query=${encodeURIComponent(q)}&x-api=test`;
+      const res = await fetch(url);
+      if (!res.ok) return [];
+      const text = await res.text();
+      return parseKsamsokXml(text);
+    });
+
+    const results = await Promise.all(fetches);
+    // Deduplicate by id
+    const seen = new Set<string>();
+    const merged: UnifiedPhoto[] = [];
+    for (const batch of results) {
+      for (const photo of batch) {
+        if (!seen.has(photo.id)) {
+          seen.add(photo.id);
+          merged.push(photo);
+        }
+      }
+    }
+    return merged;
     const res = await fetch(url);
     if (!res.ok) return [];
     const text = await res.text();
