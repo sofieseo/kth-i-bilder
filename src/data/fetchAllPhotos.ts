@@ -176,8 +176,8 @@ async function fetchKsamsok(year: number, searchQuery?: string): Promise<Unified
   try {
     const baseTerms = `text="KTH" OR text="Kungliga Tekniska Högskolan" OR text="Teknologiska institutet"`;
     const queryStr = searchQuery
-      ? `(${baseTerms}) AND text="${searchQuery}" AND itemType=foto`
-      : `${baseTerms} AND itemType=foto`;
+      ? `(${baseTerms}) AND text="${searchQuery}" AND itemType=foto AND thumbnailExists=j`
+      : `${baseTerms} AND itemType=foto AND thumbnailExists=j`;
     const query = encodeURIComponent(queryStr);
     const url = `${KSAMSOK_API}?method=search&hitsPerPage=30&query=${query}&x-api=test`;
     const res = await fetch(url);
