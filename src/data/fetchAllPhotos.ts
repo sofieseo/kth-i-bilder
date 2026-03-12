@@ -188,13 +188,17 @@ async function fetchKsamsok(year: number, searchQuery?: string): Promise<Unified
     const records = xml.querySelectorAll("record");
     const results: UnifiedPhoto[] = [];
 
-    // Helper: find element by local name (ignoring namespace prefixes)
-    const getByLocal = (parent: Element, localName: string): Element | null => {
+    // Helper: find elements by local name (ignoring namespace prefixes)
+    const getAllByLocal = (parent: Element, localName: string): Element[] => {
       const els = parent.getElementsByTagName("*");
+      const matches: Element[] = [];
       for (let j = 0; j < els.length; j++) {
-        if (els[j].localName === localName) return els[j];
+        if (els[j].localName === localName) matches.push(els[j]);
       }
-      return null;
+      return matches;
+    };
+    const getByLocal = (parent: Element, localName: string): Element | null => {
+      return getAllByLocal(parent, localName)[0] ?? null;
     };
     const getTextByLocal = (parent: Element, localName: string): string => {
       return getByLocal(parent, localName)?.textContent?.trim() ?? "";
@@ -212,18 +216,22 @@ async function fetchKsamsok(year: number, searchQuery?: string): Promise<Unified
       const desc = getTextByLocal(entity, "desc");
       const link = getTextByLocal(entity, "url");
 
-      // Try to extract year from context or timeLabel
-      const fromTime = getTextByLocal(entity, "fromTime");
-      let parsedYear = fromTime ? parseInt(fromTime.substring(0, 4), 10) : null;
+      // Extract year from all temporal fields; choose earliest plausible year
+      const currentYear = new Date().getFullYear();
+      const parseYears = (values: string[]): number[] =>
+        values
+          .flatMap((value) => Array.from(value.matchAll(/\b(1[6-9]\d{2}|20\d{2})\b/g)).map((m) => parseInt(m[1], 10)))
+          .filter((yearVal) => yearVal >= 1600 && yearVal <= currentYear + 1);
 
-      // Fallback: extract year from timeLabel in presentation (e.g. "1880 - 1880")
-      if (!parsedYear) {
-        const timeLabel = getTextByLocal(entity, "timeLabel");
-        if (timeLabel) {
-          const match = timeLabel.match(/(\d{4})/);
-          if (match) parsedYear = parseInt(match[1], 10);
-        }
-      }
+      const fromTimeYears = parseYears(
+        getAllByLocal(entity, "fromTime").map((el) => el.textContent?.trim() ?? ""),
+      );
+      const timeLabelYears = parseYears(
+        getAllByLocal(entity, "timeLabel").map((el) => el.textContent?.trim() ?? ""),
+      );
+
+      const allTemporalYears = [...fromTimeYears, ...timeLabelYears];
+      const parsedYear = allTemporalYears.length > 0 ? Math.min(...allTemporalYears) : null;
 
       if (!thumbnail && !lowres) return;
 
