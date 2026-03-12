@@ -280,9 +280,8 @@ function parseKsamsokXml(xmlText: string): UnifiedPhoto[] {
         .filter((yearVal) => yearVal < 2000);
       if (textYears.length > 0) {
         parsedYear = Math.max(...textYears);
-      } else {
-        parsedYear = null;
       }
+      // If no historical year found, keep the modern metadata year (don't discard it)
     }
 
     if (!thumbnail && !lowres) return;
