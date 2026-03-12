@@ -409,6 +409,38 @@ export async function fetchAllPhotosStreaming(
     }
   }
 
+  // Inject manually curated images
+  if (!searchQuery) {
+    const manualImages = (await import("./manualImages.json")).default as Array<{
+      year: number; title: string; imageUrl: string; description: string; source: string; link: string;
+    }>;
+    const manualPhotos: UnifiedPhoto[] = manualImages
+      .filter((img) => {
+        if (isUndatedMode) return false;
+        return img.year >= from && img.year <= to;
+      })
+      .map((img, i) => ({
+        id: `manual-${i}-${img.title}`,
+        title: img.title,
+        source: img.source,
+        year: img.year,
+        imageUrl: img.imageUrl,
+        imageUrlFull: img.imageUrl,
+        description: img.description,
+        coordinate: null,
+        subjects: [],
+        license: "",
+        place: "",
+        originalLink: img.link,
+        provider: "DigitaltMuseum" as const,
+        photographer: undefined,
+      }));
+    if (manualPhotos.length > 0) {
+      accumulated.push(...manualPhotos);
+      onUpdate(deduplicatePhotos(accumulated).slice(0, 50));
+    }
+  }
+
   const sources = isUndatedMode
     ? [fetchKsamsok(year, searchQuery), fetchDigitaltMuseum(year, searchQuery), fetchEuropeana(year, searchQuery)]
     : [fetchDigitaltMuseum(year, searchQuery), fetchEuropeana(year, searchQuery), fetchKsamsok(year, searchQuery)];
