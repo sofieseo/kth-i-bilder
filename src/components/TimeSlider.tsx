@@ -1,7 +1,8 @@
 const DECADES = [
+  0,
   1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890,
   1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990,
-  2000, 2010, 2020, 0,
+  2000, 2010, 2020,
 ];
 
 interface TimeSliderProps {
@@ -37,11 +38,11 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
         style={{ accentColor: '#ffffff' }}
       />
       <div className="mt-0.5 flex justify-between text-[9px] text-white font-sans font-bold tracking-wide">
-        <span>1820</span>
+        <span>?</span>
         <span>1900</span>
         <span>1950</span>
         <span>2000</span>
-        <span>?</span>
+        <span>2020</span>
       </div>
     </div>
   );
