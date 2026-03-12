@@ -38,11 +38,11 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
         style={{ accentColor: '#ffffff' }}
       />
       <div className="mt-0.5 flex justify-between text-[9px] text-white font-sans font-bold tracking-wide">
-        <span>1820</span>
+        <span>?</span>
         <span>1900</span>
         <span>1950</span>
         <span>2000</span>
-        <span>?</span>
+        <span>2020</span>
       </div>
     </div>
   );
