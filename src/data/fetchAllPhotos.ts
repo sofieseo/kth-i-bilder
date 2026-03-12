@@ -12,7 +12,8 @@ export interface UnifiedPhoto {
   license: string;
   place: string;
   originalLink: string;
-  provider: "DigitaltMuseum" | "Europeana" | "K-samsök";
+  provider: "DigitaltMuseum" | "Europeana" | "K-samsök" | "Stockholmskällan";
+  photographer?: string;
 }
 
 const KTH_KEYWORDS = [
