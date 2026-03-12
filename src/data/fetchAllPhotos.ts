@@ -212,9 +212,27 @@ async function fetchKsamsok(year: number, searchQuery?: string): Promise<Unified
       const desc = getTextByLocal(entity, "desc");
       const link = getTextByLocal(entity, "url");
 
-      // Try to extract year from context
+      // Try to extract year from context, then fall back to timeLabel, then text content
       const fromTime = getTextByLocal(entity, "fromTime");
-      const parsedYear = fromTime ? parseInt(fromTime.substring(0, 4), 10) : null;
+      let parsedYear = fromTime ? parseInt(fromTime.substring(0, 4), 10) : null;
+
+      // Fallback: extract year from timeLabel in presentation (e.g. "1880 - 1880")
+      if (!parsedYear) {
+        const timeLabel = getTextByLocal(entity, "timeLabel");
+        if (timeLabel) {
+          const match = timeLabel.match(/(\d{4})/);
+          if (match) parsedYear = parseInt(match[1], 10);
+        }
+      }
+
+      // Fallback: extract a plausible year (1800-2030) from title or description
+      if (!parsedYear) {
+        const textToScan = `${title} ${desc}`;
+        const yearMatches = textToScan.match(/\b(1[89]\d{2}|20[0-2]\d)\b/g);
+        if (yearMatches && yearMatches.length > 0) {
+          parsedYear = parseInt(yearMatches[0], 10);
+        }
+      }
 
       if (!thumbnail && !lowres) return;
 
