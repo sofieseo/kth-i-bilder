@@ -236,12 +236,16 @@ async function fetchKsamsok(year: number, searchQuery?: string): Promise<Unified
       const allTemporalYears = [...fromTimeYears, ...toTimeYears, ...timeLabelYears];
       let parsedYear = allTemporalYears.length > 0 ? Math.min(...allTemporalYears) : null;
 
-      // If only modern metadata years exist (e.g. 2017/2021), prefer historical year in title/description
+      // If metadata year looks modern, try finding a historical year in title/description.
+      // If none is found, mark as unknown year.
       if (parsedYear == null || parsedYear >= 2000) {
         const textYears = parseYears([title, desc, getTextByLocal(entity, "itemLabel"), getTextByLocal(entity, "name")])
           .filter((yearVal) => yearVal < 2000);
+
         if (textYears.length > 0) {
           parsedYear = Math.max(...textYears);
+        } else {
+          parsedYear = null;
         }
       }
 
