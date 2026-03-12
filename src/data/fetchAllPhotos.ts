@@ -188,30 +188,41 @@ async function fetchKsamsok(year: number, searchQuery?: string): Promise<Unified
     const records = xml.querySelectorAll("record");
     const results: UnifiedPhoto[] = [];
 
+    // Helper: find element by local name (ignoring namespace prefixes)
+    const getByLocal = (parent: Element, localName: string): Element | null => {
+      const els = parent.getElementsByTagName("*");
+      for (let j = 0; j < els.length; j++) {
+        if (els[j].localName === localName) return els[j];
+      }
+      return null;
+    };
+    const getTextByLocal = (parent: Element, localName: string): string => {
+      return getByLocal(parent, localName)?.textContent?.trim() ?? "";
+    };
+
     records.forEach((record, i) => {
-      const entity = record.querySelector("entity");
+      const entity = getByLocal(record, "Entity");
       if (!entity) return;
 
-      const getTag = (tag: string) => {
-        const el = entity.querySelector(tag);
-        return el?.textContent?.trim() ?? "";
-      };
+      const thumbnail = getTextByLocal(entity, "thumbnailSource");
+      const lowres = getTextByLocal(entity, "lowresSource");
+      const highres = getTextByLocal(entity, "highresSource");
+      const title = getTextByLocal(entity, "itemLabel");
+      const org = getTextByLocal(entity, "serviceOrganizationFull") || getTextByLocal(entity, "collection");
+      const desc = getTextByLocal(entity, "desc");
+      const link = getTextByLocal(entity, "url");
 
-      const thumbnail = getTag("thumbnail");
-      const lowres = entity.querySelector("lowressource")?.textContent?.trim() ?? "";
-      const highres = entity.querySelector("highressource")?.textContent?.trim() ?? "";
-      const title = getTag("itemlabel");
-      const org = getTag("serviceorganizationfull") || getTag("collection");
-      const desc = entity.querySelector("itemdescription desc")?.textContent?.trim() ?? "";
-      const link = getTag("url");
+      // Try to extract year from context
+      const fromTime = getTextByLocal(entity, "fromTime");
+      const parsedYear = fromTime ? parseInt(fromTime.substring(0, 4), 10) : null;
 
       if (!thumbnail && !lowres) return;
 
       results.push({
-        id: `soch-${entity.getAttribute("rdf:about") ?? i}`,
+        id: `soch-${entity.getAttributeNS("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "about") || entity.getAttribute("rdf:about") || i}`,
         title: title || "Utan titel",
         source: org || "K-samsök",
-        year: null,
+        year: parsedYear && !isNaN(parsedYear) ? parsedYear : null,
         imageUrl: lowres || thumbnail,
         imageUrlFull: highres || lowres || thumbnail,
         description: desc,
