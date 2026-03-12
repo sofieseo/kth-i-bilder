@@ -97,8 +97,8 @@ const DIMU_API = "https://api.dimu.org/api/solr/select";
 const DIMU_IMG = "https://mm.dimu.org/image";
 
 async function fetchDigitaltMuseum(year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
-  const from = year - 5;
-  const to = year + 5;
+  const from = year;
+  const to = year + 9;
   const baseTerms = "\"KTH\" OR \"Kungliga Tekniska Högskolan\" OR \"Tekniska Högskolan Stockholm\" OR \"Teknologiska institutet\" OR \"K.T.H.\"";
   const queryStr = searchQuery
     ? `(${baseTerms}) AND "${searchQuery}"`
@@ -147,8 +147,8 @@ const EUROPEANA_API = "https://api.europeana.eu/record/v2/search.json";
 const EUROPEANA_API_KEY = "gotiatertom";
 
 async function fetchEuropeana(year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
-  const from = year - 5;
-  const to = year + 5;
+  const from = year;
+  const to = year + 9;
   try {
     const typeFilter = encodeURIComponent("TYPE:IMAGE");
     const baseTerms = "KTH OR \"Kungliga Tekniska Högskolan\" OR \"Teknologiska institutet\" OR \"K.T.H.\"";
@@ -306,6 +306,20 @@ function parseKsamsokXml(xmlText: string): UnifiedPhoto[] {
   return results;
 }
 
+// ── Deduplication helper ────────────────────────────────────────
+function deduplicatePhotos(photos: UnifiedPhoto[]): UnifiedPhoto[] {
+  const seen = new Set<string>();
+  return photos.filter((p) => {
+    // Deduplicate by image URL (most reliable) or title+year combo
+    const imageKey = p.imageUrl ?? "";
+    const titleKey = `${p.title}|${p.year}`;
+    const key = imageKey || titleKey;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
 // ── Streaming fetch – calls onUpdate as each source resolves ────
 export async function fetchAllPhotosStreaming(
   year: number,
@@ -327,10 +341,8 @@ export async function fetchAllPhotosStreaming(
       let relevant = photos.filter(isKthRelevant);
       if (!searchQuery) {
         if (isUndatedMode) {
-          // Only show photos without a year
           relevant = relevant.filter((p) => p.year == null);
         } else {
-          // Filter by decade, exclude undated
           relevant = relevant.filter((p) => {
             if (p.year == null) return false;
             return p.year >= from && p.year <= to;
@@ -338,7 +350,7 @@ export async function fetchAllPhotosStreaming(
         }
       }
       accumulated.push(...relevant);
-      onUpdate(accumulated.slice(0, 40));
+      onUpdate(deduplicatePhotos(accumulated).slice(0, 40));
     }).catch(() => {});
   }
 
