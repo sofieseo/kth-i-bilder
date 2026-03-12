@@ -163,21 +163,40 @@ async function fetchEuropeana(year: number, searchQuery?: string): Promise<Unifi
     const data = await res.json();
     const items: any[] = data?.items ?? [];
 
-    return items.map((item: any, i: number) => ({
-      id: `euro-${item.id ?? i}`,
-      title: (item.title ?? ["Utan titel"])[0],
-      source: (item.dataProvider ?? ["Europeana"])[0],
-      year: item.year?.[0] ? parseInt(item.year[0], 10) : null,
-      imageUrl: item.edmPreview?.[0] ?? null,
-      imageUrlFull: item.edmIsShownBy?.[0] ?? item.edmPreview?.[0] ?? null,
-      description: (item.dcDescription ?? [""])[0],
-      coordinate: null,
-      subjects: item.dcSubject ?? [],
-      license: item.rights?.[0] ?? "",
-      place: "",
-      originalLink: item.guid ?? "",
-      provider: "Europeana" as const,
-    }));
+    return items.map((item: any, i: number) => {
+      const title = (item.title ?? ["Utan titel"])[0];
+      const desc = (item.dcDescription ?? [""])[0];
+      const metadataYear = item.year?.[0] ? parseInt(item.year[0], 10) : null;
+
+      // Extract historical years from title/description
+      const textToScan = `${title} ${desc}`;
+      const yearMatches = Array.from(textToScan.matchAll(/\b(1[6-9]\d{2}|20[0-2]\d)\b/g))
+        .map((m) => parseInt(m[1], 10))
+        .filter((y) => y >= 1600 && y <= new Date().getFullYear());
+      const historicalYears = yearMatches.filter((y) => y < 2000);
+
+      // Prefer historical year from text over metadata year (which is often digitization date)
+      let finalYear = metadataYear;
+      if (historicalYears.length > 0) {
+        finalYear = Math.min(...historicalYears);
+      }
+
+      return {
+        id: `euro-${item.id ?? i}`,
+        title,
+        source: (item.dataProvider ?? ["Europeana"])[0],
+        year: finalYear,
+        imageUrl: item.edmPreview?.[0] ?? null,
+        imageUrlFull: item.edmIsShownBy?.[0] ?? item.edmPreview?.[0] ?? null,
+        description: desc,
+        coordinate: null,
+        subjects: item.dcSubject ?? [],
+        license: item.rights?.[0] ?? "",
+        place: "",
+        originalLink: item.guid ?? "",
+        provider: "Europeana" as const,
+      };
+    });
   } catch {
     return [];
   }
