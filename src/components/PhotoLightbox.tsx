@@ -1,4 +1,4 @@
-import { X, ExternalLink, Building2, MapPin, Calendar, Tag, ImageOff } from "lucide-react";
+import { X, ExternalLink, Building2, MapPin, Calendar, Tag, ImageOff, Camera } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 
