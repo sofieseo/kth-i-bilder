@@ -54,7 +54,7 @@ const Index = () => {
             Utforska KTH i bilder
           </h1>
           <p className="text-xs text-white/70 font-sans mt-0.5">
-            Bilder från DigitaltMuseum, Stockholmskällan, Wikimedia Commons, Europeana och K-samsök
+            Bilder från DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
           </p>
         </div>
       </header>

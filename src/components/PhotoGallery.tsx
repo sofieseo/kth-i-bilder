@@ -48,7 +48,7 @@ export function PhotoGallery({ results, year, loading }: PhotoGalleryProps) {
 
       <div className="fixed bottom-0 left-0 right-0 z-10 border-t border-border bg-background/80 backdrop-blur-sm px-4 py-1.5">
         <p className="text-[10px] text-muted-foreground text-center">
-          Data från DigitaltMuseum, Stockholmskällan, Wikimedia Commons, Europeana &amp; K-samsök
+          Data från DigitaltMuseum, Europeana, K-samsök, Stockholmskällan &amp; Wikimedia Commons
         </p>
       </div>
 
