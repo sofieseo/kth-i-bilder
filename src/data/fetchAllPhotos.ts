@@ -12,7 +12,7 @@ export interface UnifiedPhoto {
   license: string;
   place: string;
   originalLink: string;
-  provider: "DigitaltMuseum" | "Europeana" | "K-samsök" | "Stockholmskällan";
+  provider: "DigitaltMuseum" | "Europeana" | "K-samsök" | "Stockholmskällan" | "Wikimedia Commons";
   photographer?: string;
 }
 
