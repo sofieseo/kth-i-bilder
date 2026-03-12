@@ -297,8 +297,8 @@ export async function fetchAllPhotosStreaming(
   const accumulated: UnifiedPhoto[] = [];
 
   const isUndatedMode = year === 0;
-  const from = year - 5;
-  const to = year + 5;
+  const from = year;
+  const to = year + 9;
 
   const sources = isUndatedMode
     ? [fetchKsamsok(year, searchQuery), fetchDigitaltMuseum(year, searchQuery), fetchEuropeana(year, searchQuery)]
