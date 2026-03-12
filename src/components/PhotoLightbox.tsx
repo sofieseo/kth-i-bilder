@@ -36,7 +36,7 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
         <div className="p-5 space-y-3">
           <div className="flex items-start justify-between gap-2">
             <h2 className="text-lg font-bold text-card-foreground leading-tight">{photo.title}</h2>
-            <Badge variant="secondary" className="shrink-0 text-[10px]">{photo.provider}</Badge>
+            <span className="shrink-0 bg-black text-white text-[10px] font-semibold px-2 py-1">Källa: {photo.provider}</span>
           </div>
 
           {photo.description && <p className="text-sm text-muted-foreground">{photo.description}</p>}
