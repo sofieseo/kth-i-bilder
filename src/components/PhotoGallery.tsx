@@ -17,9 +17,9 @@ export function PhotoGallery({ results, year, loading }: PhotoGalleryProps) {
     <>
       <div className="flex-1 overflow-y-auto px-4 pb-32 pt-4">
         {loading && results.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24 text-muted-foreground">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            <span className="mt-3 text-sm">Söker i arkiven…</span>
+          <div className="flex flex-col items-center justify-center py-24">
+            <Loader2 className="h-8 w-8 animate-spin text-white" />
+            <span className="mt-3 text-sm font-medium text-white">Söker i arkiven…</span>
           </div>
         ) : results.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24">
