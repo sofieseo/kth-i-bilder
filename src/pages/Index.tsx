@@ -8,21 +8,30 @@ const Index = () => {
   const [results, setResults] = useState<UnifiedPhoto[]>([]);
   const [loading, setLoading] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout>>();
+  const fetchIdRef = useRef(0);
 
   const fetchPhotos = useCallback((targetYear: number) => {
     setLoading(true);
     setResults([]);
 
     if (debounceRef.current) clearTimeout(debounceRef.current);
+    const currentFetchId = ++fetchIdRef.current;
+
     debounceRef.current = setTimeout(async () => {
+      // If a newer fetch was started, abort this one
+      if (currentFetchId !== fetchIdRef.current) return;
+
       try {
         await fetchAllPhotosStreaming(targetYear, (photos) => {
+          if (currentFetchId !== fetchIdRef.current) return;
           setResults([...photos]);
         });
       } catch (err) {
         console.error("Fetch error:", err);
       } finally {
-        setLoading(false);
+        if (currentFetchId === fetchIdRef.current) {
+          setLoading(false);
+        }
       }
     }, 400);
   }, []);
