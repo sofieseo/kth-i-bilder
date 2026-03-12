@@ -188,9 +188,9 @@ const KSAMSOK_API = "https://kulturarvsdata.se/ksamsok/api";
 
 async function fetchKsamsok(year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
   try {
-    const baseTerms = `text="KTH" OR text="Kungliga Tekniska Högskolan" OR text="Teknologiska institutet"`;
+    const baseTerms = `(text="KTH" OR text="Kungliga Tekniska Högskolan" OR text="Teknologiska institutet")`;
     const queryStr = searchQuery
-      ? `(${baseTerms}) AND text="${searchQuery}" AND thumbnailExists=j`
+      ? `${baseTerms} AND text="${searchQuery}" AND thumbnailExists=j`
       : `${baseTerms} AND thumbnailExists=j`;
     const query = encodeURIComponent(queryStr);
     const url = `${KSAMSOK_API}?method=search&hitsPerPage=100&query=${query}&x-api=test`;
