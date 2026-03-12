@@ -48,7 +48,7 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
             </div>
             {photo.year && (
               <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-primary shrink-0" />
+                <Calendar className="h-4 w-4 text-black shrink-0" />
                 <span className="text-card-foreground">{photo.year}</span>
               </div>
             )}
