@@ -53,7 +53,7 @@ const Index = () => {
     <div className="flex h-screen w-screen flex-col" style={{ background: "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('/images/brick-bg.jpg') center/cover fixed" }}>
       {/* Header */}
       <header className="shrink-0 border-b border-border px-4 py-3 flex items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold text-primary-foreground" style={{ fontFamily: "'Caveat', cursive" }}>
+        <h1 className="text-2xl font-bold text-primary-foreground font-sans">
           Utforska KTH i bilder
         </h1>
         <div className="relative shrink-0">
