@@ -216,7 +216,7 @@ async function fetchKsamsok(year: number, searchQuery?: string): Promise<Unified
       const desc = getTextByLocal(entity, "desc");
       const link = getTextByLocal(entity, "url");
 
-      // Extract year from all temporal fields; choose earliest plausible year
+      // Extract year from temporal fields first
       const currentYear = new Date().getFullYear();
       const parseYears = (values: string[]): number[] =>
         values
@@ -226,12 +226,24 @@ async function fetchKsamsok(year: number, searchQuery?: string): Promise<Unified
       const fromTimeYears = parseYears(
         getAllByLocal(entity, "fromTime").map((el) => el.textContent?.trim() ?? ""),
       );
+      const toTimeYears = parseYears(
+        getAllByLocal(entity, "toTime").map((el) => el.textContent?.trim() ?? ""),
+      );
       const timeLabelYears = parseYears(
         getAllByLocal(entity, "timeLabel").map((el) => el.textContent?.trim() ?? ""),
       );
 
-      const allTemporalYears = [...fromTimeYears, ...timeLabelYears];
-      const parsedYear = allTemporalYears.length > 0 ? Math.min(...allTemporalYears) : null;
+      const allTemporalYears = [...fromTimeYears, ...toTimeYears, ...timeLabelYears];
+      let parsedYear = allTemporalYears.length > 0 ? Math.min(...allTemporalYears) : null;
+
+      // If only modern metadata years exist (e.g. 2017/2021), prefer historical year in title/description
+      if (parsedYear == null || parsedYear >= 2000) {
+        const textYears = parseYears([title, desc, getTextByLocal(entity, "itemLabel"), getTextByLocal(entity, "name")])
+          .filter((yearVal) => yearVal < 2000);
+        if (textYears.length > 0) {
+          parsedYear = Math.max(...textYears);
+        }
+      }
 
       if (!thumbnail && !lowres) return;
 
