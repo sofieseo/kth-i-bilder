@@ -37,22 +37,19 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
         className="w-full cursor-pointer h-1.5"
         style={{ accentColor: '#ffffff' }}
       />
-      <div className="relative mt-0.5 h-3 text-[9px] text-white font-sans font-bold tracking-wide">
-        {DECADES.map((decade, index) => {
-          // Show "?" for undated, then every other decade
-          if (decade === 0 || decade % 20 === 0) {
-            return (
-              <span
-                key={decade}
-                className="absolute -translate-x-1/2"
-                style={{ left: `${(index / (DECADES.length - 1)) * 100}%` }}
-              >
-                {decade === 0 ? "?" : decade}
-              </span>
-            );
-          }
-          return null;
-        })}
+      <div className="relative mt-1 h-6 text-[8px] text-white font-sans font-bold tracking-wide">
+        {DECADES.map((decade, index) => (
+          <span
+            key={decade}
+            className="absolute origin-top-left whitespace-nowrap"
+            style={{
+              left: `${(index / (DECADES.length - 1)) * 100}%`,
+              transform: 'rotate(45deg) translateX(-2px)',
+            }}
+          >
+            {decade === 0 ? "?" : decade}
+          </span>
+        ))}
       </div>
     </div>
   );

@@ -36,18 +36,22 @@ export function PhotoCard({ photo, onClick }: PhotoCardProps) {
         {/* Polaroid inset shadow overlay */}
         <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 4px 1px rgba(0,0,0,0.3)" }} />
       </div>
-      <div className="mt-1.5 px-1 space-y-0.5">
+      <div className="mt-1.5 px-1 space-y-0.5 pb-1">
         <h3 className="text-[10px] font-semibold leading-tight text-neutral-800 line-clamp-2">
           {photo.title}
         </h3>
         {photo.description && (
-          <p className="text-[9px] text-neutral-500 line-clamp-1">{photo.description}</p>
+          <p className="text-[9px] text-neutral-500 line-clamp-3">{photo.description}</p>
         )}
-        <p className="absolute bottom-1.5 right-2 text-sm text-neutral-600" style={{ fontFamily: "'Caveat', cursive" }}>
-          {photo.year ?? "Okänt år"}
-        </p>
-        
-        <p className="text-[8px] text-neutral-400">{photo.source}</p>
+        {photo.place && (
+          <p className="text-[8px] text-neutral-400 line-clamp-1">{photo.place}</p>
+        )}
+        <div className="flex items-end justify-between pt-0.5">
+          <p className="text-[8px] text-neutral-400">{photo.source}</p>
+          <p className="text-sm text-neutral-600" style={{ fontFamily: "'Caveat', cursive" }}>
+            {photo.year ?? "Okänt år"}
+          </p>
+        </div>
       </div>
     </button>
   );
