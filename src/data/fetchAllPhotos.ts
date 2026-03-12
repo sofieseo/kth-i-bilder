@@ -324,7 +324,7 @@ function deduplicatePhotos(photos: UnifiedPhoto[]): UnifiedPhoto[] {
     const norm = normalizeTitle(p.title);
     if (norm.length > 3) keys.push(`title:${norm}|${p.year ?? "?"}`);
     // Key 3: normalized title alone (catches same photo with different year metadata)
-    if (norm.length > 10) keys.push(`titleonly:${norm}`);
+    if (norm.length > 5) keys.push(`titleonly:${norm}`);
 
     // If any key was already seen, it's a duplicate
     if (keys.some((k) => seen.has(k))) return false;
