@@ -22,11 +22,12 @@ export function PhotoGallery({ results, year, loading }: PhotoGalleryProps) {
             <span className="mt-3 text-sm">Söker i arkiven…</span>
           </div>
         ) : results.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24 text-muted-foreground">
-            <ImageOff className="h-10 w-10 text-muted-foreground/40 mb-3" />
-            <p className="text-sm text-center px-4">
-              Inga foton hittades för detta årtal – prova att dra i tidslinjen!
+          <div className="flex flex-col items-center justify-center py-24">
+            <ImageOff className="h-10 w-10 text-white/30 mb-3" />
+            <p className="text-base font-bold text-white text-center px-4">
+              Inga foton hittades för detta årtionde
             </p>
+            <p className="text-sm text-white/60 mt-1">Prova att dra i tidslinjen</p>
           </div>
         ) : (
           <>
