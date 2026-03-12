@@ -1,7 +1,7 @@
 const DECADES = [
   1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890,
   1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990,
-  2000, 2010, 2020,
+  2000, 2010, 2020, 0,
 ];
 
 interface TimeSliderProps {
@@ -14,7 +14,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
     ? DECADES.indexOf(year)
     : DECADES.findIndex((d) => d >= year) || 0;
 
-  const label = `${year}-talet`;
+  const label = year === 0 ? "Odaterade" : `${year}-talet`;
 
   return (
     <div className="fixed bottom-4 left-1/2 z-[1000] w-[min(560px,92vw)] -translate-x-1/2 border border-white/20 bg-black/85 backdrop-blur-md px-4 py-2.5 shadow-2xl">
@@ -41,7 +41,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
         <span>1900</span>
         <span>1950</span>
         <span>2000</span>
-        <span>2020</span>
+        <span>?</span>
       </div>
     </div>
   );
