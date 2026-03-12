@@ -36,7 +36,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
         className="w-full cursor-pointer h-1.5"
         style={{ accentColor: '#ffffff' }}
       />
-      <div className="mt-0.5 flex justify-between text-[9px] text-white/40 font-sans tracking-wide">
+      <div className="mt-0.5 flex justify-between text-[9px] text-white font-sans font-bold tracking-wide">
         <span>1820</span>
         <span>1900</span>
         <span>1950</span>
