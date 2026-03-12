@@ -258,24 +258,28 @@ export async function fetchAllPhotosStreaming(
 ): Promise<void> {
   const accumulated: UnifiedPhoto[] = [];
 
+  const isUndatedMode = year === 0;
   const from = year - 5;
   const to = year + 5;
 
-  const sources = [
-    fetchDigitaltMuseum(year, searchQuery),
-    fetchEuropeana(year, searchQuery),
-    fetchKsamsok(year, searchQuery),
-  ];
+  const sources = isUndatedMode
+    ? [fetchKsamsok(year, searchQuery), fetchDigitaltMuseum(year, searchQuery), fetchEuropeana(year, searchQuery)]
+    : [fetchDigitaltMuseum(year, searchQuery), fetchEuropeana(year, searchQuery), fetchKsamsok(year, searchQuery)];
 
   for (const promise of sources) {
     promise.then((photos) => {
       let relevant = photos.filter(isKthRelevant);
-      // When not searching, filter by year range client-side as well
       if (!searchQuery) {
-        relevant = relevant.filter((p) => {
-          if (p.year == null) return true; // keep undated photos
-          return p.year >= from && p.year <= to;
-        });
+        if (isUndatedMode) {
+          // Only show photos without a year
+          relevant = relevant.filter((p) => p.year == null);
+        } else {
+          // Filter by decade, exclude undated
+          relevant = relevant.filter((p) => {
+            if (p.year == null) return false;
+            return p.year >= from && p.year <= to;
+          });
+        }
       }
       accumulated.push(...relevant);
       onUpdate(accumulated.slice(0, 40));
