@@ -60,7 +60,7 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
             )}
             {photo.place && (
               <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-primary shrink-0" />
+                <MapPin className="h-4 w-4 text-black shrink-0" />
                 <span className="text-card-foreground">{photo.place}</span>
               </div>
             )}
