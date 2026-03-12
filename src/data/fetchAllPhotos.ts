@@ -41,7 +41,6 @@ const EXCLUDED_TERMS = [
 // Stricter keywords required for sources that have many non-KTH photos
 const STRICT_KTH_KEYWORDS = [
   "kth", "k.t.h.", "kungliga tekniska", "kungl. tekniska",
-  "teknis",
 ];
 
 const STRICT_SOURCES = [
