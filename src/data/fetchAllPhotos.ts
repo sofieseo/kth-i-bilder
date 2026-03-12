@@ -399,6 +399,16 @@ export async function fetchAllPhotosStreaming(
   const from = year;
   const to = year + 9;
 
+  // Immediately inject curated Stockholmskällan photos
+  if (!isUndatedMode && !searchQuery) {
+    const { getStockholmskallanPhotos } = await import("./stockholmskallan");
+    const curated = getStockholmskallanPhotos(year);
+    if (curated.length > 0) {
+      accumulated.push(...curated);
+      onUpdate(deduplicatePhotos(accumulated).slice(0, 50));
+    }
+  }
+
   const sources = isUndatedMode
     ? [fetchKsamsok(year, searchQuery), fetchDigitaltMuseum(year, searchQuery), fetchEuropeana(year, searchQuery)]
     : [fetchDigitaltMuseum(year, searchQuery), fetchEuropeana(year, searchQuery), fetchKsamsok(year, searchQuery)];
@@ -417,7 +427,7 @@ export async function fetchAllPhotosStreaming(
         }
       }
       accumulated.push(...relevant);
-      onUpdate(deduplicatePhotos(accumulated).slice(0, 40));
+      onUpdate(deduplicatePhotos(accumulated).slice(0, 50));
     }).catch(() => {});
   }
 
