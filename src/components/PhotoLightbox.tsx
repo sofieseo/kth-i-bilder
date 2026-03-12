@@ -1,4 +1,4 @@
-import { X, ExternalLink, Building2, MapPin, Calendar, Tag, ImageOff } from "lucide-react";
+import { X, ExternalLink, Building2, MapPin, Calendar, Tag, ImageOff, Camera } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 
@@ -50,6 +50,12 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
               <div className="flex items-center gap-2">
                 <Calendar className="h-4 w-4 text-primary shrink-0" />
                 <span className="text-card-foreground">{photo.year}</span>
+              </div>
+            )}
+            {photo.photographer && (
+              <div className="flex items-center gap-2">
+                <Camera className="h-4 w-4 text-primary shrink-0" />
+                <span className="text-card-foreground">Foto: {photo.photographer}</span>
               </div>
             )}
             {photo.place && (
