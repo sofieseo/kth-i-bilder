@@ -1,50 +1,9 @@
-import { useState, useCallback, useRef, useEffect } from "react";
 import { TimeSlider } from "@/components/TimeSlider";
 import { PhotoGallery } from "@/components/PhotoGallery";
-import { fetchAllPhotosStreaming, type UnifiedPhoto } from "@/data/fetchAllPhotos";
+import { usePhotoFetch } from "@/hooks/usePhotoFetch";
 
 const Index = () => {
-  const [year, setYear] = useState(1920);
-  const [results, setResults] = useState<UnifiedPhoto[]>([]);
-  const [loading, setLoading] = useState(false);
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>();
-  const fetchIdRef = useRef(0);
-
-  const fetchPhotos = useCallback((targetYear: number) => {
-    setLoading(true);
-    setResults([]);
-
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-    const currentFetchId = ++fetchIdRef.current;
-
-    debounceRef.current = setTimeout(async () => {
-      // If a newer fetch was started, abort this one
-      if (currentFetchId !== fetchIdRef.current) return;
-
-      try {
-        await fetchAllPhotosStreaming(targetYear, (photos) => {
-          if (currentFetchId !== fetchIdRef.current) return;
-          setResults([...photos]);
-        });
-      } catch (err) {
-        console.error("Fetch error:", err);
-      } finally {
-        if (currentFetchId === fetchIdRef.current) {
-          setLoading(false);
-        }
-      }
-    }, 400);
-  }, []);
-
-  const handleYearChange = useCallback((newYear: number) => {
-    setYear(newYear);
-    fetchPhotos(newYear);
-  }, [fetchPhotos]);
-
-  useEffect(() => {
-    fetchPhotos(year);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { year, results, loading, handleYearChange } = usePhotoFetch(1920);
 
   return (
     <div className="flex h-screen w-screen flex-col" style={{ background: "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('/images/brick-bg.jpg') center/600px fixed" }}>
