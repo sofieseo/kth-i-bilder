@@ -46,7 +46,7 @@ export function PhotoCard({ photo, onClick }: PhotoCardProps) {
         {photo.place && (
           <p className="text-[8px] text-neutral-400 line-clamp-1 mt-0.5">{photo.place}</p>
         )}
-        <p className="text-[8px] text-neutral-400 mt-auto pt-1 line-clamp-2">{photo.source}</p>
+        <p className="text-[8px] text-neutral-400 mt-0.5 line-clamp-2">{photo.source}</p>
         <p className="absolute bottom-0 right-0 text-sm text-neutral-600 whitespace-nowrap" style={{ fontFamily: "'Caveat', cursive" }}>
           {photo.year ?? "Okänt år"}
         </p>
