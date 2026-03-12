@@ -3,6 +3,7 @@ export interface UnifiedPhoto {
   title: string;
   source: string;
   year: number | null;
+  yearCorrected?: boolean;
   imageUrl: string | null;
   imageUrlFull: string | null;
   description: string;
