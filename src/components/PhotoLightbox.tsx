@@ -43,30 +43,30 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
 
           <div className="space-y-2 text-sm">
             <div className="flex items-center gap-2">
-              <Building2 className="h-4 w-4 text-primary shrink-0" />
+              <Building2 className="h-4 w-4 text-black shrink-0" />
               <span className="text-card-foreground">{photo.source}</span>
             </div>
             {photo.year && (
               <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-primary shrink-0" />
+                <Calendar className="h-4 w-4 text-black shrink-0" />
                 <span className="text-card-foreground">{photo.year}</span>
               </div>
             )}
             {photo.photographer && (
               <div className="flex items-center gap-2">
-                <Camera className="h-4 w-4 text-primary shrink-0" />
+                <Camera className="h-4 w-4 text-black shrink-0" />
                 <span className="text-card-foreground">Foto: {photo.photographer}</span>
               </div>
             )}
             {photo.place && (
               <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-primary shrink-0" />
+                <MapPin className="h-4 w-4 text-black shrink-0" />
                 <span className="text-card-foreground">{photo.place}</span>
               </div>
             )}
             {photo.subjects.length > 0 && (
               <div className="flex items-start gap-2">
-                <Tag className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                <Tag className="h-4 w-4 text-black shrink-0 mt-0.5" />
                 <div className="flex flex-wrap gap-1.5">
                   {photo.subjects.map((s, i) => (
                     <span key={i} className="bg-muted px-2 py-0.5 text-xs text-muted-foreground">{s}</span>
