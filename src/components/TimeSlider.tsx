@@ -1,5 +1,3 @@
-
-
 const DECADES = [
   1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890,
   1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990,
@@ -19,12 +17,12 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
   const label = `${year}-talet`;
 
   return (
-    <div className="fixed bottom-6 left-1/2 z-[1000] w-[min(600px,90vw)] -translate-x-1/2 panel-glass border border-border px-5 py-3 shadow-xl">
-      <div className="mb-1.5 flex items-center justify-between">
-        <span className="text-xs text-muted-foreground" style={{ fontFamily: "'Figtree', sans-serif" }}>
+    <div className="fixed bottom-4 left-1/2 z-[1000] w-[min(560px,92vw)] -translate-x-1/2 border border-border/60 bg-foreground/90 backdrop-blur-md px-4 py-2.5 shadow-2xl">
+      <div className="mb-1 flex items-center justify-between">
+        <span className="text-[11px] uppercase tracking-widest text-muted font-sans">
           Välj årtal
         </span>
-        <span className="bg-primary px-3 py-0.5 font-display text-sm font-bold text-primary-foreground">
+        <span className="bg-primary px-2.5 py-px text-xs font-bold text-primary-foreground font-sans tracking-wide">
           {label}
         </span>
       </div>
@@ -35,9 +33,10 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
         step={1}
         value={decadeIndex}
         onChange={(e) => onChange(DECADES[Number(e.target.value)])}
-        className="w-full cursor-pointer accent-primary"
+        className="w-full cursor-pointer h-1.5"
+        style={{ accentColor: 'hsl(var(--primary))' }}
       />
-      <div className="mt-0.5 flex justify-between text-[10px] text-muted-foreground">
+      <div className="mt-0.5 flex justify-between text-[9px] text-muted font-sans tracking-wide">
         <span>1820</span>
         <span>1900</span>
         <span>1950</span>
