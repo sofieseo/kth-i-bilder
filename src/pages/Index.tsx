@@ -52,18 +52,18 @@ const Index = () => {
   return (
     <div className="flex h-screen w-screen flex-col" style={{ background: "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('/images/brick-bg.jpg') center/cover fixed" }}>
       {/* Header */}
-      <header className="shrink-0 border-b border-border px-4 py-3 flex items-center justify-between gap-3">
+      <header className="shrink-0 border-b border-border px-4 py-3 flex flex-col gap-2">
         <h1 className="text-2xl font-bold text-primary-foreground font-sans">
           Utforska KTH i bilder
         </h1>
-        <div className="relative shrink-0">
+        <div className="relative">
           <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <input
             type="text"
             placeholder="Sök bland bilder..."
             value={searchQuery}
             onChange={(e) => handleSearchChange(e.target.value)}
-            className="h-8 w-40 rounded-none border border-border bg-background/80 pl-8 pr-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+            className="h-8 w-full rounded-none border border-border bg-background/80 pl-8 pr-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
           />
         </div>
       </header>
