@@ -376,7 +376,6 @@ export async function fetchAllPhotosStreaming(
           relevant = relevant.filter((p) => p.year == null);
         } else {
           relevant = relevant.filter((p) => {
-            if (p.yearCorrected) return true; // Year was corrected from text, keep it
             if (p.year == null) return false;
             return p.year >= from && p.year <= to;
           });
