@@ -147,20 +147,54 @@ async function fetchDigitaltMuseum(year: number, searchQuery?: string): Promise<
 const EUROPEANA_API = "https://api.europeana.eu/record/v2/search.json";
 const EUROPEANA_API_KEY = "gotiatertom";
 
-async function fetchEuropeana(_year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
+async function fetchEuropeana(year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
+  const from = year;
+  const to = year + 9;
+
   try {
     const typeFilter = encodeURIComponent("TYPE:IMAGE");
     const baseTerms = "KTH OR \"Kungliga Tekniska Högskolan\" OR \"Teknologiska institutet\" OR \"K.T.H.\"";
-    const queryStr = searchQuery
+    const baseQueryStr = searchQuery
       ? `(${baseTerms}) AND "${searchQuery}"`
       : baseTerms;
-    const query = encodeURIComponent(queryStr);
-    const qfParts = [`qf=${typeFilter}`];
-    const url = `${EUROPEANA_API}?wskey=${EUROPEANA_API_KEY}&query=${query}&${qfParts.join("&")}&rows=50&profile=standard`;
-    const res = await fetch(url);
-    if (!res.ok) return [];
-    const data = await res.json();
-    const items: any[] = data?.items ?? [];
+
+    const isUndatedMode = year === 0;
+    const textYearTerms = Array.from({ length: 10 }, (_, i) => `${from + i}`).join(" OR ");
+
+    const requests = (searchQuery || isUndatedMode)
+      ? [{ query: baseQueryStr, qfParts: [`qf=${typeFilter}`] }]
+      : [
+          {
+            query: baseQueryStr,
+            qfParts: [`qf=${typeFilter}`, `qf=${encodeURIComponent(`YEAR:[${from} TO ${to}]`)}`],
+          },
+          {
+            query: `(${baseTerms}) AND (${textYearTerms})`,
+            qfParts: [`qf=${typeFilter}`],
+          },
+        ];
+
+    const responses = await Promise.all(
+      requests.map(async ({ query, qfParts }) => {
+        const encodedQuery = encodeURIComponent(query);
+        const url = `${EUROPEANA_API}?wskey=${EUROPEANA_API_KEY}&query=${encodedQuery}&${qfParts.join("&")}&rows=50&profile=standard`;
+        const res = await fetch(url);
+        if (!res.ok) return [];
+        const data = await res.json();
+        return (data?.items ?? []) as any[];
+      }),
+    );
+
+    const seenRawIds = new Set<string>();
+    const items: any[] = [];
+    for (const batch of responses) {
+      for (const item of batch) {
+        const key = item?.id ?? item?.guid;
+        if (!key || seenRawIds.has(key)) continue;
+        seenRawIds.add(key);
+        items.push(item);
+      }
+    }
 
     return items.map((item: any, i: number) => {
       const title = (item.title ?? ["Utan titel"])[0];
