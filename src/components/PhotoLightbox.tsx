@@ -66,7 +66,7 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
             )}
             {photo.subjects.length > 0 && (
               <div className="flex items-start gap-2">
-                <Tag className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                <Tag className="h-4 w-4 text-black shrink-0 mt-0.5" />
                 <div className="flex flex-wrap gap-1.5">
                   {photo.subjects.map((s, i) => (
                     <span key={i} className="bg-muted px-2 py-0.5 text-xs text-muted-foreground">{s}</span>
