@@ -19,8 +19,8 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
   return (
     <div className="fixed bottom-4 left-1/2 z-[1000] w-[min(560px,92vw)] -translate-x-1/2 border border-white/20 bg-black/85 backdrop-blur-md px-4 py-2.5 shadow-2xl">
       <div className="mb-1 flex items-center justify-between">
-        <span className="text-[11px] uppercase tracking-widest text-white/50 font-sans">
-          Välj årtal
+        <span className="text-[11px] uppercase tracking-widest text-white font-sans font-bold">
+          Välj årtionde
         </span>
         <span className="border border-white/40 bg-white px-2.5 py-px text-xs font-bold text-black font-sans tracking-wide">
           {label}
