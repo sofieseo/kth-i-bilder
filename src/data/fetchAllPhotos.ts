@@ -147,8 +147,8 @@ const EUROPEANA_API = "https://api.europeana.eu/record/v2/search.json";
 const EUROPEANA_API_KEY = "gotiatertom";
 
 async function fetchEuropeana(year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
-  const from = year - 5;
-  const to = year + 5;
+  const from = year;
+  const to = year + 9;
   try {
     const typeFilter = encodeURIComponent("TYPE:IMAGE");
     const baseTerms = "KTH OR \"Kungliga Tekniska Högskolan\" OR \"Teknologiska institutet\" OR \"K.T.H.\"";
