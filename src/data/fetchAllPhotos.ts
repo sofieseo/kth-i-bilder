@@ -38,6 +38,16 @@ const EXCLUDED_TERMS = [
   "uthus",
 ];
 
+// Stricter keywords required for sources that have many non-KTH photos
+const STRICT_KTH_KEYWORDS = [
+  "kth", "k.t.h.", "kungliga tekniska", "kungl. tekniska",
+  "teknis",
+];
+
+const STRICT_SOURCES = [
+  "tekniska museet",
+];
+
 function isKthRelevant(photo: UnifiedPhoto): boolean {
   const sourceLower = photo.source.toLowerCase();
   if (EXCLUDED_SOURCES.some((ex) => sourceLower.includes(ex))) return false;
@@ -49,6 +59,11 @@ function isKthRelevant(photo: UnifiedPhoto): boolean {
 
   if (EXCLUDED_TERMS.some((term) => searchable.includes(term))) return false;
   if (EXCLUDED_OTHER_UNIVERSITIES.some((uni) => searchable.includes(uni))) return false;
+
+  // For sources like Tekniska museet, require stronger KTH signal
+  if (STRICT_SOURCES.some((s) => sourceLower.includes(s))) {
+    return STRICT_KTH_KEYWORDS.some((kw) => searchable.includes(kw));
+  }
 
   return KTH_KEYWORDS.some((kw) => searchable.includes(kw));
 }
