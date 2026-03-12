@@ -12,7 +12,7 @@ export function PhotoCard({ photo, onClick }: PhotoCardProps) {
   return (
     <button
       onClick={onClick}
-      className="relative w-full text-left bg-white p-2 pb-2 shadow-[4px_6px_16px_rgba(0,0,0,0.45)] transition-all hover:shadow-[6px_10px_24px_rgba(0,0,0,0.55)] hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary"
+      className="relative w-full h-full text-left bg-white p-2 pb-2 shadow-[4px_6px_16px_rgba(0,0,0,0.45)] transition-all hover:shadow-[6px_10px_24px_rgba(0,0,0,0.55)] hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary flex flex-col"
     >
       <div className="relative aspect-square bg-muted">
         {photo.imageUrl ? (
@@ -36,17 +36,17 @@ export function PhotoCard({ photo, onClick }: PhotoCardProps) {
         {/* Polaroid inset shadow overlay */}
         <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 4px 1px rgba(0,0,0,0.3)" }} />
       </div>
-      <div className="mt-1.5 px-1 space-y-0.5 pb-1">
+      <div className="mt-1.5 px-1 flex flex-col flex-1">
         <h3 className="text-[10px] font-semibold leading-tight text-neutral-800 line-clamp-2">
           {photo.title}
         </h3>
         {photo.description && (
-          <p className="text-[9px] text-neutral-500 line-clamp-3">{photo.description}</p>
+          <p className="text-[9px] text-neutral-500 line-clamp-3 mt-0.5">{photo.description}</p>
         )}
         {photo.place && (
-          <p className="text-[8px] text-neutral-400 line-clamp-1">{photo.place}</p>
+          <p className="text-[8px] text-neutral-400 line-clamp-1 mt-0.5">{photo.place}</p>
         )}
-        <div className="flex items-end justify-between pt-0.5">
+        <div className="flex items-end justify-between pt-1 mt-auto">
           <p className="text-[8px] text-neutral-400">{photo.source}</p>
           <p className="text-sm text-neutral-600" style={{ fontFamily: "'Caveat', cursive" }}>
             {photo.year ?? "Okänt år"}

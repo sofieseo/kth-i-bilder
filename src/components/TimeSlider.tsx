@@ -37,7 +37,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
         className="w-full cursor-pointer h-1.5"
         style={{ accentColor: '#ffffff' }}
       />
-      <div className="relative mt-1 h-6 text-[8px] text-white font-sans font-bold tracking-wide">
+      <div className="relative mt-1 h-7 text-[9px] text-white font-sans font-bold tracking-wide">
         {DECADES.map((decade, index) => (
           <span
             key={decade}
@@ -47,7 +47,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
               transform: 'rotate(45deg) translateX(-2px)',
             }}
           >
-            {decade === 0 ? "?" : decade}
+            {decade === 0 ? "Okänt" : decade}
           </span>
         ))}
       </div>
