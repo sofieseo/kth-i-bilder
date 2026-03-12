@@ -97,8 +97,8 @@ const DIMU_API = "https://api.dimu.org/api/solr/select";
 const DIMU_IMG = "https://mm.dimu.org/image";
 
 async function fetchDigitaltMuseum(year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
-  const from = year - 5;
-  const to = year + 5;
+  const from = year;
+  const to = year + 9;
   const baseTerms = "\"KTH\" OR \"Kungliga Tekniska Högskolan\" OR \"Tekniska Högskolan Stockholm\" OR \"Teknologiska institutet\" OR \"K.T.H.\"";
   const queryStr = searchQuery
     ? `(${baseTerms}) AND "${searchQuery}"`
