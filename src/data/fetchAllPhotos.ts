@@ -413,6 +413,17 @@ export async function fetchAllPhotosStreaming(
     ? [fetchKsamsok(year, searchQuery), fetchDigitaltMuseum(year, searchQuery), fetchEuropeana(year, searchQuery)]
     : [fetchDigitaltMuseum(year, searchQuery), fetchEuropeana(year, searchQuery), fetchKsamsok(year, searchQuery)];
 
+  // Fetch Wikimedia Commons (no search query support – curated categories only)
+  if (!searchQuery) {
+    const { fetchWikimediaCommons } = await import("./wikimediaCommons");
+    const wmcPromise = fetchWikimediaCommons(year);
+    wmcPromise.then((photos) => {
+      accumulated.push(...photos);
+      onUpdate(deduplicatePhotos(accumulated).slice(0, 50));
+    }).catch(() => {});
+    sources.push(wmcPromise as any);
+  }
+
   for (const promise of sources) {
     promise.then((photos) => {
       let relevant = photos.filter(isKthRelevant);
