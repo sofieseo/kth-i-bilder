@@ -318,15 +318,13 @@ function deduplicatePhotos(photos: UnifiedPhoto[]): UnifiedPhoto[] {
   const seen = new Set<string>();
   return photos.filter((p) => {
     const keys: string[] = [];
-    // Key 1: exact image URL (always a true duplicate)
+    // Key 1: exact image URL (true duplicate)
     if (p.imageUrl) keys.push(`img:${p.imageUrl}`);
-    // Key 2: same title + year + provider (same source listing the same item twice)
+    // Key 2: cross-provider dedup for long titles with same year
     const norm = normalizeTitle(p.title);
-    if (norm.length > 3) keys.push(`tvp:${norm}|${p.year ?? "?"}|${p.provider}`);
-    // Key 3: same title + year across providers (cross-source duplicate)
-    // Only for longer titles to avoid false positives on generic short names
-    if (norm.length > 15) keys.push(`tv:${norm}|${p.year ?? "?"}`);
+    if (norm.length > 20) keys.push(`tv:${norm}|${p.year ?? "?"}`);
 
+    if (keys.length === 0) return true;
     if (keys.some((k) => seen.has(k))) return false;
     keys.forEach((k) => seen.add(k));
     return true;
