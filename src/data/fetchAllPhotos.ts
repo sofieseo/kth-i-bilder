@@ -216,18 +216,22 @@ async function fetchKsamsok(year: number, searchQuery?: string): Promise<Unified
       const desc = getTextByLocal(entity, "desc");
       const link = getTextByLocal(entity, "url");
 
-      // Try to extract year from context or timeLabel
-      const fromTime = getTextByLocal(entity, "fromTime");
-      let parsedYear = fromTime ? parseInt(fromTime.substring(0, 4), 10) : null;
+      // Extract year from all temporal fields; choose earliest plausible year
+      const currentYear = new Date().getFullYear();
+      const parseYears = (values: string[]): number[] =>
+        values
+          .flatMap((value) => Array.from(value.matchAll(/\b(1[6-9]\d{2}|20\d{2})\b/g)).map((m) => parseInt(m[1], 10)))
+          .filter((yearVal) => yearVal >= 1600 && yearVal <= currentYear + 1);
 
-      // Fallback: extract year from timeLabel in presentation (e.g. "1880 - 1880")
-      if (!parsedYear) {
-        const timeLabel = getTextByLocal(entity, "timeLabel");
-        if (timeLabel) {
-          const match = timeLabel.match(/(\d{4})/);
-          if (match) parsedYear = parseInt(match[1], 10);
-        }
-      }
+      const fromTimeYears = parseYears(
+        getAllByLocal(entity, "fromTime").map((el) => el.textContent?.trim() ?? ""),
+      );
+      const timeLabelYears = parseYears(
+        getAllByLocal(entity, "timeLabel").map((el) => el.textContent?.trim() ?? ""),
+      );
+
+      const allTemporalYears = [...fromTimeYears, ...timeLabelYears];
+      const parsedYear = allTemporalYears.length > 0 ? Math.min(...allTemporalYears) : null;
 
       if (!thumbnail && !lowres) return;
 
