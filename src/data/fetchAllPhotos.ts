@@ -3,6 +3,7 @@ export interface UnifiedPhoto {
   title: string;
   source: string;
   year: number | null;
+  yearCorrected?: boolean;
   imageUrl: string | null;
   imageUrlFull: string | null;
   description: string;
@@ -177,8 +178,10 @@ async function fetchEuropeana(year: number, searchQuery?: string): Promise<Unifi
 
       // Prefer historical year from text over metadata year (which is often digitization date)
       let finalYear = metadataYear;
-      if (historicalYears.length > 0) {
+      let corrected = false;
+      if (historicalYears.length > 0 && (!metadataYear || Math.abs(Math.min(...historicalYears) - metadataYear) > 15)) {
         finalYear = Math.min(...historicalYears);
+        corrected = true;
       }
 
       return {
@@ -186,6 +189,7 @@ async function fetchEuropeana(year: number, searchQuery?: string): Promise<Unifi
         title,
         source: (item.dataProvider ?? ["Europeana"])[0],
         year: finalYear,
+        yearCorrected: corrected,
         imageUrl: item.edmPreview?.[0] ?? null,
         imageUrlFull: item.edmIsShownBy?.[0] ?? item.edmPreview?.[0] ?? null,
         description: desc,
@@ -374,6 +378,7 @@ export async function fetchAllPhotosStreaming(
           relevant = relevant.filter((p) => p.year == null);
         } else {
           relevant = relevant.filter((p) => {
+            if (p.yearCorrected) return true; // Year was corrected from text, keep it
             if (p.year == null) return false;
             return p.year >= from && p.year <= to;
           });
