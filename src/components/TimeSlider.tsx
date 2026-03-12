@@ -17,12 +17,12 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
   const label = `${year}-talet`;
 
   return (
-    <div className="fixed bottom-4 left-1/2 z-[1000] w-[min(560px,92vw)] -translate-x-1/2 border border-border/60 bg-foreground/90 backdrop-blur-md px-4 py-2.5 shadow-2xl">
+    <div className="fixed bottom-4 left-1/2 z-[1000] w-[min(560px,92vw)] -translate-x-1/2 border border-white/20 bg-black/85 backdrop-blur-md px-4 py-2.5 shadow-2xl">
       <div className="mb-1 flex items-center justify-between">
-        <span className="text-[11px] uppercase tracking-widest text-muted font-sans">
+        <span className="text-[11px] uppercase tracking-widest text-white/50 font-sans">
           Välj årtal
         </span>
-        <span className="bg-primary px-2.5 py-px text-xs font-bold text-primary-foreground font-sans tracking-wide">
+        <span className="border border-white/40 bg-white px-2.5 py-px text-xs font-bold text-black font-sans tracking-wide">
           {label}
         </span>
       </div>
@@ -34,9 +34,9 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
         value={decadeIndex}
         onChange={(e) => onChange(DECADES[Number(e.target.value)])}
         className="w-full cursor-pointer h-1.5"
-        style={{ accentColor: 'hsl(var(--primary))' }}
+        style={{ accentColor: '#ffffff' }}
       />
-      <div className="mt-0.5 flex justify-between text-[9px] text-muted font-sans tracking-wide">
+      <div className="mt-0.5 flex justify-between text-[9px] text-white/40 font-sans tracking-wide">
         <span>1820</span>
         <span>1900</span>
         <span>1950</span>
