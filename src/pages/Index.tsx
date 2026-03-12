@@ -49,7 +49,7 @@ const Index = () => {
   return (
     <div className="flex h-screen w-screen flex-col" style={{ background: "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('/images/brick-bg.jpg') center/cover fixed" }}>
       <header className="shrink-0 px-4 py-3">
-        <div className="bg-black/85 backdrop-blur-md border border-white/20 px-4 py-3">
+        <div className="inline-block bg-black/85 backdrop-blur-md border border-white/20 px-4 py-3">
           <h1 className="text-2xl font-bold text-white font-sans uppercase tracking-wide">
             Utforska KTH i bilder
           </h1>
