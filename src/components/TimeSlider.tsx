@@ -18,7 +18,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
   const label = year === 0 ? "Odaterade" : `${year}-talet`;
 
   return (
-    <div className="fixed bottom-4 left-1/2 z-[1000] w-[min(560px,92vw)] -translate-x-1/2 border border-white/20 bg-black/85 backdrop-blur-md px-4 py-2.5 shadow-2xl">
+    <div className="fixed bottom-4 left-1/2 z-[1000] w-[min(620px,94vw)] -translate-x-1/2 border border-white/20 bg-black/85 backdrop-blur-md px-6 py-2.5 shadow-2xl">
       <div className="mb-1 flex items-center justify-between">
         <span className="text-[11px] uppercase tracking-widest text-white font-sans font-bold">
           Välj årtionde
