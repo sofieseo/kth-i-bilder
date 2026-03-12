@@ -38,21 +38,21 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
         style={{ accentColor: '#ffffff' }}
       />
       <div className="relative mt-0.5 h-3 text-[9px] text-white font-sans font-bold tracking-wide">
-        {[
-          { label: "?", index: 0 },
-          { label: "1900", index: 9 },
-          { label: "1950", index: 14 },
-          { label: "2000", index: 19 },
-          { label: "2020", index: 21 },
-        ].map(({ label, index }) => (
-          <span
-            key={label}
-            className="absolute -translate-x-1/2"
-            style={{ left: `${(index / (DECADES.length - 1)) * 100}%` }}
-          >
-            {label}
-          </span>
-        ))}
+        {DECADES.map((decade, index) => {
+          // Show "?" for undated, then every other decade
+          if (decade === 0 || decade % 20 === 0) {
+            return (
+              <span
+                key={decade}
+                className="absolute -translate-x-1/2"
+                style={{ left: `${(index / (DECADES.length - 1)) * 100}%` }}
+              >
+                {decade === 0 ? "?" : decade}
+              </span>
+            );
+          }
+          return null;
+        })}
       </div>
     </div>
   );
