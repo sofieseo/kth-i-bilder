@@ -5,6 +5,15 @@ const DECADES = [
   2000, 2010, 2020,
 ];
 
+const VISIBLE_LABELS = [
+  { decade: 0, text: "Okänt" },
+  { decade: 1850, text: "1850" },
+  { decade: 1900, text: "1900" },
+  { decade: 1950, text: "1950" },
+  { decade: 2000, text: "2000" },
+  { decade: 2020, text: "2020" },
+];
+
 interface TimeSliderProps {
   year: number;
   onChange: (year: number) => void;
@@ -18,8 +27,8 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
   const label = year === 0 ? "Odaterade" : `${year}-talet`;
 
   return (
-    <div className="fixed bottom-4 left-1/2 z-[1000] w-[min(620px,94vw)] -translate-x-1/2 border border-white/20 bg-black/85 backdrop-blur-md px-6 py-2.5 shadow-2xl">
-      <div className="mb-1 flex items-center justify-between">
+    <div className="fixed bottom-4 left-1/2 z-[1000] w-[min(620px,94vw)] -translate-x-1/2 border border-white/20 bg-black/85 backdrop-blur-md px-5 py-2.5 shadow-2xl sm:px-6">
+      <div className="mb-1.5 flex items-center justify-between">
         <span className="text-[11px] uppercase tracking-widest text-white font-sans font-bold">
           Välj årtionde
         </span>
@@ -27,6 +36,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
           {label}
         </span>
       </div>
+
       <input
         type="range"
         min={0}
@@ -34,22 +44,23 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
         step={1}
         value={decadeIndex}
         onChange={(e) => onChange(DECADES[Number(e.target.value)])}
-        className="w-full cursor-pointer h-1.5"
-        style={{ accentColor: '#ffffff' }}
+        className="timeline-slider w-full cursor-pointer"
       />
-      <div className="relative mt-1 h-7 text-[9px] text-white font-sans font-bold tracking-wide">
-        {DECADES.map((decade, index) => (
-          <span
-            key={decade}
-            className="absolute origin-top-left whitespace-nowrap"
-            style={{
-              left: `${(index / (DECADES.length - 1)) * 100}%`,
-              transform: 'rotate(45deg) translateX(-2px)',
-            }}
-          >
-            {decade === 0 ? "Okänt" : decade}
-          </span>
-        ))}
+
+      <div className="relative mt-1 h-5">
+        {VISIBLE_LABELS.map(({ decade, text }) => {
+          const idx = DECADES.indexOf(decade);
+          const pct = (idx / (DECADES.length - 1)) * 100;
+          return (
+            <span
+              key={decade}
+              className="absolute text-[10px] sm:text-[11px] text-white/80 font-sans font-semibold -translate-x-1/2"
+              style={{ left: `${pct}%` }}
+            >
+              {text}
+            </span>
+          );
+        })}
       </div>
     </div>
   );
