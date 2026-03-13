@@ -38,8 +38,8 @@ export function PhotoGallery({ results, year, loading }: PhotoGalleryProps) {
               </div>
             )}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
-              {results.map((photo, i) => (
-                <PhotoCard key={photo.id} photo={photo} index={i} onClick={() => setSelectedPhoto(photo)} />
+              {results.map((photo) => (
+                <PhotoCard key={photo.id} photo={photo} onClick={() => setSelectedPhoto(photo)} />
               ))}
             </div>
           </>
