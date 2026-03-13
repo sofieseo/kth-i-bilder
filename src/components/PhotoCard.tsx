@@ -12,6 +12,7 @@ export function PhotoCard({ photo, onClick }: PhotoCardProps) {
   return (
     <button
       onClick={onClick}
+      style={{ animationDelay: `${Math.random() * 200}ms` }}
       className="relative w-full h-full text-left bg-white p-2 pb-6 shadow-[4px_6px_16px_rgba(0,0,0,0.45)] transition-all hover:shadow-[6px_10px_24px_rgba(0,0,0,0.55)] hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary"
     >
       <div className="relative aspect-square bg-muted overflow-hidden">
