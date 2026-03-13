@@ -9,7 +9,7 @@ interface PhotoGalleryProps {
   year: number;
   loading: boolean;
   isAdmin?: boolean;
-  onHidePhoto?: (id: string) => void;
+  onHidePhoto?: (id: string, imageUrl?: string) => void;
 }
 
 export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto }: PhotoGalleryProps) {

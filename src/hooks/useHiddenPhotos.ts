@@ -14,11 +14,11 @@ export function useHiddenPhotos() {
       });
   }, []);
 
-  const hidePhoto = useCallback(async (apiId: string) => {
+  const hidePhoto = useCallback(async (apiId: string, imageUrl?: string) => {
     setHiddenIds((prev) => new Set(prev).add(apiId));
     const { error } = await supabase
       .from("hidden_api_photos")
-      .insert({ api_id: apiId });
+      .insert({ api_id: apiId, image_url: imageUrl ?? null });
     if (error) {
       setHiddenIds((prev) => {
         const next = new Set(prev);
