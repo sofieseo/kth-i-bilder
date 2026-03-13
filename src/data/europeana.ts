@@ -52,15 +52,19 @@ export async function fetchEuropeana(year: number, searchQuery?: string): Promis
       }
     }
 
-    // Titles of undated Europeana items that duplicate dated K-samsök entries
-    const UNDATED_EUROPEANA_BLOCKLIST = [
+    // Europeana items to exclude (substring-matched against lowercase title+desc)
+    const EUROPEANA_BLOCKLIST = [
       "kth - kungliga tekniska högskolan interiör",
-      "kungliga tekniska högskolankth - kungliga tekniska högskolan hörsal med lanternin interiör",
+      "kth - kungliga tekniska högskolan hörsal med lanternin interiör",
       "kth - kungliga tekniska högskolan ljushallen interiör",
       "kth - kungliga tekniska högskolan ljusgård interiör",
       "kth - kungliga tekniska högskolan ritsal interiör",
       "kth - kungliga tekniska högskolan gård exteriör",
-      "kth - kungliga tekniska högskolan hörsal med lanternin interiör",
+      "porträtt av amalia styffe",
+      "maria hjertén, född 1864",
+      "enligt fotografens noteringar",
+      "östra real gymnasieskola",
+      "professor helmer bäckström",
     ];
 
     return items.map((item: any, i: number) => {
@@ -98,10 +102,8 @@ export async function fetchEuropeana(year: number, searchQuery?: string): Promis
         provider: "Europeana" as const,
       };
     }).filter((photo) => {
-      if (photo.year == null) {
-        const norm = photo.title.toLowerCase().replace(/\s+/g, " ").trim();
-        if (UNDATED_EUROPEANA_BLOCKLIST.includes(norm)) return false;
-      }
+      const norm = `${photo.title} ${photo.description}`.toLowerCase();
+      if (EUROPEANA_BLOCKLIST.some((b) => norm.includes(b))) return false;
       return true;
     });
   } catch {
