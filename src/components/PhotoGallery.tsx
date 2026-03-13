@@ -12,7 +12,7 @@ interface PhotoGalleryProps {
   onHidePhoto?: (id: string) => void;
 }
 
-export function PhotoGallery({ results, year, loading }: PhotoGalleryProps) {
+export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto }: PhotoGalleryProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<UnifiedPhoto | null>(null);
 
   return (
