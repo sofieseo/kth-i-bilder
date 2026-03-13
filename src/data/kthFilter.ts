@@ -24,6 +24,21 @@ const EXCLUDED_TERMS = [
   "uthus",
 ];
 
+const EXPLICIT_BLOCKLIST = [
+  "kth - kungliga tekniska högskolan interiör",
+  "kungliga tekniska högskolankth - kungliga tekniska högskolan hörsal med lanternin interiör",
+  "kth - kungliga tekniska högskolan hörsal med lanternin interiör",
+  "kth - kungliga tekniska högskolan ljushallen interiör",
+  "kth - kungliga tekniska högskolan ljusgård interiör",
+  "kth - kungliga tekniska högskolan ritsal interiör",
+  "kth - kungliga tekniska högskolan gård exteriör",
+  "oljemålning, porträtt av amalia styffe",
+  "maria hjertén, född 1864",
+  "enligt fotografens noteringar:",
+  "östra real gymnasieskola",
+  "professor helmer bäckström 1",
+];
+
 const STRICT_KTH_KEYWORDS = [
   "kth", "k.t.h.", "kungliga tekniska", "kungl. tekniska",
 ];
@@ -39,8 +54,13 @@ export function isKthRelevant(photo: UnifiedPhoto): boolean {
   const searchable = [
     photo.title, photo.description, photo.place,
     ...photo.subjects,
-  ].join(" ").toLowerCase();
+  ]
+    .join(" ")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
 
+  if (EXPLICIT_BLOCKLIST.some((term) => searchable.includes(term))) return false;
   if (EXCLUDED_TERMS.some((term) => searchable.includes(term))) return false;
   if (EXCLUDED_OTHER_UNIVERSITIES.some((uni) => searchable.includes(uni))) return false;
 
