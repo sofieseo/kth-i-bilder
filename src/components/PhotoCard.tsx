@@ -12,7 +12,7 @@ interface PhotoCardProps {
   onClick: () => void;
   decade?: number;
   isAdmin?: boolean;
-  onHide?: (id: string) => void;
+  onHide?: (id: string, imageUrl?: string) => void;
 }
 
 export function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide }: PhotoCardProps) {
