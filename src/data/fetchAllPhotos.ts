@@ -6,8 +6,7 @@ import { isKthRelevant, deduplicatePhotos } from "./kthFilter";
 import { fetchDigitaltMuseum } from "./digitaltMuseum";
 import { fetchEuropeana } from "./europeana";
 import { fetchKsamsok } from "./ksamsok";
-import { getManualPhotos } from "./manualPhotos";
-import { getStockholmskallanPhotos } from "./stockholmskallan";
+import { getCuratedPhotos } from "./curatedPhotos";
 import { fetchWikimediaCommons } from "./wikimediaCommons";
 import { supabase } from "@/integrations/supabase/client";
 
