@@ -11,6 +11,8 @@ interface PhotoCardProps {
   photo: UnifiedPhoto;
   onClick: () => void;
   decade?: number;
+  isAdmin?: boolean;
+  onHide?: (id: string) => void;
 }
 
 export function PhotoCard({ photo, onClick, decade = 2020 }: PhotoCardProps) {
