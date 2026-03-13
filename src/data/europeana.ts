@@ -102,10 +102,8 @@ export async function fetchEuropeana(year: number, searchQuery?: string): Promis
         provider: "Europeana" as const,
       };
     }).filter((photo) => {
-      if (photo.year == null) {
-        const norm = photo.title.toLowerCase().replace(/\s+/g, " ").trim();
-        if (UNDATED_EUROPEANA_BLOCKLIST.includes(norm)) return false;
-      }
+      const norm = `${photo.title} ${photo.description}`.toLowerCase();
+      if (EUROPEANA_BLOCKLIST.some((b) => norm.includes(b))) return false;
       return true;
     });
   } catch {
