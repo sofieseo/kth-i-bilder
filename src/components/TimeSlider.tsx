@@ -54,7 +54,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
           return (
             <span
               key={decade}
-              className="absolute text-[10px] sm:text-[11px] text-white/80 font-sans font-semibold -translate-x-1/2"
+              className={`absolute text-[10px] sm:text-[11px] text-white/80 font-sans font-semibold ${idx === 0 ? 'translate-x-0' : '-translate-x-1/2'}`}
               style={{ left: `${pct}%` }}
             >
               {text}
