@@ -4,8 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 interface HiddenPhoto {
   api_id: string;
-  imageUrl?: string;
-  title?: string;
+  image_url: string | null;
 }
 
 interface HiddenPhotosModalProps {
@@ -23,9 +22,9 @@ export function HiddenPhotosModal({ open, onClose, onRestore }: HiddenPhotosModa
     setLoading(true);
     supabase
       .from("hidden_api_photos")
-      .select("api_id")
+      .select("api_id, image_url")
       .then(({ data }) => {
-        setPhotos(data?.map((r) => ({ api_id: r.api_id })) ?? []);
+        setPhotos(data?.map((r) => ({ api_id: r.api_id, image_url: r.image_url })) ?? []);
         setLoading(false);
       });
   }, [open]);
@@ -61,8 +60,19 @@ export function HiddenPhotosModal({ open, onClose, onRestore }: HiddenPhotosModa
           ) : (
             <ul className="space-y-2">
               {photos.map((p) => (
-                <li key={p.api_id} className="flex items-center justify-between gap-3 rounded-md bg-white/5 px-4 py-3">
-                  <span className="text-xs text-white/80 font-mono truncate flex-1">{p.api_id}</span>
+                <li key={p.api_id} className="flex items-center gap-3 rounded-md bg-white/5 px-3 py-2">
+                  {p.image_url ? (
+                    <img
+                      src={p.image_url}
+                      alt=""
+                      className="w-12 h-12 rounded-md object-cover shrink-0 bg-white/10"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-md bg-white/10 flex items-center justify-center shrink-0">
+                      <ImageOff className="h-5 w-5 text-white/20" />
+                    </div>
+                  )}
+                  <div className="flex-1 min-w-0" />
                   <button
                     onClick={() => handleRestore(p.api_id)}
                     className="shrink-0 flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white hover:bg-white/20 transition-colors"

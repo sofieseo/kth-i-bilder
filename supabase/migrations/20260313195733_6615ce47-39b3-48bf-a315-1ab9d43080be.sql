@@ -1,0 +1,1 @@
+ALTER TABLE public.hidden_api_photos ADD COLUMN image_url text;

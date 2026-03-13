@@ -12,7 +12,7 @@ interface PhotoCardProps {
   onClick: () => void;
   decade?: number;
   isAdmin?: boolean;
-  onHide?: (id: string) => void;
+  onHide?: (id: string, imageUrl?: string) => void;
 }
 
 export function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide }: PhotoCardProps) {
@@ -65,7 +65,7 @@ export function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide }: Ph
       </p>
       {isAdmin && onHide && (
         <button
-          onClick={(e) => { e.stopPropagation(); onHide(photo.id); }}
+          onClick={(e) => { e.stopPropagation(); onHide(photo.id, photo.imageUrl ?? undefined); }}
           className="absolute top-1 right-1 z-10 rounded-full bg-black/60 p-1 text-white hover:bg-red-600 transition-colors"
           title="Dölj denna bild"
         >
