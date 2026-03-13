@@ -102,6 +102,27 @@
   100% { transform: scale(2.5); opacity: 0; }
 }
 
+@keyframes search-tilt {
+  0%, 100% { transform: rotate(-15deg); }
+  50% { transform: rotate(15deg); }
+}
+
+@keyframes dot-blink {
+  0%, 25% { content: ''; }
+  33%, 50% { content: '.'; }
+  58%, 75% { content: '..'; }
+  83%, 100% { content: '...'; }
+}
+
+.animate-search-tilt {
+  animation: search-tilt 1.8s ease-in-out infinite;
+}
+
+.typing-dots::after {
+  content: '';
+  animation: dot-blink 1.8s steps(1) infinite;
+}
+
 
 /* Timeline slider – touch-friendly thumb */
 .timeline-slider {
