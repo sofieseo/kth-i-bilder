@@ -15,7 +15,7 @@ interface PhotoCardProps {
   onHide?: (id: string) => void;
 }
 
-export function PhotoCard({ photo, onClick, decade = 2020 }: PhotoCardProps) {
+export function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide }: PhotoCardProps) {
   const paperColor = getPaperColor(decade);
 
   return (
