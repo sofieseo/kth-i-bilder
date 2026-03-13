@@ -6,8 +6,7 @@ import { isKthRelevant, deduplicatePhotos } from "./kthFilter";
 import { fetchDigitaltMuseum } from "./digitaltMuseum";
 import { fetchEuropeana } from "./europeana";
 import { fetchKsamsok } from "./ksamsok";
-import { getManualPhotos } from "./manualPhotos";
-import { getStockholmskallanPhotos } from "./stockholmskallan";
+import { getCuratedPhotos } from "./curatedPhotos";
 import { fetchWikimediaCommons } from "./wikimediaCommons";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -84,14 +83,12 @@ export async function fetchAllPhotos(
   const from = year;
   const to = year + 9;
 
-  // Synchronous / local sources
+  // Curated photos from database
   const local: UnifiedPhoto[] = [];
 
   if (!isUndatedMode && !searchQuery) {
-    local.push(...getStockholmskallanPhotos(year));
-  }
-  if (!searchQuery) {
-    local.push(...getManualPhotos(year));
+    const curated = await getCuratedPhotos(year);
+    local.push(...curated);
   }
 
   // Build parallel remote fetches

@@ -32,6 +32,63 @@ export type Database = {
         }
         Relationships: []
       }
+      curated_photos: {
+        Row: {
+          coordinate: string | null
+          created_at: string
+          description: string
+          id: string
+          image_url: string | null
+          image_url_full: string | null
+          license: string
+          original_link: string
+          photographer: string | null
+          place: string
+          provider: string
+          source: string
+          subjects: string[]
+          title: string
+          year: number | null
+          year_corrected: boolean
+        }
+        Insert: {
+          coordinate?: string | null
+          created_at?: string
+          description?: string
+          id: string
+          image_url?: string | null
+          image_url_full?: string | null
+          license?: string
+          original_link?: string
+          photographer?: string | null
+          place?: string
+          provider: string
+          source: string
+          subjects?: string[]
+          title: string
+          year?: number | null
+          year_corrected?: boolean
+        }
+        Update: {
+          coordinate?: string | null
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string | null
+          image_url_full?: string | null
+          license?: string
+          original_link?: string
+          photographer?: string | null
+          place?: string
+          provider?: string
+          source?: string
+          subjects?: string[]
+          title?: string
+          year?: number | null
+          year_corrected?: boolean
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
