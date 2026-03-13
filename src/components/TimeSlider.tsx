@@ -5,14 +5,14 @@ const DECADES = [
   2000, 2010, 2020,
 ];
 
-const VISIBLE_LABELS: Record<number, string> = {
-  0: "Okänt",
-  1850: "1850",
-  1900: "1900",
-  1950: "1950",
-  2000: "2000",
-  2020: "2020",
-};
+const VISIBLE_LABELS = [
+  { decade: 0, text: "Okänt" },
+  { decade: 1850, text: "1850" },
+  { decade: 1900, text: "1900" },
+  { decade: 1950, text: "1950" },
+  { decade: 2000, text: "2000" },
+  { decade: 2020, text: "2020" },
+];
 
 interface TimeSliderProps {
   year: number;
@@ -25,13 +25,6 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
     : DECADES.findIndex((d) => d >= year) || 0;
 
   const label = year === 0 ? "Odaterade" : `${year}-talet`;
-
-  // Positions of visible labels as percentages
-  const labelEntries = Object.entries(VISIBLE_LABELS).map(([decade, text]) => {
-    const idx = DECADES.indexOf(Number(decade));
-    const pct = (idx / (DECADES.length - 1)) * 100;
-    return { decade: Number(decade), text, pct };
-  });
 
   return (
     <div className="fixed bottom-4 left-1/2 z-[1000] w-[min(620px,94vw)] -translate-x-1/2 border border-white/20 bg-black/85 backdrop-blur-md px-5 py-2.5 shadow-2xl sm:px-6">
@@ -54,16 +47,20 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
         className="timeline-slider w-full cursor-pointer"
       />
 
-      <div className="mt-1 flex justify-between">
-        {labelEntries.map(({ decade, text, pct }) => (
-          <span
-            key={decade}
-            className="text-[10px] sm:text-[11px] text-white/80 font-sans font-semibold whitespace-nowrap"
-            style={{ position: "relative", left: `${pct - (labelEntries.indexOf(labelEntries.find(l => l.decade === decade)!) / (labelEntries.length - 1)) * 100}%` }}
-          >
-            {text}
-          </span>
-        ))}
+      <div className="relative mt-1 h-5">
+        {VISIBLE_LABELS.map(({ decade, text }) => {
+          const idx = DECADES.indexOf(decade);
+          const pct = (idx / (DECADES.length - 1)) * 100;
+          return (
+            <span
+              key={decade}
+              className="absolute text-[10px] sm:text-[11px] text-white/80 font-sans font-semibold -translate-x-1/2"
+              style={{ left: `${pct}%` }}
+            >
+              {text}
+            </span>
+          );
+        })}
       </div>
     </div>
   );
