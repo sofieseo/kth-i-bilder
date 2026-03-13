@@ -83,14 +83,12 @@ export async function fetchAllPhotos(
   const from = year;
   const to = year + 9;
 
-  // Synchronous / local sources
+  // Curated photos from database
   const local: UnifiedPhoto[] = [];
 
   if (!isUndatedMode && !searchQuery) {
-    local.push(...getStockholmskallanPhotos(year));
-  }
-  if (!searchQuery) {
-    local.push(...getManualPhotos(year));
+    const curated = await getCuratedPhotos(year);
+    local.push(...curated);
   }
 
   // Build parallel remote fetches
