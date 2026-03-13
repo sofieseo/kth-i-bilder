@@ -61,7 +61,7 @@ export function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide }: Ph
         <p className="text-[8px] text-stone-400 mt-0.5 line-clamp-2">{photo.source}</p>
       </div>
       <p className="absolute bottom-1.5 right-2 text-sm text-stone-600 whitespace-nowrap" style={{ fontFamily: "'Caveat', cursive" }}>
-        {photo.year ?? "Okänt år"}
+        {photo.year ?? "Odaterad"}
       </p>
       {isAdmin && onHide && (
         <button

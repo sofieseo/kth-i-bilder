@@ -24,7 +24,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
     ? DECADES.indexOf(year)
     : DECADES.findIndex((d) => d >= year) || 0;
 
-  const label = year === 0 ? "Odaterade" : `${year}-talet`;
+  const label = year === 0 ? "Odaterat" : `${year}-talet`;
 
   return (
     <div className="fixed bottom-4 left-1/2 z-[1000] w-[min(620px,94vw)] -translate-x-1/2 border border-white/20 bg-black/85 backdrop-blur-md px-5 py-2.5 shadow-2xl sm:px-6">
