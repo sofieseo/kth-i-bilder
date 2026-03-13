@@ -1,9 +1,19 @@
+import { useMemo } from "react";
 import { TimeSlider } from "@/components/TimeSlider";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { usePhotoFetch } from "@/hooks/usePhotoFetch";
+import { useAdminMode } from "@/hooks/useAdminMode";
+import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
 
 const Index = () => {
   const { year, results, loading, handleYearChange } = usePhotoFetch(1920);
+  const isAdmin = useAdminMode();
+  const { hiddenIds, hidePhoto } = useHiddenPhotos();
+
+  const visibleResults = useMemo(
+    () => results.filter((p) => !hiddenIds.has(p.id)),
+    [results, hiddenIds],
+  );
 
   return (
     <div className="flex h-screen w-screen flex-col" style={{ background: "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('/images/brick-bg.jpg') center/600px fixed" }}>
@@ -18,7 +28,7 @@ const Index = () => {
         </div>
       </header>
 
-      <PhotoGallery results={results} year={year} loading={loading} />
+      <PhotoGallery results={visibleResults} year={year} loading={loading} isAdmin={isAdmin} onHidePhoto={hidePhoto} />
 
       <TimeSlider year={year} onChange={handleYearChange} />
     </div>
