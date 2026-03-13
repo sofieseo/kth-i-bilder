@@ -102,27 +102,6 @@
   100% { transform: scale(2.5); opacity: 0; }
 }
 
-@keyframes photo-develop {
-  0% {
-    opacity: 0;
-    filter: blur(8px) sepia(0.4) brightness(1.1);
-    transform: scale(1.02);
-  }
-  60% {
-    opacity: 1;
-    filter: blur(2px) sepia(0.15) brightness(1.03);
-    transform: scale(1.005);
-  }
-  100% {
-    opacity: 1;
-    filter: blur(0) sepia(0) brightness(1);
-    transform: scale(1);
-  }
-}
-
-.animate-photo-develop {
-  animation: photo-develop 0.7s ease-out both;
-}
 
 /* Timeline slider – touch-friendly thumb */
 .timeline-slider {
