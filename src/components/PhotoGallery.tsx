@@ -8,6 +8,8 @@ interface PhotoGalleryProps {
   results: UnifiedPhoto[];
   year: number;
   loading: boolean;
+  isAdmin?: boolean;
+  onHidePhoto?: (id: string) => void;
 }
 
 export function PhotoGallery({ results, year, loading }: PhotoGalleryProps) {
