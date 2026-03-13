@@ -10,10 +10,10 @@ function getPaperColor(year: number): string {
 interface PhotoCardProps {
   photo: UnifiedPhoto;
   onClick: () => void;
-  decade: number;
+  decade?: number;
 }
 
-export function PhotoCard({ photo, onClick, decade }: PhotoCardProps) {
+export function PhotoCard({ photo, onClick, decade = 2020 }: PhotoCardProps) {
   const paperColor = getPaperColor(decade);
 
   return (
