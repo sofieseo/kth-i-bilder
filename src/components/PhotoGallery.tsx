@@ -18,8 +18,8 @@ export function PhotoGallery({ results, year, loading }: PhotoGalleryProps) {
       <div className="flex-1 overflow-y-auto px-4 pb-32 pt-4">
         {loading && results.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24">
-            <Search className="h-10 w-10 text-stone-500 animate-search-tilt mb-3" />
-            <span className="text-sm font-medium text-stone-500 typing-dots">Söker i arkiven</span>
+            <Search className="h-10 w-10 text-white animate-search-tilt mb-3" />
+            <span className="text-sm font-medium text-white">Söker i arkiven…</span>
           </div>
         ) : results.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24">
@@ -33,8 +33,8 @@ export function PhotoGallery({ results, year, loading }: PhotoGalleryProps) {
           <>
             {loading && (
               <div className="flex items-center gap-2 mb-3 text-xs text-stone-400">
-                <Search className="h-3 w-3 animate-search-tilt" />
-                <span className="typing-dots">Söker i fler arkiv</span>
+                <Search className="h-3 w-3 animate-search-tilt text-white" />
+                <span>Söker i fler arkiv…</span>
               </div>
             )}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
