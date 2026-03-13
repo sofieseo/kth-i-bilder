@@ -89,6 +89,24 @@ export type Database = {
         }
         Relationships: []
       }
+      hidden_api_photos: {
+        Row: {
+          api_id: string
+          created_at: string
+          id: string
+        }
+        Insert: {
+          api_id: string
+          created_at?: string
+          id?: string
+        }
+        Update: {
+          api_id?: string
+          created_at?: string
+          id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

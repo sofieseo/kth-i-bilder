@@ -1,4 +1,4 @@
-import { ImageOff } from "lucide-react";
+import { ImageOff, EyeOff } from "lucide-react";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 
 function getPaperColor(year: number): string {
@@ -11,9 +11,11 @@ interface PhotoCardProps {
   photo: UnifiedPhoto;
   onClick: () => void;
   decade?: number;
+  isAdmin?: boolean;
+  onHide?: (id: string) => void;
 }
 
-export function PhotoCard({ photo, onClick, decade = 2020 }: PhotoCardProps) {
+export function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide }: PhotoCardProps) {
   const paperColor = getPaperColor(decade);
 
   return (
@@ -61,6 +63,15 @@ export function PhotoCard({ photo, onClick, decade = 2020 }: PhotoCardProps) {
       <p className="absolute bottom-1.5 right-2 text-sm text-stone-600 whitespace-nowrap" style={{ fontFamily: "'Caveat', cursive" }}>
         {photo.year ?? "Okänt år"}
       </p>
+      {isAdmin && onHide && (
+        <button
+          onClick={(e) => { e.stopPropagation(); onHide(photo.id); }}
+          className="absolute top-1 right-1 z-10 rounded-full bg-black/60 p-1 text-white hover:bg-red-600 transition-colors"
+          title="Dölj denna bild"
+        >
+          <EyeOff className="h-3.5 w-3.5" />
+        </button>
+      )}
     </button>
   );
 }

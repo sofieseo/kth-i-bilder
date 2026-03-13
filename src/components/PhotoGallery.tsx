@@ -8,9 +8,11 @@ interface PhotoGalleryProps {
   results: UnifiedPhoto[];
   year: number;
   loading: boolean;
+  isAdmin?: boolean;
+  onHidePhoto?: (id: string) => void;
 }
 
-export function PhotoGallery({ results, year, loading }: PhotoGalleryProps) {
+export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto }: PhotoGalleryProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<UnifiedPhoto | null>(null);
 
   return (
@@ -39,7 +41,7 @@ export function PhotoGallery({ results, year, loading }: PhotoGalleryProps) {
             )}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
               {results.map((photo) => (
-                <PhotoCard key={photo.id} photo={photo} decade={year} onClick={() => setSelectedPhoto(photo)} />
+                <PhotoCard key={photo.id} photo={photo} decade={year} onClick={() => setSelectedPhoto(photo)} isAdmin={isAdmin} onHide={onHidePhoto} />
               ))}
             </div>
           </>
