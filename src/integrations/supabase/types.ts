@@ -94,16 +94,19 @@ export type Database = {
           api_id: string
           created_at: string
           id: string
+          image_url: string | null
         }
         Insert: {
           api_id: string
           created_at?: string
           id?: string
+          image_url?: string | null
         }
         Update: {
           api_id?: string
           created_at?: string
           id?: string
+          image_url?: string | null
         }
         Relationships: []
       }
