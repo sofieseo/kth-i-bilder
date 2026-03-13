@@ -60,7 +60,8 @@ export function isKthRelevant(photo: UnifiedPhoto): boolean {
     .replace(/\s+/g, " ")
     .trim();
 
-  if (EXPLICIT_BLOCKLIST.some((term) => searchable.includes(term))) return false;
+  // Only block these specific items when they have no year (undated)
+  if (photo.year == null && EXPLICIT_BLOCKLIST.some((term) => searchable.includes(term))) return false;
   if (EXCLUDED_TERMS.some((term) => searchable.includes(term))) return false;
   if (EXCLUDED_OTHER_UNIVERSITIES.some((uni) => searchable.includes(uni))) return false;
 
