@@ -107,11 +107,8 @@
   50% { transform: rotate(15deg); }
 }
 
-}
-
-.typing-dots::after {
-  content: '';
-  animation: dot-blink 1.8s steps(1) infinite;
+.animate-search-tilt {
+  animation: search-tilt 1.8s ease-in-out infinite;
 }
 
 
