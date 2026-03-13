@@ -63,6 +63,15 @@ export function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide }: Ph
       <p className="absolute bottom-1.5 right-2 text-sm text-stone-600 whitespace-nowrap" style={{ fontFamily: "'Caveat', cursive" }}>
         {photo.year ?? "Okänt år"}
       </p>
+      {isAdmin && onHide && (
+        <button
+          onClick={(e) => { e.stopPropagation(); onHide(photo.id); }}
+          className="absolute top-1 right-1 z-10 rounded-full bg-black/60 p-1 text-white hover:bg-red-600 transition-colors"
+          title="Dölj denna bild"
+        >
+          <EyeOff className="h-3.5 w-3.5" />
+        </button>
+      )}
     </button>
   );
 }
