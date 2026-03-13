@@ -15,15 +15,11 @@ export function useHiddenPhotos() {
   }, []);
 
   const hidePhoto = useCallback(async (apiId: string) => {
-    // Optimistic update
     setHiddenIds((prev) => new Set(prev).add(apiId));
-
     const { error } = await supabase
       .from("hidden_api_photos")
       .insert({ api_id: apiId });
-
     if (error) {
-      // Rollback on failure
       setHiddenIds((prev) => {
         const next = new Set(prev);
         next.delete(apiId);
@@ -32,5 +28,20 @@ export function useHiddenPhotos() {
     }
   }, []);
 
-  return { hiddenIds, hidePhoto };
+  const restorePhoto = useCallback(async (apiId: string) => {
+    setHiddenIds((prev) => {
+      const next = new Set(prev);
+      next.delete(apiId);
+      return next;
+    });
+    const { error } = await supabase
+      .from("hidden_api_photos")
+      .delete()
+      .eq("api_id", apiId);
+    if (error) {
+      setHiddenIds((prev) => new Set(prev).add(apiId));
+    }
+  }, []);
+
+  return { hiddenIds, hidePhoto, restorePhoto };
 }
