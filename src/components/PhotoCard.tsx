@@ -1,4 +1,4 @@
-import { ImageOff } from "lucide-react";
+import { ImageOff, EyeOff } from "lucide-react";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 
 function getPaperColor(year: number): string {
