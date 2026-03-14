@@ -5,16 +5,23 @@ import { HiddenPhotosModal } from "@/components/HiddenPhotosModal";
 import { usePhotoFetch } from "@/hooks/usePhotoFetch";
 import { useAdminMode } from "@/hooks/useAdminMode";
 import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
+import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 
 const Index = () => {
   const { year, results, loading, handleYearChange } = usePhotoFetch(1920);
   const isAdmin = useAdminMode();
   const { hiddenIds, hidePhoto, restorePhoto } = useHiddenPhotos();
+  const { undatedIds, markAsUndated } = useUndatedPhotos();
   const [showHidden, setShowHidden] = useState(false);
 
   const visibleResults = useMemo(
-    () => results.filter((p) => !hiddenIds.has(p.id)),
-    [results, hiddenIds],
+    () =>
+      results
+        .filter((p) => !hiddenIds.has(p.id))
+        .map((p) =>
+          undatedIds.has(p.id) ? { ...p, year: null } : p
+        ),
+    [results, hiddenIds, undatedIds],
   );
 
   return (
@@ -30,7 +37,7 @@ const Index = () => {
         </div>
       </header>
 
-      <PhotoGallery results={visibleResults} year={year} loading={loading} isAdmin={isAdmin} onHidePhoto={hidePhoto} />
+      <PhotoGallery results={visibleResults} year={year} loading={loading} isAdmin={isAdmin} onHidePhoto={hidePhoto} onMarkUndated={isAdmin ? markAsUndated : undefined} />
 
       {isAdmin && (
         <div className="fixed bottom-8 right-4 z-20">

@@ -6,17 +6,17 @@ export function useUndatedPhotos() {
   const [undatedIds, setUndatedIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    supabase
+    (supabase as any)
       .from("undated_api_photos")
       .select("api_id")
-      .then(({ data }) => {
+      .then(({ data }: { data: { api_id: string }[] | null }) => {
         if (data) setUndatedIds(new Set(data.map((r) => r.api_id)));
       });
   }, []);
 
   const markAsUndated = useCallback(async (apiId: string) => {
     setUndatedIds((prev) => new Set(prev).add(apiId));
-    const { error } = await supabase
+    const { error } = await (supabase as any)
       .from("undated_api_photos")
       .insert({ api_id: apiId });
     if (error) {
@@ -34,7 +34,7 @@ export function useUndatedPhotos() {
       next.delete(apiId);
       return next;
     });
-    const { error } = await supabase
+    const { error } = await (supabase as any)
       .from("undated_api_photos")
       .delete()
       .eq("api_id", apiId);
