@@ -75,6 +75,10 @@ const Index = () => {
 
       <TimeSlider year={year} onChange={handleYearChange} />
 
+      <span className="fixed bottom-2 left-3 z-[999] text-[10px] text-white/30 font-sans">
+        Ett hobbyprojekt av Sofie Seo
+      </span>
+
       <HiddenPhotosModal open={showHidden} onClose={() => setShowHidden(false)} onRestore={restorePhoto} />
     </div>
   );
