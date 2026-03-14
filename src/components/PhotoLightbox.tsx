@@ -17,7 +17,7 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
       >
         <button
           onClick={onClose}
-          className="sticky top-3 float-right mr-3 z-20 bg-black/50 p-1.5 text-white hover:bg-black/70 transition-colors"
+          className="sticky top-3 float-right mr-3 z-20 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
         >
           <X className="h-4 w-4" />
         </button>
@@ -34,17 +34,16 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
         </div>
 
         <div className="p-5 space-y-3">
-          <div className="flex items-start justify-between gap-2">
-            <h2 className="text-lg font-bold text-card-foreground leading-tight">{photo.title}</h2>
-            <span className="shrink-0 bg-black text-white text-[10px] font-semibold px-2 py-1">Källa: {photo.provider}</span>
-          </div>
+          <h2 className="text-lg font-bold text-card-foreground leading-tight">{photo.title}</h2>
 
-          {photo.description && <p className="text-sm text-muted-foreground">{photo.description}</p>}
+          {photo.description && photo.description !== photo.title && <p className="text-sm text-muted-foreground">{photo.description}</p>}
 
           <div className="space-y-2 text-sm">
             <div className="flex items-center gap-2">
               <Building2 className="h-4 w-4 text-black shrink-0" />
-              <span className="text-card-foreground">{photo.source}</span>
+              <span className="text-card-foreground">
+                {photo.source ? `${photo.provider} / ${photo.source}` : photo.provider}
+              </span>
             </div>
             {photo.year && (
               <div className="flex items-center gap-2">
