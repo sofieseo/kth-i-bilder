@@ -50,13 +50,13 @@ const Index = () => {
   return (
     <div className="flex h-screen w-screen flex-col" style={{ background: "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('/images/brick-bg.jpg') center/600px fixed" }}>
       <header className="shrink-0 px-4 py-3">
-        <div className="inline-block bg-black/85 backdrop-blur-md border border-white/20 px-4 py-3">
-          <h1 className="text-2xl font-bold text-white font-sans uppercase tracking-wide">
-            Utforska KTH i bilder
-          </h1>
-          <p className="text-xs text-white/70 font-sans mt-0.5">
-            Bilder från DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
-          </p>
+         <div className="inline-block bg-black/85 backdrop-blur-md border border-white/20 px-3 py-2">
+           <h1 className="text-base font-bold text-white/50 font-sans uppercase tracking-wide">
+             Utforska KTH i bilder
+           </h1>
+           <p className="text-[10px] text-white/40 font-sans mt-0.5">
+             Bilder från DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
+           </p>
         </div>
       </header>
 
