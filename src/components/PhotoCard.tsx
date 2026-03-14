@@ -54,7 +54,7 @@ export function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMa
         <h3 className="text-[10px] font-semibold leading-tight text-stone-800 line-clamp-2">
           {photo.title}
         </h3>
-        {photo.description && (
+        {photo.description && photo.description !== photo.title && (
           <p className="text-[9px] text-stone-500 line-clamp-3 mt-0.5">{photo.description}</p>
         )}
         {photo.place && (

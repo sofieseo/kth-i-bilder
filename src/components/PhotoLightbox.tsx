@@ -41,7 +41,9 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
           <div className="space-y-2 text-sm">
             <div className="flex items-center gap-2">
               <Building2 className="h-4 w-4 text-black shrink-0" />
-              <span className="text-card-foreground">{photo.source}</span>
+              <span className="text-card-foreground">
+                {photo.source ? `${photo.provider} / ${photo.source}` : photo.provider}
+              </span>
             </div>
             {photo.year && (
               <div className="flex items-center gap-2">
