@@ -62,9 +62,6 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
           );
         })}
       </div>
-      <div className="mt-1 text-center">
-        <span className="text-[9px] text-white/30 font-sans">Ett hobbyprojekt av Sofie Seo</span>
-      </div>
     </div>
   );
 }
