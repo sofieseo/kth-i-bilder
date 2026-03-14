@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
 import { TimeSlider } from "@/components/TimeSlider";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { HiddenPhotosModal } from "@/components/HiddenPhotosModal";
@@ -6,6 +6,7 @@ import { usePhotoFetch } from "@/hooks/usePhotoFetch";
 import { useAdminMode } from "@/hooks/useAdminMode";
 import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
 import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
+import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 
 const Index = () => {
   const { year, results, loading, handleYearChange } = usePhotoFetch(1920);
@@ -14,15 +15,37 @@ const Index = () => {
   const { undatedIds, markAsUndated } = useUndatedPhotos();
   const [showHidden, setShowHidden] = useState(false);
 
-  const visibleResults = useMemo(
-    () =>
-      results
-        .filter((p) => !hiddenIds.has(p.id))
-        .map((p) =>
-          undatedIds.has(p.id) ? { ...p, year: null } : p
-        ),
-    [results, hiddenIds, undatedIds],
-  );
+  // Keep a cache of full photo objects that have been marked undated
+  const undatedPhotosRef = useRef<Map<string, UnifiedPhoto>>(new Map());
+
+  // When results change, capture any undated photo objects
+  useEffect(() => {
+    for (const p of results) {
+      if (undatedIds.has(p.id)) {
+        undatedPhotosRef.current.set(p.id, { ...p, year: null });
+      }
+    }
+  }, [results, undatedIds]);
+
+  const visibleResults = useMemo(() => {
+    const isUndatedMode = year === 0;
+
+    if (isUndatedMode) {
+      // Show API results (already null-year) + injected undated photos
+      const apiResults = results.filter((p) => !hiddenIds.has(p.id));
+      const injected: UnifiedPhoto[] = [];
+      for (const [id, photo] of undatedPhotosRef.current) {
+        if (!hiddenIds.has(id) && !apiResults.some((p) => p.id === id)) {
+          injected.push(photo);
+        }
+      }
+      return [...apiResults, ...injected];
+    }
+
+    // Non-undated mode: filter out undated photos so they don't appear in wrong decade
+    return results
+      .filter((p) => !hiddenIds.has(p.id) && !undatedIds.has(p.id));
+  }, [results, hiddenIds, undatedIds, year]);
 
   return (
     <div className="flex h-screen w-screen flex-col" style={{ background: "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('/images/brick-bg.jpg') center/600px fixed" }}>
