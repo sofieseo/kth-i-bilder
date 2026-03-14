@@ -1,5 +1,6 @@
-import { ImageOff, EyeOff } from "lucide-react";
+import { ImageOff, EyeOff, CalendarOff } from "lucide-react";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 function getPaperColor(year: number): string {
   if (year === 0 || year < 1900) return "#e8e0cc";
@@ -13,9 +14,10 @@ interface PhotoCardProps {
   decade?: number;
   isAdmin?: boolean;
   onHide?: (id: string, imageUrl?: string) => void;
+  onMarkUndated?: (id: string) => void;
 }
 
-export function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide }: PhotoCardProps) {
+export function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMarkUndated }: PhotoCardProps) {
   const paperColor = getPaperColor(decade);
 
   return (
@@ -63,14 +65,43 @@ export function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide }: Ph
       <p className="absolute bottom-1.5 right-2 text-sm text-stone-600 whitespace-nowrap" style={{ fontFamily: "'Caveat', cursive" }}>
         {photo.year ?? "Odaterad"}
       </p>
-      {isAdmin && onHide && (
-        <button
-          onClick={(e) => { e.stopPropagation(); onHide(photo.id, photo.imageUrl ?? undefined); }}
-          className="absolute top-1 right-1 z-10 rounded-full bg-black/60 p-1 text-white hover:bg-red-600 transition-colors"
-          title="Dölj denna bild"
-        >
-          <EyeOff className="h-3.5 w-3.5" />
-        </button>
+      {isAdmin && (
+        <div className="absolute top-1 right-1 z-10 flex gap-1">
+          {onMarkUndated && photo.year != null && (
+            <TooltipProvider delayDuration={200}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onMarkUndated(photo.id); }}
+                    className="rounded-full bg-black/60 p-1 text-white hover:bg-amber-600 transition-colors"
+                  >
+                    <CalendarOff className="h-3.5 w-3.5" />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" className="text-xs">
+                  Markera som odaterad
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
+          {onHide && (
+            <TooltipProvider delayDuration={200}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onHide(photo.id, photo.imageUrl ?? undefined); }}
+                    className="rounded-full bg-black/60 p-1 text-white hover:bg-red-600 transition-colors"
+                  >
+                    <EyeOff className="h-3.5 w-3.5" />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" className="text-xs">
+                  Dölj denna bild
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
+        </div>
       )}
     </button>
   );
