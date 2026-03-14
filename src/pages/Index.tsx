@@ -57,10 +57,7 @@ const Index = () => {
            <p className="text-xs text-white/70 font-sans mt-0.5">
              Bilder från DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
            </p>
-           <p className="text-[10px] text-white/40 font-sans mt-0.5">
-             Ett hobbyprojekt av Sofie Seo
-           </p>
-        </div>
+         </div>
       </header>
 
       <PhotoGallery results={visibleResults} year={year} loading={loading} isAdmin={isAdmin} onHidePhoto={hidePhoto} onMarkUndated={isAdmin ? markAsUndated : undefined} />
