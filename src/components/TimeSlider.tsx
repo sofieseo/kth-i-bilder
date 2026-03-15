@@ -47,7 +47,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
       </div>
 
       {/* Clickable labels above slider */}
-      <div className="relative h-5 mb-2">
+      <div className="relative h-5 mb-2 mx-[9px]">
         {visibleLabels.map(({ decade, text }) => {
           const idx = DECADES.indexOf(decade);
           const pct = (idx / (DECADES.length - 1)) * 100;
