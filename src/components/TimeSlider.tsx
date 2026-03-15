@@ -32,7 +32,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
         <span className="text-[10px] uppercase tracking-widest text-white font-sans font-bold">
           Välj årtionde
         </span>
-        <span className="border border-white/40 bg-white px-2.5 py-px text-[10px] font-bold text-black font-sans tracking-wide">
+        <span className="rounded-full border border-white/25 bg-white/10 backdrop-blur-sm px-3 py-0.5 text-[10px] font-bold text-white font-sans tracking-wide">
           {label}
         </span>
       </div>
