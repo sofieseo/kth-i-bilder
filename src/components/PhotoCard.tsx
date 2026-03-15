@@ -2,12 +2,6 @@ import { ImageOff, EyeOff, CalendarOff } from "lucide-react";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
-function getPaperColor(year: number): string {
-  if (year === 0 || year < 1900) return "#e8e0cc";
-  if (year < 1990) return "#f4f1ea";
-  return "#ffffff";
-}
-
 interface PhotoCardProps {
   photo: UnifiedPhoto;
   onClick: () => void;
@@ -18,15 +12,13 @@ interface PhotoCardProps {
 }
 
 export function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMarkUndated }: PhotoCardProps) {
-  const paperColor = getPaperColor(decade);
-
   return (
     <button
       onClick={onClick}
-      className="relative w-full h-full text-left p-2 pb-6 shadow-[4px_6px_16px_rgba(0,0,0,0.45)] transition-colors duration-500 hover:shadow-[6px_10px_24px_rgba(0,0,0,0.55)] hover:scale-105 transition-all focus:outline-none focus:ring-2 focus:ring-primary"
-      style={{ backgroundColor: paperColor }}
+      className="relative w-full text-left bg-white rounded-md shadow-[3px_5px_14px_rgba(0,0,0,0.35)] hover:shadow-[5px_8px_20px_rgba(0,0,0,0.45)] hover:scale-[1.03] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+      style={{ padding: '6px 6px 28px 6px' }}
     >
-      <div className="relative aspect-square bg-muted overflow-hidden">
+      <div className="relative aspect-[4/3] bg-muted overflow-hidden rounded-sm">
         {photo.imageUrl ? (
           <img
             src={photo.imageUrl}
@@ -43,26 +35,27 @@ export function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMa
           <ImageOff className="h-8 w-8 text-muted-foreground/40" />
         </div>
         <span
-          className="absolute top-1 left-1 text-[7px] px-1 py-0.5 leading-tight"
-          style={{ backgroundColor: `${paperColor}dd`, color: "#78716c" }}
+          className="absolute top-1 left-1 text-[7px] px-1 py-0.5 leading-tight rounded-sm"
+          style={{ backgroundColor: 'rgba(255,255,255,0.85)', color: '#78716c' }}
         >
           {photo.provider}
         </span>
-        <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 4px 1px rgba(0,0,0,0.3)" }} />
       </div>
-      <div className="mt-1.5 px-1">
-        <h3 className="text-[10px] font-semibold leading-tight text-stone-800 line-clamp-2">
+      <div className="mt-2 px-1">
+        <h3
+          className="text-[11px] font-medium leading-snug text-stone-700 line-clamp-2"
+          style={{ fontFamily: "'Caveat', cursive", fontSize: '14px' }}
+        >
           {photo.title}
         </h3>
-        {photo.description && photo.description !== photo.title && (
-          <p className="text-[9px] text-stone-500 line-clamp-3 mt-0.5">{photo.description}</p>
-        )}
         {photo.place && (
           <p className="text-[8px] text-stone-400 line-clamp-1 mt-0.5">{photo.place}</p>
         )}
-        <p className="text-[8px] text-stone-400 mt-0.5 line-clamp-2">{photo.source}</p>
       </div>
-      <p className="absolute bottom-1.5 right-2 text-sm text-stone-600 whitespace-nowrap" style={{ fontFamily: "'Caveat', cursive" }}>
+      <p
+        className="absolute bottom-1.5 right-2 text-stone-500 whitespace-nowrap"
+        style={{ fontFamily: "'Caveat', cursive", fontSize: '13px' }}
+      >
         {photo.year ?? "Odaterad"}
       </p>
       {isAdmin && (
