@@ -14,10 +14,12 @@ const MOBILE_LABELS = [
   { decade: 2020, text: "2020" },
 ];
 
-const DESKTOP_LABELS = DECADES.map((d) => ({
-  decade: d,
-  text: d === 0 ? "Odaterat" : `${d}`,
-}));
+const DESKTOP_LABELS = DECADES
+  .filter((d) => d !== 1820 && d !== 1830)
+  .map((d) => ({
+    decade: d,
+    text: d === 0 ? "Odaterat" : `${d}`,
+  }));
 
 interface TimeSliderProps {
   year: number;
