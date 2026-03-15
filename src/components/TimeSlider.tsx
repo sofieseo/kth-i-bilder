@@ -1,3 +1,5 @@
+import { useIsMobile } from "@/hooks/use-mobile";
+
 const DECADES = [
   0,
   1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890,
@@ -14,19 +16,15 @@ const MOBILE_LABELS = [
   { decade: 2020, text: "2020" },
 ];
 
-const DESKTOP_LABELS = DECADES
-  .filter((d) => d !== 1820 && d !== 1830)
-  .map((d) => ({
-    decade: d,
-    text: d === 0 ? "Odaterat" : `${d}`,
-  }));
+const DESKTOP_LABELS = DECADES.map((d) => ({
+  decade: d,
+  text: d === 0 ? "Ej dat." : `${d}`,
+}));
 
 interface TimeSliderProps {
   year: number;
   onChange: (year: number) => void;
 }
-
-import { useIsMobile } from "@/hooks/use-mobile";
 
 export function TimeSlider({ year, onChange }: TimeSliderProps) {
   const isMobile = useIsMobile();
@@ -53,10 +51,13 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
         {visibleLabels.map(({ decade, text }) => {
           const idx = DECADES.indexOf(decade);
           const pct = (idx / (DECADES.length - 1)) * 100;
+          const isFirst = idx === 0;
+          const isLast = pct === 100;
+          const align = isFirst ? 'translate-x-0' : isLast ? '-translate-x-full' : '-translate-x-1/2';
           return (
             <span
               key={decade}
-              className={`absolute text-[10px] sm:text-[11px] text-white font-sans font-semibold ${idx === 0 ? 'translate-x-0' : '-translate-x-1/2'}`}
+              className={`absolute text-[9px] sm:text-[11px] text-white font-sans font-semibold ${align}`}
               style={{ left: `${pct}%` }}
             >
               {text}
