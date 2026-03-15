@@ -24,7 +24,11 @@ interface TimeSliderProps {
   onChange: (year: number) => void;
 }
 
+import { useIsMobile } from "@/hooks/use-mobile";
+
 export function TimeSlider({ year, onChange }: TimeSliderProps) {
+  const isMobile = useIsMobile();
+  const visibleLabels = isMobile ? MOBILE_LABELS : DESKTOP_LABELS;
   const decadeIndex = DECADES.indexOf(year) >= 0
     ? DECADES.indexOf(year)
     : DECADES.findIndex((d) => d >= year) || 0;
