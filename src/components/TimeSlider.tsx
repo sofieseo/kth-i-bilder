@@ -46,7 +46,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
         </span>
       </div>
 
-      {/* Labels above slider */}
+      {/* Clickable labels above slider */}
       <div className="relative h-5 mb-2">
         {visibleLabels.map(({ decade, text }) => {
           const idx = DECADES.indexOf(decade);
@@ -54,14 +54,17 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
           const isFirst = idx === 0;
           const isLast = pct === 100;
           const align = isFirst ? 'translate-x-0' : isLast ? '-translate-x-full' : '-translate-x-1/2';
+          const isActive = decade === year;
           return (
-            <span
+            <button
               key={decade}
-              className={`absolute text-[9px] sm:text-[11px] text-white font-sans font-semibold ${align}`}
+              type="button"
+              onClick={() => onChange(decade)}
+              className={`absolute text-[9px] sm:text-[11px] font-sans font-semibold cursor-pointer hover:text-white transition-colors ${align} ${isActive ? 'text-white' : 'text-white/60 hover:text-white/90'}`}
               style={{ left: `${pct}%` }}
             >
               {text}
-            </span>
+            </button>
           );
         })}
       </div>
