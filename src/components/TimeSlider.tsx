@@ -5,7 +5,7 @@ const DECADES = [
   2000, 2010, 2020,
 ];
 
-const VISIBLE_LABELS = [
+const MOBILE_LABELS = [
   { decade: 0, text: "Odaterat" },
   { decade: 1850, text: "1850" },
   { decade: 1900, text: "1900" },
@@ -13,6 +13,11 @@ const VISIBLE_LABELS = [
   { decade: 2000, text: "2000" },
   { decade: 2020, text: "2020" },
 ];
+
+const DESKTOP_LABELS = DECADES.map((d) => ({
+  decade: d,
+  text: d === 0 ? "Odaterat" : `${d}`,
+}));
 
 interface TimeSliderProps {
   year: number;
