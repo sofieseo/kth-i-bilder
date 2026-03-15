@@ -112,7 +112,7 @@
 }
 
 
-/* Timeline slider – arrow thumb */
+/* Timeline slider – V-pointer thumb */
 .timeline-slider {
   -webkit-appearance: none;
   appearance: none;
@@ -124,35 +124,35 @@
 .timeline-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 18px;
-  height: 14px;
+  width: 20px;
+  height: 16px;
   border: none;
   background: transparent;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 14' fill='white'%3E%3Cpolygon points='9,0 18,14 0,14'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 16' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='2,1 10,13 18,1'/%3E%3C/svg%3E");
   background-size: contain;
   background-repeat: no-repeat;
   cursor: pointer;
-  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
 }
 .timeline-slider::-moz-range-thumb {
-  width: 18px;
-  height: 14px;
+  width: 20px;
+  height: 16px;
   border: none;
   border-radius: 0;
   background: transparent;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 14' fill='white'%3E%3Cpolygon points='9,0 18,14 0,14'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 16' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='2,1 10,13 18,1'/%3E%3C/svg%3E");
   background-size: contain;
   background-repeat: no-repeat;
   cursor: pointer;
-  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
 }
 @media (max-width: 640px) {
   .timeline-slider::-webkit-slider-thumb {
-    width: 22px;
-    height: 17px;
+    width: 24px;
+    height: 19px;
   }
   .timeline-slider::-moz-range-thumb {
-    width: 22px;
-    height: 17px;
+    width: 24px;
+    height: 19px;
   }
 }
