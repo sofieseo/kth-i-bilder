@@ -27,7 +27,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
   const label = year === 0 ? "Odaterat" : `${year}-talet`;
 
   return (
-    <div className="fixed bottom-10 left-1/2 z-[1000] w-[min(620px,94vw)] -translate-x-1/2 border border-white/20 bg-black/85 backdrop-blur-md px-5 py-2.5 shadow-2xl sm:px-6">
+    <div className="w-full">
       <div className="mb-1.5 flex items-center justify-between">
         <span className="text-[10px] uppercase tracking-widest text-white font-sans font-bold">
           Välj årtionde
@@ -37,17 +37,8 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
         </span>
       </div>
 
-      <input
-        type="range"
-        min={0}
-        max={DECADES.length - 1}
-        step={1}
-        value={decadeIndex}
-        onChange={(e) => onChange(DECADES[Number(e.target.value)])}
-        className="timeline-slider w-full cursor-pointer"
-      />
-
-      <div className="relative mt-1 h-5">
+      {/* Labels above slider */}
+      <div className="relative h-5 mb-1">
         {VISIBLE_LABELS.map(({ decade, text }) => {
           const idx = DECADES.indexOf(decade);
           const pct = (idx / (DECADES.length - 1)) * 100;
@@ -62,6 +53,16 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
           );
         })}
       </div>
+
+      <input
+        type="range"
+        min={0}
+        max={DECADES.length - 1}
+        step={1}
+        value={decadeIndex}
+        onChange={(e) => onChange(DECADES[Number(e.target.value)])}
+        className="timeline-slider w-full cursor-pointer"
+      />
     </div>
   );
 }
