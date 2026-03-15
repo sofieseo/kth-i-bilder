@@ -28,24 +28,24 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
 
   return (
     <div className="w-full">
-      <div className="mb-1.5 flex items-center justify-between">
-        <span className="text-[10px] uppercase tracking-widest text-white font-sans font-bold">
+      <div className="mb-2 flex items-center justify-between">
+        <span className="text-[11px] uppercase tracking-widest text-white/50 font-sans font-semibold">
           Välj årtionde
         </span>
-        <span className="rounded-full border border-white/25 bg-white/10 backdrop-blur-sm px-3 py-0.5 text-[10px] font-bold text-white font-sans tracking-wide">
+        <span className="rounded-full border border-white/30 bg-white/15 backdrop-blur-sm px-3.5 py-1 text-[11px] font-extrabold text-white font-sans tracking-wide">
           {label}
         </span>
       </div>
 
       {/* Labels above slider */}
-      <div className="relative h-5 mb-1">
+      <div className="relative h-5 mb-2">
         {VISIBLE_LABELS.map(({ decade, text }) => {
           const idx = DECADES.indexOf(decade);
           const pct = (idx / (DECADES.length - 1)) * 100;
           return (
             <span
               key={decade}
-              className={`absolute text-[9px] sm:text-[10px] text-white font-sans font-semibold ${idx === 0 ? 'translate-x-0' : '-translate-x-1/2'}`}
+              className={`absolute text-[10px] sm:text-[11px] text-white font-sans font-semibold ${idx === 0 ? 'translate-x-0' : '-translate-x-1/2'}`}
               style={{ left: `${pct}%` }}
             >
               {text}
