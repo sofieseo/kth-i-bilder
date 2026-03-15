@@ -57,7 +57,7 @@ const Index = () => {
            <p className="text-[11px] sm:text-xs text-white/60 font-sans mt-1 leading-relaxed">
              Bilder från DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
            </p>
-           <div className="mt-3 border-t border-white/15 pt-3">
+           <div className="mt-4 border-t border-white/15 pt-4">
              <TimeSlider year={year} onChange={handleYearChange} />
            </div>
          </div>
