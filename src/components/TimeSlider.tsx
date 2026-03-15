@@ -5,7 +5,7 @@ const DECADES = [
   2000, 2010, 2020,
 ];
 
-const VISIBLE_LABELS = [
+const MOBILE_LABELS = [
   { decade: 0, text: "Odaterat" },
   { decade: 1850, text: "1850" },
   { decade: 1900, text: "1900" },
@@ -14,12 +14,21 @@ const VISIBLE_LABELS = [
   { decade: 2020, text: "2020" },
 ];
 
+const DESKTOP_LABELS = DECADES.map((d) => ({
+  decade: d,
+  text: d === 0 ? "Odaterat" : `${d}`,
+}));
+
 interface TimeSliderProps {
   year: number;
   onChange: (year: number) => void;
 }
 
+import { useIsMobile } from "@/hooks/use-mobile";
+
 export function TimeSlider({ year, onChange }: TimeSliderProps) {
+  const isMobile = useIsMobile();
+  const visibleLabels = isMobile ? MOBILE_LABELS : DESKTOP_LABELS;
   const decadeIndex = DECADES.indexOf(year) >= 0
     ? DECADES.indexOf(year)
     : DECADES.findIndex((d) => d >= year) || 0;
@@ -39,7 +48,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
 
       {/* Labels above slider */}
       <div className="relative h-5 mb-2">
-        {VISIBLE_LABELS.map(({ decade, text }) => {
+        {visibleLabels.map(({ decade, text }) => {
           const idx = DECADES.indexOf(decade);
           const pct = (idx / (DECADES.length - 1)) * 100;
           return (
