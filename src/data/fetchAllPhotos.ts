@@ -97,6 +97,7 @@ export async function fetchAllPhotos(
     safeFetch(() => fetchDigitaltMuseum(year, searchQuery)),
     safeFetch(() => fetchEuropeana(year, searchQuery)),
     safeFetch(() => fetchKsamsok(year, searchQuery)),
+    safeFetch(() => fetchAlvinViaEuropeana(year, searchQuery)),
   ];
 
   if (!searchQuery) {
