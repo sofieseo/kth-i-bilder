@@ -29,9 +29,7 @@ const STRICT_KTH_KEYWORDS = [
   "teknologiska institutet",
 ];
 
-const STRICT_SOURCES = [
-  "tekniska museet",
-];
+const STRICT_SOURCES: string[] = [];
 
 export function isKthRelevant(photo: UnifiedPhoto): boolean {
   const sourceLower = photo.source.toLowerCase();
