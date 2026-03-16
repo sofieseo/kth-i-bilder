@@ -10,7 +10,8 @@ export function usePhotoFetch(initialYear = 1920) {
   const debouncedYear = useDebounce(year, 500);
 
   const { data: results = [], isLoading: loading } = useQuery<UnifiedPhoto[]>({
-    queryKey: ["photos", debouncedYear],
+    // Versionerad key för att tvinga refetch när käll-logik ändras
+    queryKey: ["photos", "with-alvin-v2", debouncedYear],
     queryFn: () => fetchAllPhotos(debouncedYear),
     staleTime: DAY_MS,
     gcTime: DAY_MS,

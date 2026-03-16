@@ -126,11 +126,19 @@ export async function fetchAllPhotos(
     }
   }
 
-  // Wikimedia photos first, then others
+  // Prioritera källor så nya specialkällor (t.ex. Alvin via Europeana)
+  // inte försvinner när vi kapar till 50 bilder.
   const wikimedia = relevant.filter((p) => p.provider === "Wikimedia Commons");
-  const rest = relevant.filter((p) => p.provider !== "Wikimedia Commons");
+  const alvinViaEuropeana = relevant.filter(
+    (p) => p.source === "Alvin (via Europeana)" || p.id.startsWith("alvin-"),
+  );
+  const rest = relevant.filter(
+    (p) => p.provider !== "Wikimedia Commons" &&
+      p.source !== "Alvin (via Europeana)" &&
+      !p.id.startsWith("alvin-"),
+  );
 
-  const all = [...wikimedia, ...local, ...rest];
+  const all = [...wikimedia, ...alvinViaEuropeana, ...local, ...rest];
   const result = deduplicatePhotos(all).slice(0, 50);
 
   // 3. Write to cache (fire-and-forget)
