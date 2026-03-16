@@ -28,6 +28,7 @@ function resolveMuseumName(code: string): string {
 }
 
 export async function fetchDigitaltMuseum(year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
+  const isUndated = year === 0;
   const from = year;
   const to = year + 9;
   const baseTerms = "\"KTH\" OR \"Kungliga Tekniska Högskolan\" OR \"Tekniska Högskolan Stockholm\" OR \"Teknologiska institutet\" OR \"K.T.H.\"";
@@ -37,7 +38,8 @@ export async function fetchDigitaltMuseum(year: number, searchQuery?: string): P
   const query = encodeURIComponent(queryStr);
   const fqParts = [
     "artifact.hasPictures:true",
-    ...(searchQuery ? [] : [`artifact.ingress.production.fromYear:[${from} TO ${to}]`]),
+    ...(searchQuery || isUndated ? [] : [`artifact.ingress.production.fromYear:[${from} TO ${to}]`]),
+    ...(isUndated ? ["-artifact.ingress.production.fromYear:[* TO *]"] : []),
   ];
   const fq = fqParts.map((f) => `fq=${encodeURIComponent(f)}`).join("&");
 
