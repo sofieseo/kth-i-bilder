@@ -8,6 +8,7 @@ import { fetchEuropeana } from "./europeana";
 import { fetchKsamsok } from "./ksamsok";
 import { getCuratedPhotos } from "./curatedPhotos";
 import { fetchWikimediaCommons } from "./wikimediaCommons";
+import { fetchAlvinViaEuropeana } from "./alvinEuropeana";
 import { supabase } from "@/integrations/supabase/client";
 
 const TIMEOUT_MS = 8_000;
