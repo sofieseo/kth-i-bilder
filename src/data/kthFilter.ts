@@ -26,6 +26,7 @@ const EXCLUDED_TERMS = [
 
 const STRICT_KTH_KEYWORDS = [
   "kth", "k.t.h.", "kungliga tekniska", "kungl. tekniska",
+  "teknologiska institutet",
 ];
 
 const STRICT_SOURCES = [
