@@ -47,8 +47,7 @@ async function fetchCategoryMembers(category: string): Promise<string[]> {
   const titles: string[] = [];
   let cmcontinue: string | undefined;
 
-  // Paginate to get all files
-  for (let page = 0; page < 5; page++) {
+  while (true) {
     const params = new URLSearchParams({
       action: "query",
       list: "categorymembers",

@@ -10,7 +10,7 @@ import { getCuratedPhotos } from "./curatedPhotos";
 import { fetchWikimediaCommons } from "./wikimediaCommons";
 import { supabase } from "@/integrations/supabase/client";
 
-const TIMEOUT_MS = 8_000;
+const TIMEOUT_MS = 45_000;
 const CACHE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 /** Wrap a promise with an AbortController-based timeout */
