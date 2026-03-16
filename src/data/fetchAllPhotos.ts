@@ -129,7 +129,7 @@ export async function fetchAllPhotos(
   const rest = relevant.filter((p) => p.provider !== "Wikimedia Commons");
 
   const all = [...wikimedia, ...local, ...rest];
-  const result = deduplicatePhotos(all).slice(0, 50);
+  const result = deduplicatePhotos(all);
 
   // 3. Write to cache (fire-and-forget)
   writeCache(decadeKey, result);
