@@ -27,48 +27,70 @@ function resolveMuseumName(code: string): string {
   return MUSEUM_NAMES[code] ?? code;
 }
 
-export async function fetchDigitaltMuseum(year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
+function buildUrl(queryStr: string, year: number, searchQuery?: string): string {
   const isUndated = year === 0;
   const from = year;
   const to = year + 9;
-  const baseTerms = "\"KTH\" OR \"Kungliga Tekniska Högskolan\" OR \"Tekniska Högskolan Stockholm\" OR \"Teknologiska institutet\" OR \"K.T.H.\"";
-  const queryStr = searchQuery
-    ? `(${baseTerms}) AND "${searchQuery}"`
-    : baseTerms;
-  const query = encodeURIComponent(queryStr);
+  const fullQuery = searchQuery ? `(${queryStr}) AND "${searchQuery}"` : queryStr;
+  const query = encodeURIComponent(fullQuery);
   const fqParts = [
     "artifact.hasPictures:true",
     ...(searchQuery || isUndated ? [] : [`artifact.ingress.production.fromYear:[${from} TO ${to}]`]),
     ...(isUndated ? ["-artifact.ingress.production.fromYear:[* TO *]"] : []),
   ];
   const fq = fqParts.map((f) => `fq=${encodeURIComponent(f)}`).join("&");
+  return `${DIMU_API}?q=${query}&${fq}&wt=json&rows=200&api.key=demo`;
+}
 
-  const url = `${DIMU_API}?q=${query}&${fq}&wt=json&rows=100&api.key=demo`;
+function parseDocs(docs: any[]): UnifiedPhoto[] {
+  return docs.map((doc) => {
+    const mediaId = doc["artifact.defaultMediaIdentifier"] ?? null;
+    const uniqueId = doc["artifact.uniqueId"] ?? "";
+    return {
+      id: `dimu-${uniqueId || Math.random()}`,
+      title: doc["artifact.ingress.title"] ?? "Utan titel",
+      source: resolveMuseumName(doc["identifier.owner"] ?? "Okänd källa"),
+      year: doc["artifact.ingress.production.fromYear"] ?? null,
+      imageUrl: mediaId ? `${DIMU_IMG}/${mediaId}?dimension=400x400` : null,
+      imageUrlFull: mediaId ? `${DIMU_IMG}/${mediaId}?dimension=1200x1200` : null,
+      description: doc["artifact.ingress.classification"] ?? doc["artifact.ingress.subjects"]?.[0] ?? "",
+      coordinate: doc["artifact.coordinate"] ?? null,
+      subjects: doc["artifact.ingress.subjects"] ?? [],
+      license: doc["artifact.ingress.license"] ?? "",
+      place: doc["artifact.ingress.production.place"] ?? "",
+      originalLink: uniqueId ? `https://digitaltmuseum.org/${uniqueId}` : "",
+      provider: "DigitaltMuseum" as const,
+    };
+  });
+}
+
+export async function fetchDigitaltMuseum(year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
+  const kthTerms = "\"KTH\" OR \"Kungliga Tekniska Högskolan\" OR \"Tekniska Högskolan Stockholm\" OR \"K.T.H.\"";
+  const tekInstTerms = "\"Teknologiska institutet\"";
+
+  const urls = [
+    buildUrl(kthTerms, year, searchQuery),
+    buildUrl(tekInstTerms, year, searchQuery),
+  ];
+
   try {
-    const res = await fetch(url);
-    if (!res.ok) return [];
-    const data = await res.json();
-    const docs: any[] = data?.response?.docs ?? [];
+    const responses = await Promise.all(urls.map((u) => fetch(u).then((r) => r.ok ? r.json() : null).catch(() => null)));
 
-    return docs.map((doc) => {
-      const mediaId = doc["artifact.defaultMediaIdentifier"] ?? null;
-      const uniqueId = doc["artifact.uniqueId"] ?? "";
-      return {
-        id: `dimu-${uniqueId || Math.random()}`,
-        title: doc["artifact.ingress.title"] ?? "Utan titel",
-        source: resolveMuseumName(doc["identifier.owner"] ?? "Okänd källa"),
-        year: doc["artifact.ingress.production.fromYear"] ?? null,
-        imageUrl: mediaId ? `${DIMU_IMG}/${mediaId}?dimension=400x400` : null,
-        imageUrlFull: mediaId ? `${DIMU_IMG}/${mediaId}?dimension=1200x1200` : null,
-        description: doc["artifact.ingress.classification"] ?? doc["artifact.ingress.subjects"]?.[0] ?? "",
-        coordinate: doc["artifact.coordinate"] ?? null,
-        subjects: doc["artifact.ingress.subjects"] ?? [],
-        license: doc["artifact.ingress.license"] ?? "",
-        place: doc["artifact.ingress.production.place"] ?? "",
-        originalLink: uniqueId ? `https://digitaltmuseum.org/${uniqueId}` : "",
-        provider: "DigitaltMuseum" as const,
-      };
+    const allDocs: any[] = [];
+    for (const data of responses) {
+      if (data?.response?.docs) allDocs.push(...data.response.docs);
+    }
+
+    // Deduplicate by uniqueId
+    const seen = new Set<string>();
+    const unique = allDocs.filter((doc) => {
+      const uid = doc["artifact.uniqueId"];
+      if (!uid || seen.has(uid)) return false;
+      seen.add(uid);
+      return true;
     });
+
+    return parseDocs(unique);
   } catch {
     return [];
   }
