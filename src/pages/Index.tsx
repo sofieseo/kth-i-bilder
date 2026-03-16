@@ -55,7 +55,7 @@ const Index = () => {
              Utforska KTH i bilder
            </h1>
            <p className="text-[11px] sm:text-xs text-white/60 font-sans mt-1 leading-relaxed">
-             Bilder från DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
+             Bilder från DigitaltMuseum, Europeana, K-samsök, Stockholmskällan, Wikimedia Commons och Alvin
            </p>
            <div className="mt-4 border-t border-white/15 pt-4">
              <TimeSlider year={year} onChange={handleYearChange} />
