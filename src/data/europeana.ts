@@ -33,7 +33,7 @@ export async function fetchEuropeana(year: number, searchQuery?: string): Promis
     const responses = await Promise.all(
       requests.map(async ({ query, qfParts }) => {
         const encodedQuery = encodeURIComponent(query);
-        const url = `${EUROPEANA_API}?wskey=${EUROPEANA_API_KEY}&query=${encodedQuery}&${qfParts.join("&")}&rows=50&profile=standard`;
+        const url = `${EUROPEANA_API}?wskey=${EUROPEANA_API_KEY}&query=${encodedQuery}&${qfParts.join("&")}&rows=100&profile=standard`;
         const res = await fetch(url);
         if (!res.ok) return [];
         const data = await res.json();
