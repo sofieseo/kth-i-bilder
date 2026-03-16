@@ -12,7 +12,6 @@ const MOBILE_LABELS = [
   { decade: 1850, text: "1850" },
   { decade: 1900, text: "1900" },
   { decade: 1950, text: "1950" },
-  { decade: 2000, text: "2000" },
   { decade: 2020, text: "2020" },
 ];
 
