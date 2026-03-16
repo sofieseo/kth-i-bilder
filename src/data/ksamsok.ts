@@ -1,39 +1,70 @@
 import type { UnifiedPhoto } from "./types";
 
 const KSAMSOK_API = "https://kulturarvsdata.se/ksamsok/api";
+const HITS_PER_PAGE = 500;
+
+async function fetchKsamsokPaginated(query: string): Promise<UnifiedPhoto[]> {
+  const merged: UnifiedPhoto[] = [];
+  const seen = new Set<string>();
+  let startRecord = 1;
+  let previousFirstId: string | null = null;
+
+  while (true) {
+    const url = `${KSAMSOK_API}?method=search&hitsPerPage=${HITS_PER_PAGE}&startRecord=${startRecord}&query=${encodeURIComponent(query)}&x-api=test`;
+    const res = await fetch(url);
+    if (!res.ok) break;
+
+    const text = await res.text();
+    const batch = parseKsamsokXml(text);
+    if (batch.length === 0) break;
+
+    const firstId = batch[0]?.id ?? null;
+    if (firstId && firstId === previousFirstId) break;
+    previousFirstId = firstId;
+
+    let addedCount = 0;
+    for (const photo of batch) {
+      if (!seen.has(photo.id)) {
+        seen.add(photo.id);
+        merged.push(photo);
+        addedCount += 1;
+      }
+    }
+
+    if (batch.length < HITS_PER_PAGE || addedCount === 0) break;
+    startRecord += batch.length;
+  }
+
+  return merged;
+}
 
 export async function fetchKsamsok(year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
   try {
-    const queries = [
+    const baseQueries = [
       `text=KTH AND thumbnailExists=j`,
+      `text="K.T.H." AND thumbnailExists=j`,
       `text="Kungliga Tekniska Högskolan" AND thumbnailExists=j`,
+      `text="Teknologiska institutet" AND thumbnailExists=j`,
     ];
-    if (searchQuery) {
-      queries.length = 0;
-      queries.push(`text=KTH AND text="${searchQuery}" AND thumbnailExists=j`);
-      queries.push(`text="Kungliga Tekniska Högskolan" AND text="${searchQuery}" AND thumbnailExists=j`);
-    }
 
-    const fetches = queries.map(async (q) => {
-      const url = `${KSAMSOK_API}?method=search&hitsPerPage=500&query=${encodeURIComponent(q)}&x-api=test`;
-      const res = await fetch(url);
-      if (!res.ok) return [];
-      const text = await res.text();
-      return parseKsamsokXml(text);
-    });
+    const queries = searchQuery
+      ? baseQueries.map((q) => `${q.replace(" AND thumbnailExists=j", "")} AND text="${searchQuery}" AND thumbnailExists=j`)
+      : baseQueries;
 
-    const results = await Promise.all(fetches);
+    const results = await Promise.all(queries.map(fetchKsamsokPaginated));
+
     const seen = new Set<string>();
-    const merged: UnifiedPhoto[] = [];
+    const deduped: UnifiedPhoto[] = [];
     for (const batch of results) {
       for (const photo of batch) {
         if (!seen.has(photo.id)) {
           seen.add(photo.id);
-          merged.push(photo);
+          deduped.push(photo);
         }
       }
     }
-    return merged;
+
+    return deduped;
   } catch {
     return [];
   }

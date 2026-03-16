@@ -2,6 +2,7 @@ import type { UnifiedPhoto } from "./types";
 
 const DIMU_API = "https://api.dimu.org/api/solr/select";
 const DIMU_IMG = "https://mm.dimu.org/image";
+const ROWS_PER_PAGE = 200;
 
 const MUSEUM_NAMES: Record<string, string> = {
   "S-TEK": "Tekniska museet",
@@ -27,25 +28,28 @@ function resolveMuseumName(code: string): string {
   return MUSEUM_NAMES[code] ?? code;
 }
 
-function buildUrl(queryStr: string, year: number, searchQuery?: string): string {
+function buildUrl(queryStr: string, year: number, searchQuery?: string, start = 0): string {
   const isUndated = year === 0;
   const from = year;
   const to = year + 9;
   const fullQuery = searchQuery ? `(${queryStr}) AND "${searchQuery}"` : queryStr;
   const query = encodeURIComponent(fullQuery);
+
   const fqParts = [
     "artifact.hasPictures:true",
     ...(searchQuery || isUndated ? [] : [`artifact.ingress.production.fromYear:[${from} TO ${to}]`]),
     ...(isUndated ? ["-artifact.ingress.production.fromYear:[* TO *]"] : []),
   ];
   const fq = fqParts.map((f) => `fq=${encodeURIComponent(f)}`).join("&");
-  return `${DIMU_API}?q=${query}&${fq}&wt=json&rows=200&api.key=demo`;
+
+  return `${DIMU_API}?q=${query}&${fq}&wt=json&rows=${ROWS_PER_PAGE}&start=${start}&api.key=demo`;
 }
 
 function parseDocs(docs: any[]): UnifiedPhoto[] {
   return docs.map((doc) => {
     const mediaId = doc["artifact.defaultMediaIdentifier"] ?? null;
     const uniqueId = doc["artifact.uniqueId"] ?? "";
+
     return {
       id: `dimu-${uniqueId || Math.random()}`,
       title: doc["artifact.ingress.title"] ?? "Utan titel",
@@ -64,33 +68,53 @@ function parseDocs(docs: any[]): UnifiedPhoto[] {
   });
 }
 
+async function fetchPaginatedDocs(queryStr: string, year: number, searchQuery?: string): Promise<any[]> {
+  const docs: any[] = [];
+  let start = 0;
+  let total: number | null = null;
+
+  while (total === null || docs.length < total) {
+    const res = await fetch(buildUrl(queryStr, year, searchQuery, start));
+    if (!res.ok) break;
+
+    const data = await res.json();
+    const batch: any[] = data?.response?.docs ?? [];
+    const numFound = data?.response?.numFound;
+
+    if (typeof numFound === "number") total = numFound;
+    if (batch.length === 0) break;
+
+    docs.push(...batch);
+    start += batch.length;
+
+    if (batch.length < ROWS_PER_PAGE) break;
+  }
+
+  return docs;
+}
+
 export async function fetchDigitaltMuseum(year: number, searchQuery?: string): Promise<UnifiedPhoto[]> {
   const kthTerms = "\"KTH\" OR \"Kungliga Tekniska Högskolan\" OR \"Tekniska Högskolan Stockholm\" OR \"K.T.H.\"";
   const tekInstTerms = "\"Teknologiska institutet\"";
 
-  const urls = [
-    buildUrl(kthTerms, year, searchQuery),
-    buildUrl(tekInstTerms, year, searchQuery),
-  ];
-
   try {
-    const responses = await Promise.all(urls.map((u) => fetch(u).then((r) => r.ok ? r.json() : null).catch(() => null)));
+    const [kthDocs, tekInstDocs] = await Promise.all([
+      fetchPaginatedDocs(kthTerms, year, searchQuery),
+      fetchPaginatedDocs(tekInstTerms, year, searchQuery),
+    ]);
 
-    const allDocs: any[] = [];
-    for (const data of responses) {
-      if (data?.response?.docs) allDocs.push(...data.response.docs);
-    }
-
-    // Deduplicate by uniqueId
+    const allDocs = [...kthDocs, ...tekInstDocs];
     const seen = new Set<string>();
-    const unique = allDocs.filter((doc) => {
-      const uid = doc["artifact.uniqueId"];
-      if (!uid || seen.has(uid)) return false;
-      seen.add(uid);
+
+    const uniqueDocs = allDocs.filter((doc) => {
+      const key = doc["artifact.uniqueId"] ?? doc["artifact.uuid"] ?? null;
+      if (!key) return true;
+      if (seen.has(key)) return false;
+      seen.add(key);
       return true;
     });
 
-    return parseDocs(unique);
+    return parseDocs(uniqueDocs);
   } catch {
     return [];
   }
