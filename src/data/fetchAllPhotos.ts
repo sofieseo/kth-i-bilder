@@ -8,7 +8,6 @@ import { fetchEuropeana } from "./europeana";
 import { fetchKsamsok } from "./ksamsok";
 import { getCuratedPhotos } from "./curatedPhotos";
 import { fetchWikimediaCommons } from "./wikimediaCommons";
-import { fetchAlvinViaEuropeana } from "./alvinEuropeana";
 import { supabase } from "@/integrations/supabase/client";
 
 const TIMEOUT_MS = 8_000;
@@ -97,7 +96,6 @@ export async function fetchAllPhotos(
     safeFetch(() => fetchDigitaltMuseum(year, searchQuery)),
     safeFetch(() => fetchEuropeana(year, searchQuery)),
     safeFetch(() => fetchKsamsok(year, searchQuery)),
-    safeFetch(() => fetchAlvinViaEuropeana(year, searchQuery)),
   ];
 
   if (!searchQuery) {
@@ -126,19 +124,11 @@ export async function fetchAllPhotos(
     }
   }
 
-  // Prioritera källor så nya specialkällor (t.ex. Alvin via Europeana)
-  // inte försvinner när vi kapar till 50 bilder.
+  // Wikimedia photos first, then others
   const wikimedia = relevant.filter((p) => p.provider === "Wikimedia Commons");
-  const alvinViaEuropeana = relevant.filter(
-    (p) => p.source === "Alvin (via Europeana)" || p.id.startsWith("alvin-"),
-  );
-  const rest = relevant.filter(
-    (p) => p.provider !== "Wikimedia Commons" &&
-      p.source !== "Alvin (via Europeana)" &&
-      !p.id.startsWith("alvin-"),
-  );
+  const rest = relevant.filter((p) => p.provider !== "Wikimedia Commons");
 
-  const all = [...wikimedia, ...alvinViaEuropeana, ...local, ...rest];
+  const all = [...wikimedia, ...local, ...rest];
   const result = deduplicatePhotos(all).slice(0, 50);
 
   // 3. Write to cache (fire-and-forget)
