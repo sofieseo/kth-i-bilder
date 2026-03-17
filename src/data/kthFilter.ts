@@ -21,7 +21,7 @@ const EXCLUDED_SOURCES = [
 
 const EXCLUDED_TERMS = [
   "världsutställning", "paris", "world exhibition", "exposition universelle",
-  "uthus", "örebro",
+  "uthus",
 ];
 
 const STRICT_KTH_KEYWORDS = [
