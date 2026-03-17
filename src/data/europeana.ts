@@ -39,7 +39,7 @@ export async function fetchEuropeana(year: number, searchQuery?: string): Promis
 
   try {
     const typeFilter = encodeURIComponent("TYPE:IMAGE");
-    const baseTerms = "KTH OR \"Kungliga Tekniska Högskolan\" OR \"Teknologiska institutet\" OR \"K.T.H.\"";
+    const baseTerms = "KTH OR \"Kungliga Tekniska Högskolan\" OR \"Teknologiska institutet\" OR \"K.T.H.\" OR Teknis";
     const baseQueryStr = searchQuery ? `(${baseTerms}) AND "${searchQuery}"` : baseTerms;
 
     const isUndatedMode = year === 0;
