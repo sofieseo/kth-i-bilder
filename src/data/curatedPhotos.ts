@@ -4,16 +4,18 @@ import { supabase } from "@/integrations/supabase/client";
 /** Fetch curated photos from the database, filtered by decade */
 export async function getCuratedPhotos(year: number): Promise<UnifiedPhoto[]> {
   const isUndatedMode = year === 0;
-  if (isUndatedMode) return [];
 
-  const from = year;
-  const to = year + 9;
+  let query = supabase.from("curated_photos").select("*");
 
-  const { data, error } = await supabase
-    .from("curated_photos")
-    .select("*")
-    .gte("year", from)
-    .lte("year", to);
+  if (isUndatedMode) {
+    query = query.is("year", null);
+  } else {
+    const from = year;
+    const to = year + 9;
+    query = query.gte("year", from).lte("year", to);
+  }
+
+  const { data, error } = await query;
 
   if (error || !data) return [];
 

@@ -86,7 +86,7 @@ export async function fetchAllPhotos(
   // Curated photos from database
   const local: UnifiedPhoto[] = [];
 
-  if (!isUndatedMode && !searchQuery) {
+  if (!searchQuery) {
     const curated = await getCuratedPhotos(year);
     local.push(...curated);
   }
