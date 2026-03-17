@@ -1,4 +1,5 @@
 import { useMemo, useState, useRef, useEffect } from "react";
+import { EyeOff } from "lucide-react";
 import { TimeSlider } from "@/components/TimeSlider";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { HiddenPhotosModal } from "@/components/HiddenPhotosModal";
