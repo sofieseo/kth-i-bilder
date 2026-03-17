@@ -57,7 +57,7 @@ const Index = () => {
            </h1>
             <div className="flex items-center justify-between">
               <p className="text-[11px] sm:text-xs text-white/60 font-sans mt-1 leading-relaxed">
-                Bilder från DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
+                Bilder från Alvin, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
               </p>
               {isAdmin && (
                 <button
