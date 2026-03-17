@@ -55,13 +55,24 @@ const Index = () => {
            <h1 className="text-2xl font-bold text-white font-sans uppercase tracking-wide">
              Utforska KTH i bilder
            </h1>
-           <p className="text-[11px] sm:text-xs text-white/60 font-sans mt-1 leading-relaxed">
-             Bilder från DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
-           </p>
-           <div className="mt-4 border-t border-white/15 pt-4">
-             <TimeSlider year={year} onChange={handleYearChange} />
-           </div>
-         </div>
+            <div className="flex items-center justify-between">
+              <p className="text-[11px] sm:text-xs text-white/60 font-sans mt-1 leading-relaxed">
+                Bilder från DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
+              </p>
+              {isAdmin && (
+                <button
+                  onClick={() => setShowHidden(true)}
+                  className="shrink-0 ml-3 flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
+                >
+                  <EyeOff className="h-3.5 w-3.5" />
+                  Dolda ({hiddenIds.size})
+                </button>
+              )}
+            </div>
+            <div className="mt-4 border-t border-white/15 pt-4">
+              <TimeSlider year={year} onChange={handleYearChange} />
+            </div>
+          </div>
       </header>
 
       <PhotoGallery results={visibleResults} year={year} loading={loading} isAdmin={isAdmin} onHidePhoto={hidePhoto} onMarkUndated={isAdmin ? markAsUndated : undefined} />
