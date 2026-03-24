@@ -52,9 +52,9 @@ const Index = () => {
     <div className="flex h-screen w-screen flex-col" style={{ background: "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/images/brick-bg.jpg') center/600px fixed" }}>
       <header className="shrink-0 px-4 py-3">
          <div className="bg-black/85 backdrop-blur-md border border-white/20 px-4 py-3 sm:px-6">
-            <h1 className="text-3xl font-bold text-white font-sans uppercase tracking-wide">
-              KTH i bilder
-            </h1>
+             <h1 className="text-3xl font-bold text-white uppercase tracking-wide" style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" }}>
+               KTH i bilder
+             </h1>
              <div className="flex items-center justify-between">
                <p className="text-[11px] sm:text-xs text-white/60 font-sans mt-1 leading-relaxed">
                  Bilder hämtas från Alvin, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
