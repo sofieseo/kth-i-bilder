@@ -8,7 +8,7 @@ const DECADES = [
 ];
 
 const MOBILE_LABELS = [
-  { decade: 0, text: "Odaterat" },
+  { decade: 0, text: "ODATERAT" },
   { decade: 1850, text: "1850" },
   { decade: 1900, text: "1900" },
   { decade: 1950, text: "1950" },
@@ -17,7 +17,7 @@ const MOBILE_LABELS = [
 
 const DESKTOP_LABELS = DECADES.map((d) => ({
   decade: d,
-  text: d === 0 ? "Ej dat." : `${d}`,
+  text: d === 0 ? "EJ DAT." : `${d}`,
 }));
 
 interface TimeSliderProps {
@@ -32,7 +32,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
     ? DECADES.indexOf(year)
     : DECADES.findIndex((d) => d >= year) || 0;
 
-  const label = year === 0 ? "Odaterat" : `${year}-talet`;
+  const label = year === 0 ? "ODATERAT" : `${year}-talet`;
 
   return (
     <div className="w-full">

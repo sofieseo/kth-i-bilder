@@ -3,7 +3,7 @@ import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 function getPaperColor(year: number): string {
-  if (year === 0 || year < 1900) return "#e8e0cc";
+  if (year === 0 || year < 1900) return "#ede8d8";
   if (year < 1990) return "#f4f1ea";
   return "#ffffff";
 }
