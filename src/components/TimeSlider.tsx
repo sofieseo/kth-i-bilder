@@ -17,7 +17,7 @@ const MOBILE_LABELS = [
 
 const DESKTOP_LABELS = DECADES.map((d) => ({
   decade: d,
-  text: d === 0 ? "Ej dat." : `${d}`,
+  text: d === 0 ? "EJ DAT." : `${d}`,
 }));
 
 interface TimeSliderProps {
