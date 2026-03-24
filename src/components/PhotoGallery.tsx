@@ -40,7 +40,7 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
                 <span>Söker i fler arkiv…</span>
               </div>
             )}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 items-start">
               {results.map((photo) => (
                 <PhotoCard key={photo.id} photo={photo} decade={year} onClick={() => setSelectedPhoto(photo)} isAdmin={isAdmin} onHide={onHidePhoto} onMarkUndated={onMarkUndated} />
               ))}
