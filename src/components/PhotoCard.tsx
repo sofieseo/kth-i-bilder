@@ -50,17 +50,17 @@ export function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMa
         </span>
         <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 4px 1px rgba(0,0,0,0.3)" }} />
       </div>
-      <div className="mt-1.5 px-1">
+      <div className="mt-1.5 px-1 h-14 overflow-hidden">
         <h3 className="text-[10px] font-semibold leading-tight text-stone-800 line-clamp-2">
           {photo.title}
         </h3>
         {photo.description && photo.description !== photo.title && (
-          <p className="text-[9px] text-stone-500 line-clamp-2 mt-0.5">{photo.description}</p>
+          <p className="text-[9px] text-stone-500 line-clamp-1 mt-0.5">{photo.description}</p>
         )}
         {photo.place && (
           <p className="text-[8px] text-stone-400 line-clamp-1 mt-0.5">{photo.place}</p>
         )}
-        <p className="text-[8px] text-stone-400 mt-0.5 line-clamp-2">{photo.source}</p>
+        <p className="text-[8px] text-stone-400 mt-0.5 line-clamp-1">{photo.source}</p>
       </div>
       <p className="absolute bottom-1.5 right-2 text-sm text-stone-600 whitespace-nowrap" style={{ fontFamily: "'Caveat', cursive" }}>
         {photo.year ?? "Odaterad"}
