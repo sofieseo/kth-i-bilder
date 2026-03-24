@@ -23,9 +23,15 @@ export function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMa
   return (
     <button
       onClick={onClick}
-      className="relative w-full h-full text-left p-2 pb-5 shadow-[4px_6px_16px_rgba(0,0,0,0.45)] transition-colors duration-500 hover:shadow-[6px_10px_24px_rgba(0,0,0,0.55)] hover:scale-105 transition-all focus:outline-none focus:ring-2 focus:ring-primary"
+      className="relative w-full h-full text-left p-2 pt-5 pb-5 shadow-[4px_6px_16px_rgba(0,0,0,0.45)] transition-colors duration-500 hover:shadow-[6px_10px_24px_rgba(0,0,0,0.55)] hover:scale-105 transition-all focus:outline-none focus:ring-2 focus:ring-primary"
       style={{ backgroundColor: paperColor }}
     >
+      <span
+        className="absolute top-1.5 left-2 text-[7px] leading-tight"
+        style={{ color: "#78716c" }}
+      >
+        {photo.provider}
+      </span>
       <div className="relative aspect-square bg-muted overflow-hidden">
         {photo.imageUrl ? (
           <img
@@ -42,12 +48,6 @@ export function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMa
         <div className={`flex h-full w-full items-center justify-center absolute inset-0 ${photo.imageUrl ? "hidden" : ""}`}>
           <ImageOff className="h-8 w-8 text-muted-foreground/40" />
         </div>
-        <span
-          className="absolute top-1 left-1 text-[7px] px-1 py-0.5 leading-tight"
-          style={{ backgroundColor: `${paperColor}dd`, color: "#78716c" }}
-        >
-          {photo.provider}
-        </span>
         <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 4px 1px rgba(0,0,0,0.3)" }} />
       </div>
       <div className="mt-1.5 px-1">
