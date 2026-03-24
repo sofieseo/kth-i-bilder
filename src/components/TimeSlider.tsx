@@ -8,7 +8,7 @@ const DECADES = [
 ];
 
 const MOBILE_LABELS = [
-  { decade: 0, text: "Odaterat" },
+  { decade: 0, text: "ODATERAT" },
   { decade: 1850, text: "1850" },
   { decade: 1900, text: "1900" },
   { decade: 1950, text: "1950" },
