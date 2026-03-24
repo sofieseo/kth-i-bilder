@@ -53,7 +53,7 @@ const Index = () => {
       <header className="shrink-0 px-4 py-3">
          <div className="bg-black/85 backdrop-blur-md border border-white/20 px-4 py-3 sm:px-6">
             <h1 className="text-3xl font-bold text-white font-sans uppercase tracking-wide">
-              Utforska KTH i bilder
+              KTH i bilder
             </h1>
              <div className="flex items-center justify-between">
                <p className="text-[11px] sm:text-xs text-white/60 font-sans mt-1 leading-relaxed">
