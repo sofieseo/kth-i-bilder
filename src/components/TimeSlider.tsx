@@ -32,7 +32,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
     ? DECADES.indexOf(year)
     : DECADES.findIndex((d) => d >= year) || 0;
 
-  const label = year === 0 ? "Odaterat" : `${year}-talet`;
+  const label = year === 0 ? "ODATERAT" : `${year}-talet`;
 
   return (
     <div className="w-full">
