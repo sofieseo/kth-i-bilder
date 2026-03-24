@@ -50,7 +50,7 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
       </div>
 
       <div className="fixed bottom-0 left-0 right-0 z-10 border-t border-border bg-background/80 backdrop-blur-sm px-4 py-1.5">
-        <p className="text-[10px] text-muted-foreground text-center">
+        <p className="text-[8px] text-muted-foreground text-center">
           Data från Alvin, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan &amp; Wikimedia Commons. Ett hobbyprojekt av Sofie Seo.
         </p>
       </div>
