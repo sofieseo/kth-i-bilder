@@ -52,7 +52,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
           const pct = (idx / (DECADES.length - 1)) * 100;
           const isFirst = idx === 0;
           const isLast = pct === 100;
-          const align = isFirst ? 'translate-x-0' : isLast ? '-translate-x-full' : '-translate-x-1/2';
+          const align = isFirst ? '-translate-x-[2px]' : isLast ? '-translate-x-full' : '-translate-x-1/2';
           const isActive = decade === year;
           return (
             <button
@@ -60,7 +60,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
               type="button"
               onClick={() => onChange(decade)}
               className={`absolute text-[9px] sm:text-[11px] font-sans font-semibold cursor-pointer hover:text-white transition-colors ${align} ${isActive ? 'text-white' : 'text-white/60 hover:text-white/90'}`}
-              style={{ left: `${pct}%` }}
+              style={{ left: isFirst ? '-9px' : `${pct}%` }}
             >
               {text}
             </button>
