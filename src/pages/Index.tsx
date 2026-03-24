@@ -56,9 +56,9 @@ const Index = () => {
                KTH i bilder
              </h1>
              <div className="flex items-center justify-between">
-               <p className="text-[11px] sm:text-xs text-white/60 font-sans mt-1 leading-relaxed">
+               <p className="text-[11px] sm:text-xs text-white/60 font-display mt-1 leading-relaxed">
                  Bilder hämtas från Alvin, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
-              </p>
+               </p>
               {isAdmin && (
                 <button
                   onClick={() => setShowHidden(true)}

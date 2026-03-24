@@ -59,7 +59,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
               key={decade}
               type="button"
               onClick={() => onChange(decade)}
-              className={`absolute text-[9px] sm:text-[11px] font-sans font-semibold cursor-pointer hover:text-white transition-colors ${align} ${isActive ? 'text-white' : 'text-white/60 hover:text-white/90'}`}
+              className={`absolute text-[9px] sm:text-[11px] font-display font-semibold cursor-pointer hover:text-white transition-colors ${align} ${isActive ? 'text-white' : 'text-white/60 hover:text-white/90'}`}
               style={{ left: isFirst ? '-9px' : `${pct}%` }}
             >
               {text}
