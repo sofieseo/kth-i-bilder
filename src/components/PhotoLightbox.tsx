@@ -1,5 +1,5 @@
-import { X, ExternalLink, Building2, MapPin, Calendar, Tag, ImageOff, Camera } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { X, ExternalLink, Building2, MapPin, Calendar, Tag, ImageOff, Camera, Share2, Check } from "lucide-react";
+import { useState } from "react";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 
 interface PhotoLightboxProps {
@@ -8,6 +8,17 @@ interface PhotoLightboxProps {
 }
 
 export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("photo", photo.id);
+    navigator.clipboard.writeText(url.toString()).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
+
   return (
     <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
