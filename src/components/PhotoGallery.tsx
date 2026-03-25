@@ -83,7 +83,20 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
       </div>
 
       {selectedPhoto && (
-        <PhotoLightbox photo={selectedPhoto} onClose={() => handleSelectPhoto(null)} />
+        <PhotoLightbox
+          photo={selectedPhoto}
+          onClose={() => handleSelectPhoto(null)}
+          onPrev={() => {
+            const idx = results.findIndex((p) => p.id === selectedPhoto.id);
+            if (idx > 0) handleSelectPhoto(results[idx - 1]);
+          }}
+          onNext={() => {
+            const idx = results.findIndex((p) => p.id === selectedPhoto.id);
+            if (idx < results.length - 1) handleSelectPhoto(results[idx + 1]);
+          }}
+          hasPrev={results.findIndex((p) => p.id === selectedPhoto.id) > 0}
+          hasNext={results.findIndex((p) => p.id === selectedPhoto.id) < results.length - 1}
+        />
       )}
     </>
   );

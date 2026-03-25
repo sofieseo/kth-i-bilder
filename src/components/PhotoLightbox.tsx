@@ -1,14 +1,20 @@
-import { X, ExternalLink, Building2, MapPin, Calendar, Tag, ImageOff, Camera, Share2, Check } from "lucide-react";
-import { useState } from "react";
+import { X, ExternalLink, Building2, MapPin, Calendar, Tag, ImageOff, Camera, Share2, Check, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 
 interface PhotoLightboxProps {
   photo: UnifiedPhoto;
   onClose: () => void;
+  onPrev?: () => void;
+  onNext?: () => void;
+  hasPrev?: boolean;
+  hasNext?: boolean;
 }
 
-export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
+export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext }: PhotoLightboxProps) {
   const [copied, setCopied] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
 
   const handleShare = () => {
     const url = new URL(window.location.href);
@@ -19,12 +25,64 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
     });
   };
 
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft" && onPrev && hasPrev) { e.preventDefault(); onPrev(); }
+      if (e.key === "ArrowRight" && onNext && hasNext) { e.preventDefault(); onNext(); }
+      if (e.key === "Escape") { e.preventDefault(); onClose(); }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onPrev, onNext, hasPrev, hasNext, onClose]);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  }, []);
+
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (touchStartX.current === null || touchStartY.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    const dy = e.changedTouches[0].clientY - touchStartY.current;
+    const absDx = Math.abs(dx);
+    const absDy = Math.abs(dy);
+    // Only trigger if horizontal swipe is dominant and > 50px
+    if (absDx > 50 && absDx > absDy * 1.5) {
+      if (dx > 0 && onPrev && hasPrev) onPrev();
+      if (dx < 0 && onNext && hasNext) onNext();
+    }
+    touchStartX.current = null;
+    touchStartY.current = null;
+  }, [onPrev, onNext, hasPrev, hasNext]);
+
   return (
     <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+
+      {/* Prev/Next arrows */}
+      {onPrev && hasPrev && (
+        <button
+          onClick={(e) => { e.stopPropagation(); onPrev(); }}
+          className="absolute left-2 sm:left-4 z-20 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+      )}
+      {onNext && hasNext && (
+        <button
+          onClick={(e) => { e.stopPropagation(); onNext(); }}
+          className="absolute right-2 sm:right-4 z-20 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
+      )}
+
       <div
         className="relative z-10 w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-border bg-card shadow-2xl"
         onClick={(e) => e.stopPropagation()}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         <button
           onClick={onClose}
@@ -90,13 +148,6 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
           </div>
 
           <div className="flex flex-wrap gap-2">
-            <button
-              onClick={handleShare}
-              className="inline-flex items-center gap-1.5 border border-border px-3 py-2 text-sm font-semibold text-card-foreground hover:bg-muted transition-colors"
-            >
-              {copied ? <Check className="h-3.5 w-3.5" /> : <Share2 className="h-3.5 w-3.5" />}
-              {copied ? "Länk kopierad!" : "Dela foto"}
-            </button>
             {photo.originalLink && (
               <a href={photo.originalLink} target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 bg-foreground px-3 py-2 text-sm font-semibold text-background hover:opacity-80 transition-colors">
@@ -104,6 +155,13 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
                 Visa originalkälla
               </a>
             )}
+            <button
+              onClick={handleShare}
+              className="inline-flex items-center gap-1.5 border border-border px-3 py-2 text-sm font-semibold text-card-foreground hover:bg-muted transition-colors"
+            >
+              {copied ? <Check className="h-3.5 w-3.5" /> : <Share2 className="h-3.5 w-3.5" />}
+              {copied ? "Länk kopierad!" : "Dela foto"}
+            </button>
           </div>
         </div>
       </div>
