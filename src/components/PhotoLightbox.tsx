@@ -89,13 +89,22 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
             {photo.license && <p className="text-xs text-muted-foreground">Licens: {photo.license}</p>}
           </div>
 
-          {photo.originalLink && (
-            <a href={photo.originalLink} target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 bg-black px-3 py-2 text-sm font-semibold text-white hover:bg-neutral-800 transition-colors">
-              <ExternalLink className="h-3.5 w-3.5" />
-              Visa originalkälla
-            </a>
-          )}
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={handleShare}
+              className="inline-flex items-center gap-1.5 border border-border px-3 py-2 text-sm font-semibold text-card-foreground hover:bg-muted transition-colors"
+            >
+              {copied ? <Check className="h-3.5 w-3.5" /> : <Share2 className="h-3.5 w-3.5" />}
+              {copied ? "Länk kopierad!" : "Dela foto"}
+            </button>
+            {photo.originalLink && (
+              <a href={photo.originalLink} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 bg-foreground px-3 py-2 text-sm font-semibold text-background hover:opacity-80 transition-colors">
+                <ExternalLink className="h-3.5 w-3.5" />
+                Visa originalkälla
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </div>
