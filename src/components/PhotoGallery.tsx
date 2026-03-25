@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Search, ImageOff } from "lucide-react";
 import { PhotoCard } from "./PhotoCard";
 import { PhotoLightbox } from "./PhotoLightbox";
@@ -15,6 +15,33 @@ interface PhotoGalleryProps {
 
 export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onMarkUndated }: PhotoGalleryProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<UnifiedPhoto | null>(null);
+  const deepLinkHandled = useRef(false);
+
+  // Handle ?photo=ID deep link
+  useEffect(() => {
+    if (deepLinkHandled.current || results.length === 0) return;
+    const params = new URLSearchParams(window.location.search);
+    const photoId = params.get("photo");
+    if (photoId) {
+      const found = results.find((p) => p.id === photoId);
+      if (found) {
+        setSelectedPhoto(found);
+        deepLinkHandled.current = true;
+      }
+    }
+  }, [results]);
+
+  // Update URL when lightbox opens/closes
+  const handleSelectPhoto = (photo: UnifiedPhoto | null) => {
+    setSelectedPhoto(photo);
+    const url = new URL(window.location.href);
+    if (photo) {
+      url.searchParams.set("photo", photo.id);
+    } else {
+      url.searchParams.delete("photo");
+    }
+    window.history.replaceState({}, "", url.toString());
+  };
 
   return (
     <>
@@ -42,7 +69,7 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
             )}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 items-start">
               {results.map((photo) => (
-                <PhotoCard key={photo.id} photo={photo} decade={year} onClick={() => setSelectedPhoto(photo)} isAdmin={isAdmin} onHide={onHidePhoto} onMarkUndated={onMarkUndated} />
+                <PhotoCard key={photo.id} photo={photo} decade={year} onClick={() => handleSelectPhoto(photo)} isAdmin={isAdmin} onHide={onHidePhoto} onMarkUndated={onMarkUndated} />
               ))}
             </div>
           </>
@@ -56,7 +83,7 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
       </div>
 
       {selectedPhoto && (
-        <PhotoLightbox photo={selectedPhoto} onClose={() => setSelectedPhoto(null)} />
+        <PhotoLightbox photo={selectedPhoto} onClose={() => handleSelectPhoto(null)} />
       )}
     </>
   );
