@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Search, ImageOff } from "lucide-react";
 import { PhotoCard } from "./PhotoCard";
 import { PhotoLightbox } from "./PhotoLightbox";
@@ -15,6 +15,33 @@ interface PhotoGalleryProps {
 
 export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onMarkUndated }: PhotoGalleryProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<UnifiedPhoto | null>(null);
+  const deepLinkHandled = useRef(false);
+
+  // Handle ?photo=ID deep link
+  useEffect(() => {
+    if (deepLinkHandled.current || results.length === 0) return;
+    const params = new URLSearchParams(window.location.search);
+    const photoId = params.get("photo");
+    if (photoId) {
+      const found = results.find((p) => p.id === photoId);
+      if (found) {
+        setSelectedPhoto(found);
+        deepLinkHandled.current = true;
+      }
+    }
+  }, [results]);
+
+  // Update URL when lightbox opens/closes
+  const handleSelectPhoto = (photo: UnifiedPhoto | null) => {
+    setSelectedPhoto(photo);
+    const url = new URL(window.location.href);
+    if (photo) {
+      url.searchParams.set("photo", photo.id);
+    } else {
+      url.searchParams.delete("photo");
+    }
+    window.history.replaceState({}, "", url.toString());
+  };
 
   return (
     <>
