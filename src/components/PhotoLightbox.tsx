@@ -34,7 +34,7 @@ export function PhotoLightbox({ photo, onClose }: PhotoLightboxProps) {
         </div>
 
         <div className="p-5 space-y-3">
-          <h2 className="text-lg font-bold text-card-foreground leading-tight uppercase">{photo.title}</h2>
+          <h2 className="text-xl font-bold text-card-foreground leading-tight uppercase">{photo.title}</h2>
 
           {photo.description && photo.description !== photo.title && <p className="text-sm text-muted-foreground">{photo.description}</p>}
 

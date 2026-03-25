@@ -51,7 +51,7 @@ export function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMa
         <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 4px 1px rgba(0,0,0,0.3)" }} />
       </div>
       <div className="mt-1.5 px-1 h-[4.5rem] overflow-hidden">
-        <h3 className="text-[10px] font-semibold leading-tight text-stone-800 line-clamp-2 uppercase">
+        <h3 className="text-[11px] font-semibold leading-tight text-stone-800 line-clamp-2 uppercase">
           {photo.title}
         </h3>
         {photo.description && photo.description !== photo.title && (
