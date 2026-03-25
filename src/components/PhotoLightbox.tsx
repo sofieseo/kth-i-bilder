@@ -60,11 +60,11 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
     <div className="fixed inset-0 z-[2000] flex items-center justify-center p-0 sm:p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
 
-      {/* Prev/Next arrows */}
+      {/* Desktop prev/next arrows */}
       {onPrev && hasPrev && (
         <button
           onClick={(e) => { e.stopPropagation(); onPrev(); }}
-          className="absolute left-2 sm:left-4 z-20 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
+          className="hidden sm:block absolute left-4 z-20 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
         >
           <ChevronLeft className="h-5 w-5" />
         </button>
@@ -72,7 +72,7 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
       {onNext && hasNext && (
         <button
           onClick={(e) => { e.stopPropagation(); onNext(); }}
-          className="absolute right-2 sm:right-4 z-20 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
+          className="hidden sm:block absolute right-4 z-20 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
         >
           <ChevronRight className="h-5 w-5" />
         </button>
@@ -101,6 +101,26 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
             </div>
           )}
         </div>
+
+        {/* Mobile prev/next bar below image */}
+        {(hasPrev || hasNext) && (
+          <div className="flex sm:hidden items-center justify-between px-4 py-2 bg-muted border-t border-border">
+            <button
+              onClick={() => onPrev && hasPrev && onPrev()}
+              disabled={!hasPrev}
+              className="rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors disabled:opacity-30 disabled:cursor-default"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              onClick={() => onNext && hasNext && onNext()}
+              disabled={!hasNext}
+              className="rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors disabled:opacity-30 disabled:cursor-default"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
+        )}
 
         <div className="p-5 space-y-3">
           <h2 className="text-xl font-bold text-card-foreground leading-tight uppercase">{photo.title}</h2>
