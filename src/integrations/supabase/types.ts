@@ -110,6 +110,24 @@ export type Database = {
         }
         Relationships: []
       }
+      photo_likes: {
+        Row: {
+          created_at: string
+          id: string
+          photo_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          photo_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          photo_id?: string
+        }
+        Relationships: []
+      }
       undated_api_photos: {
         Row: {
           api_id: string
