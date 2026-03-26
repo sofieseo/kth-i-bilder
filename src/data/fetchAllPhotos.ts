@@ -131,6 +131,17 @@ export async function fetchAllPhotos(
   const all = [...wikimedia, ...local, ...rest];
   const result = deduplicatePhotos(all);
 
+  // Push photos with certain keywords to the bottom
+  const DEMOTED_KEYWORDS = ["skioptikon", "prov", "föremål"];
+  result.sort((a, b) => {
+    const aLow = a.title.toLowerCase();
+    const bLow = b.title.toLowerCase();
+    const aDemoted = DEMOTED_KEYWORDS.some((kw) => aLow.includes(kw));
+    const bDemoted = DEMOTED_KEYWORDS.some((kw) => bLow.includes(kw));
+    if (aDemoted === bDemoted) return 0;
+    return aDemoted ? 1 : -1;
+  });
+
   // 3. Write to cache (fire-and-forget)
   writeCache(decadeKey, result);
 
