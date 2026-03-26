@@ -91,7 +91,7 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
           <X className="h-4 w-4" />
         </button>
 
-        <div className="bg-muted">
+        <div className="bg-white">
           {photo.imageUrlFull ? (
             <img src={photo.imageUrlFull} alt={photo.title} className="w-full object-contain"
               onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
@@ -104,7 +104,7 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
 
         {/* Mobile prev/next bar below image */}
         {(hasPrev || hasNext) && (
-          <div className="flex sm:hidden items-center justify-between px-4 py-2 bg-muted border-t border-border">
+          <div className="flex sm:hidden items-center justify-between px-4 py-2 bg-white border-t border-border">
             <button
               onClick={() => onPrev && hasPrev && onPrev()}
               disabled={!hasPrev}
