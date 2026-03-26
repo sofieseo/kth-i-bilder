@@ -14,6 +14,7 @@ interface PhotoLightboxProps {
 
 export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext }: PhotoLightboxProps) {
   const [copied, setCopied] = useState(false);
+  const { count, liked, toggleLike } = usePhotoLikes(photo.id);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
 
