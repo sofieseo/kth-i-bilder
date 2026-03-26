@@ -184,6 +184,13 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
               {copied ? <Check className="h-3.5 w-3.5" /> : <Share2 className="h-3.5 w-3.5" />}
               {copied ? "Länk kopierad!" : "Dela foto"}
             </button>
+            <button
+              onClick={toggleLike}
+              className="inline-flex items-center gap-1.5 border border-border px-3 py-2 text-sm font-semibold text-card-foreground hover:bg-muted transition-colors"
+            >
+              <Heart className={`h-3.5 w-3.5 ${liked ? "fill-red-500 text-red-500" : ""}`} />
+              {count > 0 ? count : ""}
+            </button>
           </div>
         </div>
       </div>
