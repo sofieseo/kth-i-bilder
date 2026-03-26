@@ -10,7 +10,7 @@ import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 
 const Index = () => {
-  const { year, results, loading, handleYearChange } = usePhotoFetch(1920);
+  const { year, results, loading, handleYearChange } = usePhotoFetch(0);
   const isAdmin = useAdminMode();
   const { hiddenIds, hidePhoto, restorePhoto } = useHiddenPhotos();
   const { undatedIds, markAsUndated } = useUndatedPhotos();
