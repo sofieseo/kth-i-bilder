@@ -1,0 +1,1 @@
+CREATE POLICY "Anyone can delete photo_likes" ON public.photo_likes FOR DELETE TO public USING (true);
