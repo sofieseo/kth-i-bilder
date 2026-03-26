@@ -36,18 +36,36 @@ export function usePhotoLikes(photoId: string) {
   const toggleLike = useCallback(async () => {
     if (loading) return;
     const ids = getLikedIds();
-    if (ids.has(photoId)) return; // already liked, no unlike
 
     setLoading(true);
-    const { error } = await supabase
-      .from("photo_likes")
-      .insert({ photo_id: photoId });
+    if (ids.has(photoId)) {
+      // Unlike: delete one row
+      const { data } = await supabase
+        .from("photo_likes")
+        .select("id")
+        .eq("photo_id", photoId)
+        .limit(1)
+        .single();
 
-    if (!error) {
-      ids.add(photoId);
-      saveLikedIds(ids);
-      setLiked(true);
-      setCount((c) => c + 1);
+      if (data) {
+        await supabase.from("photo_likes").delete().eq("id", data.id);
+        ids.delete(photoId);
+        saveLikedIds(ids);
+        setLiked(false);
+        setCount((c) => Math.max(0, c - 1));
+      }
+    } else {
+      // Like
+      const { error } = await supabase
+        .from("photo_likes")
+        .insert({ photo_id: photoId });
+
+      if (!error) {
+        ids.add(photoId);
+        saveLikedIds(ids);
+        setLiked(true);
+        setCount((c) => c + 1);
+      }
     }
     setLoading(false);
   }, [photoId, loading]);
