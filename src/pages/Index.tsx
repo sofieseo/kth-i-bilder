@@ -1,8 +1,9 @@
 import { useMemo, useState, useRef, useEffect } from "react";
-import { EyeOff } from "lucide-react";
+import { EyeOff, BarChart3 } from "lucide-react";
 import { TimeSlider } from "@/components/TimeSlider";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { HiddenPhotosModal } from "@/components/HiddenPhotosModal";
+import { AdminStatsModal } from "@/components/AdminStatsModal";
 import { usePhotoFetch } from "@/hooks/usePhotoFetch";
 import { useAdminMode } from "@/hooks/useAdminMode";
 import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
@@ -15,6 +16,7 @@ const Index = () => {
   const { hiddenIds, hidePhoto, restorePhoto } = useHiddenPhotos();
   const { undatedIds, markAsUndated } = useUndatedPhotos();
   const [showHidden, setShowHidden] = useState(false);
+  const [showStats, setShowStats] = useState(false);
 
   // Keep a cache of full photo objects that have been marked undated
   const undatedPhotosRef = useRef<Map<string, UnifiedPhoto>>(new Map());
@@ -59,15 +61,24 @@ const Index = () => {
                <p className="text-[11px] sm:text-xs text-white/60 font-display mt-1 leading-relaxed">
                  Bilder hämtas från Alvin, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
                </p>
-              {isAdmin && (
-                <button
-                  onClick={() => setShowHidden(true)}
-                  className="shrink-0 ml-3 flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
-                >
-                  <EyeOff className="h-3.5 w-3.5" />
-                  Dolda ({hiddenIds.size})
-                </button>
-              )}
+               {isAdmin && (
+                 <div className="shrink-0 ml-3 flex items-center gap-2">
+                   <button
+                     onClick={() => setShowStats(true)}
+                     className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
+                   >
+                     <BarChart3 className="h-3.5 w-3.5" />
+                     Statistik
+                   </button>
+                   <button
+                     onClick={() => setShowHidden(true)}
+                     className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
+                   >
+                     <EyeOff className="h-3.5 w-3.5" />
+                     Dolda ({hiddenIds.size})
+                   </button>
+                 </div>
+               )}
             </div>
             <div className="mt-4 border-t border-white/15 pt-4">
               <TimeSlider year={year} onChange={handleYearChange} />
@@ -78,6 +89,7 @@ const Index = () => {
       <PhotoGallery results={visibleResults} year={year} loading={loading} isAdmin={isAdmin} onHidePhoto={hidePhoto} onMarkUndated={isAdmin ? markAsUndated : undefined} />
 
       <HiddenPhotosModal open={showHidden} onClose={() => setShowHidden(false)} onRestore={restorePhoto} />
+      <AdminStatsModal open={showStats} onClose={() => setShowStats(false)} />
     </div>
   );
 };
