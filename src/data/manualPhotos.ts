@@ -2,13 +2,17 @@ import type { UnifiedPhoto } from "./types";
 import manualImages from "./manualImages.json";
 
 interface ManualImage {
-  year: number;
+  year: number | null;
   title: string;
   imageUrl: string;
   imageUrlFull?: string;
   description: string;
   source: string;
   link: string;
+  photographer?: string;
+  license?: string;
+  subjects?: string[];
+  provider?: string;
 }
 
 export function getManualPhotos(year: number): UnifiedPhoto[] {
@@ -18,7 +22,8 @@ export function getManualPhotos(year: number): UnifiedPhoto[] {
 
   return (manualImages as ManualImage[])
     .filter((img) => {
-      if (isUndatedMode) return false;
+      if (isUndatedMode) return img.year === null;
+      if (img.year === null) return false;
       return img.year >= from && img.year <= to;
     })
     .map((img, i) => ({
@@ -30,11 +35,11 @@ export function getManualPhotos(year: number): UnifiedPhoto[] {
       imageUrlFull: img.imageUrlFull ?? img.imageUrl,
       description: img.description,
       coordinate: null,
-      subjects: [],
-      license: "",
+      subjects: img.subjects ?? [],
+      license: img.license ?? "",
       place: "",
       originalLink: img.link,
-      provider: "DigitaltMuseum" as const,
-      photographer: undefined,
+      provider: (img.provider ?? "DigitaltMuseum") as UnifiedPhoto["provider"],
+      photographer: img.photographer,
     }));
 }
