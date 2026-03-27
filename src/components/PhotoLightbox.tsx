@@ -2,6 +2,7 @@ import { X, ExternalLink, Building2, MapPin, Calendar, Tag, ImageOff, Camera, Sh
 import { useState, useEffect, useRef, useCallback } from "react";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { usePhotoLikes } from "@/hooks/usePhotoLikes";
+import { supabase } from "@/integrations/supabase/client";
 
 interface PhotoLightboxProps {
   photo: UnifiedPhoto;
@@ -25,6 +26,8 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
+    // Log share event
+    supabase.from("photo_shares").insert({ photo_id: photo.id }).then(() => {});
   };
 
   // Keyboard navigation
