@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { X, Heart, Share2, Loader2 } from "lucide-react";
+import { X, Heart, Share2, Loader2, ImageOff } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 interface PhotoStat {
   photo_id: string;
+  image_url: string | null;
   likes: number;
   shares: number;
 }
@@ -22,27 +23,30 @@ export function AdminStatsModal({ open, onClose }: AdminStatsModalProps) {
     setLoading(true);
 
     Promise.all([
-      supabase.from("photo_likes").select("photo_id"),
-      supabase.from("photo_shares").select("photo_id"),
+      supabase.from("photo_likes").select("photo_id, image_url"),
+      supabase.from("photo_shares").select("photo_id, image_url"),
     ]).then(([likesRes, sharesRes]) => {
       const likesMap = new Map<string, number>();
       const sharesMap = new Map<string, number>();
+      const imageMap = new Map<string, string>();
 
       for (const row of likesRes.data ?? []) {
         likesMap.set(row.photo_id, (likesMap.get(row.photo_id) ?? 0) + 1);
+        if (row.image_url && !imageMap.has(row.photo_id)) imageMap.set(row.photo_id, row.image_url);
       }
       for (const row of sharesRes.data ?? []) {
         sharesMap.set(row.photo_id, (sharesMap.get(row.photo_id) ?? 0) + 1);
+        if (row.image_url && !imageMap.has(row.photo_id)) imageMap.set(row.photo_id, row.image_url);
       }
 
       const allIds = new Set([...likesMap.keys(), ...sharesMap.keys()]);
       const combined: PhotoStat[] = Array.from(allIds).map((id) => ({
         photo_id: id,
+        image_url: imageMap.get(id) ?? null,
         likes: likesMap.get(id) ?? 0,
         shares: sharesMap.get(id) ?? 0,
       }));
 
-      // Sort by total engagement descending
       combined.sort((a, b) => (b.likes + b.shares) - (a.likes + a.shares));
       setStats(combined);
       setLoading(false);
@@ -72,28 +76,40 @@ export function AdminStatsModal({ open, onClose }: AdminStatsModalProps) {
           ) : stats.length === 0 ? (
             <p className="text-sm text-white/40 text-center py-8">Inga interaktioner ännu</p>
           ) : (
-            <>
-              <div className="grid grid-cols-[1fr_auto_auto] gap-x-4 gap-y-0 text-xs text-white/40 pb-2 border-b border-white/10 mb-2 px-1">
-                <span>Foto-ID</span>
-                <span className="flex items-center gap-1"><Heart className="h-3 w-3" /> Likes</span>
-                <span className="flex items-center gap-1"><Share2 className="h-3 w-3" /> Delningar</span>
-              </div>
-              <ul className="space-y-1">
-                {stats.map((s) => (
-                  <li key={s.photo_id} className="grid grid-cols-[1fr_auto_auto] gap-x-4 items-center rounded bg-white/5 px-3 py-2 text-sm">
-                    <span className="text-white/80 truncate font-mono text-xs" title={s.photo_id}>
-                      {s.photo_id}
-                    </span>
-                    <span className="text-white/90 tabular-nums text-center min-w-[3rem]">
-                      {s.likes > 0 ? s.likes : "–"}
-                    </span>
-                    <span className="text-white/90 tabular-nums text-center min-w-[3rem]">
-                      {s.shares > 0 ? s.shares : "–"}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </>
+            <ul className="space-y-2">
+              {stats.map((s) => (
+                <li key={s.photo_id} className="flex items-center gap-3 rounded-md bg-white/5 px-3 py-2">
+                  {s.image_url ? (
+                    <img
+                      src={s.image_url}
+                      alt=""
+                      className="w-12 h-12 rounded-md object-cover shrink-0 bg-white/10"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-md bg-white/10 flex items-center justify-center shrink-0">
+                      <ImageOff className="h-5 w-5 text-white/20" />
+                    </div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs text-white/50 font-mono truncate" title={s.photo_id}>{s.photo_id}</p>
+                  </div>
+                  <div className="flex items-center gap-3 shrink-0">
+                    {s.likes > 0 && (
+                      <span className="flex items-center gap-1 text-sm text-white/90">
+                        <Heart className="h-3.5 w-3.5 fill-red-500 text-red-500" />
+                        {s.likes}
+                      </span>
+                    )}
+                    {s.shares > 0 && (
+                      <span className="flex items-center gap-1 text-sm text-white/90">
+                        <Share2 className="h-3.5 w-3.5" />
+                        {s.shares}
+                      </span>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
           )}
         </div>
 

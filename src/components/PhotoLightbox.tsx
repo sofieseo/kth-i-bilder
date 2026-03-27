@@ -15,7 +15,7 @@ interface PhotoLightboxProps {
 
 export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext }: PhotoLightboxProps) {
   const [copied, setCopied] = useState(false);
-  const { count, liked, toggleLike } = usePhotoLikes(photo.id);
+  const { count, liked, toggleLike } = usePhotoLikes(photo.id, photo.imageUrl);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
 
@@ -27,7 +27,7 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
       setTimeout(() => setCopied(false), 2000);
     });
     // Log share event
-    supabase.from("photo_shares").insert({ photo_id: photo.id }).then(() => {});
+    supabase.from("photo_shares").insert({ photo_id: photo.id, image_url: photo.imageUrl ?? null }).then(() => {});
   };
 
   // Keyboard navigation

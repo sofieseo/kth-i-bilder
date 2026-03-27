@@ -16,7 +16,7 @@ function saveLikedIds(ids: Set<string>) {
   localStorage.setItem(LIKED_KEY, JSON.stringify([...ids]));
 }
 
-export function usePhotoLikes(photoId: string) {
+export function usePhotoLikes(photoId: string, imageUrl?: string) {
   const [count, setCount] = useState<number>(0);
   const [liked, setLiked] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -58,7 +58,7 @@ export function usePhotoLikes(photoId: string) {
       // Like
       const { error } = await supabase
         .from("photo_likes")
-        .insert({ photo_id: photoId });
+        .insert({ photo_id: photoId, image_url: imageUrl ?? null });
 
       if (!error) {
         ids.add(photoId);
