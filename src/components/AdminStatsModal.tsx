@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 interface PhotoStat {
   photo_id: string;
   image_url: string | null;
+  title: string | null;
   likes: number;
   shares: number;
 }
@@ -12,6 +13,35 @@ interface PhotoStat {
 interface AdminStatsModalProps {
   open: boolean;
   onClose: () => void;
+}
+
+/** Build a map of photo_id → {image_url, title} from curated_photos + api_cache */
+async function buildPhotoLookup(): Promise<Map<string, { image_url: string | null; title: string }>> {
+  const map = new Map<string, { image_url: string | null; title: string }>();
+
+  // curated_photos
+  const { data: curated } = await supabase
+    .from("curated_photos")
+    .select("id, image_url, title");
+  for (const row of curated ?? []) {
+    map.set(row.id, { image_url: row.image_url, title: row.title });
+  }
+
+  // api_cache – each row has a "data" jsonb array of photo objects
+  const { data: cache } = await supabase
+    .from("api_cache")
+    .select("data");
+  for (const row of cache ?? []) {
+    const arr = row.data as any[];
+    if (!Array.isArray(arr)) continue;
+    for (const p of arr) {
+      if (p.id && !map.has(p.id)) {
+        map.set(p.id, { image_url: p.imageUrl ?? null, title: p.title ?? p.id });
+      }
+    }
+  }
+
+  return map;
 }
 
 export function AdminStatsModal({ open, onClose }: AdminStatsModalProps) {
@@ -23,29 +53,31 @@ export function AdminStatsModal({ open, onClose }: AdminStatsModalProps) {
     setLoading(true);
 
     Promise.all([
-      supabase.from("photo_likes").select("photo_id, image_url"),
-      supabase.from("photo_shares").select("photo_id, image_url"),
-    ]).then(([likesRes, sharesRes]) => {
+      supabase.from("photo_likes").select("photo_id"),
+      supabase.from("photo_shares").select("photo_id"),
+      buildPhotoLookup(),
+    ]).then(([likesRes, sharesRes, lookup]) => {
       const likesMap = new Map<string, number>();
       const sharesMap = new Map<string, number>();
-      const imageMap = new Map<string, string>();
 
       for (const row of likesRes.data ?? []) {
         likesMap.set(row.photo_id, (likesMap.get(row.photo_id) ?? 0) + 1);
-        if (row.image_url && !imageMap.has(row.photo_id)) imageMap.set(row.photo_id, row.image_url);
       }
-      for (const row of sharesRes.data ?? []) {
+      for (const row of (sharesRes.data as any[] ?? [])) {
         sharesMap.set(row.photo_id, (sharesMap.get(row.photo_id) ?? 0) + 1);
-        if (row.image_url && !imageMap.has(row.photo_id)) imageMap.set(row.photo_id, row.image_url);
       }
 
       const allIds = new Set([...likesMap.keys(), ...sharesMap.keys()]);
-      const combined: PhotoStat[] = Array.from(allIds).map((id) => ({
-        photo_id: id,
-        image_url: imageMap.get(id) ?? null,
-        likes: likesMap.get(id) ?? 0,
-        shares: sharesMap.get(id) ?? 0,
-      }));
+      const combined: PhotoStat[] = Array.from(allIds).map((id) => {
+        const info = lookup.get(id);
+        return {
+          photo_id: id,
+          image_url: info?.image_url ?? null,
+          title: info?.title ?? null,
+          likes: likesMap.get(id) ?? 0,
+          shares: sharesMap.get(id) ?? 0,
+        };
+      });
 
       combined.sort((a, b) => (b.likes + b.shares) - (a.likes + a.shares));
       setStats(combined);
@@ -91,7 +123,7 @@ export function AdminStatsModal({ open, onClose }: AdminStatsModalProps) {
                     </div>
                   )}
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs text-white/50 font-mono truncate" title={s.photo_id}>{s.photo_id}</p>
+                    <p className="text-xs text-white/80 truncate">{s.title ?? s.photo_id}</p>
                   </div>
                   <div className="flex items-center gap-3 shrink-0">
                     {s.likes > 0 && (
