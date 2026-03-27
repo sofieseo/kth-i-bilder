@@ -98,7 +98,7 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
 
         <div className="bg-white">
           {photo.imageUrlFull ? (
-            <img src={photo.imageUrlFull} alt={photo.title} className="w-full object-contain"
+            <img src={photo.imageUrlFull} alt={photo.title} className="w-full object-contain" loading="lazy"
               onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
           ) : (
             <div className="flex h-48 items-center justify-center">

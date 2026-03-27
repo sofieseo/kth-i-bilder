@@ -59,7 +59,7 @@ const Index = () => {
              </h1>
              <div className="flex items-center justify-between">
                <p className="text-[11px] sm:text-xs text-white/60 font-display mt-1 leading-relaxed">
-                 Bilder hämtas från Alvin, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
+                 Bilder hämtas från Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
                </p>
                {isAdmin && (
                  <div className="shrink-0 ml-3 flex items-center gap-2">
