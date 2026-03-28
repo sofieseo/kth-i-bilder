@@ -4,7 +4,7 @@ import manualImages from "./manualImages.json";
 interface ManualImage {
   year: number | null;
   title: string;
-  imageUrl: string;
+  imageUrl?: string;
   imageUrlFull?: string;
   description: string;
   source: string;
@@ -13,6 +13,20 @@ interface ManualImage {
   license?: string;
   subjects?: string[];
   provider?: string;
+}
+
+function normalizeImageUrl(url?: string): string | null {
+  if (!url) return null;
+  if (url.endsWith(".info")) return url.slice(0, -5);
+  return url;
+}
+
+function resolveManualImageUrl(img: ManualImage): string | null {
+  const direct = normalizeImageUrl(img.imageUrl);
+  if (direct) return direct;
+
+  // Many Digitala Stadsmuseet entries have only a .info metadata link.
+  return normalizeImageUrl(img.link);
 }
 
 export function getManualPhotos(year: number): UnifiedPhoto[] {
@@ -26,20 +40,25 @@ export function getManualPhotos(year: number): UnifiedPhoto[] {
       if (img.year === null) return false;
       return img.year >= from && img.year <= to;
     })
-    .map((img, i) => ({
-      id: `manual-${i}-${img.title}`,
-      title: img.title,
-      source: img.source,
-      year: img.year,
-      imageUrl: img.imageUrl,
-      imageUrlFull: img.imageUrlFull ?? img.imageUrl,
-      description: img.description,
-      coordinate: null,
-      subjects: img.subjects ?? [],
-      license: img.license ?? "",
-      place: "",
-      originalLink: img.link,
-      provider: (img.provider ?? "DigitaltMuseum") as UnifiedPhoto["provider"],
-      photographer: img.photographer,
-    }));
+    .map((img, i) => {
+      const imageUrl = resolveManualImageUrl(img);
+      const imageUrlFull = normalizeImageUrl(img.imageUrlFull) ?? imageUrl;
+
+      return {
+        id: `manual-${i}-${img.title}`,
+        title: img.title,
+        source: img.source,
+        year: img.year,
+        imageUrl,
+        imageUrlFull,
+        description: img.description,
+        coordinate: null,
+        subjects: img.subjects ?? [],
+        license: img.license ?? "",
+        place: "",
+        originalLink: img.link,
+        provider: (img.provider ?? "DigitaltMuseum") as UnifiedPhoto["provider"],
+        photographer: img.photographer,
+      };
+    });
 }
