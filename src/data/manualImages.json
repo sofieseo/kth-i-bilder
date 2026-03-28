@@ -65,177 +65,218 @@
   {
     "year": 1985,
     "title": "Arkitekturskolan, KTH. Fasader mot Danderydsplan och Östermalmsgatan",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22291_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22291_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/g/K/Skiss/Dia_22291_0_0S.jpg.iCfxnu_-MTlVlf1jQA0A.IhbUN3xYh7.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/g/K/Skiss/Dia_22291_0_0S.jpg.iCfxnu_-MTlVlf1jQA0A.IhbUN3xYh7.jpg",
     "description": "Till höger hörnet Danderydsgatan, Östermalmsgatan.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22291_0_0S.jpg.info",
     "photographer": "Leijonhufvud, Sten",
     "license": "CC BY",
-    "subjects": ["Fasader", "Högskolor", "Reklam"],
+    "subjects": [
+      "Fasader",
+      "Högskolor",
+      "Reklam"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1983,
     "title": "Arkitekturskolan, KTH. Parti av byggnaden vid Östermalmsgatan",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22293_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22293_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/C/a/Skiss/Dia_22293_0_0S.jpg.iCfr8e_-McdPlf1jQA0A.ms5AYNYF3G.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/C/a/Skiss/Dia_22293_0_0S.jpg.iCfr8e_-McdPlf1jQA0A.ms5AYNYF3G.jpg",
     "description": "Till höger Engelbrekts församlingshus, Östermalmsgatan 20 B.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22293_0_0S.jpg.info",
     "photographer": "Leijonhufvud, Sten",
     "license": "CC BY",
-    "subjects": ["Fasader", "Gatubelysning", "Högskolor"],
+    "subjects": [
+      "Fasader",
+      "Gatubelysning",
+      "Högskolor"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1985,
     "title": "Arkitekturskolan, KTH. Fasad mot Danderydsplan",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22290_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22290_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/S/x/Skiss/Dia_22290_0_0S.jpg.iCfj5e_-Mb9Plf1jQA0A.7DHl6ujj7m.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/S/x/Skiss/Dia_22290_0_0S.jpg.iCfj5e_-Mb9Plf1jQA0A.7DHl6ujj7m.jpg",
     "description": "I förgrunden Danderydsgatan. Till höger fasadparti, Danderydsgatan 21.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22290_0_0S.jpg.info",
     "photographer": "Leijonhufvud, Sten",
     "license": "CC BY",
-    "subjects": ["Fasader", "Gatubelysning", "Högskolor"],
+    "subjects": [
+      "Fasader",
+      "Gatubelysning",
+      "Högskolor"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1987,
     "title": "Arkitekturskolan, KTH. Sedd från uppfartsväg vid Engelbrektskyrkan",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22296_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22296_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/9/h/Skiss/Dia_22296_0_0S.jpg.iCfFsOH-MS9Jlf1jQA0A.jopZoAhwYy.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/9/h/Skiss/Dia_22296_0_0S.jpg.iCfFsOH-MS9Jlf1jQA0A.jopZoAhwYy.jpg",
     "description": "Byggnadens lägre del mot Uggleviksgatan.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22296_0_0S.jpg.info",
     "photographer": "Leijonhufvud, Sten",
     "license": "CC BY",
-    "subjects": ["Fasader", "Högskolor"],
+    "subjects": [
+      "Fasader",
+      "Högskolor"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1975,
     "title": "Utsikt från Engelbrektskyrkans torn över Arkitekturskolan, KTH",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22298_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22298_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/t/D/Skiss/Dia_22298_0_0S.jpg.iCe4i-L-MeNHlf1jQA0A.H1PkC8g2CS.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/t/D/Skiss/Dia_22298_0_0S.jpg.iCe4i-L-MeNHlf1jQA0A.H1PkC8g2CS.jpg",
     "description": "Vidare över Östermalm.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22298_0_0S.jpg.info",
     "photographer": "Leijonhufvud, Sten",
     "license": "CC BY",
-    "subjects": ["Allmänna utsikter"],
+    "subjects": [
+      "Allmänna utsikter"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1985,
     "title": "Tekniska Högskolan. Stora gården sedd från norr, mot Valhallavägen",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22283_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22283_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/W/i/Skiss/Dia_22283_0_0S.jpg.iCf7lu_-MS9Llf1jQA0A.n7INmgzi8-.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/W/i/Skiss/Dia_22283_0_0S.jpg.iCf7lu_-MS9Llf1jQA0A.n7INmgzi8-.jpg",
     "description": "Valhallavägen 79.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22283_0_0S.jpg.info",
     "photographer": "Leijonhufvud, Sten",
     "license": "CC BY",
-    "subjects": ["Gårdar", "Högskolor"],
+    "subjects": [
+      "Gårdar",
+      "Högskolor"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1985,
     "title": "Blick över Valhallavägen mot kv. Vakteln. Framför Industrigården, KTH",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22284_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22284_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/C/T/Skiss/Dia_22284_0_0S.jpg.iCeR_O7-MWdHlf1jQA0A.hpdFOEOXWE.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/C/T/Skiss/Dia_22284_0_0S.jpg.iCeR_O7-MWdHlf1jQA0A.hpdFOEOXWE.jpg",
     "description": "Valhallavägen 78–84 och Engelbrektsskolan, kv. Sädesärlan.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_22284_0_0S.jpg.info",
     "photographer": "Leijonhufvud, Sten",
     "license": "CC BY",
-    "subjects": ["Skolor", "Stenhusbebyggelse"],
+    "subjects": [
+      "Skolor",
+      "Stenhusbebyggelse"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1925,
     "title": "Porträtt av arkitekten Uno Åhrén",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1038/JdM_2813_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1038/JdM_2813_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/9/J/Skiss/1038/JdM_2813_0_0S.jpg.iCfa1-n-Me8xlf1jQA0A.B4tCf5XLOT.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/9/J/Skiss/1038/JdM_2813_0_0S.jpg.iCfa1-n-Me8xlf1jQA0A.B4tCf5XLOT.jpg",
     "description": "Han medverkade 1917 på Hemutställningen, senare på Stockholmsutställningen 1930. Exempel på hans verk är KTH:s kårhus, som han ritade tillsammans med Sven Markelius.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1038/JdM_2813_0_0S.jpg.info",
     "photographer": "Meyere de, Jan",
     "license": "CC BY",
-    "subjects": ["Arkitekter", "Porträtt"],
+    "subjects": [
+      "Arkitekter",
+      "Porträtt"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1920,
     "title": "Tekniska högskolans gård",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/D_1319_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/D_1319_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/Z/k/Skiss/D_1319_0_0S.jpg.iCeQwuz-MaNllf1jQA0A.h6xO7frJHD.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/Z/k/Skiss/D_1319_0_0S.jpg.iCeQwuz-MaNllf1jQA0A.h6xO7frJHD.jpg",
     "description": "",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/D_1319_0_0S.jpg.info",
     "photographer": "Okänd",
     "license": "CC BY",
-    "subjects": ["Högskolor", "Gårdsmiljöer"],
+    "subjects": [
+      "Högskolor",
+      "Gårdsmiljöer"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1940,
     "title": "KTH:s byggnader kring Industrigården sedda från Valhallavägen",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_7556_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_7556_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/I/D/Skiss/Dia_7556_0_0S.jpg.iCfcleX-MZeBk_1jQA0A.JHhvJXdWze.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/I/D/Skiss/Dia_7556_0_0S.jpg.iCfcleX-MZeBk_1jQA0A.JHhvJXdWze.jpg",
     "description": "Djursholmståget passerar på Valhallavägen.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/Dia_7556_0_0S.jpg.info",
     "photographer": "Cronquist, Gustaf W:son",
     "license": "CC BY",
-    "subjects": ["Högskolor", "Järnvägar"],
+    "subjects": [
+      "Högskolor",
+      "Järnvägar"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1950,
     "title": "Porträttmedaljong överlämnas till Tekniska Högskolan",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/SvD_25061_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/SvD_25061_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/j/D/Skiss/SvD_25061_0_0S.jpg.iCfh-u7-MY3Nk_1jQA0A.N2wEcZnw2A.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/j/D/Skiss/SvD_25061_0_0S.jpg.iCfh-u7-MY3Nk_1jQA0A.N2wEcZnw2A.jpg",
     "description": "",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/SvD_25061_0_0S.jpg.info",
     "photographer": "Kjellström, John",
     "license": "CC BY",
-    "subjects": ["Grupporträtt", "Utmärkelser och priser"],
+    "subjects": [
+      "Grupporträtt",
+      "Utmärkelser och priser"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1950,
     "title": "Torsten Wallmark på KTH visar ett elektronrör",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/SvD_22664_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/SvD_22664_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/p/Z/Skiss/SvD_22664_0_0S.jpg.iCeR2-f-MS3Jk_1jQA0A.ZKwdJpyIQF.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/p/Z/Skiss/SvD_22664_0_0S.jpg.iCeR2-f-MS3Jk_1jQA0A.ZKwdJpyIQF.jpg",
     "description": "Tekn. Lic. Torsten Wallmark på Kungliga Tekniska Högskolan.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/SvD_22664_0_0S.jpg.info",
     "photographer": "Burnäs, Tore",
     "license": "CC BY",
-    "subjects": ["Högskolor", "Porträtt"],
+    "subjects": [
+      "Högskolor",
+      "Porträtt"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1950,
     "title": "Deltagare vid byggnadskongress på Tekniska Högskolan",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/SvD_24593_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/SvD_24593_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/g/j/Skiss/SvD_24593_0_0S.jpg.iCepl-X-MXXNk_1jQA0A.lgrOdLfwIN.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/g/j/Skiss/SvD_24593_0_0S.jpg.iCepl-X-MXXNk_1jQA0A.lgrOdLfwIN.jpg",
     "description": "",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/SvD_24593_0_0S.jpg.info",
     "photographer": "Kjellström, John",
     "license": "CC BY",
-    "subjects": ["Kongresser", "Grupporträtt"],
+    "subjects": [
+      "Kongresser",
+      "Grupporträtt"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": null,
     "title": "Tekniska Högskolan (KTH)",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007727S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007727S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/q/r/Skiss/1013/SSMDIG007727S.jpg.iCeY9O3-MblXa6FjQA0A.FjoOtj_GXc.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/q/r/Skiss/1013/SSMDIG007727S.jpg.iCeY9O3-MblXa6FjQA0A.FjoOtj_GXc.jpg",
     "description": "",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007727S.jpg.info",
@@ -247,8 +288,8 @@
   {
     "year": null,
     "title": "Tekniska Högskolan (KTH)",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007728S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007728S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/J/3/Skiss/1013/SSMDIG007728S.jpg.iCf5jOX-MblXa6FjQA0A.aYbAKYaJ0s.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/J/3/Skiss/1013/SSMDIG007728S.jpg.iCf5jOX-MblXa6FjQA0A.aYbAKYaJ0s.jpg",
     "description": "",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007728S.jpg.info",
@@ -260,8 +301,8 @@
   {
     "year": null,
     "title": "Tekniska Högskolan (KTH)",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007729S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007729S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/L/l/Skiss/1013/SSMDIG007729S.jpg.iCeg0Oj-MblXa6FjQA0A.b5vlnxaG3v.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/L/l/Skiss/1013/SSMDIG007729S.jpg.iCeg0Oj-MblXa6FjQA0A.b5vlnxaG3v.jpg",
     "description": "",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007729S.jpg.info",
@@ -273,8 +314,8 @@
   {
     "year": null,
     "title": "Tekniska Högskolan (KTH)",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007730S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007730S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/B/P/Skiss/1013/SSMDIG007730S.jpg.iCeN4uH-MblXa6FjQA0A.b2DAsWZcS-.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/B/P/Skiss/1013/SSMDIG007730S.jpg.iCeN4uH-MblXa6FjQA0A.b2DAsWZcS-.jpg",
     "description": "",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007730S.jpg.info",
@@ -286,8 +327,8 @@
   {
     "year": null,
     "title": "Tekniska Högskolan (KTH)",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007720S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007720S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/Y/4/Skiss/1013/SSMDIG007720S.jpg.iCeXt-7-MaFXa6FjQA0A.5vUlDCJsQ7.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/Y/4/Skiss/1013/SSMDIG007720S.jpg.iCeXt-7-MaFXa6FjQA0A.5vUlDCJsQ7.jpg",
     "description": "",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007720S.jpg.info",
@@ -299,8 +340,8 @@
   {
     "year": null,
     "title": "Tekniska Högskolan (KTH)",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007721S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007721S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/I/8/Skiss/1013/SSMDIG007721S.jpg.iCerue_-MaFXa6FjQA0A.V-VPNkVALf.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/I/8/Skiss/1013/SSMDIG007721S.jpg.iCerue_-MaFXa6FjQA0A.V-VPNkVALf.jpg",
     "description": "",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007721S.jpg.info",
@@ -312,8 +353,8 @@
   {
     "year": null,
     "title": "Tekniska Högskolan (KTH)",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007723S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007723S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/Z/y/Skiss/1013/SSMDIG007723S.jpg.iCfnqOn-MaFXa6FjQA0A.y3VOcL5OO5.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/Z/y/Skiss/1013/SSMDIG007723S.jpg.iCfnqOn-MaFXa6FjQA0A.y3VOcL5OO5.jpg",
     "description": "",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007723S.jpg.info",
@@ -325,8 +366,8 @@
   {
     "year": null,
     "title": "Tekniska Högskolan (KTH)",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007724S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007724S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/x/N/Skiss/1013/SSMDIG007724S.jpg.iCfy1uH-MaFXa6FjQA0A.wf538x7uBF.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/x/N/Skiss/1013/SSMDIG007724S.jpg.iCfy1uH-MaFXa6FjQA0A.wf538x7uBF.jpg",
     "description": "",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007724S.jpg.info",
@@ -338,8 +379,8 @@
   {
     "year": null,
     "title": "Tekniska Högskolan (KTH)",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007725S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007725S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/R/s/Skiss/1013/SSMDIG007725S.jpg.iCfjy-b-MaFXa6FjQA0A.BAwWlWLeVg.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/R/s/Skiss/1013/SSMDIG007725S.jpg.iCfjy-b-MaFXa6FjQA0A.BAwWlWLeVg.jpg",
     "description": "",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1013/SSMDIG007725S.jpg.info",
@@ -351,8 +392,8 @@
   {
     "year": null,
     "title": "Utsikt nord-österut från Engelbrektskyrkans torn",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1028/SSM_10005364S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1028/SSM_10005364S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/Y/Z/Skiss/1028/SSM_10005364S.jpg.iCf45-H-MXf1yZljQA0A.mlX5rhO5Bh.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/Y/Z/Skiss/1028/SSM_10005364S.jpg.iCf45-H-MXf1yZljQA0A.mlX5rhO5Bh.jpg",
     "description": "",
     "source": "Stockholms stadsmuseum",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1028/SSM_10005364S.jpg.info",
@@ -364,34 +405,42 @@
   {
     "year": 1987,
     "title": "Arkitektperspektiv, KTH",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5024-Bildkonst/Skiss/5/SSM_A_10073961.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5024-Bildkonst/Skiss/5/SSM_A_10073961.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/S/k/Skiss/5/SSM_A_10073961.jpg.oCeihOv-MVu9fdVjQA0A.zcSES_8n9e.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/S/k/Skiss/5/SSM_A_10073961.jpg.oCeihOv-MVu9fdVjQA0A.zcSES_8n9e.jpg",
     "description": "Bildkonst.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5024-Bildkonst/Skiss/5/SSM_A_10073961.jpg.info",
     "photographer": "Saagpakk, Tomas",
     "license": "CC BY-NC-ND",
-    "subjects": ["Universitet", "Arkitektur", "Stationsbyggnader"],
+    "subjects": [
+      "Universitet",
+      "Arkitektur",
+      "Stationsbyggnader"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1987,
     "title": "Arkitektperspektiv, KTH",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5024-Bildkonst/Skiss/5/SSM_A_10073962.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5024-Bildkonst/Skiss/5/SSM_A_10073962.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/M/-/Skiss/5/SSM_A_10073962.jpg.oCfmsOD-MXO9fdVjQA0A.Uzx4Idh8No.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/M/-/Skiss/5/SSM_A_10073962.jpg.oCfmsOD-MXO9fdVjQA0A.Uzx4Idh8No.jpg",
     "description": "Bildkonst.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5024-Bildkonst/Skiss/5/SSM_A_10073962.jpg.info",
     "photographer": "Saagpakk, Tomas",
     "license": "CC BY-NC-ND",
-    "subjects": ["Universitet", "Arkitektur", "Stationsbyggnader"],
+    "subjects": [
+      "Universitet",
+      "Arkitektur",
+      "Stationsbyggnader"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": null,
     "title": "Bärkasse av plast (KTH)",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5023-F%C3%B6rem%C3%A5l/Skiss/Sm%C3%A5%20JPG%20som%20saknar%20basfil/10398458.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5023-F%C3%B6rem%C3%A5l/Skiss/Sm%C3%A5%20JPG%20som%20saknar%20basfil/10398458.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/O/c/Skiss/Sm%C3%A5%20JPG%20som%20saknar%20basfil/10398458.jpg.nyeGieH-MdurTc1hQA0A.OBf9Ab-Qrn.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/O/c/Skiss/Sm%C3%A5%20JPG%20som%20saknar%20basfil/10398458.jpg.nyeGieH-MdurTc1hQA0A.OBf9Ab-Qrn.jpg",
     "description": "Föremål.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5023-F%C3%B6rem%C3%A5l/Skiss/Sm%C3%A5%20JPG%20som%20saknar%20basfil/10398458.jpg.info",
@@ -402,8 +451,8 @@
   {
     "year": null,
     "title": "Bärkasse av plast (KTH)",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5023-F%C3%B6rem%C3%A5l/Skiss/Sm%C3%A5%20JPG%20som%20saknar%20basfil/10398459.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5023-F%C3%B6rem%C3%A5l/Skiss/Sm%C3%A5%20JPG%20som%20saknar%20basfil/10398459.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/T/J/Skiss/Sm%C3%A5%20JPG%20som%20saknar%20basfil/10398459.jpg.nyfpl-P-MdOrTc1hQA0A.bDtSm83b-m.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/T/J/Skiss/Sm%C3%A5%20JPG%20som%20saknar%20basfil/10398459.jpg.nyfpl-P-MdOrTc1hQA0A.bDtSm83b-m.jpg",
     "description": "Föremål.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5023-F%C3%B6rem%C3%A5l/Skiss/Sm%C3%A5%20JPG%20som%20saknar%20basfil/10398459.jpg.info",
@@ -414,21 +463,25 @@
   {
     "year": 1967,
     "title": "Trädslänt med blåsippor mellan Valhallavägen och Sophiahemmet",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/DIA_13909_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/DIA_13909_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/C/n/Skiss/DIA_13909_0_0S.jpg.nSfe7ub-MWnNk_1jQA0A.GmHXRqsyCY.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/C/n/Skiss/DIA_13909_0_0S.jpg.nSfe7ub-MWnNk_1jQA0A.GmHXRqsyCY.jpg",
     "description": "I bakgrunden Östra Station och Kungliga Tekniska Högskolan.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/DIA_13909_0_0S.jpg.info",
     "photographer": "Gram, Ingemar",
     "license": "CC BY",
-    "subjects": ["Stationsbyggnader", "Träd", "Högskolor"],
+    "subjects": [
+      "Stationsbyggnader",
+      "Träd",
+      "Högskolor"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1950,
     "title": "Tekniska högskolan. Avtäckning av porträtt",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/SvD_25100_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/SvD_25100_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/r/p/Skiss/SvD_25100_0_0S.jpg.nSeWwOn-MV_Lk_1jQA0A.DabxEa4JLI.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/r/p/Skiss/SvD_25100_0_0S.jpg.nSeWwOn-MV_Lk_1jQA0A.DabxEa4JLI.jpg",
     "description": "Några personer i samtal.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/SvD_25100_0_0S.jpg.info",
@@ -440,209 +493,263 @@
   {
     "year": 1880,
     "title": "Ritning över Kongl. Tekniska Högskolan, kemiska byggnaden",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3167_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3167_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/U/B/Skiss/C_3167_0_0S.jpg.nSf1i-_-MZ2Dlf1jQA0A.hfLTCoDkBS.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/U/B/Skiss/C_3167_0_0S.jpg.nSf1i-_-MZ2Dlf1jQA0A.hfLTCoDkBS.jpg",
     "description": "Drottninggatan 95.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3167_0_0S.jpg.info",
     "photographer": "Klemming, Frans G",
     "license": "CC BY",
-    "subjects": ["Ritningar", "Skolor"],
+    "subjects": [
+      "Ritningar",
+      "Skolor"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1951,
     "title": "Television på Tekniska Högskolan",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/1054/SvD_39262_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/1054/SvD_39262_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/i/j/Skiss/1054/SvD_39262_0_0S.jpg.nSfxier-Mbmflf1jQA0A.4CTLRM6Md_.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/i/j/Skiss/1054/SvD_39262_0_0S.jpg.nSfxier-Mbmflf1jQA0A.4CTLRM6Md_.jpg",
     "description": "En man sköter televisionskameran, till höger står Lars Boberg.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/1054/SvD_39262_0_0S.jpg.info",
     "photographer": "Okänd (Svenska Dagbladet)",
     "license": "CC BY",
-    "subjects": ["Kameror", "Teknik", "TV"],
+    "subjects": [
+      "Kameror",
+      "Teknik",
+      "TV"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1988,
     "title": "Korsningen Osquars Backe – Lindstedtsvägen vid Tekniska Högskolan",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/1049/Ff_368_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/1049/Ff_368_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/n/m/Skiss/1049/Ff_368_0_0S.jpg.nSeaz-f-MbOblf1jQA0A.zOnTxw0w1x.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/n/m/Skiss/1049/Ff_368_0_0S.jpg.nSeaz-f-MbOblf1jQA0A.zOnTxw0w1x.jpg",
     "description": "Österut.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/1049/Ff_368_0_0S.jpg.info",
     "photographer": "Bergqvist, Stellan",
     "license": "CC BY",
-    "subjects": ["Gatumiljöer", "Skyltar", "Parkeringsautomater"],
+    "subjects": [
+      "Gatumiljöer",
+      "Skyltar",
+      "Parkeringsautomater"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1890,
     "title": "Tekniska skolan i hörnet av Mäster Samuelsgatan 44 och Slöjdgatan",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_1906_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_1906_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/x/r/Skiss/C_1906_0_0S.jpg.nSewnuH-MW-Dlf1jQA0A.kNWmXXcGhi.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/x/r/Skiss/C_1906_0_0S.jpg.nSewnuH-MW-Dlf1jQA0A.kNWmXXcGhi.jpg",
     "description": "",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_1906_0_0S.jpg.info",
     "photographer": "Okänd",
     "license": "CC BY",
-    "subjects": ["Gator", "Hästfordon", "Skolor"],
+    "subjects": [
+      "Gator",
+      "Hästfordon",
+      "Skolor"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1880,
     "title": "Ritning över Kongl. Tekniska Högskolans huvudbyggnad, 1 tr",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3166_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3166_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/o/i/Skiss/C_3166_0_0S.jpg.nSeGue3-MdN_lf1jQA0A.bMv9H5dBmd.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/o/i/Skiss/C_3166_0_0S.jpg.nSeGue3-MdN_lf1jQA0A.bMv9H5dBmd.jpg",
     "description": "Drottninggatan 95.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3166_0_0S.jpg.info",
     "photographer": "Klemming, Frans G",
     "license": "CC BY",
-    "subjects": ["Ritningar", "Skolor"],
+    "subjects": [
+      "Ritningar",
+      "Skolor"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1880,
     "title": "Situationsplan över Kongl. Tekniska Högskolan",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3171_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3171_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/W/C/Skiss/C_3171_0_0S.jpg.nSfX9Ob-MW9_lf1jQA0A.D168AJ_HE0.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/W/C/Skiss/C_3171_0_0S.jpg.nSfX9Ob-MW9_lf1jQA0A.D168AJ_HE0.jpg",
     "description": "Drottninggatan 95.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3171_0_0S.jpg.info",
     "photographer": "Klemming, Frans G",
     "license": "CC BY",
-    "subjects": ["Skolor", "Ritningar"],
+    "subjects": [
+      "Skolor",
+      "Ritningar"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1880,
     "title": "Ritning över Kongl. Tekniska Högskolans huvudbyggnad, bottenvåningen",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3168_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3168_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/S/L/Skiss/C_3168_0_0S.jpg.nSeZreP-MR9_lf1jQA0A.Ar4XnrllQh.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/S/L/Skiss/C_3168_0_0S.jpg.nSeZreP-MR9_lf1jQA0A.Ar4XnrllQh.jpg",
     "description": "Drottninggatan 95.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3168_0_0S.jpg.info",
     "photographer": "Klemming, Frans G",
     "license": "CC BY",
-    "subjects": ["Skolor", "Ritningar"],
+    "subjects": [
+      "Skolor",
+      "Ritningar"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1880,
     "title": "Plan-, fasad- och sektionsritningar, Kongl. Tekniska Högskolan, Bergs-skola",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3172_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3172_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/2/0/Skiss/C_3172_0_0S.jpg.nSfH6O_-Med9lf1jQA0A.E758-cX2R5.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/2/0/Skiss/C_3172_0_0S.jpg.nSfH6O_-Med9lf1jQA0A.E758-cX2R5.jpg",
     "description": "Drottninggatan 95.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3172_0_0S.jpg.info",
     "photographer": "Klemming, Frans G",
     "license": "CC BY",
-    "subjects": ["Skolor", "Ritningar"],
+    "subjects": [
+      "Skolor",
+      "Ritningar"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1880,
     "title": "Ritningar över Kongl. Tekniska Högskolans kemiska byggnad",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3174_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3174_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/m/G/Skiss/C_3174_0_0S.jpg.nSeZs-H-MTt9lf1jQA0A.zE0wTjczai.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/m/G/Skiss/C_3174_0_0S.jpg.nSeZs-H-MTt9lf1jQA0A.zE0wTjczai.jpg",
     "description": "Drottninggatan 95.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3174_0_0S.jpg.info",
     "photographer": "Klemming, Frans G",
     "license": "CC BY",
-    "subjects": ["Ritningar", "Skolor"],
+    "subjects": [
+      "Ritningar",
+      "Skolor"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1880,
     "title": "Fasadritning och sektionsritning av Kongl. Tekniska Högskolans huvudbyggnad",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3170_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3170_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/p/w/Skiss/C_3170_0_0S.jpg.nSflquf-MSF9lf1jQA0A.jmiJfOqlsc.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/p/w/Skiss/C_3170_0_0S.jpg.nSflquf-MSF9lf1jQA0A.jmiJfOqlsc.jpg",
     "description": "Drottninggatan 95.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/C_3170_0_0S.jpg.info",
     "photographer": "Klemming, Frans G",
     "license": "CC BY",
-    "subjects": ["Skolor", "Ritningar"],
+    "subjects": [
+      "Skolor",
+      "Ritningar"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1951,
     "title": "Professor Ole Lamm visar ett nytt mätinstrument",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/SvD_28435_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/SvD_28435_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/j/c/Skiss/SvD_28435_0_0S.jpg.nSeD6uH-Mal5lf1jQA0A.8_gbZkERmf.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/j/c/Skiss/SvD_28435_0_0S.jpg.nSeD6uH-Mal5lf1jQA0A.8_gbZkERmf.jpg",
     "description": "Valhallavägen 79, Tekniska Högskolan.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/SvD_28435_0_0S.jpg.info",
     "photographer": "Burnäs, Tore",
     "license": "CC BY",
-    "subjects": ["Högskolor", "Mätinstrument"],
+    "subjects": [
+      "Högskolor",
+      "Mätinstrument"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1950,
     "title": "Nollning vid Tekniska högskolan",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/SvD_27083_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/SvD_27083_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/-/9/Skiss/SvD_27083_0_0S.jpg.nSf2oOf-MaMHlf1jQA0A.pdeR2-Eum7.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/-/9/Skiss/SvD_27083_0_0S.jpg.nSf2oOf-MaMHlf1jQA0A.pdeR2-Eum7.jpg",
     "description": "Intagningsceremoni för nya elever. De så kallade \"nollorna\" är ihopkedjade och bär skyltar.",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/SvD_27083_0_0S.jpg.info",
     "photographer": "Ehnemark, Jan",
     "license": "CC BY",
-    "subjects": ["Högskolor", "Ungdom", "Skyltar", "Folksamlingar"],
+    "subjects": [
+      "Högskolor",
+      "Ungdom",
+      "Skyltar",
+      "Folksamlingar"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1972,
     "title": "Hörnet av Lindstedtsvägen och Osquars Backe. KTH:s byggnader",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/DIA_16121_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/DIA_16121_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/K/9/Skiss/DIA_16121_0_0S.jpg.nSegxeD-MZORk_1jQA0A.XWlSf16ibB.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/K/9/Skiss/DIA_16121_0_0S.jpg.nSegxeD-MZORk_1jQA0A.XWlSf16ibB.jpg",
     "description": "",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/DIA_16121_0_0S.jpg.info",
     "photographer": "Gram, Ingemar",
     "license": "CC BY",
-    "subjects": ["Högskolor"],
+    "subjects": [
+      "Högskolor"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1950,
     "title": "Kongress för jordmagnetiker på Kungliga Tekniska Högskolan",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/SvD_21363_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/SvD_21363_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/A/U/Skiss/SvD_21363_0_0S.jpg.nSeH0OH-MVFFk_1jQA0A.LRjXdjkERw.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/A/U/Skiss/SvD_21363_0_0S.jpg.nSeH0OH-MVFFk_1jQA0A.LRjXdjkERw.jpg",
     "description": "",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/SvD_21363_0_0S.jpg.info",
     "photographer": "Burnäs, Tore",
     "license": "CC BY",
-    "subjects": ["Grupporträtt", "Kongresser"],
+    "subjects": [
+      "Grupporträtt",
+      "Kongresser"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1896,
     "title": "Östra Station",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/1015/C_3489_0_0S.jpg",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/1015/C_3489_0_0S.jpg",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/b/z/Skiss/1015/C_3489_0_0S.jpg.nSfbsOj-MSV7lf1jQA0A.if_17WdKH6.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/b/z/Skiss/1015/C_3489_0_0S.jpg.nSfbsOj-MSV7lf1jQA0A.if_17WdKH6.jpg",
     "description": "",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/1015/C_3489_0_0S.jpg.info",
     "photographer": "Alrutz, A O",
     "license": "CC BY",
-    "subjects": ["Stationsbyggnader", "Bangårdar", "Järnvägar"],
+    "subjects": [
+      "Stationsbyggnader",
+      "Bangårdar",
+      "Järnvägar"
+    ],
     "provider": "Digitala Stadsmuseet"
   },
   {
     "year": 1907,
     "title": "Automobil för gatubevattning, vid Östra station",
-    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/SSMCF000803S.JPG",
-    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/SSMCF000803S.JPG",
+    "imageUrl": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/U/X/Skiss/SSMCF000803S.JPG.nSfZxuH-MSdND3dhQA0A.BKlZ3dSDNd.jpg",
+    "imageUrlFull": "https://digitalastadsmuseet.stockholm.se/fotoweb/cache/v2/U/X/Skiss/SSMCF000803S.JPG.nSfZxuH-MSdND3dhQA0A.BKlZ3dSDNd.jpg",
     "description": "",
     "source": "Stockholms stadsmuseum",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5021-Historiska-fotografier/Skiss/SSMCF000803S.JPG.info",
     "photographer": "Okänd",
     "license": "CC BY-NC-SA",
-    "subjects": ["Renhållning", "Stall", "Bilar"],
+    "subjects": [
+      "Renhållning",
+      "Stall",
+      "Bilar"
+    ],
     "provider": "Digitala Stadsmuseet"
   }
 ]
