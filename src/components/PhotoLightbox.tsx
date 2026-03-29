@@ -174,8 +174,17 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
 
           <div className="flex gap-2">
             {photo.originalLink && (
-              <a href={photo.originalLink} target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 bg-foreground px-3 py-2 text-sm font-semibold text-background hover:opacity-80 transition-colors">
+              <a
+                href={photo.originalLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  window.open(photo.originalLink, "_blank", "noopener,noreferrer");
+                }}
+                className="inline-flex items-center gap-1.5 bg-foreground px-3 py-2 text-sm font-semibold text-background hover:opacity-80 transition-colors"
+              >
                 <ExternalLink className="h-3.5 w-3.5" />
                 Visa originalkälla
               </a>
