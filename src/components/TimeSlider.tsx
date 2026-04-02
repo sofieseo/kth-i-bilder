@@ -18,7 +18,7 @@ const MOBILE_BASE_LABELS = [
 
 const DESKTOP_LABELS = DECADES.map((d) => ({
   decade: d,
-  text: d === 0 ? "EJ DAT." : `${d}`,
+  text: d === 0 ? "ODAT." : `${d}`,
 }));
 
 interface TimeSliderProps {
@@ -68,7 +68,9 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
               onClick={() => onChange(decade)}
               className={`absolute font-display font-semibold cursor-pointer hover:text-white transition-all duration-200 ${align} ${
                 isActive
-                  ? 'text-white text-[13px] sm:text-[15px] scale-110'
+                  ? isMobile
+                    ? 'text-white text-[9px]'
+                    : 'text-white text-[13px] sm:text-[15px] scale-110'
                   : 'text-white/60 hover:text-white/90 text-[9px] sm:text-[11px]'
               }`}
               style={{ left: isFirst ? '-9px' : `${pct}%` }}
