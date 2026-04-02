@@ -129,7 +129,7 @@
   appearance: none;
   width: 14px;
   height: 14px;
-  border-radius: 2px;
+  border-radius: 50%;
   background: #ffffff;
   border: none;
   cursor: pointer;
@@ -138,7 +138,7 @@
 .timeline-slider::-moz-range-thumb {
   width: 14px;
   height: 14px;
-  border-radius: 2px;
+  border-radius: 50%;
   background: #ffffff;
   border: none;
   cursor: pointer;
