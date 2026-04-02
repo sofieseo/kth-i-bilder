@@ -29,27 +29,28 @@ interface TimeSliderProps {
 export function TimeSlider({ year, onChange }: TimeSliderProps) {
   const isMobile = useIsMobile();
 
-  // On mobile, inject the selected decade if it's not already in the base labels
   const visibleLabels = useMemo(() => {
     if (!isMobile) return DESKTOP_LABELS;
-    const hasSelected = MOBILE_BASE_LABELS.some((l) => l.decade === year);
-    if (hasSelected) return MOBILE_BASE_LABELS;
-    const selectedLabel = { decade: year, text: year === 0 ? "ODATERAT" : `${year}` };
-    return [...MOBILE_BASE_LABELS, selectedLabel].sort(
-      (a, b) => DECADES.indexOf(a.decade) - DECADES.indexOf(b.decade)
-    );
-  }, [isMobile, year]);
+    return MOBILE_BASE_LABELS;
+  }, [isMobile]);
 
   const decadeIndex = DECADES.indexOf(year) >= 0
     ? DECADES.indexOf(year)
     : DECADES.findIndex((d) => d >= year) || 0;
 
+  const label = year === 0 ? "ODATERAT" : `${year}-talet`;
+
   return (
     <div className="w-full">
-      <div className="mb-2">
+      <div className="mb-2 flex items-center justify-between">
         <span className="text-[11px] uppercase tracking-widest text-white/50 font-display font-semibold">
           Välj årtionde
         </span>
+        {isMobile && (
+          <span className="rounded-full border border-white/30 bg-white/15 backdrop-blur-sm px-3.5 py-1 text-[11px] font-extrabold text-white font-display tracking-wide">
+            {label}
+          </span>
+        )}
       </div>
 
       {/* Clickable labels above slider */}
@@ -68,9 +69,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
               onClick={() => onChange(decade)}
               className={`absolute font-display font-semibold cursor-pointer hover:text-white transition-all duration-200 ${align} ${
                 isActive
-                  ? isMobile
-                    ? 'text-white text-[9px]'
-                    : 'text-white text-[13px] sm:text-[15px] scale-110'
+                  ? 'text-white text-[13px] sm:text-[15px] scale-110'
                   : 'text-white/60 hover:text-white/90 text-[9px] sm:text-[11px]'
               }`}
               style={{ left: isFirst ? '-9px' : `${pct}%` }}

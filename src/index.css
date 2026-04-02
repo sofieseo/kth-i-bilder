@@ -115,42 +115,42 @@
 }
 
 
-/* Timeline slider – round thumb */
+/* Timeline slider – flat style */
 .timeline-slider {
   -webkit-appearance: none;
   appearance: none;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.35);
-  border-radius: 3px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 0;
   outline: none;
 }
 .timeline-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 40% 35%, #ffffff, #e8e4df);
-  border: 1.5px solid rgba(200, 195, 185, 0.5);
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  background: #ffffff;
+  border: none;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), 0 0 0 2px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 .timeline-slider::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 40% 35%, #ffffff, #e8e4df);
-  border: 1.5px solid rgba(200, 195, 185, 0.5);
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  background: #ffffff;
+  border: none;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), 0 0 0 2px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 @media (max-width: 640px) {
   .timeline-slider::-webkit-slider-thumb {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
   }
   .timeline-slider::-moz-range-thumb {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
   }
 }
