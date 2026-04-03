@@ -9,7 +9,7 @@ const DECADES = [
 ];
 
 const MOBILE_BASE_LABELS = [
-  { decade: 0, text: "ODATERAT" },
+  { decade: 0, text: "ODAT." },
   { decade: 1850, text: "1850" },
   { decade: 1900, text: "1900" },
   { decade: 1950, text: "1950" },
@@ -70,9 +70,9 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
               className={`absolute font-display font-semibold cursor-pointer hover:text-white transition-all duration-200 ${align} ${
                 isActive
                   ? isMobile
-                    ? 'text-white text-[9px]'
+                    ? 'text-white text-[11px]'
                     : 'text-white text-[13px] sm:text-[15px] scale-110'
-                  : 'text-white/60 hover:text-white/90 text-[9px] sm:text-[11px]'
+                  : 'text-white/60 hover:text-white/90 text-[10px] sm:text-[11px]'
               }`}
               style={{ left: isFirst ? '-9px' : `${pct}%` }}
             >
