@@ -127,18 +127,17 @@
 .timeline-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 3px;
-  height: 18px;
+  width: 5px;
+  height: 20px;
   border-radius: 0;
   background: #ffffff;
   border: none;
   cursor: pointer;
   box-shadow: none;
-  margin-top: -8px;
 }
 .timeline-slider::-moz-range-thumb {
-  width: 3px;
-  height: 18px;
+  width: 5px;
+  height: 20px;
   border-radius: 0;
   background: #ffffff;
   border: none;
@@ -147,12 +146,11 @@
 }
 @media (max-width: 640px) {
   .timeline-slider::-webkit-slider-thumb {
-    width: 4px;
-    height: 22px;
-    margin-top: -10px;
+    width: 6px;
+    height: 24px;
   }
   .timeline-slider::-moz-range-thumb {
-    width: 4px;
-    height: 22px;
+    width: 6px;
+    height: 24px;
   }
 }
