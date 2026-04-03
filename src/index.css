@@ -129,13 +129,13 @@
   -webkit-appearance: none;
   appearance: none;
   width: 5px;
-  height: 20px;
+  height: 14px;
   border-radius: 0;
   background: #ffffff;
   border: none;
   cursor: pointer;
   box-shadow: none;
-  margin-top: -8.5px;
+  margin-top: -5.5px;
 }
 .timeline-slider::-moz-range-thumb {
   width: 5px;
