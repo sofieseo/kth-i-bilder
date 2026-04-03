@@ -47,7 +47,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
           Välj årtionde
         </span>
         {isMobile && (
-          <span className="rounded-full border border-white/30 bg-white/15 backdrop-blur-sm px-3.5 py-1 text-[11px] font-extrabold text-white font-display tracking-wide">
+          <span className="rounded-none border border-white/25 bg-white/10 px-3.5 py-1 text-[11px] font-extrabold text-white font-display tracking-wide">
             {label}
           </span>
         )}
