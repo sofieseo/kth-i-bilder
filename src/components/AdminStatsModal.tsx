@@ -70,7 +70,7 @@ export function AdminStatsModal({ open, onClose }: AdminStatsModalProps) {
 
       const allIds = [...new Set([...likesMap.keys(), ...sharesMap.keys()])];
       const lookup = await buildPhotoLookup(allIds);
-      const combined: PhotoStat[] = Array.from(allIds).map((id) => {
+      const combined: PhotoStat[] = allIds.map((id) => {
         const info = lookup.get(id);
         return {
           photo_id: id,
