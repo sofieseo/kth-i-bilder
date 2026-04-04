@@ -68,7 +68,7 @@ export function usePhotoLikes(photoId: string, imageUrl?: string) {
       }
     }
     setLoading(false);
-  }, [photoId, loading]);
+  }, [photoId, imageUrl, loading]);
 
   return { count, liked, toggleLike, loading };
 }

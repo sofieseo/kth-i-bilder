@@ -45,7 +45,7 @@ export function getManualPhotos(year: number): UnifiedPhoto[] {
       const imageUrlFull = normalizeImageUrl(img.imageUrlFull) ?? imageUrl;
 
       return {
-        id: `manual-${i}-${img.title}`,
+        id: `manual-${img.title.replace(/\s+/g, "-").toLowerCase()}-${img.year ?? "undated"}`,
         title: img.title,
         source: img.source,
         year: img.year,
