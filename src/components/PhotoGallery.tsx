@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { Search, ImageOff } from "lucide-react";
 import { PhotoCard } from "./PhotoCard";
 import { PhotoLightbox } from "./PhotoLightbox";
@@ -32,7 +32,7 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
   }, [results]);
 
   // Update URL when lightbox opens/closes
-  const handleSelectPhoto = (photo: UnifiedPhoto | null) => {
+  const handleSelectPhoto = useCallback((photo: UnifiedPhoto | null) => {
     setSelectedPhoto(photo);
     const url = new URL(window.location.href);
     if (photo) {
@@ -41,7 +41,24 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
       url.searchParams.delete("photo");
     }
     window.history.replaceState({}, "", url.toString());
-  };
+  }, []);
+
+  // Memoize selected index to avoid repeated findIndex calls
+  const selectedIndex = useMemo(() => {
+    if (!selectedPhoto) return -1;
+    return results.findIndex((p) => p.id === selectedPhoto.id);
+  }, [selectedPhoto, results]);
+
+  const hasPrev = selectedIndex > 0;
+  const hasNext = selectedIndex >= 0 && selectedIndex < results.length - 1;
+
+  const handlePrev = useCallback(() => {
+    if (selectedIndex > 0) handleSelectPhoto(results[selectedIndex - 1]);
+  }, [selectedIndex, results, handleSelectPhoto]);
+
+  const handleNext = useCallback(() => {
+    if (selectedIndex >= 0 && selectedIndex < results.length - 1) handleSelectPhoto(results[selectedIndex + 1]);
+  }, [selectedIndex, results, handleSelectPhoto]);
 
   return (
     <>
@@ -93,16 +110,10 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
         <PhotoLightbox
           photo={selectedPhoto}
           onClose={() => handleSelectPhoto(null)}
-          onPrev={() => {
-            const idx = results.findIndex((p) => p.id === selectedPhoto.id);
-            if (idx > 0) handleSelectPhoto(results[idx - 1]);
-          }}
-          onNext={() => {
-            const idx = results.findIndex((p) => p.id === selectedPhoto.id);
-            if (idx < results.length - 1) handleSelectPhoto(results[idx + 1]);
-          }}
-          hasPrev={results.findIndex((p) => p.id === selectedPhoto.id) > 0}
-          hasNext={results.findIndex((p) => p.id === selectedPhoto.id) < results.length - 1}
+          onPrev={handlePrev}
+          onNext={handleNext}
+          hasPrev={hasPrev}
+          hasNext={hasNext}
         />
       )}
     </>

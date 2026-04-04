@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { ImageOff, EyeOff, CalendarOff } from "lucide-react";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -17,7 +18,7 @@ interface PhotoCardProps {
   onMarkUndated?: (id: string) => void;
 }
 
-export function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMarkUndated }: PhotoCardProps) {
+export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMarkUndated }: PhotoCardProps) {
   const paperColor = getPaperColor(decade);
 
   return (
@@ -105,4 +106,4 @@ export function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMa
       )}
     </button>
   );
-}
+});

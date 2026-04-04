@@ -1,4 +1,4 @@
-import type { UnifiedPhoto } from "./fetchAllPhotos";
+import type { UnifiedPhoto } from "./types";
 
 /**
  * Curated photos from Stockholmskällan (Stadsmuseet / Stadsarkivet).

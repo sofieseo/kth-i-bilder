@@ -15,28 +15,30 @@ interface AdminStatsModalProps {
   onClose: () => void;
 }
 
-/** Build a map of photo_id → {image_url, title} from curated_photos + api_cache */
-async function buildPhotoLookup(): Promise<Map<string, { image_url: string | null; title: string }>> {
+/** Build a map of photo_id → {image_url, title} from curated_photos + photo_likes/shares image_url */
+async function buildPhotoLookup(photoIds: string[]): Promise<Map<string, { image_url: string | null; title: string }>> {
   const map = new Map<string, { image_url: string | null; title: string }>();
+  if (photoIds.length === 0) return map;
 
-  // curated_photos
+  // curated_photos – only fetch the IDs we need
   const { data: curated } = await supabase
     .from("curated_photos")
-    .select("id, image_url, title");
+    .select("id, image_url, title")
+    .in("id", photoIds);
   for (const row of curated ?? []) {
     map.set(row.id, { image_url: row.image_url, title: row.title });
   }
 
-  // api_cache – each row has a "data" jsonb array of photo objects
-  const { data: cache } = await supabase
-    .from("api_cache")
-    .select("data");
-  for (const row of cache ?? []) {
-    const arr = row.data as any[];
-    if (!Array.isArray(arr)) continue;
-    for (const p of arr) {
-      if (p.id && !map.has(p.id)) {
-        map.set(p.id, { image_url: p.imageUrl ?? null, title: p.title ?? p.id });
+  // For IDs not found in curated, try hidden_api_photos for image_url
+  const missing = photoIds.filter((id) => !map.has(id));
+  if (missing.length > 0) {
+    const { data: hidden } = await supabase
+      .from("hidden_api_photos")
+      .select("api_id, image_url")
+      .in("api_id", missing);
+    for (const row of hidden ?? []) {
+      if (!map.has(row.api_id)) {
+        map.set(row.api_id, { image_url: row.image_url, title: row.api_id });
       }
     }
   }
@@ -55,8 +57,7 @@ export function AdminStatsModal({ open, onClose }: AdminStatsModalProps) {
     Promise.all([
       supabase.from("photo_likes").select("photo_id"),
       supabase.from("photo_shares").select("photo_id"),
-      buildPhotoLookup(),
-    ]).then(([likesRes, sharesRes, lookup]) => {
+    ]).then(async ([likesRes, sharesRes]) => {
       const likesMap = new Map<string, number>();
       const sharesMap = new Map<string, number>();
 
@@ -67,8 +68,9 @@ export function AdminStatsModal({ open, onClose }: AdminStatsModalProps) {
         sharesMap.set(row.photo_id, (sharesMap.get(row.photo_id) ?? 0) + 1);
       }
 
-      const allIds = new Set([...likesMap.keys(), ...sharesMap.keys()]);
-      const combined: PhotoStat[] = Array.from(allIds).map((id) => {
+      const allIds = [...new Set([...likesMap.keys(), ...sharesMap.keys()])];
+      const lookup = await buildPhotoLookup(allIds);
+      const combined: PhotoStat[] = allIds.map((id) => {
         const info = lookup.get(id);
         return {
           photo_id: id,
