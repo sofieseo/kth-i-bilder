@@ -57,8 +57,7 @@ export function AdminStatsModal({ open, onClose }: AdminStatsModalProps) {
     Promise.all([
       supabase.from("photo_likes").select("photo_id"),
       supabase.from("photo_shares").select("photo_id"),
-      buildPhotoLookup(),
-    ]).then(([likesRes, sharesRes, lookup]) => {
+    ]).then(async ([likesRes, sharesRes]) => {
       const likesMap = new Map<string, number>();
       const sharesMap = new Map<string, number>();
 
@@ -69,7 +68,8 @@ export function AdminStatsModal({ open, onClose }: AdminStatsModalProps) {
         sharesMap.set(row.photo_id, (sharesMap.get(row.photo_id) ?? 0) + 1);
       }
 
-      const allIds = new Set([...likesMap.keys(), ...sharesMap.keys()]);
+      const allIds = [...new Set([...likesMap.keys(), ...sharesMap.keys()])];
+      const lookup = await buildPhotoLookup(allIds);
       const combined: PhotoStat[] = Array.from(allIds).map((id) => {
         const info = lookup.get(id);
         return {
