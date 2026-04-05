@@ -103,6 +103,7 @@ const Index = () => {
 
       <HiddenPhotosModal open={showHidden} onClose={() => setShowHidden(false)} onRestore={restorePhoto} />
       <AdminStatsModal open={showStats} onClose={() => setShowStats(false)} />
+      <AdminLoginModal open={showLogin} onClose={() => setShowLogin(false)} onSuccess={() => setShowLogin(false)} />
     </div>
   );
 };
