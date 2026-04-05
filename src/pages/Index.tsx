@@ -18,6 +18,7 @@ const Index = () => {
   const { undatedIds, markAsUndated } = useUndatedPhotos();
   const [showHidden, setShowHidden] = useState(false);
   const [showStats, setShowStats] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
 
   // Keep a cache of full photo objects that have been marked undated
   const undatedPhotosRef = useRef<Map<string, UnifiedPhoto>>(new Map());
