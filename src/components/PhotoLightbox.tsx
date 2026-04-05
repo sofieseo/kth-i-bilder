@@ -62,13 +62,20 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
   }, [onPrev, onNext, hasPrev, hasNext]);
 
   return (
-    <div className="fixed inset-0 z-[2000] flex items-center justify-center p-0 sm:p-4" onClick={onClose}>
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={photo.title}
+      className="fixed inset-0 z-[2000] flex items-center justify-center p-0 sm:p-4"
+      onClick={onClose}
+    >
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" aria-hidden="true" />
 
       {/* Desktop prev/next arrows */}
       {onPrev && hasPrev && (
         <button
           onClick={(e) => { e.stopPropagation(); onPrev(); }}
+          aria-label="Föregående bild"
           className="hidden sm:block absolute left-4 z-20 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
         >
           <ChevronLeft className="h-5 w-5" />
@@ -77,6 +84,7 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
       {onNext && hasNext && (
         <button
           onClick={(e) => { e.stopPropagation(); onNext(); }}
+          aria-label="Nästa bild"
           className="hidden sm:block absolute right-4 z-20 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
         >
           <ChevronRight className="h-5 w-5" />
@@ -91,6 +99,7 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
       >
         <button
           onClick={onClose}
+          aria-label="Stäng"
           className="sticky top-3 float-right mr-3 z-20 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
         >
           <X className="h-4 w-4" />

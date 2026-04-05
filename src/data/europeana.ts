@@ -1,7 +1,7 @@
 import type { UnifiedPhoto } from "./types";
 
 const EUROPEANA_API = "https://api.europeana.eu/record/v2/search.json";
-const EUROPEANA_API_KEY = "gotiatertom";
+const EUROPEANA_API_KEY = import.meta.env.VITE_EUROPEANA_API_KEY || "gotiatertom";
 const ROWS_PER_PAGE = 100;
 
 async function fetchEuropeanaPaginated(query: string, qfParts: string[]): Promise<any[]> {
