@@ -12,7 +12,7 @@ import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 
 const Index = () => {
   const { year, results, loading, handleYearChange } = usePhotoFetch(0);
-  const isAdmin = useAdminMode();
+  const { isAdmin, wantsAdmin } = useAdminMode();
   const { hiddenIds, hidePhoto, restorePhoto } = useHiddenPhotos();
   const { undatedIds, markAsUndated } = useUndatedPhotos();
   const [showHidden, setShowHidden] = useState(false);
