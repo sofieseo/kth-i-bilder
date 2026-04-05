@@ -99,6 +99,7 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
       >
         <button
           onClick={onClose}
+          aria-label="Stäng"
           className="sticky top-3 float-right mr-3 z-20 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
         >
           <X className="h-4 w-4" />
