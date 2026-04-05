@@ -84,6 +84,7 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
       {onNext && hasNext && (
         <button
           onClick={(e) => { e.stopPropagation(); onNext(); }}
+          aria-label="Nästa bild"
           className="hidden sm:block absolute right-4 z-20 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
         >
           <ChevronRight className="h-5 w-5" />
