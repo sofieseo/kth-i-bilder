@@ -4,6 +4,7 @@ import { TimeSlider } from "@/components/TimeSlider";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { HiddenPhotosModal } from "@/components/HiddenPhotosModal";
 import { AdminStatsModal } from "@/components/AdminStatsModal";
+import { AdminLoginModal } from "@/components/AdminLoginModal";
 import { usePhotoFetch } from "@/hooks/usePhotoFetch";
 import { useAdminMode } from "@/hooks/useAdminMode";
 import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
