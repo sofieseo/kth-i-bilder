@@ -62,8 +62,14 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
   }, [onPrev, onNext, hasPrev, hasNext]);
 
   return (
-    <div className="fixed inset-0 z-[2000] flex items-center justify-center p-0 sm:p-4" onClick={onClose}>
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={photo.title}
+      className="fixed inset-0 z-[2000] flex items-center justify-center p-0 sm:p-4"
+      onClick={onClose}
+    >
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" aria-hidden="true" />
 
       {/* Desktop prev/next arrows */}
       {onPrev && hasPrev && (
