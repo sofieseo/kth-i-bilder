@@ -114,24 +114,31 @@ const Index = () => {
                     </button>
                   </div>
                 )}
-                {isAdmin && (
-                  <div className="shrink-0 ml-3 flex items-center gap-2">
-                    <button
-                      onClick={() => setShowStats(true)}
-                      className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
-                    >
-                      <BarChart3 className="h-3.5 w-3.5" />
-                      Statistik
-                    </button>
-                    <button
-                      onClick={() => setShowHidden(true)}
-                      className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
-                    >
-                      <EyeOff className="h-3.5 w-3.5" />
-                      Dolda ({hiddenIds.size})
-                    </button>
-                  </div>
-                )}
+                 {isAdmin && (
+                   <div className="shrink-0 ml-3 flex items-center gap-2">
+                     <button
+                       onClick={() => setShowStats(true)}
+                       className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
+                     >
+                       <BarChart3 className="h-3.5 w-3.5" />
+                       Statistik
+                     </button>
+                     <button
+                       onClick={() => setShowHidden(true)}
+                       className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
+                     >
+                       <EyeOff className="h-3.5 w-3.5" />
+                       Dolda ({hiddenIds.size})
+                     </button>
+                     <button
+                       onClick={handleLogout}
+                       className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
+                     >
+                       <LogOut className="h-3.5 w-3.5" />
+                       Logga ut
+                     </button>
+                   </div>
+                 )}
             </div>
             <div className="mt-4 border-t border-white/15 pt-4">
               <TimeSlider year={year} onChange={handleYearChange} />
@@ -139,9 +146,9 @@ const Index = () => {
           </div>
       </header>
 
-      <PhotoGallery results={visibleResults} year={year} loading={loading} isAdmin={isAdmin} onHidePhoto={hidePhoto} onMarkUndated={isAdmin ? markAsUndated : undefined} />
+      <PhotoGallery results={visibleResults} year={year} loading={loading} isAdmin={isAdmin} onHidePhoto={handleHidePhoto} onMarkUndated={isAdmin ? handleMarkUndated : undefined} />
 
-      <HiddenPhotosModal open={showHidden} onClose={() => setShowHidden(false)} onRestore={restorePhoto} />
+      <HiddenPhotosModal open={showHidden} onClose={() => setShowHidden(false)} onRestore={handleRestorePhoto} />
       <AdminStatsModal open={showStats} onClose={() => setShowStats(false)} />
       <AdminLoginModal open={showLogin} onClose={() => setShowLogin(false)} onSuccess={() => setShowLogin(false)} />
     </div>
