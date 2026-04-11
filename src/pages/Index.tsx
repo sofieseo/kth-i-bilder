@@ -1,5 +1,7 @@
 import { useMemo, useState, useRef, useEffect } from "react";
-import { EyeOff, BarChart3, LogIn } from "lucide-react";
+import { EyeOff, BarChart3, LogIn, LogOut } from "lucide-react";
+import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import { TimeSlider } from "@/components/TimeSlider";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { HiddenPhotosModal } from "@/components/HiddenPhotosModal";
@@ -19,6 +21,44 @@ const Index = () => {
   const [showHidden, setShowHidden] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    toast.success("Utloggad");
+  };
+
+  /** Delete all api_cache rows whose decade key contains the given year bucket */
+  const invalidateCacheForYear = async (photoYear: number | null) => {
+    // Invalidate both the decade the photo belonged to and the undated bucket
+    const keys: string[] = ["4:0"]; // always invalidate undated
+    if (photoYear != null) {
+      const decade = Math.floor(photoYear / 10) * 10;
+      keys.push(`4:${decade}`);
+    }
+    for (const key of keys) {
+      await supabase.from("api_cache").delete().like("decade", `%${key}%`);
+    }
+  };
+
+  const handleHidePhoto = async (id: string, imageUrl?: string) => {
+    const photo = results.find((p) => p.id === id);
+    await hidePhoto(id, imageUrl);
+    toast.success("Bilden är dold");
+    invalidateCacheForYear(photo?.year ?? null);
+  };
+
+  const handleMarkUndated = async (id: string) => {
+    const photo = results.find((p) => p.id === id);
+    await markAsUndated(id);
+    toast.success("Bilden är markerad som odaterad");
+    invalidateCacheForYear(photo?.year ?? null);
+  };
+
+  const handleRestorePhoto = async (id: string) => {
+    await restorePhoto(id);
+    toast.success("Bilden är återställd");
+    invalidateCacheForYear(null);
+  };
 
   // Keep a cache of full photo objects that have been marked undated
   const undatedPhotosRef = useRef<Map<string, UnifiedPhoto>>(new Map());
@@ -74,24 +114,31 @@ const Index = () => {
                     </button>
                   </div>
                 )}
-                {isAdmin && (
-                  <div className="shrink-0 ml-3 flex items-center gap-2">
-                    <button
-                      onClick={() => setShowStats(true)}
-                      className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
-                    >
-                      <BarChart3 className="h-3.5 w-3.5" />
-                      Statistik
-                    </button>
-                    <button
-                      onClick={() => setShowHidden(true)}
-                      className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
-                    >
-                      <EyeOff className="h-3.5 w-3.5" />
-                      Dolda ({hiddenIds.size})
-                    </button>
-                  </div>
-                )}
+                 {isAdmin && (
+                   <div className="shrink-0 ml-3 flex items-center gap-2">
+                     <button
+                       onClick={() => setShowStats(true)}
+                       className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
+                     >
+                       <BarChart3 className="h-3.5 w-3.5" />
+                       Statistik
+                     </button>
+                     <button
+                       onClick={() => setShowHidden(true)}
+                       className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
+                     >
+                       <EyeOff className="h-3.5 w-3.5" />
+                       Dolda ({hiddenIds.size})
+                     </button>
+                     <button
+                       onClick={handleLogout}
+                       className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
+                     >
+                       <LogOut className="h-3.5 w-3.5" />
+                       Logga ut
+                     </button>
+                   </div>
+                 )}
             </div>
             <div className="mt-4 border-t border-white/15 pt-4">
               <TimeSlider year={year} onChange={handleYearChange} />
@@ -99,9 +146,9 @@ const Index = () => {
           </div>
       </header>
 
-      <PhotoGallery results={visibleResults} year={year} loading={loading} isAdmin={isAdmin} onHidePhoto={hidePhoto} onMarkUndated={isAdmin ? markAsUndated : undefined} />
+      <PhotoGallery results={visibleResults} year={year} loading={loading} isAdmin={isAdmin} onHidePhoto={handleHidePhoto} onMarkUndated={isAdmin ? handleMarkUndated : undefined} />
 
-      <HiddenPhotosModal open={showHidden} onClose={() => setShowHidden(false)} onRestore={restorePhoto} />
+      <HiddenPhotosModal open={showHidden} onClose={() => setShowHidden(false)} onRestore={handleRestorePhoto} />
       <AdminStatsModal open={showStats} onClose={() => setShowStats(false)} />
       <AdminLoginModal open={showLogin} onClose={() => setShowLogin(false)} onSuccess={() => setShowLogin(false)} />
     </div>
