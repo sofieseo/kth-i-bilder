@@ -22,6 +22,44 @@ const Index = () => {
   const [showStats, setShowStats] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    toast.success("Utloggad");
+  };
+
+  /** Delete all api_cache rows whose decade key contains the given year bucket */
+  const invalidateCacheForYear = async (photoYear: number | null) => {
+    // Invalidate both the decade the photo belonged to and the undated bucket
+    const keys: string[] = ["4:0"]; // always invalidate undated
+    if (photoYear != null) {
+      const decade = Math.floor(photoYear / 10) * 10;
+      keys.push(`4:${decade}`);
+    }
+    for (const key of keys) {
+      await supabase.from("api_cache").delete().like("decade", `%${key}%`);
+    }
+  };
+
+  const handleHidePhoto = async (id: string, imageUrl?: string) => {
+    const photo = results.find((p) => p.id === id);
+    await hidePhoto(id, imageUrl);
+    toast.success("Bilden är dold");
+    invalidateCacheForYear(photo?.year ?? null);
+  };
+
+  const handleMarkUndated = async (id: string) => {
+    const photo = results.find((p) => p.id === id);
+    await markAsUndated(id);
+    toast.success("Bilden är markerad som odaterad");
+    invalidateCacheForYear(photo?.year ?? null);
+  };
+
+  const handleRestorePhoto = async (id: string) => {
+    await restorePhoto(id);
+    toast.success("Bilden är återställd");
+    invalidateCacheForYear(null);
+  };
+
   // Keep a cache of full photo objects that have been marked undated
   const undatedPhotosRef = useRef<Map<string, UnifiedPhoto>>(new Map());
 
