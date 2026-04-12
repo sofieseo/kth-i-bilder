@@ -101,9 +101,22 @@ const Index = () => {
                KTH i bilder
              </h1>
              <div className="flex items-center justify-between">
-               <p className="text-[11px] sm:text-xs text-white/60 font-display mt-1 leading-relaxed">
-                 Bilder hämtas från Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
-               </p>
+                <div className="flex items-center gap-2 mt-1">
+                  <p className="text-[11px] sm:text-xs text-white/60 font-display leading-relaxed flex-1">
+                    Bilder hämtas från Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
+                  </p>
+                  <SearchPalette
+                    photos={visibleResults}
+                    onSelect={(photo) => {
+                      const url = new URL(window.location.href);
+                      url.searchParams.set("photo", photo.id);
+                      window.history.replaceState({}, "", url.toString());
+                      window.dispatchEvent(new Event("popstate"));
+                      // Force re-render by triggering the deep-link mechanism
+                      window.location.search = url.search;
+                    }}
+                  />
+                </div>
                 {wantsAdmin && !isAdmin && (
                   <div className="shrink-0 ml-3">
                     <button
