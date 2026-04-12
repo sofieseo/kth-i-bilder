@@ -22,7 +22,7 @@ const Index = () => {
   const [showHidden, setShowHidden] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
-  const [searchSelectedId, setSearchSelectedId] = useState<string | null>(null);
+  const [searchSelectedPhoto, setSearchSelectedPhoto] = useState<UnifiedPhoto | null>(null);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -107,8 +107,7 @@ const Index = () => {
                     Bilder hämtas från Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
                   </p>
                   <SearchPalette
-                    photos={visibleResults}
-                    onSelect={(photo) => setSearchSelectedId(photo.id)}
+                    onSelect={(photo) => setSearchSelectedPhoto(photo)}
                   />
                 </div>
                 {wantsAdmin && !isAdmin && (
@@ -154,7 +153,7 @@ const Index = () => {
           </div>
       </header>
 
-      <PhotoGallery results={visibleResults} year={year} loading={loading} isAdmin={isAdmin} onHidePhoto={handleHidePhoto} onMarkUndated={isAdmin ? handleMarkUndated : undefined} openPhotoId={searchSelectedId} onPhotoOpened={() => setSearchSelectedId(null)} />
+      <PhotoGallery results={visibleResults} year={year} loading={loading} isAdmin={isAdmin} onHidePhoto={handleHidePhoto} onMarkUndated={isAdmin ? handleMarkUndated : undefined} openPhoto={searchSelectedPhoto} onPhotoOpened={() => setSearchSelectedPhoto(null)} />
 
       <HiddenPhotosModal open={showHidden} onClose={() => setShowHidden(false)} onRestore={handleRestorePhoto} />
       <AdminStatsModal open={showStats} onClose={() => setShowStats(false)} />
