@@ -106,7 +106,7 @@ export function SearchPalette({ onSelect }: SearchPaletteProps) {
             <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
             <input
               className="flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground"
-              placeholder="Sök på titel, fotograf, plats, år, ämne… (tryck Enter)"
+              placeholder="Skriv sökord"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}
@@ -121,9 +121,7 @@ export function SearchPalette({ onSelect }: SearchPaletteProps) {
               </div>
             )}
             {!loadingPhotos && !submitted.trim() && (
-              <p className="py-6 text-center text-sm text-muted-foreground">
-                Skriv sökord och tryck Enter
-              </p>
+              <div className="py-6" />
             )}
             {!loadingPhotos && submitted.trim() && filtered.length === 0 && (
               <p className="py-6 text-center text-sm text-muted-foreground">
