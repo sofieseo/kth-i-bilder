@@ -82,9 +82,6 @@ export function SearchPalette({ photos, onSelect }: SearchPaletteProps) {
       >
         <Search className="h-3.5 w-3.5" />
         <span className="hidden sm:inline">Sök</span>
-        <kbd className="hidden sm:inline-flex ml-1 h-4 items-center rounded border border-white/20 px-1 font-mono text-[10px] text-white/40">
-          ⌘K
-        </kbd>
       </button>
 
       <Dialog open={open} onOpenChange={handleOpenChange}>
