@@ -1,21 +1,40 @@
-import { useState, useEffect, useCallback } from "react";
-import { Search, Loader2 } from "lucide-react";
+import { useState, useEffect, useMemo } from "react";
+import { Search } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { fetchAllPhotos } from "@/data/fetchAllPhotos";
 import type { UnifiedPhoto } from "@/data/types";
 
 interface SearchPaletteProps {
+  photos: UnifiedPhoto[];
   onSelect: (photo: UnifiedPhoto) => void;
 }
 
-export function SearchPalette({ onSelect }: SearchPaletteProps) {
+function matchesQuery(photo: UnifiedPhoto, q: string): boolean {
+  const haystack = [
+    photo.title,
+    photo.description,
+    photo.photographer ?? "",
+    photo.place,
+    photo.source,
+    photo.provider,
+    photo.license,
+    photo.coordinate ?? "",
+    photo.originalLink,
+    ...(photo.subjects ?? []),
+    photo.year != null ? String(photo.year) : "odaterad",
+  ]
+    .join(" ")
+    .toLowerCase();
+  return q
+    .toLowerCase()
+    .split(/\s+/)
+    .every((word) => haystack.includes(word));
+}
+
+export function SearchPalette({ photos, onSelect }: SearchPaletteProps) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<UnifiedPhoto[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [searched, setSearched] = useState(false);
+  const [submitted, setSubmitted] = useState("");
 
-  // Cmd+K / Ctrl+K shortcut
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
@@ -27,25 +46,15 @@ export function SearchPalette({ onSelect }: SearchPaletteProps) {
     return () => document.removeEventListener("keydown", handler);
   }, []);
 
-  const handleSearch = useCallback(async () => {
-    const q = query.trim();
-    if (!q) return;
-    setLoading(true);
-    setSearched(true);
-    try {
-      const results = await fetchAllPhotos(0, q);
-      setSearchResults(results);
-    } catch {
-      setSearchResults([]);
-    } finally {
-      setLoading(false);
-    }
-  }, [query]);
+  const filtered = useMemo(() => {
+    if (!submitted.trim()) return [];
+    return photos.filter((p) => matchesQuery(p, submitted));
+  }, [photos, submitted]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      handleSearch();
+      setSubmitted(query);
     }
   };
 
@@ -53,16 +62,14 @@ export function SearchPalette({ onSelect }: SearchPaletteProps) {
     onSelect(photo);
     setOpen(false);
     setQuery("");
-    setSearchResults([]);
-    setSearched(false);
+    setSubmitted("");
   };
 
   const handleOpenChange = (val: boolean) => {
     setOpen(val);
     if (!val) {
       setQuery("");
-      setSearchResults([]);
-      setSearched(false);
+      setSubmitted("");
     }
   };
 
@@ -92,26 +99,25 @@ export function SearchPalette({ onSelect }: SearchPaletteProps) {
               onKeyDown={handleKeyDown}
               autoFocus
             />
-            {loading && <Loader2 className="ml-2 h-4 w-4 animate-spin opacity-50" />}
           </div>
 
           <div className="max-h-[300px] overflow-y-auto">
-            {!searched && !loading && (
+            {!submitted.trim() && (
               <p className="py-6 text-center text-sm text-muted-foreground">
                 Skriv sökord och tryck Enter
               </p>
             )}
-            {searched && !loading && searchResults.length === 0 && (
+            {submitted.trim() && filtered.length === 0 && (
               <p className="py-6 text-center text-sm text-muted-foreground">
                 Inga träffar
               </p>
             )}
-            {searchResults.length > 0 && (
+            {filtered.length > 0 && (
               <div className="p-1">
                 <p className="px-2 py-1.5 text-xs font-medium text-muted-foreground">
-                  {searchResults.length} träffar
+                  {filtered.length} träffar
                 </p>
-                {searchResults.map((photo) => (
+                {filtered.map((photo) => (
                   <button
                     key={photo.id}
                     onClick={() => handleSelect(photo)}
