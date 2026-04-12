@@ -33,6 +33,16 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
     }
   }, [results]);
 
+  // Handle search selection via openPhotoId prop
+  useEffect(() => {
+    if (!openPhotoId) return;
+    const found = results.find((p) => p.id === openPhotoId);
+    if (found) {
+      handleSelectPhoto(found);
+    }
+    onPhotoOpened?.();
+  }, [openPhotoId]);
+
   // Update URL when lightbox opens/closes
   const handleSelectPhoto = useCallback((photo: UnifiedPhoto | null) => {
     setSelectedPhoto(photo);
