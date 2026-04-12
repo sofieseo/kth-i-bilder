@@ -11,9 +11,11 @@ interface PhotoGalleryProps {
   isAdmin?: boolean;
   onHidePhoto?: (id: string, imageUrl?: string) => void;
   onMarkUndated?: (id: string) => void;
+  openPhotoId?: string | null;
+  onPhotoOpened?: () => void;
 }
 
-export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onMarkUndated }: PhotoGalleryProps) {
+export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onMarkUndated, openPhotoId, onPhotoOpened }: PhotoGalleryProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<UnifiedPhoto | null>(null);
   const deepLinkHandled = useRef(false);
 
@@ -30,6 +32,16 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
       }
     }
   }, [results]);
+
+  // Handle search selection via openPhotoId prop
+  useEffect(() => {
+    if (!openPhotoId) return;
+    const found = results.find((p) => p.id === openPhotoId);
+    if (found) {
+      handleSelectPhoto(found);
+    }
+    onPhotoOpened?.();
+  }, [openPhotoId]);
 
   // Update URL when lightbox opens/closes
   const handleSelectPhoto = useCallback((photo: UnifiedPhoto | null) => {

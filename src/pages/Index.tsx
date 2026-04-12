@@ -1,5 +1,6 @@
 import { useMemo, useState, useRef, useEffect } from "react";
 import { EyeOff, BarChart3, LogIn, LogOut } from "lucide-react";
+import { SearchPalette } from "@/components/SearchPalette";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { TimeSlider } from "@/components/TimeSlider";
@@ -21,6 +22,7 @@ const Index = () => {
   const [showHidden, setShowHidden] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [searchSelectedId, setSearchSelectedId] = useState<string | null>(null);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -100,9 +102,15 @@ const Index = () => {
                KTH i bilder
              </h1>
              <div className="flex items-center justify-between">
-               <p className="text-[11px] sm:text-xs text-white/60 font-display mt-1 leading-relaxed">
-                 Bilder hämtas från Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
-               </p>
+                <div className="flex items-center gap-2 mt-1">
+                  <p className="text-[11px] sm:text-xs text-white/60 font-display leading-relaxed flex-1">
+                    Bilder hämtas från Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
+                  </p>
+                  <SearchPalette
+                    photos={visibleResults}
+                    onSelect={(photo) => setSearchSelectedId(photo.id)}
+                  />
+                </div>
                 {wantsAdmin && !isAdmin && (
                   <div className="shrink-0 ml-3">
                     <button
@@ -146,7 +154,7 @@ const Index = () => {
           </div>
       </header>
 
-      <PhotoGallery results={visibleResults} year={year} loading={loading} isAdmin={isAdmin} onHidePhoto={handleHidePhoto} onMarkUndated={isAdmin ? handleMarkUndated : undefined} />
+      <PhotoGallery results={visibleResults} year={year} loading={loading} isAdmin={isAdmin} onHidePhoto={handleHidePhoto} onMarkUndated={isAdmin ? handleMarkUndated : undefined} openPhotoId={searchSelectedId} onPhotoOpened={() => setSearchSelectedId(null)} />
 
       <HiddenPhotosModal open={showHidden} onClose={() => setShowHidden(false)} onRestore={handleRestorePhoto} />
       <AdminStatsModal open={showStats} onClose={() => setShowStats(false)} />
