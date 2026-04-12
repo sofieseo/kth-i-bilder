@@ -11,6 +11,8 @@ interface PhotoGalleryProps {
   isAdmin?: boolean;
   onHidePhoto?: (id: string, imageUrl?: string) => void;
   onMarkUndated?: (id: string) => void;
+  openPhotoId?: string | null;
+  onPhotoOpened?: () => void;
 }
 
 export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onMarkUndated }: PhotoGalleryProps) {

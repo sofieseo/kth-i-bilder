@@ -107,14 +107,7 @@ const Index = () => {
                   </p>
                   <SearchPalette
                     photos={visibleResults}
-                    onSelect={(photo) => {
-                      const url = new URL(window.location.href);
-                      url.searchParams.set("photo", photo.id);
-                      window.history.replaceState({}, "", url.toString());
-                      window.dispatchEvent(new Event("popstate"));
-                      // Force re-render by triggering the deep-link mechanism
-                      window.location.search = url.search;
-                    }}
+                    onSelect={(photo) => setSearchSelectedId(photo.id)}
                   />
                 </div>
                 {wantsAdmin && !isAdmin && (
