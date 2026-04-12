@@ -1,10 +1,10 @@
-import { useState, useEffect, useMemo } from "react";
-import { Search } from "lucide-react";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import { Search, Loader2 } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { fetchAllPhotosForSearch } from "@/data/fetchAllPhotosForSearch";
 import type { UnifiedPhoto } from "@/data/types";
 
 interface SearchPaletteProps {
-  photos: UnifiedPhoto[];
   onSelect: (photo: UnifiedPhoto) => void;
 }
 
@@ -30,10 +30,12 @@ function matchesQuery(photo: UnifiedPhoto, q: string): boolean {
     .every((word) => haystack.includes(word));
 }
 
-export function SearchPalette({ photos, onSelect }: SearchPaletteProps) {
+export function SearchPalette({ onSelect }: SearchPaletteProps) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [submitted, setSubmitted] = useState("");
+  const [allPhotos, setAllPhotos] = useState<UnifiedPhoto[]>([]);
+  const [loadingPhotos, setLoadingPhotos] = useState(false);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -46,10 +48,24 @@ export function SearchPalette({ photos, onSelect }: SearchPaletteProps) {
     return () => document.removeEventListener("keydown", handler);
   }, []);
 
+  // Load all photos when dialog opens
+  useEffect(() => {
+    if (!open) return;
+    let cancelled = false;
+    setLoadingPhotos(true);
+    fetchAllPhotosForSearch().then((photos) => {
+      if (!cancelled) {
+        setAllPhotos(photos);
+        setLoadingPhotos(false);
+      }
+    });
+    return () => { cancelled = true; };
+  }, [open]);
+
   const filtered = useMemo(() => {
     if (!submitted.trim()) return [];
-    return photos.filter((p) => matchesQuery(p, submitted));
-  }, [photos, submitted]);
+    return allPhotos.filter((p) => matchesQuery(p, submitted));
+  }, [allPhotos, submitted]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
@@ -90,7 +106,7 @@ export function SearchPalette({ photos, onSelect }: SearchPaletteProps) {
             <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
             <input
               className="flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground"
-              placeholder="Sök på titel, fotograf, plats, ämne… (tryck Enter)"
+              placeholder="Sök på titel, fotograf, plats, år, ämne… (tryck Enter)"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}
@@ -99,12 +115,17 @@ export function SearchPalette({ photos, onSelect }: SearchPaletteProps) {
           </div>
 
           <div className="max-h-[300px] overflow-y-auto">
-            {!submitted.trim() && (
+            {loadingPhotos && (
+              <div className="flex items-center justify-center py-6">
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+              </div>
+            )}
+            {!loadingPhotos && !submitted.trim() && (
               <p className="py-6 text-center text-sm text-muted-foreground">
                 Skriv sökord och tryck Enter
               </p>
             )}
-            {submitted.trim() && filtered.length === 0 && (
+            {!loadingPhotos && submitted.trim() && filtered.length === 0 && (
               <p className="py-6 text-center text-sm text-muted-foreground">
                 Inga träffar
               </p>
