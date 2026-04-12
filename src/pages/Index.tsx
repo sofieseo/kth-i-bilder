@@ -98,21 +98,16 @@ const Index = () => {
     <div className="flex h-screen w-screen flex-col" style={{ background: "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/images/brick-bg.jpg') center/600px fixed" }}>
       <header className="shrink-0 px-4 py-3">
          <div className="bg-black/85 backdrop-blur-md border border-white/20 px-4 py-3 sm:px-6">
-             <h1 className="text-3xl font-medium text-white font-display uppercase tracking-wide">
-               KTH i bilder
-             </h1>
-             <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 mt-1">
-                  <p className="text-[11px] sm:text-xs text-white/60 font-display leading-relaxed flex-1">
-                    Bilder hämtas från Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
-                  </p>
+              <div className="flex items-center justify-between">
+                <h1 className="text-3xl font-medium text-white font-display uppercase tracking-wide">
+                  KTH i bilder
+                </h1>
+                <div className="flex items-center gap-2">
                   <SearchPalette
                     photos={visibleResults}
                     onSelect={(photo) => setSearchSelectedPhoto(photo)}
                   />
-                </div>
-                {wantsAdmin && !isAdmin && (
-                  <div className="shrink-0 ml-3">
+                  {wantsAdmin && !isAdmin && (
                     <button
                       onClick={() => setShowLogin(true)}
                       className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
@@ -120,38 +115,41 @@ const Index = () => {
                       <LogIn className="h-3.5 w-3.5" />
                       Logga in
                     </button>
-                  </div>
-                )}
-                 {isAdmin && (
-                   <div className="shrink-0 ml-3 flex items-center gap-2">
-                     <button
-                       onClick={() => setShowStats(true)}
-                       className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
-                     >
-                       <BarChart3 className="h-3.5 w-3.5" />
-                       Statistik
-                     </button>
-                     <button
-                       onClick={() => setShowHidden(true)}
-                       className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
-                     >
-                       <EyeOff className="h-3.5 w-3.5" />
-                       Dolda ({hiddenIds.size})
-                     </button>
-                     <button
-                       onClick={handleLogout}
-                       className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
-                     >
-                       <LogOut className="h-3.5 w-3.5" />
-                       Logga ut
-                     </button>
-                   </div>
-                 )}
-            </div>
-            <div className="mt-4 border-t border-white/15 pt-4">
-              <TimeSlider year={year} onChange={handleYearChange} />
-            </div>
-          </div>
+                  )}
+                  {isAdmin && (
+                    <>
+                      <button
+                        onClick={() => setShowStats(true)}
+                        className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
+                      >
+                        <BarChart3 className="h-3.5 w-3.5" />
+                        Statistik
+                      </button>
+                      <button
+                        onClick={() => setShowHidden(true)}
+                        className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
+                      >
+                        <EyeOff className="h-3.5 w-3.5" />
+                        Dolda ({hiddenIds.size})
+                      </button>
+                      <button
+                        onClick={handleLogout}
+                        className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
+                      >
+                        <LogOut className="h-3.5 w-3.5" />
+                        Logga ut
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+              <p className="text-[11px] sm:text-xs text-white/60 font-display leading-relaxed mt-1">
+                Bilder hämtas från Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
+              </p>
+              <div className="mt-4 border-t border-white/15 pt-4">
+                <TimeSlider year={year} onChange={handleYearChange} />
+              </div>
+           </div>
       </header>
 
       <PhotoGallery results={visibleResults} year={year} loading={loading} isAdmin={isAdmin} onHidePhoto={handleHidePhoto} onMarkUndated={isAdmin ? handleMarkUndated : undefined} openPhoto={searchSelectedPhoto} onPhotoOpened={() => setSearchSelectedPhoto(null)} />
