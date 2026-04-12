@@ -22,6 +22,7 @@ const Index = () => {
   const [showHidden, setShowHidden] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [searchSelectedId, setSearchSelectedId] = useState<string | null>(null);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
