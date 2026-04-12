@@ -104,7 +104,6 @@ const Index = () => {
                 </h1>
                 <div className="flex items-center gap-2">
                   <SearchPalette
-                    photos={visibleResults}
                     onSelect={(photo) => setSearchSelectedPhoto(photo)}
                   />
                   {wantsAdmin && !isAdmin && (
