@@ -107,7 +107,6 @@ const Index = () => {
                     Bilder hämtas från Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
                   </p>
                   <SearchPalette
-                    photos={visibleResults}
                     onSelect={(photo) => setSearchSelectedId(photo.id)}
                   />
                 </div>
