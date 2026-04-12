@@ -15,7 +15,7 @@ interface PhotoGalleryProps {
   onPhotoOpened?: () => void;
 }
 
-export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onMarkUndated }: PhotoGalleryProps) {
+export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onMarkUndated, openPhotoId, onPhotoOpened }: PhotoGalleryProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<UnifiedPhoto | null>(null);
   const deepLinkHandled = useRef(false);
 

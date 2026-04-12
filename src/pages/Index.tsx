@@ -154,7 +154,7 @@ const Index = () => {
           </div>
       </header>
 
-      <PhotoGallery results={visibleResults} year={year} loading={loading} isAdmin={isAdmin} onHidePhoto={handleHidePhoto} onMarkUndated={isAdmin ? handleMarkUndated : undefined} />
+      <PhotoGallery results={visibleResults} year={year} loading={loading} isAdmin={isAdmin} onHidePhoto={handleHidePhoto} onMarkUndated={isAdmin ? handleMarkUndated : undefined} openPhotoId={searchSelectedId} onPhotoOpened={() => setSearchSelectedId(null)} />
 
       <HiddenPhotosModal open={showHidden} onClose={() => setShowHidden(false)} onRestore={handleRestorePhoto} />
       <AdminStatsModal open={showStats} onClose={() => setShowStats(false)} />
