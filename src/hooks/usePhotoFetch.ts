@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchAllPhotos, type UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { useDebounce } from "./useDebounce";
@@ -25,11 +25,12 @@ function setYearInUrl(year: number) {
   window.history.replaceState({}, "", url.toString());
 }
 
-export function usePhotoFetch(initialYear = 1920) {
-  const [year, setYear] = useState(() => getYearFromUrl(initialYear));
+const initialYear = getYearFromUrl(0);
+
+export function usePhotoFetch(fallbackYear = 0) {
+  const [year, setYear] = useState(initialYear);
   const debouncedYear = useDebounce(year, 500);
 
-  // Sync URL when year changes
   useEffect(() => {
     setYearInUrl(year);
   }, [year]);
