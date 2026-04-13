@@ -142,8 +142,9 @@ const Index = () => {
                   )}
                 </div>
               </div>
-              <p className="hidden sm:block text-[11px] sm:text-xs text-white/60 font-display leading-relaxed mt-1">
-                En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH). Bilderna hämtas från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.
+              <p className="text-[10px] sm:text-xs text-white/60 font-display leading-relaxed mt-1">
+                <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv.</span>
+                <span className="hidden sm:inline">En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH). Bilderna hämtas från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.</span>
               </p>
               <div className="mt-2 sm:mt-4 border-t border-white/15 pt-2 sm:pt-4">
                 <TimeSlider year={year} onChange={handleYearChange} />
