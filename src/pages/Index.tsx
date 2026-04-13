@@ -96,10 +96,10 @@ const Index = () => {
 
   return (
     <div className="flex h-screen w-screen flex-col" style={{ background: "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/images/brick-bg.jpg') center/600px fixed" }}>
-      <header className="shrink-0 px-4 py-3">
-         <div className="bg-black/85 backdrop-blur-md border border-white/20 px-4 py-3 sm:px-6">
+      <header className="shrink-0 px-2 py-1.5 sm:px-4 sm:py-3">
+         <div className="bg-black/85 backdrop-blur-md border border-white/20 px-3 py-2 sm:px-6 sm:py-3">
               <div className="flex items-center justify-between">
-                <h1 className="text-3xl font-medium text-white font-display uppercase tracking-wide">
+                <h1 className="text-xl sm:text-3xl font-medium text-white font-display uppercase tracking-wide">
                   KTH i bilder
                 </h1>
                 <div className="flex items-center gap-2">
@@ -142,10 +142,10 @@ const Index = () => {
                   )}
                 </div>
               </div>
-              <p className="text-[11px] sm:text-xs text-white/60 font-display leading-relaxed mt-1">
+              <p className="hidden sm:block text-[11px] sm:text-xs text-white/60 font-display leading-relaxed mt-1">
                 Bilder hämtas från Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons
               </p>
-              <div className="mt-4 border-t border-white/15 pt-4">
+              <div className="mt-2 sm:mt-4 border-t border-white/15 pt-2 sm:pt-4">
                 <TimeSlider year={year} onChange={handleYearChange} />
               </div>
            </div>

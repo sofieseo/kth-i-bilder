@@ -71,7 +71,7 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
 
   return (
     <>
-      <div className="flex-1 overflow-y-auto px-4 pb-32 pt-4">
+      <div className="flex-1 overflow-y-auto px-2 sm:px-4 pb-32 pt-2 sm:pt-4">
         {loading && results.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24">
             <Search className="h-10 w-10 text-white animate-search-tilt mb-3" />
@@ -91,7 +91,7 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
                 <span>Söker i fler arkiv…</span>
               </div>
             )}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 items-start">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3 items-start">
               {results.map((photo) => (
                 <PhotoCard
                   key={photo.id}
