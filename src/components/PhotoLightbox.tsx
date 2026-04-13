@@ -181,28 +181,29 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
             {photo.license && <p className="text-xs text-muted-foreground">Licens: {photo.license}</p>}
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             {photo.originalLink && (
               <a
                 href={photo.originalLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 bg-foreground px-3 py-2 text-sm font-semibold text-background hover:opacity-80 transition-colors"
+                className="inline-flex items-center gap-1.5 bg-foreground px-3 py-2 text-xs sm:text-sm font-semibold text-background hover:opacity-80 transition-colors"
               >
                 <ExternalLink className="h-3.5 w-3.5" />
-                Visa originalkälla
+                <span className="hidden sm:inline">Visa originalkälla</span>
+                <span className="sm:hidden">Källa</span>
               </a>
             )}
             <button
               onClick={handleShare}
-              className="inline-flex items-center gap-1.5 border border-border px-3 py-2 text-sm font-semibold text-card-foreground hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 border border-border px-3 py-2 text-xs sm:text-sm font-semibold text-card-foreground hover:bg-muted transition-colors"
             >
               {copied ? <Check className="h-3.5 w-3.5" /> : <Share2 className="h-3.5 w-3.5" />}
-              {copied ? "Länk kopierad!" : "Dela foto"}
+              {copied ? "Kopierad!" : <><span className="hidden sm:inline">Dela foto</span><span className="sm:hidden">Dela</span></>}
             </button>
             <button
               onClick={toggleLike}
-              className="inline-flex items-center gap-1.5 border border-border px-3 py-2 text-sm font-semibold text-card-foreground hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 border border-border px-3 py-2 text-xs sm:text-sm font-semibold text-card-foreground hover:bg-muted transition-colors"
             >
               <Heart className={`h-3.5 w-3.5 ${liked ? "fill-red-500 text-red-500" : ""}`} />
               {count > 0 ? count : ""}
