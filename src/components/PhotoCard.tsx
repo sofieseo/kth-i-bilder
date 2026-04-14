@@ -52,14 +52,11 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
         <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 4px 1px rgba(0,0,0,0.3)" }} />
       </div>
       <div className="mt-1.5 px-1 h-[4.5rem] overflow-hidden">
-        <h3 className="text-[11px] font-semibold leading-tight text-stone-800 line-clamp-2 uppercase">
+        <h3 className="text-xs font-semibold leading-tight text-stone-800 line-clamp-2 uppercase">
           {photo.title}
         </h3>
         {photo.description && photo.description !== photo.title && (
           <p className="text-[9px] text-stone-500 line-clamp-1 mt-0.5">{photo.description}</p>
-        )}
-        {photo.place && (
-          <p className="text-[8px] text-stone-400 line-clamp-1 mt-0.5">{photo.place}</p>
         )}
         <p className="text-[8px] text-stone-400 mt-0.5 line-clamp-1">{photo.source}</p>
       </div>
