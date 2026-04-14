@@ -22,6 +22,7 @@ const MUSEUM_NAMES: Record<string, string> = {
   "S-HM": "Historiska museet",
   "S-MM": "Marinmuseum",
   "S-AM": "Armémuseum",
+  "S-ARK": "Arkitektur- och designcentrum",
 };
 
 function resolveMuseumName(code: string): string {
@@ -63,7 +64,7 @@ function parseDocs(docs: any[]): UnifiedPhoto[] {
       description: doc["artifact.ingress.classification"] ?? doc["artifact.ingress.subjects"]?.[0] ?? "",
       coordinate: doc["artifact.coordinate"] ?? null,
       subjects: doc["artifact.ingress.subjects"] ?? [],
-      license: doc["artifact.ingress.license"] ?? "",
+      license: Array.isArray(doc["artifact.ingress.license"]) ? doc["artifact.ingress.license"].join(", ") : (doc["artifact.ingress.license"] ?? ""),
       place: doc["artifact.ingress.production.place"] ?? "",
       originalLink: uniqueId ? `https://digitaltmuseum.org/${uniqueId}` : "",
       provider: "DigitaltMuseum" as const,
