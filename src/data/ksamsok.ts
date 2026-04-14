@@ -101,6 +101,30 @@ function parseKsamsokXml(xmlText: string): UnifiedPhoto[] {
     const desc = getTextByLocal(entity, "desc");
     const link = getTextByLocal(entity, "url");
 
+    // Extract photographer from byline or Context where contextLabel = "Fotografering"
+    const byline = getTextByLocal(entity, "byline");
+    let photographer = byline || "";
+    if (!photographer) {
+      const contexts = getAllByLocal(entity, "Context");
+      for (const ctx of contexts) {
+        const label = getTextByLocal(ctx, "contextLabel");
+        if (label === "Fotografering" || label === "Produktion") {
+          const name = getTextByLocal(ctx, "name");
+          if (name) { photographer = name; break; }
+        }
+      }
+    }
+
+    // Extract license
+    const mediaLicense = getTextByLocal(entity, "mediaLicense");
+    const itemLicense = getTextByLocal(entity, "itemLicense");
+    const licenseRaw = mediaLicense || itemLicense || "";
+    // Clean up license URI to readable name
+    const license = licenseRaw.replace(/.*#/, "").replace(/^pdmark$/, "Public Domain").replace(/^cc0$/, "CC0");
+
+    // Extract place from placeName or placeLabel
+    const place = getTextByLocal(entity, "placeName") || getTextByLocal(entity, "placeLabel") || "";
+
     const currentYear = new Date().getFullYear();
     const parseYears = (values: string[]): number[] =>
       values
@@ -140,10 +164,11 @@ function parseKsamsokXml(xmlText: string): UnifiedPhoto[] {
       description: desc,
       coordinate: null,
       subjects: [],
-      license: "",
-      place: "",
+      license,
+      place,
       originalLink: link,
       provider: "K-samsök" as const,
+      photographer: photographer || undefined,
     });
   });
 

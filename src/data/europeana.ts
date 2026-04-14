@@ -92,6 +92,9 @@ export async function fetchEuropeana(year: number, searchQuery?: string): Promis
         corrected = true;
       }
 
+      const creator = (item.dcCreator ?? [])[0] ?? "";
+      const placeName = (item.edmPlaceLabelLangAware?.sv ?? item.edmPlaceLabelLangAware?.en ?? item.edmPlaceLabel ?? [])[0] ?? "";
+
       return {
         id: `euro-${item.id ?? i}`,
         title,
@@ -104,9 +107,10 @@ export async function fetchEuropeana(year: number, searchQuery?: string): Promis
         coordinate: null,
         subjects: item.dcSubject ?? [],
         license: item.rights?.[0] ?? "",
-        place: "",
+        place: placeName,
         originalLink: item.guid ?? "",
         provider: "Europeana" as const,
+        photographer: creator || undefined,
       };
     });
   } catch {
