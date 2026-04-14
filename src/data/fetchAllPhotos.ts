@@ -13,7 +13,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 const TIMEOUT_MS = 45_000;
 const CACHE_MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
-const CACHE_SCHEMA_VERSION = 4;
+const CACHE_SCHEMA_VERSION = 5;
 
 /** Wrap a promise with an AbortController-based timeout */
 function withTimeout<T>(
