@@ -49,6 +49,9 @@ function parseDocs(docs: any[]): UnifiedPhoto[] {
   return docs.map((doc) => {
     const mediaId = doc["artifact.defaultMediaIdentifier"] ?? null;
     const uniqueId = doc["artifact.uniqueId"] ?? "";
+    const producer = doc["artifact.ingress.producer"] ?? "";
+    const producerRole = doc["artifact.ingress.producerRole"] ?? "";
+    const isPhotographer = !producerRole || producerRole.toLowerCase().includes("fotograf");
 
     return {
       id: `dimu-${uniqueId || Math.random()}`,
@@ -64,6 +67,7 @@ function parseDocs(docs: any[]): UnifiedPhoto[] {
       place: doc["artifact.ingress.production.place"] ?? "",
       originalLink: uniqueId ? `https://digitaltmuseum.org/${uniqueId}` : "",
       provider: "DigitaltMuseum" as const,
+      photographer: isPhotographer && producer ? producer.trim() : undefined,
     };
   });
 }
