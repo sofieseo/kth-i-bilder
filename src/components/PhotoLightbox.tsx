@@ -20,17 +20,11 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
   const touchStartY = useRef<number | null>(null);
 
   const buildShareUrl = () => {
-    const base = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/og-share`;
-    const params = new URLSearchParams();
-    params.set("id", photo.id);
-    if (photo.title) params.set("title", photo.title);
-    if (photo.imageUrlFull) params.set("image", photo.imageUrlFull);
-    if (photo.source) params.set("source", photo.source);
-    if (photo.year) params.set("year", String(photo.year));
-    // Pass current year slider position so the redirect lands in the right decade
+    const url = new URL("https://kth-i-bilder.lovable.app/");
+    url.searchParams.set("photo", photo.id);
     const appYear = new URLSearchParams(window.location.search).get("year");
-    if (appYear) params.set("appYear", appYear);
-    return `${base}?${params.toString()}`;
+    if (appYear) url.searchParams.set("year", appYear);
+    return url.toString();
   };
 
   const handleShare = () => {
