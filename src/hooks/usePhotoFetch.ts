@@ -35,12 +35,15 @@ export function usePhotoFetch(fallbackYear = 0) {
     setYearInUrl(year);
   }, [year]);
 
-  const { data: results = [], isLoading: loading } = useQuery<UnifiedPhoto[]>({
+  const { data: results = [], isLoading } = useQuery<UnifiedPhoto[]>({
     queryKey: ["photos", debouncedYear],
     queryFn: () => fetchAllPhotos(debouncedYear),
     staleTime: DAY_MS,
     gcTime: DAY_MS,
   });
 
-  return { year, results, loading, handleYearChange: setYear };
+  // Show loading while debounce hasn't settled or query is fetching
+  const loading = isLoading || year !== debouncedYear;
+
+  return { year, results: loading ? [] : results, loading, handleYearChange: setYear };
 }
