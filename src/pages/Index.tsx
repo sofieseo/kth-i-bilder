@@ -128,6 +128,7 @@ const Index = () => {
                 </h1>
                 <div className="flex items-center gap-2">
                   <SearchPalette
+                    year={year}
                     onSelect={(photo) => setSearchSelectedPhoto(photo)}
                   />
                   {wantsAdmin && !isAdmin && (
