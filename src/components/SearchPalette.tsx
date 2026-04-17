@@ -40,7 +40,7 @@ function matchesQuery(photo: UnifiedPhoto, q: string): boolean {
     .every((word) => haystack.includes(word));
 }
 
-export function SearchPalette({ onSelect, year = 0 }: SearchPaletteProps) {
+export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPaletteProps) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [submitted, setSubmitted] = useState("");
@@ -48,6 +48,13 @@ export function SearchPalette({ onSelect, year = 0 }: SearchPaletteProps) {
   const [loadingPhotos, setLoadingPhotos] = useState(false);
 
   const { color: paperColor, spots: paperSpots } = getPaperStyle(year);
+
+  // Reopen palette when parent signals (e.g. lightbox closed)
+  useEffect(() => {
+    if (reopenSignal && reopenSignal > 0) {
+      setOpen(true);
+    }
+  }, [reopenSignal]);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
