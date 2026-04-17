@@ -2,12 +2,7 @@ import { memo } from "react";
 import { ImageOff, EyeOff, CalendarOff } from "lucide-react";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-
-function getPaperColor(year: number): string {
-  if (year === 0 || year < 1900) return "#ede8d8";
-  if (year < 1990) return "#f4f1ea";
-  return "#ffffff";
-}
+import { getPaperStyle } from "@/lib/paperColor";
 
 interface PhotoCardProps {
   photo: UnifiedPhoto;
@@ -19,7 +14,7 @@ interface PhotoCardProps {
 }
 
 export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMarkUndated }: PhotoCardProps) {
-  const paperColor = getPaperColor(decade);
+  const paperColor = getPaperStyle(decade).color;
 
   return (
     <button
