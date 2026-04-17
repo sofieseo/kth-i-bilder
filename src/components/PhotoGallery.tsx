@@ -2,7 +2,6 @@ import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { Search, ImageOff } from "lucide-react";
 import { PhotoCard } from "./PhotoCard";
 import { PhotoLightbox } from "./PhotoLightbox";
-import { VintageMagnifier } from "./VintageMagnifier";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 
 interface PhotoGalleryProps {
@@ -75,7 +74,7 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
       <div className="flex-1 overflow-y-auto px-2 sm:px-4 pb-32 pt-2 sm:pt-4">
         {loading && results.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24">
-            <VintageMagnifier size={48} className="animate-search-tilt mb-3" />
+            <Search className="h-10 w-10 animate-search-tilt mb-3" style={{ color: "#f4f1ea" }} />
             <span className="text-sm font-medium" style={{ color: "#f4f1ea" }}>Söker i arkiven</span>
           </div>
         ) : results.length === 0 ? (
@@ -88,7 +87,7 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
           <>
             {loading && (
               <div className="flex items-center gap-2 mb-3 text-xs" style={{ color: "#f4f1ea" }}>
-                <VintageMagnifier size={14} className="animate-search-tilt" />
+                <Search className="h-3 w-3 animate-search-tilt" style={{ color: "#f4f1ea" }} />
                 <span>Söker i fler arkiv…</span>
               </div>
             )}
