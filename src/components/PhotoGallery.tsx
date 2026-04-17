@@ -94,7 +94,7 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3 items-start">
               {results.map((photo) => (
                 <PhotoCard
-                  key={photo.id}
+                  key={`${year}-${photo.id}-${photo.imageUrl ?? "no-image"}`}
                   photo={photo}
                   decade={year}
                   onClick={() => handleSelectPhoto(photo)}
