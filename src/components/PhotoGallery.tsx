@@ -133,7 +133,7 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
       {selectedPhoto && (
         <PhotoLightbox
           photo={selectedPhoto}
-          onClose={() => handleSelectPhoto(null)}
+          onClose={handleClose}
           onPrev={handlePrev}
           onNext={handleNext}
           hasPrev={hasPrev}
