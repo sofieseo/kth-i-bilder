@@ -12,11 +12,15 @@ interface PhotoGalleryProps {
   onHidePhoto?: (id: string, imageUrl?: string) => void;
   onMarkUndated?: (id: string) => void;
   openPhoto?: UnifiedPhoto | null;
+  openPhotoNavSet?: UnifiedPhoto[] | null;
   onPhotoOpened?: () => void;
+  onLightboxClosed?: (wasFromSearch: boolean) => void;
 }
 
-export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onMarkUndated, openPhoto, onPhotoOpened }: PhotoGalleryProps) {
+export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onMarkUndated, openPhoto, openPhotoNavSet, onPhotoOpened, onLightboxClosed }: PhotoGalleryProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<UnifiedPhoto | null>(null);
+  // When a photo is opened from search, navigate within those search results instead of `results`
+  const [navSet, setNavSet] = useState<UnifiedPhoto[] | null>(null);
   const deepLinkHandled = useRef(false);
 
   // Handle ?photo=ID deep link
@@ -36,6 +40,7 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
   // Handle search selection via openPhoto prop
   useEffect(() => {
     if (!openPhoto) return;
+    setNavSet(openPhotoNavSet ?? null);
     handleSelectPhoto(openPhoto);
     onPhotoOpened?.();
   }, [openPhoto]);
@@ -52,22 +57,32 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
     window.history.replaceState({}, "", url.toString());
   }, []);
 
+  const handleClose = useCallback(() => {
+    const wasFromSearch = navSet !== null;
+    handleSelectPhoto(null);
+    setNavSet(null);
+    onLightboxClosed?.(wasFromSearch);
+  }, [navSet, handleSelectPhoto, onLightboxClosed]);
+
+  // Use search nav set if active, otherwise the gallery's results
+  const navList = navSet ?? results;
+
   // Memoize selected index to avoid repeated findIndex calls
   const selectedIndex = useMemo(() => {
     if (!selectedPhoto) return -1;
-    return results.findIndex((p) => p.id === selectedPhoto.id);
-  }, [selectedPhoto, results]);
+    return navList.findIndex((p) => p.id === selectedPhoto.id);
+  }, [selectedPhoto, navList]);
 
   const hasPrev = selectedIndex > 0;
-  const hasNext = selectedIndex >= 0 && selectedIndex < results.length - 1;
+  const hasNext = selectedIndex >= 0 && selectedIndex < navList.length - 1;
 
   const handlePrev = useCallback(() => {
-    if (selectedIndex > 0) handleSelectPhoto(results[selectedIndex - 1]);
-  }, [selectedIndex, results, handleSelectPhoto]);
+    if (selectedIndex > 0) handleSelectPhoto(navList[selectedIndex - 1]);
+  }, [selectedIndex, navList, handleSelectPhoto]);
 
   const handleNext = useCallback(() => {
-    if (selectedIndex >= 0 && selectedIndex < results.length - 1) handleSelectPhoto(results[selectedIndex + 1]);
-  }, [selectedIndex, results, handleSelectPhoto]);
+    if (selectedIndex >= 0 && selectedIndex < navList.length - 1) handleSelectPhoto(navList[selectedIndex + 1]);
+  }, [selectedIndex, navList, handleSelectPhoto]);
 
   return (
     <>
