@@ -273,7 +273,7 @@
     "provider": "Digitala Stadsmuseet"
   },
   {
-    "year": null,
+    "year": 2009,
     "title": "Tekniska Högskolan (KTH)",
     "imageUrl": "/stadsmuseet/SSMDIG007727S.jpg",
     "imageUrlFull": "/stadsmuseet/SSMDIG007727S.jpg",
@@ -286,7 +286,7 @@
     "provider": "Digitala Stadsmuseet"
   },
   {
-    "year": null,
+    "year": 2009,
     "title": "Tekniska Högskolan (KTH)",
     "imageUrl": "/stadsmuseet/SSMDIG007728S.jpg",
     "imageUrlFull": "/stadsmuseet/SSMDIG007728S.jpg",
@@ -299,7 +299,7 @@
     "provider": "Digitala Stadsmuseet"
   },
   {
-    "year": null,
+    "year": 2009,
     "title": "Tekniska Högskolan (KTH)",
     "imageUrl": "/stadsmuseet/SSMDIG007729S.jpg",
     "imageUrlFull": "/stadsmuseet/SSMDIG007729S.jpg",
@@ -312,7 +312,7 @@
     "provider": "Digitala Stadsmuseet"
   },
   {
-    "year": null,
+    "year": 2009,
     "title": "Tekniska Högskolan (KTH)",
     "imageUrl": "/stadsmuseet/SSMDIG007730S.jpg",
     "imageUrlFull": "/stadsmuseet/SSMDIG007730S.jpg",
@@ -325,7 +325,7 @@
     "provider": "Digitala Stadsmuseet"
   },
   {
-    "year": null,
+    "year": 2009,
     "title": "Tekniska Högskolan (KTH)",
     "imageUrl": "/stadsmuseet/SSMDIG007720S.jpg",
     "imageUrlFull": "/stadsmuseet/SSMDIG007720S.jpg",
@@ -338,7 +338,7 @@
     "provider": "Digitala Stadsmuseet"
   },
   {
-    "year": null,
+    "year": 2009,
     "title": "Tekniska Högskolan (KTH)",
     "imageUrl": "/stadsmuseet/SSMDIG007721S.jpg",
     "imageUrlFull": "/stadsmuseet/SSMDIG007721S.jpg",
@@ -351,7 +351,7 @@
     "provider": "Digitala Stadsmuseet"
   },
   {
-    "year": null,
+    "year": 2009,
     "title": "Tekniska Högskolan (KTH)",
     "imageUrl": "/stadsmuseet/SSMDIG007723S.jpg",
     "imageUrlFull": "/stadsmuseet/SSMDIG007723S.jpg",
@@ -364,7 +364,7 @@
     "provider": "Digitala Stadsmuseet"
   },
   {
-    "year": null,
+    "year": 2009,
     "title": "Tekniska Högskolan (KTH)",
     "imageUrl": "/stadsmuseet/SSMDIG007724S.jpg",
     "imageUrlFull": "/stadsmuseet/SSMDIG007724S.jpg",
@@ -377,7 +377,7 @@
     "provider": "Digitala Stadsmuseet"
   },
   {
-    "year": null,
+    "year": 2009,
     "title": "Tekniska Högskolan (KTH)",
     "imageUrl": "/stadsmuseet/SSMDIG007725S.jpg",
     "imageUrlFull": "/stadsmuseet/SSMDIG007725S.jpg",
@@ -390,11 +390,11 @@
     "provider": "Digitala Stadsmuseet"
   },
   {
-    "year": null,
+    "year": 2014,
     "title": "Utsikt nord-österut från Engelbrektskyrkans torn",
     "imageUrl": "/stadsmuseet/SSM_10005364S.jpg",
     "imageUrlFull": "/stadsmuseet/SSM_10005364S.jpg",
-    "description": "",
+    "description": "Vy mot Tekniska högskolan från Engelbrektskyrkans torn under restaurering.",
     "source": "Stockholms stadsmuseum",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5000-Alla-fotografier/Skiss/1028/SSM_10005364S.jpg.info",
     "photographer": "Ek, Mattias",
@@ -437,11 +437,11 @@
     "provider": "Digitala Stadsmuseet"
   },
   {
-    "year": null,
+    "year": 1983,
     "title": "Bärkasse av plast (KTH)",
     "imageUrl": "/stadsmuseet/10398458.jpg",
     "imageUrlFull": "/stadsmuseet/10398458.jpg",
-    "description": "Föremål.",
+    "description": "Bärkasse av vit plast med tryck \"Materialteknik på KTH i Stockholm\".",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5023-F%C3%B6rem%C3%A5l/Skiss/Sm%C3%A5%20JPG%20som%20saknar%20basfil/10398458.jpg.info",
     "license": "CC BY",
@@ -449,11 +449,11 @@
     "provider": "Digitala Stadsmuseet"
   },
   {
-    "year": null,
+    "year": 1983,
     "title": "Bärkasse av plast (KTH)",
     "imageUrl": "/stadsmuseet/10398459.jpg",
     "imageUrlFull": "/stadsmuseet/10398459.jpg",
-    "description": "Föremål.",
+    "description": "Bärkasse av vit plast med tryck \"Materialteknik på KTH i Stockholm\" (baksida).",
     "source": "Stadsmuseet i Stockholm",
     "link": "https://digitalastadsmuseet.stockholm.se/fotoweb/archives/5023-F%C3%B6rem%C3%A5l/Skiss/Sm%C3%A5%20JPG%20som%20saknar%20basfil/10398459.jpg.info",
     "license": "CC BY",
