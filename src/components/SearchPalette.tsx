@@ -114,7 +114,7 @@ export function SearchPalette({ onSelect }: SearchPaletteProps) {
             />
           </div>
 
-          <div className="max-h-[300px] max-sm:max-h-[calc(100vh-60px)] overflow-y-auto">
+          <div className="max-h-[500px] max-sm:max-h-[calc(100vh-60px)] overflow-y-auto">
             {loadingPhotos && (
               <div className="flex items-center justify-center py-6">
                 <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
@@ -143,7 +143,7 @@ export function SearchPalette({ onSelect }: SearchPaletteProps) {
                       <img
                         src={photo.imageUrl}
                         alt=""
-                        className="h-10 w-10 shrink-0 rounded object-cover"
+                        className="h-10 w-10 sm:h-20 sm:w-20 shrink-0 rounded object-cover"
                       />
                     )}
                     <div className="min-w-0 flex-1">
