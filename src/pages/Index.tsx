@@ -95,7 +95,21 @@ const Index = () => {
   }, [results, hiddenIds, undatedIds, year]);
 
   return (
-    <div className="flex h-screen w-screen flex-col" style={{ background: "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/images/brick-bg.jpg') center/600px fixed" }}>
+    <div className="relative flex h-screen w-screen flex-col">
+      {/* Blurred brick background layer */}
+      <div
+        aria-hidden
+        className="fixed inset-0 -z-10"
+        style={{
+          backgroundImage: "url('/images/brick-bg.jpg')",
+          backgroundSize: "600px",
+          backgroundPosition: "center",
+          filter: "blur(3px) brightness(0.55)",
+          transform: "scale(1.05)",
+        }}
+      />
+      {/* Dark overlay to push texture into the background */}
+      <div aria-hidden className="fixed inset-0 -z-10 bg-black/60" />
       <header className="shrink-0 px-2 py-1.5 sm:px-4 sm:py-3">
          <div className="bg-black/85 backdrop-blur-md border border-white/20 px-3 py-2 sm:px-6 sm:py-3">
               <div className="flex items-center justify-between">
