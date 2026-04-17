@@ -13,6 +13,7 @@ import { useAdminMode } from "@/hooks/useAdminMode";
 import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
 import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
+import { getPaperStyle } from "@/lib/paperColor";
 
 const Index = () => {
   const { year, results, loading, handleYearChange } = usePhotoFetch(0);
@@ -112,10 +113,13 @@ const Index = () => {
       <div aria-hidden className="fixed inset-0 -z-10 bg-black/40" />
       <header
         className="shrink-0 px-2 py-1.5 sm:px-4 sm:py-3"
-        style={{
-          ['--paper-color' as any]: year === 0 || year < 1900 ? '#ede8d8' : year < 1990 ? '#f4f1ea' : '#ffffff',
-          ['--paper-spots' as any]: year === 0 || year < 1900 ? '0.95' : year < 1950 ? '0.55' : year < 1990 ? '0.3' : '0.08',
-        }}
+        style={(() => {
+          const { color, spots } = getPaperStyle(year);
+          return {
+            ['--paper-color' as any]: color,
+            ['--paper-spots' as any]: String(spots),
+          };
+        })()}
       >
          <div className="paper-aged px-3 py-2 sm:px-6 sm:py-3 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.7)]">
               <div className="relative z-10 flex items-center justify-between">
