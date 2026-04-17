@@ -119,7 +119,7 @@ export function SearchPalette({ onSelect, year = 0 }: SearchPaletteProps) {
 
       <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogContent
-          className="!fixed !inset-0 !left-0 !top-0 !block !w-screen !max-w-none !translate-x-0 !translate-y-0 !border-0 !bg-transparent !p-0 !shadow-none pointer-events-none [&>button]:hidden"
+          className="!fixed !inset-0 !left-0 !top-0 !z-50 !flex !items-start !justify-center !gap-0 !w-screen !max-w-none !translate-x-0 !translate-y-0 !border-0 !bg-transparent !p-0 !shadow-none [&>button]:hidden"
           aria-describedby="search-palette-description"
         >
           <DialogTitle className="sr-only">Sök bland bilder</DialogTitle>
@@ -127,7 +127,7 @@ export function SearchPalette({ onSelect, year = 0 }: SearchPaletteProps) {
             Skriv ett sökord för att söka bland alla bilder i arkivet.
           </DialogDescription>
 
-          <div className="pointer-events-auto mx-auto mt-[12vh] w-[min(48rem,calc(100vw-2rem))] overflow-hidden border shadow-lg paper-aged max-sm:mt-0 max-sm:min-h-0 max-sm:max-h-[90vh] max-sm:w-full max-sm:border-0">
+          <div className="paper-aged mt-[12vh] w-[min(48rem,calc(100vw-2rem))] overflow-hidden border shadow-lg max-sm:mt-0 max-sm:min-h-0 max-sm:max-h-[90vh] max-sm:w-full max-sm:border-0"
             <div
               className="relative"
               style={{
@@ -138,16 +138,15 @@ export function SearchPalette({ onSelect, year = 0 }: SearchPaletteProps) {
                 fontFamily: "'Courier Prime', monospace",
               }}
             >
-              <DialogClose asChild>
-                <button
-                  type="button"
-                  className="absolute right-3 top-3 z-20 flex h-8 w-8 items-center justify-center transition-opacity hover:opacity-100"
-                  style={{ color: "rgba(26, 18, 8, 0.75)" }}
-                  aria-label="Stäng sök"
-                >
-                  <X className="h-5 w-5" />
-                </button>
-              </DialogClose>
+              <button
+                type="button"
+                onClick={() => handleOpenChange(false)}
+                className="absolute right-3 top-3 z-20 flex h-8 w-8 items-center justify-center transition-opacity hover:opacity-100"
+                style={{ color: "rgba(26, 18, 8, 0.75)" }}
+                aria-label="Stäng sök"
+              >
+                <X className="h-5 w-5" />
+              </button>
 
               <div
                 className="relative z-10 flex items-center px-4 pr-12"
