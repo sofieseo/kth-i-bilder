@@ -160,7 +160,7 @@ const Index = () => {
                 <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv.</span>
                 <span className="hidden sm:inline">En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH). Bilderna hämtas från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.</span>
               </p>
-              <div className="mt-2 sm:mt-4 border-t border-white/15 pt-2 sm:pt-4">
+              <div className="mt-2 sm:mt-4 paper-aged px-3 py-3 sm:px-5 sm:py-4">
                 <TimeSlider year={year} onChange={handleYearChange} />
               </div>
            </div>
