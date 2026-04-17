@@ -130,6 +130,18 @@ export async function fetchAllPhotos(
     }
   }
 
+  // Apply year overrides (correct year for API photos that lack date metadata)
+  const overrides = await loadYearOverrides();
+  if (overrides.size > 0) {
+    for (const photo of remotePhotos) {
+      const overrideYear = overrides.get(photo.id);
+      if (overrideYear != null) {
+        photo.year = overrideYear;
+        photo.yearCorrected = true;
+      }
+    }
+  }
+
   // Filter relevance & date range
   let relevant = remotePhotos.filter(isKthRelevant);
   if (!searchQuery) {
