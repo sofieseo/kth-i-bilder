@@ -24,7 +24,7 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
   return (
     <button
       onClick={onClick}
-      className="relative w-full text-left p-2 pb-5 shadow-[4px_6px_16px_rgba(0,0,0,0.45)] hover:shadow-[6px_10px_24px_rgba(0,0,0,0.55)] hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary flex flex-col"
+      className="relative w-full text-left p-2 pb-5 shadow-[8px_14px_36px_-4px_rgba(0,0,0,0.65),0_4px_12px_rgba(0,0,0,0.35)] hover:shadow-[12px_20px_48px_-4px_rgba(0,0,0,0.75),0_6px_16px_rgba(0,0,0,0.45)] hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary flex flex-col"
       style={{ backgroundColor: paperColor }}
     >
       <div className="relative aspect-square bg-muted overflow-hidden">
