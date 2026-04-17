@@ -114,11 +114,15 @@ const Index = () => {
       <header
         className="shrink-0 px-2 py-1.5 sm:px-4 sm:py-3"
         style={(() => {
-          const { color, spots } = getPaperStyle(year);
-          return {
-            ['--paper-color' as any]: color,
-            ['--paper-spots' as any]: String(spots),
+          const { color, spots, spotImage, creases, creasesOpacity } = getPaperStyle(year);
+          const s: Record<string, string> = {
+            ['--paper-color']: color,
+            ['--paper-spots']: String(spots),
           };
+          if (spotImage) s['--paper-spot-image'] = spotImage;
+          if (creases) s['--paper-creases'] = creases;
+          if (creasesOpacity != null) s['--paper-creases-opacity'] = String(creasesOpacity);
+          return s as React.CSSProperties;
         })()}
       >
          <div className="paper-aged px-3 py-2 sm:px-6 sm:py-3 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.7)]">
