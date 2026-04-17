@@ -13,19 +13,22 @@ interface PhotoCardProps {
   onMarkUndated?: (id: string) => void;
 }
 
-// Deterministic subtle rotation: ~50% of cards stay straight, others lean ±0.5–1.2°
+// Deterministic, naturalistic rotation: ~65% straight, others lean ±0.3–0.8°
 function getRotation(id: string): number {
-  let hash = 0;
+  let h1 = 0;
+  let h2 = 2166136261;
   for (let i = 0; i < id.length; i++) {
-    hash = (hash * 31 + id.charCodeAt(i)) | 0;
+    h1 = (h1 * 31 + id.charCodeAt(i)) | 0;
+    h2 = Math.imul(h2 ^ id.charCodeAt(i), 16777619);
   }
-  const abs = Math.abs(hash);
-  // ~50% chance of being perfectly straight
-  if (abs % 2 === 0) return 0;
-  // Direction from a different bit so left/right are evenly split
-  const direction = (abs >> 3) % 2 === 0 ? -1 : 1;
-  // Magnitude between 0.5 and 1.2 degrees
-  const magnitude = 0.5 + ((abs % 70) / 100);
+  const a = Math.abs(h1);
+  const b = Math.abs(h2);
+  // ~65% chance of being perfectly straight (more natural, less busy)
+  if (a % 100 < 65) return 0;
+  // Use independent hash for direction so it's evenly split left/right
+  const direction = b % 2 === 0 ? -1 : 1;
+  // Magnitude between 0.3 and 0.8 degrees — very subtle
+  const magnitude = 0.3 + ((a % 50) / 100);
   return Math.round(direction * magnitude * 10) / 10;
 }
 
