@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const DECADES = [
