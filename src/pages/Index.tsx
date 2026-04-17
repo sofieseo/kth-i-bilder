@@ -113,7 +113,7 @@ const Index = () => {
       <header className="shrink-0 px-2 py-1.5 sm:px-4 sm:py-3">
          <div className="bg-black/85 backdrop-blur-md border border-white/20 px-3 py-2 sm:px-6 sm:py-3 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.7)]">
               <div className="flex items-center justify-between">
-                <h1 className="text-2xl sm:text-4xl font-semibold text-white font-typewriter uppercase tracking-[0.18em] sm:tracking-[0.28em]">
+                <h1 className="text-2xl sm:text-4xl font-light text-white font-slab uppercase tracking-[0.18em] sm:tracking-[0.28em]">
                   KTH i bilder
                 </h1>
                 <div className="flex items-center gap-2">
