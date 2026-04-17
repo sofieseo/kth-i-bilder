@@ -1,5 +1,6 @@
 import { useMemo, useState, useRef, useEffect } from "react";
-import { EyeOff, BarChart3, LogIn, LogOut } from "lucide-react";
+import { EyeOff, BarChart3, LogIn, LogOut, RefreshCw } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 import { SearchPalette } from "@/components/SearchPalette";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -20,9 +21,11 @@ const Index = () => {
   const { isAdmin, wantsAdmin } = useAdminMode();
   const { hiddenIds, hidePhoto, restorePhoto } = useHiddenPhotos();
   const { undatedIds, markAsUndated } = useUndatedPhotos();
+  const queryClient = useQueryClient();
   const [showHidden, setShowHidden] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [clearingCache, setClearingCache] = useState(false);
   const [searchSelectedPhoto, setSearchSelectedPhoto] = useState<UnifiedPhoto | null>(null);
   const [searchNavSet, setSearchNavSet] = useState<UnifiedPhoto[] | null>(null);
   const [reopenSearchSignal, setReopenSearchSignal] = useState(0);
@@ -30,6 +33,29 @@ const Index = () => {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     toast.success("Utloggad");
+  };
+
+  const handleClearCache = async () => {
+    setClearingCache(true);
+    try {
+      // Always invalidate the undated bucket alongside the active decade
+      const keys = year === 0
+        ? ["7:0"]
+        : [`7:${Math.floor(year / 10) * 10}`, "7:0"];
+      const { error } = await supabase
+        .from("api_cache")
+        .delete()
+        .or(keys.map((k) => `decade.like.%${k}%`).join(","));
+      if (error) throw error;
+      // Drop client-side React Query cache so the next fetch hits the network
+      await queryClient.invalidateQueries({ queryKey: ["photos"] });
+      toast.success(year === 0 ? "Cachen rensad för odaterade" : `Cachen rensad för ${Math.floor(year / 10) * 10}-talet`);
+    } catch (e) {
+      console.error(e);
+      toast.error("Kunde inte rensa cachen");
+    } finally {
+      setClearingCache(false);
+    }
   };
 
   /** Delete all api_cache rows whose decade key contains the given year bucket */
@@ -164,6 +190,16 @@ const Index = () => {
                       >
                         <EyeOff className="h-3.5 w-3.5" />
                         Dolda ({hiddenIds.size})
+                      </button>
+                      <button
+                        onClick={handleClearCache}
+                        disabled={clearingCache}
+                        title={year === 0 ? "Rensa cache för odaterade" : `Rensa cache för ${Math.floor(year / 10) * 10}-talet`}
+                        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors disabled:opacity-50"
+                        style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
+                      >
+                        <RefreshCw className={`h-3.5 w-3.5 ${clearingCache ? "animate-spin" : ""}`} />
+                        Rensa cache
                       </button>
                       <button
                         onClick={handleLogout}
