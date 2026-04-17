@@ -142,7 +142,7 @@ const Index = () => {
                   )}
                 </div>
               </div>
-              <p className="text-[10px] sm:text-xs text-white/60 font-display leading-relaxed mt-1">
+              <p className="text-[10px] sm:text-xs text-white/40 font-display leading-relaxed mt-1 max-w-3xl">
                 <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv.</span>
                 <span className="hidden sm:inline">En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH). Bilderna hämtas från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.</span>
               </p>
