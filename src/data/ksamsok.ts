@@ -152,14 +152,19 @@ function parseKsamsokXml(xmlText: string): UnifiedPhoto[] {
       }
     }
 
-    if (!thumbnail && !lowres) return;
+    if (!thumbnail && !lowres && !highres) return;
+
+    // Prefer lowres for the card thumbnail. Fall back to highres before thumbnail
+    // because some K-samsök "miniatyr" assets are low-quality PNGs with burned-in
+    // text that look out of place next to the other photo cards.
+    const cardImage = lowres || highres || thumbnail;
 
     results.push({
       id: `soch-${entity.getAttributeNS("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "about") || entity.getAttribute("rdf:about") || i}`,
       title: title || "Utan titel",
       source: org || "K-samsök",
       year: parsedYear && !isNaN(parsedYear) ? parsedYear : null,
-      imageUrl: lowres || thumbnail,
+      imageUrl: cardImage,
       imageUrlFull: highres || lowres || thumbnail,
       description: desc,
       coordinate: null,
