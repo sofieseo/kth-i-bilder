@@ -1,6 +1,12 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
-import { Search, Loader2 } from "lucide-react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { useState, useEffect, useMemo } from "react";
+import { Search, Loader2, X } from "lucide-react";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { fetchAllPhotosForSearch } from "@/data/fetchAllPhotosForSearch";
 import type { UnifiedPhoto } from "@/data/types";
 import { getPaperStyle } from "@/lib/paperColor";
@@ -26,6 +32,7 @@ function matchesQuery(photo: UnifiedPhoto, q: string): boolean {
   ]
     .join(" ")
     .toLowerCase();
+
   return q
     .toLowerCase()
     .split(/\s+/)
@@ -48,27 +55,32 @@ export function SearchPalette({ onSelect, year = 0 }: SearchPaletteProps) {
         setOpen((prev) => !prev);
       }
     };
+
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
   }, []);
 
-  // Load all photos when dialog opens
   useEffect(() => {
     if (!open) return;
+
     let cancelled = false;
     setLoadingPhotos(true);
+
     fetchAllPhotosForSearch().then((photos) => {
       if (!cancelled) {
         setAllPhotos(photos);
         setLoadingPhotos(false);
       }
     });
-    return () => { cancelled = true; };
+
+    return () => {
+      cancelled = true;
+    };
   }, [open]);
 
   const filtered = useMemo(() => {
     if (!submitted.trim()) return [];
-    return allPhotos.filter((p) => matchesQuery(p, submitted));
+    return allPhotos.filter((photo) => matchesQuery(photo, submitted));
   }, [allPhotos, submitted]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -85,9 +97,9 @@ export function SearchPalette({ onSelect, year = 0 }: SearchPaletteProps) {
     setSubmitted("");
   };
 
-  const handleOpenChange = (val: boolean) => {
-    setOpen(val);
-    if (!val) {
+  const handleOpenChange = (value: boolean) => {
+    setOpen(value);
+    if (!value) {
       setQuery("");
       setSubmitted("");
     }
@@ -98,7 +110,7 @@ export function SearchPalette({ onSelect, year = 0 }: SearchPaletteProps) {
       <button
         onClick={() => setOpen(true)}
         className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-        style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
+        style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
         aria-label="Sök bland bilder (Ctrl+K)"
       >
         <Search className="h-3.5 w-3.5" />
@@ -107,74 +119,119 @@ export function SearchPalette({ onSelect, year = 0 }: SearchPaletteProps) {
 
       <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogContent
-          className="paper-aged overflow-hidden p-0 shadow-lg sm:max-w-3xl rounded-none border !top-[12%] !translate-y-0 !block max-sm:!top-0 max-sm:left-0 max-sm:translate-x-0 max-sm:h-auto max-sm:max-h-[90vh] max-sm:w-full max-sm:max-w-full max-sm:border-0 [&>button]:text-[#1a1208] [&>button]:opacity-70 [&>button]:hover:opacity-100"
-          style={{
-            ['--paper-color' as any]: paperColor,
-            ['--paper-spots' as any]: String(paperSpots),
-            borderColor: 'rgba(26, 18, 8, 0.35)',
-            color: '#1a1208',
-            fontFamily: "'Courier Prime', monospace",
-          }}
+          className="!fixed !inset-0 !left-0 !top-0 !block !w-screen !max-w-none !translate-x-0 !translate-y-0 !border-0 !bg-transparent !p-0 !shadow-none pointer-events-none [&>button]:hidden"
+          aria-describedby="search-palette-description"
         >
-          <div className="relative z-10 flex items-center px-3" style={{ borderBottom: '1px dashed rgba(26, 18, 8, 0.35)' }}>
-            <Search className="mr-2 h-4 w-4 shrink-0" style={{ color: 'rgba(26, 18, 8, 0.6)' }} />
-            <input
-              className="flex h-12 w-full rounded-none bg-transparent py-3 text-sm uppercase tracking-wider outline-none"
-              style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
-              placeholder="Skriv sökord"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={handleKeyDown}
-              autoFocus
-            />
-          </div>
+          <DialogTitle className="sr-only">Sök bland bilder</DialogTitle>
+          <DialogDescription id="search-palette-description" className="sr-only">
+            Skriv ett sökord för att söka bland alla bilder i arkivet.
+          </DialogDescription>
 
-          <div className="relative z-10 max-h-[500px] max-sm:max-h-[calc(100vh-60px)] overflow-y-auto">
-            {loadingPhotos && (
-              <div className="flex items-center justify-center py-6">
-                <Loader2 className="h-5 w-5 animate-spin" style={{ color: 'rgba(26, 18, 8, 0.6)' }} />
+          <div className="pointer-events-auto mx-auto mt-[12vh] w-[min(48rem,calc(100vw-2rem))] overflow-hidden border shadow-lg paper-aged max-sm:mt-0 max-sm:min-h-0 max-sm:max-h-[90vh] max-sm:w-full max-sm:border-0">
+            <div
+              className="relative"
+              style={{
+                ["--paper-color" as any]: paperColor,
+                ["--paper-spots" as any]: String(paperSpots),
+                borderColor: "rgba(26, 18, 8, 0.35)",
+                color: "#1a1208",
+                fontFamily: "'Courier Prime', monospace",
+              }}
+            >
+              <DialogClose asChild>
+                <button
+                  type="button"
+                  className="absolute right-3 top-3 z-20 flex h-8 w-8 items-center justify-center transition-opacity hover:opacity-100"
+                  style={{ color: "rgba(26, 18, 8, 0.75)" }}
+                  aria-label="Stäng sök"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </DialogClose>
+
+              <div
+                className="relative z-10 flex items-center px-4 pr-12"
+                style={{ borderBottom: "1px dashed rgba(26, 18, 8, 0.35)" }}
+              >
+                <Search
+                  className="mr-2 h-4 w-4 shrink-0"
+                  style={{ color: "rgba(26, 18, 8, 0.55)" }}
+                />
+                <input
+                  className="flex h-16 w-full rounded-none bg-transparent py-3 text-sm uppercase tracking-[0.14em] outline-none placeholder:text-black/30"
+                  style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
+                  placeholder="Skriv sökord"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  autoFocus
+                />
               </div>
-            )}
-            {!loadingPhotos && !submitted.trim() && (
-              <div className="py-6" />
-            )}
-            {!loadingPhotos && submitted.trim() && filtered.length === 0 && (
-              <p className="py-6 text-center text-sm uppercase tracking-wider" style={{ color: 'rgba(26, 18, 8, 0.65)' }}>
-                Inga träffar
-              </p>
-            )}
-            {filtered.length > 0 && (
-              <div className="p-0">
-                <p className="px-3 py-2 text-[10px] uppercase tracking-[0.2em]" style={{ color: 'rgba(26, 18, 8, 0.6)', borderBottom: '1px dashed rgba(26, 18, 8, 0.25)' }}>
-                  {filtered.length} träffar
-                </p>
-                {filtered.map((photo) => (
-                  <button
-                    key={photo.id}
-                    onClick={() => handleSelect(photo)}
-                    className="flex w-full items-center gap-3 rounded-none px-3 py-2 text-left transition-colors hover:bg-[rgba(26,18,8,0.06)]"
-                    style={{ borderBottom: '1px dashed rgba(26, 18, 8, 0.2)' }}
+
+              <div className="relative z-10 max-h-[65vh] overflow-y-auto max-sm:max-h-[calc(90vh-4rem)]">
+                {loadingPhotos && (
+                  <div className="flex items-center justify-center py-6">
+                    <Loader2
+                      className="h-5 w-5 animate-spin"
+                      style={{ color: "rgba(26, 18, 8, 0.6)" }}
+                    />
+                  </div>
+                )}
+
+                {!loadingPhotos && !submitted.trim() && <div className="py-5" />}
+
+                {!loadingPhotos && submitted.trim() && filtered.length === 0 && (
+                  <p
+                    className="py-6 text-center text-sm uppercase tracking-wider"
+                    style={{ color: "rgba(26, 18, 8, 0.65)" }}
                   >
-                    {photo.imageUrl && (
-                      <img
-                        src={photo.imageUrl}
-                        alt=""
-                        className="h-10 w-10 sm:h-20 sm:w-20 shrink-0 rounded-none object-cover"
-                        style={{ border: '1px solid rgba(26, 18, 8, 0.3)' }}
-                      />
-                    )}
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-medium" style={{ color: '#1a1208' }}>{photo.title}</p>
-                      <p className="truncate text-xs mt-0.5" style={{ color: 'rgba(26, 18, 8, 0.65)' }}>
-                        {[photo.year, photo.photographer, photo.place, photo.provider]
-                          .filter(Boolean)
-                          .join(" · ")}
-                      </p>
-                    </div>
-                  </button>
-                ))}
+                    Inga träffar
+                  </p>
+                )}
+
+                {filtered.length > 0 && (
+                  <div>
+                    <p
+                      className="px-4 py-2 text-[10px] uppercase tracking-[0.2em]"
+                      style={{
+                        color: "rgba(26, 18, 8, 0.6)",
+                        borderBottom: "1px dashed rgba(26, 18, 8, 0.25)",
+                      }}
+                    >
+                      {filtered.length} träffar
+                    </p>
+
+                    {filtered.map((photo) => (
+                      <button
+                        key={photo.id}
+                        onClick={() => handleSelect(photo)}
+                        className="flex w-full items-center gap-3 rounded-none px-4 py-2 text-left transition-colors hover:bg-black/5"
+                        style={{ borderBottom: "1px dashed rgba(26, 18, 8, 0.2)" }}
+                      >
+                        {photo.imageUrl && (
+                          <img
+                            src={photo.imageUrl}
+                            alt=""
+                            className="h-10 w-10 shrink-0 rounded-none object-cover sm:h-20 sm:w-20"
+                            style={{ border: "1px solid rgba(26, 18, 8, 0.3)" }}
+                          />
+                        )}
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-sm font-medium" style={{ color: "#1a1208" }}>
+                            {photo.title}
+                          </p>
+                          <p className="mt-0.5 truncate text-xs" style={{ color: "rgba(26, 18, 8, 0.65)" }}>
+                            {[photo.year, photo.photographer, photo.place, photo.provider]
+                              .filter(Boolean)
+                              .join(" · ")}
+                          </p>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </DialogContent>
       </Dialog>
