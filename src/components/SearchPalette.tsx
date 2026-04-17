@@ -101,7 +101,7 @@ export function SearchPalette({ onSelect }: SearchPaletteProps) {
       </button>
 
       <Dialog open={open} onOpenChange={handleOpenChange}>
-        <DialogContent className="overflow-hidden p-0 shadow-lg sm:max-w-lg max-sm:top-0 max-sm:left-0 max-sm:translate-x-0 max-sm:translate-y-0 max-sm:h-full max-sm:max-h-full max-sm:w-full max-sm:max-w-full max-sm:rounded-none max-sm:border-0 flex flex-col gap-0">
+        <DialogContent className="overflow-hidden p-0 shadow-lg sm:max-w-3xl max-sm:top-0 max-sm:left-0 max-sm:translate-x-0 max-sm:translate-y-0 max-sm:h-full max-sm:max-h-full max-sm:w-full max-sm:max-w-full max-sm:rounded-none max-sm:border-0 flex flex-col gap-0">
           <div className="flex items-center border-b px-3">
             <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
             <input
@@ -114,7 +114,7 @@ export function SearchPalette({ onSelect }: SearchPaletteProps) {
             />
           </div>
 
-          <div className="max-h-[300px] max-sm:max-h-[calc(100vh-60px)] overflow-y-auto">
+          <div className="max-h-[500px] max-sm:max-h-[calc(100vh-60px)] overflow-y-auto">
             {loadingPhotos && (
               <div className="flex items-center justify-center py-6">
                 <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
@@ -143,7 +143,7 @@ export function SearchPalette({ onSelect }: SearchPaletteProps) {
                       <img
                         src={photo.imageUrl}
                         alt=""
-                        className="h-10 w-10 shrink-0 rounded object-cover"
+                        className="h-10 w-10 sm:h-20 sm:w-20 shrink-0 rounded object-cover"
                       />
                     )}
                     <div className="min-w-0 flex-1">
