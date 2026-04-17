@@ -78,12 +78,12 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
     >
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" aria-hidden="true" />
 
-      {/* Desktop prev/next arrows */}
+      {/* Desktop prev/next arrows — positioned just outside the lightbox edges (max-w-2xl = 672px → 336px half-width) */}
       {onPrev && hasPrev && (
         <button
           onClick={(e) => { e.stopPropagation(); onPrev(); }}
           aria-label="Föregående bild"
-          className="hidden sm:block absolute left-4 z-20 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
+          className="hidden sm:block absolute left-1/2 -translate-x-[calc(336px+3rem)] z-20 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
         >
           <ChevronLeft className="h-5 w-5" />
         </button>
@@ -92,7 +92,7 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
         <button
           onClick={(e) => { e.stopPropagation(); onNext(); }}
           aria-label="Nästa bild"
-          className="hidden sm:block absolute right-4 z-20 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
+          className="hidden sm:block absolute left-1/2 translate-x-[calc(336px+0.75rem)] z-20 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
         >
           <ChevronRight className="h-5 w-5" />
         </button>
