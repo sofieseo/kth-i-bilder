@@ -60,7 +60,10 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
         )}
         <p className="text-[8px] text-stone-400 mt-0.5 line-clamp-1">{photo.source}</p>
       </div>
-      <p className="absolute bottom-1 right-2 text-base text-stone-600 whitespace-nowrap" style={{ fontFamily: "'Caveat', cursive" }}>
+      <p
+        className={`absolute right-2 whitespace-nowrap text-stone-600 ${photo.year == null ? "bottom-1.5 text-sm" : "bottom-1 text-base"}`}
+        style={{ fontFamily: "'Caveat', cursive" }}
+      >
         {photo.year ?? "Odaterad"}
       </p>
       {isAdmin && (
