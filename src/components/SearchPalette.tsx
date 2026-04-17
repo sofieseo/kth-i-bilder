@@ -127,7 +127,7 @@ export function SearchPalette({ onSelect, year = 0 }: SearchPaletteProps) {
             Skriv ett sökord för att söka bland alla bilder i arkivet.
           </DialogDescription>
 
-          <div className="paper-aged mt-[12vh] w-[min(48rem,calc(100vw-2rem))] overflow-hidden border shadow-lg max-sm:mt-0 max-sm:min-h-0 max-sm:max-h-[90vh] max-sm:w-full max-sm:border-0"
+          <div className="paper-aged mt-[12vh] w-[min(48rem,calc(100vw-2rem))] overflow-hidden border shadow-lg max-sm:mt-0 max-sm:min-h-0 max-sm:max-h-[90vh] max-sm:w-full max-sm:border-0">
             <div
               className="relative"
               style={{
