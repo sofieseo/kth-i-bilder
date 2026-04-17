@@ -130,20 +130,23 @@ export async function fetchAllPhotos(
     }
   }
 
-  // Wikimedia photos first, then others
-  const wikimedia = relevant.filter((p) => p.provider === "Wikimedia Commons");
-  const rest = relevant.filter((p) => p.provider !== "Wikimedia Commons");
-
-  const all = [...wikimedia, ...local, ...rest];
+  // Merge all sources together (no provider priority – sources are mixed)
+  const all = [...local, ...relevant];
   const result = deduplicatePhotos(all);
 
-  // Push photos with certain keywords to the bottom
+  // 1. Sort chronologically (earliest first, undated last)
+  result.sort((a, b) => {
+    if (a.year == null && b.year == null) return 0;
+    if (a.year == null) return 1;
+    if (b.year == null) return -1;
+    return a.year - b.year;
+  });
+
+  // 2. Push photos with certain keywords to the bottom (stable – preserves chronological order within each group)
   const DEMOTED_KEYWORDS = ["skioptikon", "prov", "föremål"];
   result.sort((a, b) => {
-    const aLow = a.title.toLowerCase();
-    const bLow = b.title.toLowerCase();
-    const aDemoted = DEMOTED_KEYWORDS.some((kw) => aLow.includes(kw));
-    const bDemoted = DEMOTED_KEYWORDS.some((kw) => bLow.includes(kw));
+    const aDemoted = DEMOTED_KEYWORDS.some((kw) => a.title.toLowerCase().includes(kw));
+    const bDemoted = DEMOTED_KEYWORDS.some((kw) => b.title.toLowerCase().includes(kw));
     if (aDemoted === bDemoted) return 0;
     return aDemoted ? 1 : -1;
   });
