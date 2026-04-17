@@ -70,10 +70,10 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
               className={`absolute font-display cursor-pointer transition-all duration-200 ${align} ${
                 isActive
                   ? isMobile
-                    ? 'text-black bg-white px-1.5 py-0.5 text-[12px] font-bold shadow-[0_2px_6px_rgba(0,0,0,0.4)]'
-                    : 'text-black bg-white px-2 py-0.5 text-[13px] sm:text-[14px] font-bold shadow-[0_3px_8px_rgba(0,0,0,0.45)] -translate-y-[2px]'
+                    ? 'text-white text-[13px] font-bold'
+                    : 'text-white text-[15px] sm:text-[17px] font-bold scale-110'
                   : 'text-white/35 hover:text-white/80 text-[10px] sm:text-[11px] font-semibold'
-              } ${isActive && !isFirst && !isLast ? '-translate-x-1/2' : ''}`}
+              }`}
               style={{ left: isFirst ? '-9px' : `${pct}%` }}
             >
               {text}
