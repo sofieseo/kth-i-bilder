@@ -13,15 +13,20 @@ interface PhotoCardProps {
   onMarkUndated?: (id: string) => void;
 }
 
-// Deterministic rotation between -2 and +2 degrees based on photo id
+// Deterministic subtle rotation: ~50% of cards stay straight, others lean ±0.5–1.2°
 function getRotation(id: string): number {
   let hash = 0;
   for (let i = 0; i < id.length; i++) {
     hash = (hash * 31 + id.charCodeAt(i)) | 0;
   }
-  // Map hash to range [-2, 2]
-  const normalized = ((Math.abs(hash) % 1000) / 1000) * 4 - 2;
-  return Math.round(normalized * 10) / 10;
+  const abs = Math.abs(hash);
+  // ~50% chance of being perfectly straight
+  if (abs % 2 === 0) return 0;
+  // Direction from a different bit so left/right are evenly split
+  const direction = (abs >> 3) % 2 === 0 ? -1 : 1;
+  // Magnitude between 0.5 and 1.2 degrees
+  const magnitude = 0.5 + ((abs % 70) / 100);
+  return Math.round(direction * magnitude * 10) / 10;
 }
 
 export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMarkUndated }: PhotoCardProps) {
