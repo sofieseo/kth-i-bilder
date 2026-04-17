@@ -21,9 +21,11 @@ const Index = () => {
   const { isAdmin, wantsAdmin } = useAdminMode();
   const { hiddenIds, hidePhoto, restorePhoto } = useHiddenPhotos();
   const { undatedIds, markAsUndated } = useUndatedPhotos();
+  const queryClient = useQueryClient();
   const [showHidden, setShowHidden] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [clearingCache, setClearingCache] = useState(false);
   const [searchSelectedPhoto, setSearchSelectedPhoto] = useState<UnifiedPhoto | null>(null);
   const [searchNavSet, setSearchNavSet] = useState<UnifiedPhoto[] | null>(null);
   const [reopenSearchSignal, setReopenSearchSignal] = useState(0);
@@ -31,6 +33,29 @@ const Index = () => {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     toast.success("Utloggad");
+  };
+
+  const handleClearCache = async () => {
+    setClearingCache(true);
+    try {
+      // Always invalidate the undated bucket alongside the active decade
+      const keys = year === 0
+        ? ["7:0"]
+        : [`7:${Math.floor(year / 10) * 10}`, "7:0"];
+      const { error } = await supabase
+        .from("api_cache")
+        .delete()
+        .or(keys.map((k) => `decade.like.%${k}%`).join(","));
+      if (error) throw error;
+      // Drop client-side React Query cache so the next fetch hits the network
+      await queryClient.invalidateQueries({ queryKey: ["photos"] });
+      toast.success(year === 0 ? "Cachen rensad för odaterade" : `Cachen rensad för ${Math.floor(year / 10) * 10}-talet`);
+    } catch (e) {
+      console.error(e);
+      toast.error("Kunde inte rensa cachen");
+    } finally {
+      setClearingCache(false);
+    }
   };
 
   /** Delete all api_cache rows whose decade key contains the given year bucket */
