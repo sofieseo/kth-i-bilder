@@ -93,7 +93,8 @@ export function SearchPalette({ onSelect }: SearchPaletteProps) {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
+        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+        style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
         aria-label="Sök bland bilder (Ctrl+K)"
       >
         <Search className="h-3.5 w-3.5" />

@@ -111,9 +111,9 @@ const Index = () => {
       {/* Dark overlay to push texture into the background */}
       <div aria-hidden className="fixed inset-0 -z-10 bg-black/40" />
       <header className="shrink-0 px-2 py-1.5 sm:px-4 sm:py-3">
-         <div className="bg-black/85 backdrop-blur-md border border-white/20 px-3 py-2 sm:px-6 sm:py-3 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.7)]">
-              <div className="flex items-center justify-between">
-                <h1 className="text-xl sm:text-3xl font-semibold text-white font-slab uppercase tracking-[0.12em] sm:tracking-[0.2em]">
+         <div className="paper-aged px-3 py-2 sm:px-6 sm:py-3 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.7)]">
+              <div className="relative z-10 flex items-center justify-between">
+                <h1 className="text-xl sm:text-3xl font-semibold font-slab uppercase tracking-[0.12em] sm:tracking-[0.2em]" style={{ color: '#1a1208' }}>
                   KTH i bilder
                 </h1>
                 <div className="flex items-center gap-2">
@@ -123,7 +123,8 @@ const Index = () => {
                   {wantsAdmin && !isAdmin && (
                     <button
                       onClick={() => setShowLogin(true)}
-                      className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
+                      className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+                      style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
                     >
                       <LogIn className="h-3.5 w-3.5" />
                       Logga in
@@ -133,21 +134,24 @@ const Index = () => {
                     <>
                       <button
                         onClick={() => setShowStats(true)}
-                        className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
+                        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+                        style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
                       >
                         <BarChart3 className="h-3.5 w-3.5" />
                         Statistik
                       </button>
                       <button
                         onClick={() => setShowHidden(true)}
-                        className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
+                        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+                        style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
                       >
                         <EyeOff className="h-3.5 w-3.5" />
                         Dolda ({hiddenIds.size})
                       </button>
                       <button
                         onClick={handleLogout}
-                        className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-xs text-white/70 hover:bg-white/20 hover:text-white transition-colors"
+                        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+                        style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
                       >
                         <LogOut className="h-3.5 w-3.5" />
                         Logga ut
@@ -156,11 +160,11 @@ const Index = () => {
                   )}
                 </div>
               </div>
-              <p className="text-[10px] sm:text-xs text-white/55 font-display leading-relaxed mt-1 max-w-3xl">
+              <p className="relative z-10 text-[10px] sm:text-xs leading-relaxed mt-1 max-w-3xl" style={{ color: 'rgba(26, 18, 8, 0.78)', fontFamily: "'Courier Prime', monospace" }}>
                 <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv.</span>
                 <span className="hidden sm:inline">En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH). Bilderna hämtas från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.</span>
               </p>
-              <div className="mt-2 sm:mt-4 paper-aged px-3 py-3 sm:px-5 sm:py-4">
+              <div className="relative z-10 mt-2 sm:mt-4 pt-2 sm:pt-4" style={{ borderTop: '1px dashed rgba(26, 18, 8, 0.35)' }}>
                 <TimeSlider year={year} onChange={handleYearChange} />
               </div>
            </div>
