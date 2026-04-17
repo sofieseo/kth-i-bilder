@@ -131,7 +131,11 @@ const Index = () => {
                 <div className="flex items-center gap-2">
                   <SearchPalette
                     year={year}
-                    onSelect={(photo) => setSearchSelectedPhoto(photo)}
+                    reopenSignal={reopenSearchSignal}
+                    onSelect={(photo, results) => {
+                      setSearchNavSet(results);
+                      setSearchSelectedPhoto(photo);
+                    }}
                   />
                   {wantsAdmin && !isAdmin && (
                     <button
