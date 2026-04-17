@@ -12,8 +12,9 @@ import type { UnifiedPhoto } from "@/data/types";
 import { getPaperStyle } from "@/lib/paperColor";
 
 interface SearchPaletteProps {
-  onSelect: (photo: UnifiedPhoto) => void;
+  onSelect: (photo: UnifiedPhoto, results: UnifiedPhoto[]) => void;
   year?: number;
+  reopenSignal?: number;
 }
 
 function matchesQuery(photo: UnifiedPhoto, q: string): boolean {
