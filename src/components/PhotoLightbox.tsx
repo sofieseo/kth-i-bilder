@@ -99,7 +99,8 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
       )}
 
       <div
-        className="relative z-10 w-full max-w-2xl max-h-[90vh] sm:max-h-[90vh] max-sm:h-full max-sm:max-h-full overflow-y-auto border-0 sm:border border-border bg-card shadow-2xl"
+        className="relative z-10 w-full max-w-2xl max-h-[90vh] sm:max-h-[90vh] max-sm:h-full max-sm:max-h-full overflow-y-auto border-0 sm:border border-border shadow-2xl"
+        style={{ backgroundColor: "#f4f1ea" }}
         onClick={(e) => e.stopPropagation()}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
@@ -112,7 +113,7 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
           <X className="h-4 w-4" />
         </button>
 
-        <div className="bg-white">
+        <div style={{ backgroundColor: "#f4f1ea" }}>
           {photo.imageUrlFull ? (
             <img src={photo.imageUrlFull} alt={photo.title} className="w-full object-contain"
               onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
@@ -125,7 +126,7 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
 
         {/* Mobile prev/next bar below image */}
         {(hasPrev || hasNext) && (
-          <div className="flex sm:hidden items-center justify-between px-4 py-2 bg-white border-t border-border">
+          <div className="flex sm:hidden items-center justify-between px-4 py-2 border-t border-border" style={{ backgroundColor: "#f4f1ea" }}>
             <button
               onClick={() => onPrev && hasPrev && onPrev()}
               disabled={!hasPrev}
