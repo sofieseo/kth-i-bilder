@@ -192,6 +192,16 @@ const Index = () => {
                         Dolda ({hiddenIds.size})
                       </button>
                       <button
+                        onClick={handleClearCache}
+                        disabled={clearingCache}
+                        title={year === 0 ? "Rensa cache för odaterade" : `Rensa cache för ${Math.floor(year / 10) * 10}-talet`}
+                        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors disabled:opacity-50"
+                        style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
+                      >
+                        <RefreshCw className={`h-3.5 w-3.5 ${clearingCache ? "animate-spin" : ""}`} />
+                        Rensa cache
+                      </button>
+                      <button
                         onClick={handleLogout}
                         className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
                         style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
