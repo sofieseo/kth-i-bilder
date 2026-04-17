@@ -24,6 +24,8 @@ const Index = () => {
   const [showStats, setShowStats] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [searchSelectedPhoto, setSearchSelectedPhoto] = useState<UnifiedPhoto | null>(null);
+  const [searchNavSet, setSearchNavSet] = useState<UnifiedPhoto[] | null>(null);
+  const [reopenSearchSignal, setReopenSearchSignal] = useState(0);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
