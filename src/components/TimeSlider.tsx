@@ -41,13 +41,13 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
   const label = year === 0 ? "ODATERAT" : `${year}-talet`;
 
   return (
-    <div className="w-full">
+    <div className="w-full relative z-10">
       <div className="mb-2 flex items-center justify-between">
-        <span className="text-[11px] uppercase tracking-widest text-white/50 font-display font-semibold">
+        <span className="text-[11px] uppercase tracking-widest font-semibold" style={{ fontFamily: "'Courier Prime', monospace", color: '#1a1208' }}>
           Välj årtionde
         </span>
         {isMobile && (
-          <span className="rounded-none border border-white/25 bg-white/10 px-3.5 py-1 text-[11px] font-extrabold text-white font-display tracking-wide">
+          <span className="rounded-none border px-3.5 py-1 text-[11px] font-bold tracking-wide" style={{ fontFamily: "'Courier Prime', monospace", color: '#1a1208', borderColor: 'rgba(26, 18, 8, 0.45)', background: 'rgba(26, 18, 8, 0.06)' }}>
             {label}
           </span>
         )}
@@ -67,14 +67,18 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
               key={decade}
               type="button"
               onClick={() => onChange(decade)}
-              className={`absolute font-display cursor-pointer transition-all duration-200 ${align} ${
+              style={{
+                left: isFirst ? '-9px' : `${pct}%`,
+                fontFamily: "'Courier Prime', monospace",
+                color: isActive ? '#1a1208' : 'rgba(26, 18, 8, 0.45)',
+              }}
+              className={`absolute cursor-pointer transition-all duration-200 ${align} ${
                 isActive
                   ? isMobile
-                    ? 'text-white text-[13px] font-bold'
-                    : 'text-white text-[15px] sm:text-[17px] font-bold scale-110'
-                  : 'text-white/35 hover:text-white/80 text-[10px] sm:text-[11px] font-semibold'
+                    ? 'text-[13px] font-bold'
+                    : 'text-[15px] sm:text-[17px] font-bold scale-110'
+                  : 'hover:opacity-90 text-[10px] sm:text-[11px] font-semibold'
               }`}
-              style={{ left: isFirst ? '-9px' : `${pct}%` }}
             >
               {text}
             </button>
