@@ -104,12 +104,12 @@ const Index = () => {
           backgroundImage: "url('/images/brick-bg.jpg')",
           backgroundSize: "600px",
           backgroundPosition: "center",
-          filter: "blur(3px) brightness(0.55)",
-          transform: "scale(1.05)",
+          filter: "blur(1.5px) brightness(0.75)",
+          transform: "scale(1.03)",
         }}
       />
       {/* Dark overlay to push texture into the background */}
-      <div aria-hidden className="fixed inset-0 -z-10 bg-black/60" />
+      <div aria-hidden className="fixed inset-0 -z-10 bg-black/40" />
       <header className="shrink-0 px-2 py-1.5 sm:px-4 sm:py-3">
          <div className="bg-black/85 backdrop-blur-md border border-white/20 px-3 py-2 sm:px-6 sm:py-3">
               <div className="flex items-center justify-between">
