@@ -101,8 +101,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
   const handleSelect = (photo: UnifiedPhoto) => {
     onSelect(photo, filtered);
     setOpen(false);
-    setQuery("");
-    setSubmitted("");
+    // keep query/submitted so the user can reopen and see the same results
   };
 
   const handleOpenChange = (value: boolean) => {
