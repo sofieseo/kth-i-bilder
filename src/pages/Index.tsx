@@ -24,6 +24,8 @@ const Index = () => {
   const [showStats, setShowStats] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [searchSelectedPhoto, setSearchSelectedPhoto] = useState<UnifiedPhoto | null>(null);
+  const [searchNavSet, setSearchNavSet] = useState<UnifiedPhoto[] | null>(null);
+  const [reopenSearchSignal, setReopenSearchSignal] = useState(0);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -129,7 +131,11 @@ const Index = () => {
                 <div className="flex items-center gap-2">
                   <SearchPalette
                     year={year}
-                    onSelect={(photo) => setSearchSelectedPhoto(photo)}
+                    reopenSignal={reopenSearchSignal}
+                    onSelect={(photo, results) => {
+                      setSearchNavSet(results);
+                      setSearchSelectedPhoto(photo);
+                    }}
                   />
                   {wantsAdmin && !isAdmin && (
                     <button
@@ -181,7 +187,23 @@ const Index = () => {
            </div>
       </header>
 
-      <PhotoGallery results={visibleResults} year={year} loading={loading} isAdmin={isAdmin} onHidePhoto={handleHidePhoto} onMarkUndated={isAdmin ? handleMarkUndated : undefined} openPhoto={searchSelectedPhoto} onPhotoOpened={() => setSearchSelectedPhoto(null)} />
+      <PhotoGallery
+        results={visibleResults}
+        year={year}
+        loading={loading}
+        isAdmin={isAdmin}
+        onHidePhoto={handleHidePhoto}
+        onMarkUndated={isAdmin ? handleMarkUndated : undefined}
+        openPhoto={searchSelectedPhoto}
+        openPhotoNavSet={searchNavSet}
+        onPhotoOpened={() => setSearchSelectedPhoto(null)}
+        onLightboxClosed={(wasFromSearch) => {
+          if (wasFromSearch) {
+            setSearchNavSet(null);
+            setReopenSearchSignal((n) => n + 1);
+          }
+        }}
+      />
 
       <HiddenPhotosModal open={showHidden} onClose={() => setShowHidden(false)} onRestore={handleRestorePhoto} />
       <AdminStatsModal open={showStats} onClose={() => setShowStats(false)} />

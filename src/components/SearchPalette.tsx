@@ -12,8 +12,9 @@ import type { UnifiedPhoto } from "@/data/types";
 import { getPaperStyle } from "@/lib/paperColor";
 
 interface SearchPaletteProps {
-  onSelect: (photo: UnifiedPhoto) => void;
+  onSelect: (photo: UnifiedPhoto, results: UnifiedPhoto[]) => void;
   year?: number;
+  reopenSignal?: number;
 }
 
 function matchesQuery(photo: UnifiedPhoto, q: string): boolean {
@@ -39,7 +40,7 @@ function matchesQuery(photo: UnifiedPhoto, q: string): boolean {
     .every((word) => haystack.includes(word));
 }
 
-export function SearchPalette({ onSelect, year = 0 }: SearchPaletteProps) {
+export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPaletteProps) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [submitted, setSubmitted] = useState("");
@@ -47,6 +48,13 @@ export function SearchPalette({ onSelect, year = 0 }: SearchPaletteProps) {
   const [loadingPhotos, setLoadingPhotos] = useState(false);
 
   const { color: paperColor, spots: paperSpots } = getPaperStyle(year);
+
+  // Reopen palette when parent signals (e.g. lightbox closed)
+  useEffect(() => {
+    if (reopenSignal && reopenSignal > 0) {
+      setOpen(true);
+    }
+  }, [reopenSignal]);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -91,10 +99,9 @@ export function SearchPalette({ onSelect, year = 0 }: SearchPaletteProps) {
   };
 
   const handleSelect = (photo: UnifiedPhoto) => {
-    onSelect(photo);
+    onSelect(photo, filtered);
     setOpen(false);
-    setQuery("");
-    setSubmitted("");
+    // keep query/submitted so the user can reopen and see the same results
   };
 
   const handleOpenChange = (value: boolean) => {
