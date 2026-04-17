@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         sans: ['"Courier Prime"', 'monospace'],
         display: ['"Inter"', 'system-ui', 'sans-serif'],
+        slab: ['"Roboto Slab"', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
