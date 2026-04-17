@@ -1,5 +1,6 @@
 import { useMemo, useState, useRef, useEffect } from "react";
-import { EyeOff, BarChart3, LogIn, LogOut } from "lucide-react";
+import { EyeOff, BarChart3, LogIn, LogOut, RefreshCw } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 import { SearchPalette } from "@/components/SearchPalette";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
