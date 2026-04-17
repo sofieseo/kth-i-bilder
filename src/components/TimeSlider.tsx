@@ -38,6 +38,25 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
     ? DECADES.indexOf(year)
     : DECADES.findIndex((d) => d >= year) || 0;
 
+  // Desktop: arrow keys change decade (disabled when a modal/lightbox or input has focus)
+  useEffect(() => {
+    if (isMobile) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+      // Don't hijack arrows when typing in inputs or when a dialog is open
+      const target = e.target as HTMLElement | null;
+      const tag = target?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || target?.isContentEditable) return;
+      if (document.querySelector('[role="dialog"]')) return;
+      e.preventDefault();
+      const delta = e.key === "ArrowLeft" ? -1 : 1;
+      const next = Math.max(0, Math.min(DECADES.length - 1, decadeIndex + delta));
+      if (next !== decadeIndex) onChange(DECADES[next]);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isMobile, decadeIndex, onChange]);
+
   const label = year === 0 ? "ODATERAT" : `${year}-talet`;
 
   return (
