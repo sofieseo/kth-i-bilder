@@ -101,11 +101,11 @@ export function SearchPalette({ onSelect }: SearchPaletteProps) {
       </button>
 
       <Dialog open={open} onOpenChange={handleOpenChange}>
-        <DialogContent className="overflow-hidden p-0 shadow-lg sm:max-w-3xl max-sm:top-0 max-sm:left-0 max-sm:translate-x-0 max-sm:translate-y-0 max-sm:h-full max-sm:max-h-full max-sm:w-full max-sm:max-w-full max-sm:rounded-none max-sm:border-0 flex flex-col gap-0">
-          <div className="flex items-center border-b px-3">
-            <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+        <DialogContent className="overflow-hidden p-0 shadow-lg sm:max-w-3xl rounded-none border border-white/20 bg-black/95 text-white max-sm:top-0 max-sm:left-0 max-sm:translate-x-0 max-sm:translate-y-0 max-sm:h-full max-sm:max-h-full max-sm:w-full max-sm:max-w-full max-sm:border-0 flex flex-col gap-0 font-sans">
+          <div className="flex items-center border-b border-white/20 px-3">
+            <Search className="mr-2 h-4 w-4 shrink-0 text-white/60" />
             <input
-              className="flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground"
+              className="flex h-12 w-full rounded-none bg-transparent py-3 text-sm uppercase tracking-wider outline-none placeholder:text-white/40 text-white"
               placeholder="Skriv sökord"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -117,38 +117,38 @@ export function SearchPalette({ onSelect }: SearchPaletteProps) {
           <div className="max-h-[500px] max-sm:max-h-[calc(100vh-60px)] overflow-y-auto">
             {loadingPhotos && (
               <div className="flex items-center justify-center py-6">
-                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                <Loader2 className="h-5 w-5 animate-spin text-white/60" />
               </div>
             )}
             {!loadingPhotos && !submitted.trim() && (
               <div className="py-6" />
             )}
             {!loadingPhotos && submitted.trim() && filtered.length === 0 && (
-              <p className="py-6 text-center text-sm text-muted-foreground">
+              <p className="py-6 text-center text-sm uppercase tracking-wider text-white/60">
                 Inga träffar
               </p>
             )}
             {filtered.length > 0 && (
-              <div className="p-1">
-                <p className="px-2 py-1.5 text-xs font-medium text-muted-foreground">
+              <div className="p-0">
+                <p className="px-3 py-2 text-[10px] uppercase tracking-[0.2em] text-white/50 border-b border-white/10">
                   {filtered.length} träffar
                 </p>
                 {filtered.map((photo) => (
                   <button
                     key={photo.id}
                     onClick={() => handleSelect(photo)}
-                    className="flex w-full items-center gap-3 rounded-sm px-2 py-2 text-left hover:bg-accent hover:text-accent-foreground transition-colors"
+                    className="flex w-full items-center gap-3 rounded-none px-3 py-2 text-left border-b border-white/10 hover:bg-white/10 transition-colors"
                   >
                     {photo.imageUrl && (
                       <img
                         src={photo.imageUrl}
                         alt=""
-                        className="h-10 w-10 sm:h-20 sm:w-20 shrink-0 rounded object-cover"
+                        className="h-10 w-10 sm:h-20 sm:w-20 shrink-0 rounded-none object-cover border border-white/20"
                       />
                     )}
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-medium">{photo.title}</p>
-                      <p className="truncate text-xs text-muted-foreground">
+                      <p className="truncate text-sm font-medium text-white">{photo.title}</p>
+                      <p className="truncate text-xs text-white/60 mt-0.5">
                         {[photo.year, photo.photographer, photo.place, photo.provider]
                           .filter(Boolean)
                           .join(" · ")}
