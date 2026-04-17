@@ -187,7 +187,23 @@ const Index = () => {
            </div>
       </header>
 
-      <PhotoGallery results={visibleResults} year={year} loading={loading} isAdmin={isAdmin} onHidePhoto={handleHidePhoto} onMarkUndated={isAdmin ? handleMarkUndated : undefined} openPhoto={searchSelectedPhoto} onPhotoOpened={() => setSearchSelectedPhoto(null)} />
+      <PhotoGallery
+        results={visibleResults}
+        year={year}
+        loading={loading}
+        isAdmin={isAdmin}
+        onHidePhoto={handleHidePhoto}
+        onMarkUndated={isAdmin ? handleMarkUndated : undefined}
+        openPhoto={searchSelectedPhoto}
+        openPhotoNavSet={searchNavSet}
+        onPhotoOpened={() => setSearchSelectedPhoto(null)}
+        onLightboxClosed={(wasFromSearch) => {
+          if (wasFromSearch) {
+            setSearchNavSet(null);
+            setReopenSearchSignal((n) => n + 1);
+          }
+        }}
+      />
 
       <HiddenPhotosModal open={showHidden} onClose={() => setShowHidden(false)} onRestore={handleRestorePhoto} />
       <AdminStatsModal open={showStats} onClose={() => setShowStats(false)} />
