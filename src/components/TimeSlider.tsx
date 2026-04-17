@@ -67,13 +67,13 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
               key={decade}
               type="button"
               onClick={() => onChange(decade)}
-              className={`absolute font-display font-semibold cursor-pointer hover:text-white transition-all duration-200 ${align} ${
+              className={`absolute font-display cursor-pointer transition-all duration-200 ${align} ${
                 isActive
                   ? isMobile
-                    ? 'text-white text-[12px]'
-                    : 'text-white text-[14px] sm:text-[16px] scale-110'
-                  : 'text-white/60 hover:text-white/90 text-[10px] sm:text-[11px]'
-              }`}
+                    ? 'text-black bg-white px-1.5 py-0.5 text-[12px] font-bold shadow-[0_2px_6px_rgba(0,0,0,0.4)]'
+                    : 'text-black bg-white px-2 py-0.5 text-[13px] sm:text-[14px] font-bold shadow-[0_3px_8px_rgba(0,0,0,0.45)] -translate-y-[2px]'
+                  : 'text-white/35 hover:text-white/80 text-[10px] sm:text-[11px] font-semibold'
+              } ${isActive && !isFirst && !isLast ? '-translate-x-1/2' : ''}`}
               style={{ left: isFirst ? '-9px' : `${pct}%` }}
             >
               {text}
