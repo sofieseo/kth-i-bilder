@@ -99,7 +99,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
   };
 
   const handleSelect = (photo: UnifiedPhoto) => {
-    onSelect(photo);
+    onSelect(photo, filtered);
     setOpen(false);
     setQuery("");
     setSubmitted("");
