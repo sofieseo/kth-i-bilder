@@ -107,7 +107,7 @@ export function SearchPalette({ onSelect, year = 0 }: SearchPaletteProps) {
 
       <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogContent
-          className="paper-aged overflow-hidden p-0 shadow-lg sm:max-w-3xl rounded-none border top-[12%] translate-y-0 max-sm:top-0 max-sm:left-0 max-sm:translate-x-0 max-sm:translate-y-0 max-sm:h-full max-sm:max-h-full max-sm:w-full max-sm:max-w-full max-sm:border-0 flex flex-col gap-0"
+          className="paper-aged overflow-hidden p-0 shadow-lg sm:max-w-3xl rounded-none border !top-[12%] !translate-y-0 max-sm:!top-0 max-sm:left-0 max-sm:translate-x-0 max-sm:h-full max-sm:max-h-full max-sm:w-full max-sm:max-w-full max-sm:border-0 flex flex-col gap-0 [&>button]:text-[#1a1208] [&>button]:opacity-70 [&>button]:hover:opacity-100"
           style={{
             ['--paper-color' as any]: paperColor,
             ['--paper-spots' as any]: String(paperSpots),
