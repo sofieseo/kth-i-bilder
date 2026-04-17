@@ -32,10 +32,10 @@ const Index = () => {
   /** Delete all api_cache rows whose decade key contains the given year bucket */
   const invalidateCacheForYear = async (photoYear: number | null) => {
     // Invalidate both the decade the photo belonged to and the undated bucket
-    const keys: string[] = ["6:0"]; // always invalidate undated
+    const keys: string[] = ["7:0"]; // always invalidate undated
     if (photoYear != null) {
       const decade = Math.floor(photoYear / 10) * 10;
-      keys.push(`6:${decade}`);
+      keys.push(`7:${decade}`);
     }
     for (const key of keys) {
       await supabase.from("api_cache").delete().like("decade", `%${key}%`);

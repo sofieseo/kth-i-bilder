@@ -13,7 +13,20 @@ import { supabase } from "@/integrations/supabase/client";
 
 const TIMEOUT_MS = 45_000;
 const CACHE_MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
-const CACHE_SCHEMA_VERSION = 6;
+const CACHE_SCHEMA_VERSION = 7;
+
+/** Fetch year overrides for API photos that lack date metadata */
+async function loadYearOverrides(): Promise<Map<string, number>> {
+  try {
+    const { data, error } = await supabase
+      .from("api_year_overrides")
+      .select("api_id, year");
+    if (error || !data) return new Map();
+    return new Map(data.map((r) => [r.api_id, r.year]));
+  } catch {
+    return new Map();
+  }
+}
 
 /** Wrap a promise with an AbortController-based timeout */
 function withTimeout<T>(
@@ -114,6 +127,18 @@ export async function fetchAllPhotos(
   for (const result of settled) {
     if (result.status === "fulfilled") {
       remotePhotos.push(...result.value);
+    }
+  }
+
+  // Apply year overrides (correct year for API photos that lack date metadata)
+  const overrides = await loadYearOverrides();
+  if (overrides.size > 0) {
+    for (const photo of remotePhotos) {
+      const overrideYear = overrides.get(photo.id);
+      if (overrideYear != null) {
+        photo.year = overrideYear;
+        photo.yearCorrected = true;
+      }
     }
   }
 

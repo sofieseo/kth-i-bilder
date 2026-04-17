@@ -32,6 +32,27 @@ export type Database = {
         }
         Relationships: []
       }
+      api_year_overrides: {
+        Row: {
+          api_id: string
+          created_at: string
+          source_note: string | null
+          year: number
+        }
+        Insert: {
+          api_id: string
+          created_at?: string
+          source_note?: string | null
+          year: number
+        }
+        Update: {
+          api_id?: string
+          created_at?: string
+          source_note?: string | null
+          year?: number
+        }
+        Relationships: []
+      }
       curated_photos: {
         Row: {
           coordinate: string | null

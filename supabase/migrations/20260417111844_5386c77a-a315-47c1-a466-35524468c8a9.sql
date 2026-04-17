@@ -1,0 +1,1 @@
+DELETE FROM public.api_cache WHERE decade LIKE '6:%';
