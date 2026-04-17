@@ -134,13 +134,25 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image:
+  background-image: var(--paper-spot-image,
     radial-gradient(circle at 12% 60%, rgba(90, 70, 30, 0.14) 0.5px, transparent 1.5px),
     radial-gradient(circle at 70% 20%, rgba(90, 70, 30, 0.12) 0.5px, transparent 1.5px),
     radial-gradient(circle at 88% 65%, rgba(90, 70, 30, 0.10) 0.5px, transparent 1.5px),
     radial-gradient(circle at 35% 85%, rgba(90, 70, 30, 0.11) 0.5px, transparent 1.5px),
-    radial-gradient(circle at 55% 50%, rgba(90, 70, 30, 0.08) 0.5px, transparent 1.5px);
+    radial-gradient(circle at 55% 50%, rgba(90, 70, 30, 0.08) 0.5px, transparent 1.5px));
   opacity: var(--paper-spots, 0.55);
+  transition: opacity 600ms ease;
+}
+.paper-aged::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--paper-creases, none);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  opacity: var(--paper-creases-opacity, 0.5);
+  mix-blend-mode: multiply;
   transition: opacity 600ms ease;
 }
 
