@@ -17,8 +17,6 @@ export default {
         sans: ['"Courier Prime"', 'monospace'],
         display: ['"Inter"', 'system-ui', 'sans-serif'],
         slab: ['"Roboto Slab"', 'serif'],
-        garamond: ['"Cormorant Garamond"', 'serif'],
-        typewriter: ['"Special Elite"', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
