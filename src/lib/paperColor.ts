@@ -60,42 +60,41 @@ export function getPaperBackgroundImage(year: number | null | undefined): string
 
   const layers: string[] = [];
 
-  // 1) Large uneven yellow/brown patches (the "tea-stain" look)
-  const patchCount = 3 + Math.floor(rand() * 3); // 3–5
+  // 1) Large uneven yellow/brown patches (the "tea-stain" look) — soft & sparse
+  const patchCount = 2 + Math.floor(rand() * 2); // 2–3
   for (let i = 0; i < patchCount; i++) {
     const x = Math.round(rand() * 100);
     const y2 = Math.round(rand() * 100);
-    const w = 25 + Math.round(rand() * 45); // %
-    const h = 18 + Math.round(rand() * 35); // %
-    // darker amber for older paper
-    const alpha = (0.05 + rand() * 0.12) * (0.4 + aging * 0.9);
+    const w = 30 + Math.round(rand() * 40);
+    const h = 22 + Math.round(rand() * 30);
+    const alpha = (0.025 + rand() * 0.05) * (0.4 + aging * 0.8);
     layers.push(
       `radial-gradient(ellipse ${w}% ${h}% at ${x}% ${y2}%, rgba(150, 110, 55, ${alpha.toFixed(3)}), transparent 70%)`
     );
   }
 
-  // 2) Medium stains (more discrete blotches)
-  const stainCount = 4 + Math.floor(rand() * 4); // 4–7
+  // 2) Medium stains — a few discrete, soft blotches
+  const stainCount = 2 + Math.floor(rand() * 3); // 2–4
   for (let i = 0; i < stainCount; i++) {
     const x = Math.round(rand() * 100);
     const y2 = Math.round(rand() * 100);
-    const w = 4 + Math.round(rand() * 10); // px-ish via %
-    const h = 3 + Math.round(rand() * 8);
-    const alpha = (0.12 + rand() * 0.2) * (0.35 + aging * 0.95);
+    const w = 4 + Math.round(rand() * 8);
+    const h = 3 + Math.round(rand() * 6);
+    const alpha = (0.05 + rand() * 0.08) * (0.4 + aging * 0.85);
     layers.push(
       `radial-gradient(ellipse ${w}% ${h}% at ${x}% ${y2}%, rgba(90, 60, 25, ${alpha.toFixed(3)}), transparent 75%)`
     );
   }
 
-  // 3) Small dark specks ("foxing")
-  const speckCount = 8 + Math.floor(rand() * 10); // 8–17
+  // 3) Small dark specks ("foxing") — fewer and lighter
+  const speckCount = 4 + Math.floor(rand() * 5); // 4–8
   for (let i = 0; i < speckCount; i++) {
     const x = (rand() * 100).toFixed(1);
     const y2 = (rand() * 100).toFixed(1);
-    const size = (0.5 + rand() * 0.9).toFixed(2);
-    const alpha = (0.25 + rand() * 0.3) * (0.4 + aging * 0.9);
+    const size = (0.4 + rand() * 0.7).toFixed(2);
+    const alpha = (0.1 + rand() * 0.15) * (0.4 + aging * 0.85);
     layers.push(
-      `radial-gradient(circle at ${x}% ${y2}%, rgba(60, 40, 15, ${alpha.toFixed(3)}) ${size}px, transparent ${(parseFloat(size) + 1.2).toFixed(2)}px)`
+      `radial-gradient(circle at ${x}% ${y2}%, rgba(60, 40, 15, ${alpha.toFixed(3)}) ${size}px, transparent ${(parseFloat(size) + 1.0).toFixed(2)}px)`
     );
   }
 
