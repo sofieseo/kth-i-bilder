@@ -8,7 +8,7 @@ export function getPaperStyle(year: number | null | undefined): {
   spots: number;
 } {
   // Undated bucket = oldest tier (but toned down from previous yellow)
-  if (year == null || year === 0) return { color: "#ece5d2", spots: 0.7 };
+  if (year == null || year === 0) return { color: "#ece5d2", spots: 1.1 };
 
   // Clamp to the timeline range
   const minYear = 1820;
@@ -24,8 +24,8 @@ export function getPaperStyle(year: number | null | undefined): {
   const b = Math.round(210 + (255 - 210) * t);
   const color = `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
 
-  // Spots fade from 0.7 (oldest) to 0.05 (newest)
-  const spots = Math.round((0.7 - (0.7 - 0.05) * t) * 100) / 100;
+  // Spots fade from 1.1 (oldest, very visible) to 0.05 (newest, almost clean)
+  const spots = Math.round((1.1 - (1.1 - 0.05) * t) * 100) / 100;
 
   return { color, spots };
 }
