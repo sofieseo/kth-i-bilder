@@ -62,34 +62,65 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
 
   const label = year === 0 ? "ODATERAT" : `${year}-talet`;
 
-  return (
-    <div className="w-full relative z-10">
-      <div className="mb-2 flex items-center justify-between">
-        <span className="text-[11px] uppercase tracking-widest font-semibold" style={{ fontFamily: "'Courier Prime', monospace", color: '#1a1208' }}>
-          Välj årtionde
-        </span>
-        {isMobile && (
+  const goPrev = () => {
+    const next = Math.max(0, decadeIndex - 1);
+    if (next !== decadeIndex) onChange(DECADES[next]);
+  };
+  const goNext = () => {
+    const next = Math.min(DECADES.length - 1, decadeIndex + 1);
+    if (next !== decadeIndex) onChange(DECADES[next]);
+  };
+
+  // Mobile-only view: prominent decade selector with prev/next buttons
+  if (isMobile) {
+    const canPrev = decadeIndex > 0;
+    const canNext = decadeIndex < DECADES.length - 1;
+    return (
+      <div className="w-full relative z-10">
+        <div className="mb-1.5 text-center">
+          <span
+            className="text-[10px] uppercase tracking-[0.2em] font-semibold"
+            style={{ fontFamily: "'Courier Prime', monospace", color: 'rgba(26, 18, 8, 0.7)' }}
+          >
+            Välj årtionde
+          </span>
+        </div>
+        <div className="flex items-stretch gap-1.5">
+          <button
+            type="button"
+            onClick={goPrev}
+            disabled={!canPrev}
+            aria-label="Föregående årtionde"
+            className="flex items-center justify-center px-2 border active:opacity-70 disabled:opacity-30"
+            style={{
+              color: '#1a1208',
+              borderColor: 'rgba(26, 18, 8, 0.45)',
+              background: 'rgba(26, 18, 8, 0.06)',
+            }}
+          >
+            <ChevronLeft className="h-5 w-5" strokeWidth={2.5} />
+          </button>
           <Popover open={pickerOpen} onOpenChange={setPickerOpen}>
             <PopoverTrigger asChild>
               <button
                 type="button"
-                className="rounded-none border px-3 py-1 text-[11px] font-bold tracking-wide flex items-center gap-1.5 active:opacity-80"
+                className="flex-1 border px-3 py-2.5 flex items-center justify-center gap-2 active:opacity-80"
                 style={{
                   fontFamily: "'Courier Prime', monospace",
                   color: '#1a1208',
-                  borderColor: 'rgba(26, 18, 8, 0.45)',
-                  background: 'rgba(26, 18, 8, 0.06)',
+                  borderColor: 'rgba(26, 18, 8, 0.55)',
+                  background: 'rgba(26, 18, 8, 0.1)',
                 }}
                 aria-label="Välj årtionde"
               >
-                {label}
-                <ChevronDown className="h-3 w-3" strokeWidth={2.5} />
+                <span className="text-base font-bold tracking-[0.15em]">{label}</span>
+                <ChevronDown className="h-4 w-4" strokeWidth={2.5} />
               </button>
             </PopoverTrigger>
             <PopoverContent
-              align="end"
+              align="center"
               sideOffset={6}
-              className="w-44 p-1 rounded-none border shadow-lg"
+              className="w-56 p-1 rounded-none border shadow-lg"
               style={{
                 background: '#f5efe0',
                 borderColor: 'rgba(26, 18, 8, 0.45)',
@@ -108,7 +139,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
                         onChange(d);
                         setPickerOpen(false);
                       }}
-                      className={`w-full text-left px-3 py-2 text-[12px] tracking-wide transition-colors ${
+                      className={`w-full text-left px-3 py-2 text-[13px] tracking-wide transition-colors ${
                         active ? 'font-bold' : 'font-normal hover:bg-black/5'
                       }`}
                       style={{
@@ -123,7 +154,31 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
               </div>
             </PopoverContent>
           </Popover>
-        )}
+          <button
+            type="button"
+            onClick={goNext}
+            disabled={!canNext}
+            aria-label="Nästa årtionde"
+            className="flex items-center justify-center px-2 border active:opacity-70 disabled:opacity-30"
+            style={{
+              color: '#1a1208',
+              borderColor: 'rgba(26, 18, 8, 0.45)',
+              background: 'rgba(26, 18, 8, 0.06)',
+            }}
+          >
+            <ChevronRight className="h-5 w-5" strokeWidth={2.5} />
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-full relative z-10">
+      <div className="mb-2 flex items-center justify-between">
+        <span className="text-[11px] uppercase tracking-widest font-semibold" style={{ fontFamily: "'Courier Prime', monospace", color: '#1a1208' }}>
+          Välj årtionde
+        </span>
       </div>
 
       {/* Clickable labels above slider */}
@@ -147,9 +202,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
               }}
               className={`absolute cursor-pointer transition-all duration-200 ${align} ${
                 isActive
-                  ? isMobile
-                    ? 'text-[13px] font-bold'
-                    : 'text-[15px] sm:text-[17px] font-bold scale-110'
+                  ? 'text-[15px] sm:text-[17px] font-bold scale-110'
                   : 'hover:opacity-90 text-[10px] sm:text-[11px] font-semibold'
               }`}
             >
