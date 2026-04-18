@@ -140,7 +140,7 @@ const Index = () => {
       {/* Dark overlay to push texture into the background */}
       <div aria-hidden className="fixed inset-0 -z-10 bg-black/40" />
       <header
-        className="shrink-0 px-2 py-1.5 sm:px-4 sm:py-3"
+        className="paper-aged shrink-0 px-3 py-2 sm:px-6 sm:py-3 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.7)]"
         style={(() => {
           const { color, spots } = getPaperStyle(year);
           return {
@@ -149,7 +149,7 @@ const Index = () => {
           };
         })()}
       >
-         <div className="paper-aged px-3 py-2 sm:px-6 sm:py-3 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.7)]">
+         <div className="">
               <div className="relative z-10 flex items-center justify-between">
                 <h1 className="text-xl sm:text-3xl font-semibold font-slab uppercase tracking-[0.12em] sm:tracking-[0.2em]" style={{ color: '#1a1208' }}>
                   KTH i bilder
