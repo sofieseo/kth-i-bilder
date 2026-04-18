@@ -120,7 +120,12 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
 
   return (
     <>
-      <div className="flex-1 overflow-y-auto px-2 sm:px-4 pb-6 pt-2 sm:pt-4">
+      <div
+        className="flex-1 overflow-y-auto px-2 sm:px-4 pb-6 pt-2 sm:pt-4"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         {loading && results.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24">
             <Search className="h-10 w-10 animate-search-tilt mb-3" style={{ color: "#f4f1ea" }} />
