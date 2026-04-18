@@ -14,7 +14,7 @@ import { useAdminMode } from "@/hooks/useAdminMode";
 import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
 import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
-import { getPaperStyle } from "@/lib/paperColor";
+import { getPaperStyle, getPaperBackgroundImage } from "@/lib/paperColor";
 
 const Index = () => {
   const { year, results, loading, handleYearChange } = usePhotoFetch(0);
@@ -143,9 +143,11 @@ const Index = () => {
         className="shrink-0 px-2 py-1.5 sm:px-4 sm:py-3"
         style={(() => {
           const { color, spots } = getPaperStyle(year);
+          const spotsImage = getPaperBackgroundImage(year);
           return {
             ['--paper-color' as any]: color,
             ['--paper-spots' as any]: String(spots),
+            ['--paper-spots-image' as any]: spotsImage,
           };
         })()}
       >
