@@ -182,10 +182,18 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
       </div>
 
       {/* Clickable labels above slider - aligned to thumb position */}
-      <div className="relative h-6 mb-2 px-6 sm:px-8">
+      <div className="relative h-6 mb-2">
         {visibleLabels.map(({ decade, text }) => {
           const idx = DECADES.indexOf(decade);
           const pct = (idx / (DECADES.length - 1)) * 100;
+          const isFirst = idx === 0;
+          const isLast = idx === DECADES.length - 1;
+          // Anchor first label to left edge, last to right edge, rest centered
+          const align = isFirst
+            ? 'translate-x-0'
+            : isLast
+            ? '-translate-x-full'
+            : '-translate-x-1/2';
           const isActive = decade === year;
           return (
             <button
@@ -197,7 +205,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
                 fontFamily: "'Courier Prime', monospace",
                 color: isActive ? '#1a1208' : 'rgba(26, 18, 8, 0.45)',
               }}
-              className={`absolute cursor-pointer transition-all duration-200 -translate-x-1/2 whitespace-nowrap ${
+              className={`absolute cursor-pointer transition-all duration-200 ${align} whitespace-nowrap ${
                 isActive
                   ? 'text-[15px] sm:text-[17px] font-bold scale-110'
                   : 'hover:opacity-90 text-[10px] sm:text-[11px] font-semibold'
@@ -210,43 +218,41 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
       </div>
 
       {/* Custom slider track with perfectly aligned thumb */}
-      <div className="px-6 sm:px-8">
+      <div
+        className="relative w-full h-4 cursor-pointer"
+        role="slider"
+        aria-valuemin={0}
+        aria-valuemax={DECADES.length - 1}
+        aria-valuenow={decadeIndex}
+        tabIndex={0}
+        onClick={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const pct = Math.max(0, Math.min(1, x / rect.width));
+          const idx = Math.round(pct * (DECADES.length - 1));
+          onChange(DECADES[idx]);
+        }}
+      >
+        {/* Track line */}
         <div
-          className="relative w-full h-4 cursor-pointer"
-          role="slider"
-          aria-valuemin={0}
-          aria-valuemax={DECADES.length - 1}
-          aria-valuenow={decadeIndex}
-          tabIndex={0}
-          onClick={(e) => {
-            const rect = e.currentTarget.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const pct = Math.max(0, Math.min(1, x / rect.width));
-            const idx = Math.round(pct * (DECADES.length - 1));
-            onChange(DECADES[idx]);
+          className="absolute left-0 right-0 top-1/2 -translate-y-1/2"
+          style={{
+            height: '1.5px',
+            background: 'rgba(30, 20, 10, 0.85)',
           }}
-        >
-          {/* Track line */}
-          <div
-            className="absolute left-0 right-0 top-1/2 -translate-y-1/2"
-            style={{
-              height: '1.5px',
-              background: 'rgba(30, 20, 10, 0.85)',
-            }}
-          />
-          {/* Thumb - positioned at exact same % as label */}
-          <div
-            className="absolute top-1/2 pointer-events-none"
-            style={{
-              left: `${(decadeIndex / (DECADES.length - 1)) * 100}%`,
-              transform: 'translate(-50%, -50%)',
-              width: '3px',
-              height: '16px',
-              background: '#1a1208',
-              boxShadow: '0 0 1px rgba(0, 0, 0, 0.4)',
-            }}
-          />
-        </div>
+        />
+        {/* Thumb - positioned at exact same % as label */}
+        <div
+          className="absolute top-1/2 pointer-events-none"
+          style={{
+            left: `${(decadeIndex / (DECADES.length - 1)) * 100}%`,
+            transform: 'translate(-50%, -50%)',
+            width: '3px',
+            height: '16px',
+            background: '#1a1208',
+            boxShadow: '0 0 1px rgba(0, 0, 0, 0.4)',
+          }}
+        />
       </div>
     </div>
   );
