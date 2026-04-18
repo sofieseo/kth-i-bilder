@@ -14,7 +14,7 @@ import { useAdminMode } from "@/hooks/useAdminMode";
 import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
 import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
-import { getPaperStyle, getPaperBackgroundImage, getPageCurl } from "@/lib/paperColor";
+import { getPaperStyle, getPaperBackgroundImage, getPageCurl, getHeaderClipPath } from "@/lib/paperColor";
 
 const Index = () => {
   const { year, results, loading, handleYearChange } = usePhotoFetch(0);
@@ -151,7 +151,13 @@ const Index = () => {
           };
         })()}
       >
-         <div className="paper-aged px-3 py-2 sm:px-6 sm:py-3 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.7)]">
+         <div
+           className="paper-aged px-3 py-2 sm:px-6 sm:py-3 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.7)]"
+           style={(() => {
+             const clip = getHeaderClipPath(year);
+             return clip ? { clipPath: clip, WebkitClipPath: clip } : undefined;
+           })()}
+         >
               {(() => {
                 const curl = getPageCurl(year);
                 return curl ? <div aria-hidden className={`page-curl ${curl.corner}`} /> : null;

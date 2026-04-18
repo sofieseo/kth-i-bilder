@@ -2,7 +2,7 @@ import { memo } from "react";
 import { ImageOff, EyeOff, CalendarOff } from "lucide-react";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { getPaperStyle } from "@/lib/paperColor";
+import { getPaperStyle, getPolaroidGrime } from "@/lib/paperColor";
 
 interface PhotoCardProps {
   photo: UnifiedPhoto;
@@ -35,6 +35,7 @@ function getRotation(id: string): number {
 export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMarkUndated }: PhotoCardProps) {
   const paperColor = getPaperStyle(decade).color;
   const rotation = getRotation(photo.id);
+  const grime = getPolaroidGrime(decade, photo.id);
 
   return (
     <button
@@ -42,6 +43,13 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
       className="relative w-full text-left p-2 pb-5 shadow-[8px_14px_36px_-4px_rgba(0,0,0,0.65),0_4px_12px_rgba(0,0,0,0.35)] hover:shadow-[12px_20px_48px_-4px_rgba(0,0,0,0.75),0_6px_16px_rgba(0,0,0,0.45)] hover:scale-105 hover:!rotate-0 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary flex flex-col"
       style={{ backgroundColor: paperColor, transform: `rotate(${rotation}deg)` }}
     >
+      {grime && (
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none z-[1]"
+          style={{ backgroundImage: grime, mixBlendMode: "multiply" }}
+        />
+      )}
       <div className="relative aspect-square bg-muted overflow-hidden">
         {photo.imageUrl ? (
           <img
