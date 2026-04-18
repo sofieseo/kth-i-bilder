@@ -40,6 +40,20 @@ export function getPaperStyle(year: number | null | undefined): {
 }
 
 /**
+ * Returns a "page curl" config for select decades, or null.
+ * Only two non-consecutive decades have a curl, in different corners.
+ * Placed in bottom corners so it never overlaps the header text/title.
+ */
+export function getPageCurl(year: number | null | undefined): {
+  corner: "bottom-left" | "bottom-right";
+} | null {
+  if (year == null) return null;
+  if (year === 1860) return { corner: "bottom-left" };
+  if (year === 1940) return { corner: "bottom-right" };
+  return null;
+}
+
+/**
  * Builds a CSS `background-image` value with seeded, decade-unique
  * stains and uneven yellowing. Stronger and darker for older decades.
  */
