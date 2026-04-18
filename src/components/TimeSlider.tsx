@@ -211,7 +211,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
 
       {/* Custom slider track with perfectly aligned thumb */}
       <div
-        className="relative w-full h-4 cursor-pointer"
+        className="relative w-full h-4 cursor-pointer px-6 sm:px-8"
         role="slider"
         aria-valuemin={0}
         aria-valuemax={DECADES.length - 1}
