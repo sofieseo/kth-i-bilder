@@ -7,12 +7,25 @@ export function getPaperStyle(year: number | null | undefined): {
   color: string;
   spots: number;
 } {
-  // Undated bucket = oldest tier
-  if (year == null || year === 0) return { color: "#e4dcc4", spots: 0.95 };
-  if (year < 1860) return { color: "#e4dcc4", spots: 0.95 };
-  if (year < 1900) return { color: "#ebe2c8", spots: 0.75 };
-  if (year < 1930) return { color: "#f0e8d4", spots: 0.5 };
-  if (year < 1960) return { color: "#f5efe0", spots: 0.3 };
-  if (year < 1990) return { color: "#faf6ec", spots: 0.15 };
-  return { color: "#ffffff", spots: 0.05 };
+  // Undated bucket = oldest tier (but toned down from previous yellow)
+  if (year == null || year === 0) return { color: "#ece5d2", spots: 0.7 };
+
+  // Clamp to the timeline range
+  const minYear = 1820;
+  const maxYear = 2020;
+  const y = Math.max(minYear, Math.min(maxYear, year));
+  const t = (y - minYear) / (maxYear - minYear); // 0 = oldest, 1 = newest
+
+  // Interpolate between an aged paper tone and pure white
+  // Oldest: #ece5d2 (236, 229, 210) — softer than before
+  // Newest: #ffffff (255, 255, 255)
+  const r = Math.round(236 + (255 - 236) * t);
+  const g = Math.round(229 + (255 - 229) * t);
+  const b = Math.round(210 + (255 - 210) * t);
+  const color = `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
+
+  // Spots fade from 0.7 (oldest) to 0.05 (newest)
+  const spots = Math.round((0.7 - (0.7 - 0.05) * t) * 100) / 100;
+
+  return { color, spots };
 }
