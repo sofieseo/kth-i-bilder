@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
-import { Search, ImageOff, ChevronLeft, ChevronRight } from "lucide-react";
+import { Search, ImageOff } from "lucide-react";
 import { PhotoCard } from "./PhotoCard";
 import { PhotoLightbox } from "./PhotoLightbox";
 import { useIsMobile } from "@/hooks/use-mobile";
