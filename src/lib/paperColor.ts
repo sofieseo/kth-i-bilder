@@ -20,7 +20,7 @@ export function getPaperStyle(year: number | null | undefined): {
   spots: number;
 } {
   // Undated bucket = oldest tier
-  if (year == null || year === 0) return { color: "#ece5d2", spots: 1.1 };
+  if (year == null || year === 0) return { color: "#ece5d2", spots: 0.55 };
 
   const minYear = 1820;
   const maxYear = 2020;
@@ -33,8 +33,8 @@ export function getPaperStyle(year: number | null | undefined): {
   const b = Math.round(210 + (255 - 210) * t);
   const color = `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
 
-  // Spots fade from ~1.1 (oldest) to 0.05 (newest)
-  const spots = Math.round((1.1 - (1.1 - 0.05) * t) * 100) / 100;
+  // Spots fade from ~0.55 (oldest) to 0.04 (newest) — subtle, won't disturb text
+  const spots = Math.round((0.55 - (0.55 - 0.04) * t) * 100) / 100;
 
   return { color, spots };
 }
