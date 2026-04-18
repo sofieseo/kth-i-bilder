@@ -133,3 +133,151 @@ export function getPaperBackgroundImage(year: number | null | undefined): string
 
   return layers.join(", ");
 }
+
+/**
+ * Returns sparse, seeded "extra grime" for polaroid frames.
+ * Most cards get nothing — only ~1 in 6 gets any blemish, so it
+ * feels like a surprise. Older decades get slightly more.
+ * Seeded per (decade + photo id) so it's stable but different
+ * for every card.
+ */
+export function getPolaroidGrime(
+  year: number | null | undefined,
+  id: string
+): string | null {
+  // Hash id to a number
+  let h = 2166136261;
+  for (let i = 0; i < id.length; i++) {
+    h = Math.imul(h ^ id.charCodeAt(i), 16777619);
+  }
+  const decade = year == null || year === 0 ? 0 : Math.floor(year / 10) * 10;
+  const rand = mulberry32((h >>> 0) ^ (decade + 1));
+
+  // Aging factor 0..1 (1 = oldest)
+  const minYear = 1820;
+  const maxYear = 2020;
+  let aging: number;
+  if (year == null || year === 0) {
+    aging = 1;
+  } else {
+    const y = Math.max(minYear, Math.min(maxYear, year));
+    aging = 1 - (y - minYear) / (maxYear - minYear);
+  }
+
+  // Probability of *any* grime: 12% on newest, ~28% on oldest
+  const probability = 0.12 + aging * 0.16;
+  if (rand() > probability) return null;
+
+  const layers: string[] = [];
+
+  // 1) One soft damp bloom (only if old enough)
+  if (aging > 0.35 && rand() < 0.6) {
+    const x = Math.round(rand() * 100);
+    const y2 = Math.round(rand() * 100);
+    const w = 35 + Math.round(rand() * 30);
+    const h = 25 + Math.round(rand() * 25);
+    const inner = (0.05 + rand() * 0.04) * aging;
+    const ring = (0.09 + rand() * 0.05) * aging;
+    layers.push(
+      `radial-gradient(ellipse ${w}% ${h}% at ${x}% ${y2}%, rgba(160, 115, 60, ${inner.toFixed(3)}) 0%, rgba(140, 95, 45, ${(inner * 0.7).toFixed(3)}) 55%, rgba(110, 75, 35, ${ring.toFixed(3)}) 72%, transparent 78%)`
+    );
+  }
+
+  // 2) 1–2 small dark specks
+  const speckCount = 1 + Math.floor(rand() * 2);
+  for (let i = 0; i < speckCount; i++) {
+    const x = (rand() * 100).toFixed(1);
+    const y2 = (rand() * 100).toFixed(1);
+    const size = (0.5 + rand() * 0.8).toFixed(2);
+    const alpha = (0.12 + rand() * 0.15) * (0.5 + aging * 0.6);
+    layers.push(
+      `radial-gradient(circle at ${x}% ${y2}%, rgba(60, 40, 15, ${alpha.toFixed(3)}) ${size}px, transparent ${(parseFloat(size) + 1.0).toFixed(2)}px)`
+    );
+  }
+
+  // 3) Sometimes one medium tea-stain blotch
+  if (rand() < 0.4) {
+    const x = Math.round(rand() * 100);
+    const y2 = Math.round(rand() * 100);
+    const w = 8 + Math.round(rand() * 10);
+    const h = 6 + Math.round(rand() * 8);
+    const alpha = (0.07 + rand() * 0.07) * (0.5 + aging * 0.7);
+    layers.push(
+      `radial-gradient(ellipse ${w}% ${h}% at ${x}% ${y2}%, rgba(90, 60, 25, ${alpha.toFixed(3)}), transparent 75%)`
+    );
+  }
+
+  return layers.length > 0 ? layers.join(", ") : null;
+}
+
+/**
+ * Returns a seeded clip-path for the header so its edges are
+ * slightly damaged / uneven on some decades. Returns null when
+ * the header should keep clean straight edges.
+ *
+ * Damage is rare (only ~1 in 4 decades) and stronger for older
+ * decades. The clip-path uses many points along each edge with
+ * tiny inward jitters, plus occasional larger "torn" notches.
+ */
+export function getHeaderClipPath(year: number | null | undefined): string | null {
+  const decade = year == null || year === 0 ? 0 : Math.floor(year / 10) * 10;
+  const rand = mulberry32(decade + 7919);
+
+  // Aging factor 0..1
+  const minYear = 1820;
+  const maxYear = 2020;
+  let aging: number;
+  if (year == null || year === 0) {
+    aging = 1;
+  } else {
+    const y = Math.max(minYear, Math.min(maxYear, year));
+    aging = 1 - (y - minYear) / (maxYear - minYear);
+  }
+
+  // Probability scales with aging: ~10% newest, ~55% oldest
+  const probability = 0.1 + aging * 0.45;
+  if (rand() > probability) return null;
+
+  // Max inward jitter (in %). Older = more dramatic.
+  const baseJitter = 0.25 + aging * 0.7; // 0.25%..0.95%
+  const notchChance = 0.08 + aging * 0.12; // chance per point of a bigger notch
+  const notchSize = 1.2 + aging * 1.8; // % inward for notches
+
+  const points: Array<[number, number]> = [];
+  const stepsPerSide = 14;
+
+  const jitter = (max: number) => (rand() * 2 - 1) * max;
+  const maybeNotch = (base: number, dir: 1 | -1) => {
+    if (rand() < notchChance) {
+      return base + dir * (notchSize * (0.6 + rand() * 0.8));
+    }
+    return base + jitter(baseJitter);
+  };
+
+  // Top edge: left -> right, y near 0, push down for damage
+  for (let i = 0; i <= stepsPerSide; i++) {
+    const x = (i / stepsPerSide) * 100;
+    const y = Math.max(0, maybeNotch(0, 1));
+    points.push([x, y]);
+  }
+  // Right edge: top -> bottom, x near 100, push left
+  for (let i = 1; i <= stepsPerSide; i++) {
+    const y = (i / stepsPerSide) * 100;
+    const x = Math.min(100, maybeNotch(100, -1));
+    points.push([x, y]);
+  }
+  // Bottom edge: right -> left, y near 100, push up
+  for (let i = 1; i <= stepsPerSide; i++) {
+    const x = 100 - (i / stepsPerSide) * 100;
+    const y = Math.min(100, maybeNotch(100, -1));
+    points.push([x, y]);
+  }
+  // Left edge: bottom -> top, x near 0, push right
+  for (let i = 1; i < stepsPerSide; i++) {
+    const y = 100 - (i / stepsPerSide) * 100;
+    const x = Math.max(0, maybeNotch(0, 1));
+    points.push([x, y]);
+  }
+
+  return `polygon(${points.map(([x, y]) => `${x.toFixed(2)}% ${y.toFixed(2)}%`).join(", ")})`;
+}
