@@ -152,6 +152,10 @@ const Index = () => {
         })()}
       >
          <div className="paper-aged px-3 py-2 sm:px-6 sm:py-3 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.7)]">
+              {(() => {
+                const curl = getPageCurl(year);
+                return curl ? <div aria-hidden className={`page-curl ${curl.corner}`} /> : null;
+              })()}
               <div className="relative z-10 flex items-center justify-between">
                 <h1 className="text-xl sm:text-3xl font-semibold font-slab uppercase tracking-[0.12em] sm:tracking-[0.2em]" style={{ color: '#1a1208' }}>
                   KTH i bilder
