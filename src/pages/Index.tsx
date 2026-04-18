@@ -239,6 +239,13 @@ const Index = () => {
         openPhoto={searchSelectedPhoto}
         openPhotoNavSet={searchNavSet}
         onPhotoOpened={() => setSearchSelectedPhoto(null)}
+        onSwipeDecade={(direction) => {
+          const DECADES = [0, 1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020];
+          const idx = DECADES.indexOf(year);
+          if (idx === -1) return;
+          const nextIdx = direction === "next" ? Math.min(DECADES.length - 1, idx + 1) : Math.max(0, idx - 1);
+          if (nextIdx !== idx) handleYearChange(DECADES[nextIdx]);
+        }}
         onLightboxClosed={(wasFromSearch) => {
           if (wasFromSearch) {
             setSearchNavSet(null);
