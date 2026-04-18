@@ -139,6 +139,31 @@
   transition: opacity 600ms ease;
 }
 
+/* Page curl — soft folded-corner shadow. Positioned in a corner via modifier class. */
+.page-curl {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  pointer-events: none;
+  z-index: 5;
+}
+.page-curl.bottom-left {
+  bottom: 0;
+  left: 0;
+  background:
+    radial-gradient(circle at 100% 0%, transparent 58%, rgba(0, 0, 0, 0.18) 60%, rgba(0, 0, 0, 0.05) 70%, transparent 78%),
+    linear-gradient(45deg, rgba(255, 255, 255, 0.55) 0%, rgba(230, 220, 195, 0.35) 35%, transparent 55%);
+  clip-path: polygon(0 100%, 0 55%, 60% 100%);
+}
+.page-curl.bottom-right {
+  bottom: 0;
+  right: 0;
+  background:
+    radial-gradient(circle at 0% 0%, transparent 58%, rgba(0, 0, 0, 0.18) 60%, rgba(0, 0, 0, 0.05) 70%, transparent 78%),
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.55) 0%, rgba(230, 220, 195, 0.35) 35%, transparent 55%);
+  clip-path: polygon(100% 100%, 100% 55%, 40% 100%);
+}
+
 /* Hand-drawn ink border for buttons on paper */
 .ink-border {
   position: relative;
