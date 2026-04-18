@@ -30,6 +30,7 @@ interface TimeSliderProps {
 
 export function TimeSlider({ year, onChange }: TimeSliderProps) {
   const isMobile = useIsMobile();
+  const [pickerOpen, setPickerOpen] = useState(false);
 
   const visibleLabels = useMemo(() => {
     if (!isMobile) return DESKTOP_LABELS;
