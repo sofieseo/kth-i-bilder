@@ -193,7 +193,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
               type="button"
               onClick={() => onChange(decade)}
               style={{
-                left: `calc(${pct}% * (100% - 0px) / 100%)`,
+                left: `${pct}%`,
                 fontFamily: "'Courier Prime', monospace",
                 color: isActive ? '#1a1208' : 'rgba(26, 18, 8, 0.45)',
               }}
