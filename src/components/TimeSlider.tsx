@@ -210,41 +210,43 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
       </div>
 
       {/* Custom slider track with perfectly aligned thumb */}
-      <div
-        className="relative w-full h-4 cursor-pointer px-6 sm:px-8"
-        role="slider"
-        aria-valuemin={0}
-        aria-valuemax={DECADES.length - 1}
-        aria-valuenow={decadeIndex}
-        tabIndex={0}
-        onClick={(e) => {
-          const rect = e.currentTarget.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const pct = Math.max(0, Math.min(1, x / rect.width));
-          const idx = Math.round(pct * (DECADES.length - 1));
-          onChange(DECADES[idx]);
-        }}
-      >
-        {/* Track line */}
+      <div className="px-6 sm:px-8">
         <div
-          className="absolute left-0 right-0 top-1/2 -translate-y-1/2"
-          style={{
-            height: '1.5px',
-            background: 'rgba(30, 20, 10, 0.85)',
+          className="relative w-full h-4 cursor-pointer"
+          role="slider"
+          aria-valuemin={0}
+          aria-valuemax={DECADES.length - 1}
+          aria-valuenow={decadeIndex}
+          tabIndex={0}
+          onClick={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const pct = Math.max(0, Math.min(1, x / rect.width));
+            const idx = Math.round(pct * (DECADES.length - 1));
+            onChange(DECADES[idx]);
           }}
-        />
-        {/* Thumb - positioned at exact same % as label */}
-        <div
-          className="absolute top-1/2 pointer-events-none"
-          style={{
-            left: `${(decadeIndex / (DECADES.length - 1)) * 100}%`,
-            transform: 'translate(-50%, -50%)',
-            width: '3px',
-            height: '16px',
-            background: '#1a1208',
-            boxShadow: '0 0 1px rgba(0, 0, 0, 0.4)',
-          }}
-        />
+        >
+          {/* Track line */}
+          <div
+            className="absolute left-0 right-0 top-1/2 -translate-y-1/2"
+            style={{
+              height: '1.5px',
+              background: 'rgba(30, 20, 10, 0.85)',
+            }}
+          />
+          {/* Thumb - positioned at exact same % as label */}
+          <div
+            className="absolute top-1/2 pointer-events-none"
+            style={{
+              left: `${(decadeIndex / (DECADES.length - 1)) * 100}%`,
+              transform: 'translate(-50%, -50%)',
+              width: '3px',
+              height: '16px',
+              background: '#1a1208',
+              boxShadow: '0 0 1px rgba(0, 0, 0, 0.4)',
+            }}
+          />
+        </div>
       </div>
     </div>
   );
