@@ -134,25 +134,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image:
-    /* Större, mörkare fläckar */
-    radial-gradient(ellipse 8px 5px at 14% 28%, rgba(70, 50, 20, 0.32), transparent 70%),
-    radial-gradient(ellipse 6px 4px at 78% 18%, rgba(70, 50, 20, 0.28), transparent 70%),
-    radial-gradient(ellipse 10px 6px at 42% 72%, rgba(70, 50, 20, 0.26), transparent 70%),
-    radial-gradient(ellipse 5px 4px at 90% 58%, rgba(70, 50, 20, 0.30), transparent 70%),
-    radial-gradient(ellipse 7px 5px at 22% 82%, rgba(70, 50, 20, 0.24), transparent 70%),
-    radial-gradient(ellipse 4px 3px at 60% 40%, rgba(70, 50, 20, 0.28), transparent 70%),
-    /* Mindre prickar/smuts */
-    radial-gradient(circle at 12% 60%, rgba(60, 40, 15, 0.45) 0.8px, transparent 2px),
-    radial-gradient(circle at 70% 20%, rgba(60, 40, 15, 0.40) 0.8px, transparent 2px),
-    radial-gradient(circle at 88% 65%, rgba(60, 40, 15, 0.38) 0.8px, transparent 2px),
-    radial-gradient(circle at 35% 85%, rgba(60, 40, 15, 0.42) 0.8px, transparent 2px),
-    radial-gradient(circle at 55% 50%, rgba(60, 40, 15, 0.32) 0.7px, transparent 1.8px),
-    radial-gradient(circle at 8% 35%, rgba(60, 40, 15, 0.36) 0.6px, transparent 1.8px),
-    radial-gradient(circle at 48% 15%, rgba(60, 40, 15, 0.34) 0.7px, transparent 1.8px),
-    radial-gradient(circle at 95% 92%, rgba(60, 40, 15, 0.38) 0.6px, transparent 1.8px),
-    radial-gradient(circle at 28% 50%, rgba(60, 40, 15, 0.30) 0.5px, transparent 1.5px),
-    radial-gradient(circle at 80% 40%, rgba(60, 40, 15, 0.32) 0.6px, transparent 1.7px);
+  background-image: var(--paper-spots-image, none);
   opacity: var(--paper-spots, 0.55);
   transition: opacity 600ms ease;
 }
