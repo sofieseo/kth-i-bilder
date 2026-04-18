@@ -2,7 +2,7 @@ import { memo } from "react";
 import { ImageOff, EyeOff, CalendarOff } from "lucide-react";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { getPaperStyle } from "@/lib/paperColor";
+import { getPaperStyle, getPolaroidGrime } from "@/lib/paperColor";
 
 interface PhotoCardProps {
   photo: UnifiedPhoto;
