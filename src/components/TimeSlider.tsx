@@ -174,7 +174,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
   }
 
   return (
-    <div className="w-full relative z-10">
+    <div className="w-full relative z-10 px-6 sm:px-8">
       <div className="mb-2 flex items-center justify-between">
         <span className="text-[11px] uppercase tracking-widest font-semibold" style={{ fontFamily: "'Courier Prime', monospace", color: '#1a1208' }}>
           Välj årtionde
