@@ -109,7 +109,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
                   fontFamily: "'Courier Prime', monospace",
                   color: '#f5efe0',
                   borderColor: 'rgba(26, 18, 8, 0.55)',
-                  background: '#8b3a3a',
+                  background: '#7a8c6f',
                 }}
                 aria-label="Välj årtionde"
               >
