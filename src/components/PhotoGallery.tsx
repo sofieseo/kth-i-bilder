@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
-import { Search, ImageOff } from "lucide-react";
+import { Search, ImageOff, ChevronLeft, ChevronRight } from "lucide-react";
 import { PhotoCard } from "./PhotoCard";
 import { PhotoLightbox } from "./PhotoLightbox";
+import { useIsMobile } from "@/hooks/use-mobile";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 
 interface PhotoGalleryProps {
@@ -15,9 +16,42 @@ interface PhotoGalleryProps {
   openPhotoNavSet?: UnifiedPhoto[] | null;
   onPhotoOpened?: () => void;
   onLightboxClosed?: (wasFromSearch: boolean) => void;
+  onSwipeDecade?: (direction: "prev" | "next") => void;
 }
 
-export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onMarkUndated, openPhoto, openPhotoNavSet, onPhotoOpened, onLightboxClosed }: PhotoGalleryProps) {
+export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onMarkUndated, openPhoto, openPhotoNavSet, onPhotoOpened, onLightboxClosed, onSwipeDecade }: PhotoGalleryProps) {
+  const isMobile = useIsMobile();
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const swipeHandled = useRef(false);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    if (!isMobile || !onSwipeDecade) return;
+    if (e.touches.length !== 1) return;
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    swipeHandled.current = false;
+  }, [isMobile, onSwipeDecade]);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!isMobile || !onSwipeDecade || swipeHandled.current) return;
+    if (touchStartX.current == null || touchStartY.current == null) return;
+    const dx = e.touches[0].clientX - touchStartX.current;
+    const dy = e.touches[0].clientY - touchStartY.current;
+    // Require strong horizontal intent and a minimum threshold
+    if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+      onSwipeDecade(dx < 0 ? "next" : "prev");
+      swipeHandled.current = true;
+      touchStartX.current = null;
+      touchStartY.current = null;
+    }
+  }, [isMobile, onSwipeDecade]);
+
+  const handleTouchEnd = useCallback(() => {
+    touchStartX.current = null;
+    touchStartY.current = null;
+  }, []);
+
   const [selectedPhoto, setSelectedPhoto] = useState<UnifiedPhoto | null>(null);
   // When a photo is opened from search, navigate within those search results instead of `results`
   const [navSet, setNavSet] = useState<UnifiedPhoto[] | null>(null);
