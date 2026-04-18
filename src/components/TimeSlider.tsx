@@ -174,7 +174,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
   }
 
   return (
-    <div className="w-full relative z-10 px-6 sm:px-8">
+    <div className="w-full relative z-10">
       <div className="mb-2 flex items-center justify-between">
         <span className="text-[11px] uppercase tracking-widest font-semibold" style={{ fontFamily: "'Courier Prime', monospace", color: '#1a1208' }}>
           Välj årtionde
@@ -182,7 +182,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
       </div>
 
       {/* Clickable labels above slider - aligned to thumb position */}
-      <div className="relative h-6 mb-2">
+      <div className="relative h-6 mb-2 px-6 sm:px-8">
         {visibleLabels.map(({ decade, text }) => {
           const idx = DECADES.indexOf(decade);
           const pct = (idx / (DECADES.length - 1)) * 100;
@@ -193,7 +193,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
               type="button"
               onClick={() => onChange(decade)}
               style={{
-                left: `${pct}%`,
+                left: `calc(${pct}% * (100% - 0px) / 100%)`,
                 fontFamily: "'Courier Prime', monospace",
                 color: isActive ? '#1a1208' : 'rgba(26, 18, 8, 0.45)',
               }}
