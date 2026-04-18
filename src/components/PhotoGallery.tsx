@@ -86,7 +86,7 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
 
   return (
     <>
-      <div className="flex-1 overflow-y-auto px-2 sm:px-4 pb-32 pt-2 sm:pt-4">
+      <div className="flex-1 overflow-y-auto px-2 sm:px-4 pb-6 pt-2 sm:pt-4">
         {loading && results.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24">
             <Search className="h-10 w-10 animate-search-tilt mb-3" style={{ color: "#f4f1ea" }} />
@@ -121,13 +121,18 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
             </div>
           </>
         )}
-      </div>
-
-      <div className="fixed bottom-0 left-0 right-0 z-10 border-t border-border bg-background/80 backdrop-blur-sm px-4 py-1.5">
-        <p className="text-[8px] text-muted-foreground text-center">
-          Data från Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan &amp; Wikimedia
-          Commons. Ett hobbyprojekt av Sofie Seo.
-        </p>
+        {results.length > 0 && !loading && (
+          <p
+            className="mt-10 mb-2 px-4 text-center text-[10px] sm:text-xs leading-relaxed"
+            style={{
+              color: "rgba(244, 241, 234, 0.55)",
+              fontFamily: "'Courier Prime', monospace",
+              textShadow: "0 1px 2px rgba(0,0,0,0.6)",
+            }}
+          >
+            Data från Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan &amp; Wikimedia Commons. Ett hobbyprojekt av Sofie Seo.
+          </p>
+        )}
       </div>
 
       {selectedPhoto && (
