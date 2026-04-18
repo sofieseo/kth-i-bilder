@@ -1,5 +1,7 @@
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { ChevronDown } from "lucide-react";
 
 const DECADES = [
   0,
@@ -28,6 +30,7 @@ interface TimeSliderProps {
 
 export function TimeSlider({ year, onChange }: TimeSliderProps) {
   const isMobile = useIsMobile();
+  const [pickerOpen, setPickerOpen] = useState(false);
 
   const visibleLabels = useMemo(() => {
     if (!isMobile) return DESKTOP_LABELS;
@@ -66,9 +69,60 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
           Välj årtionde
         </span>
         {isMobile && (
-          <span className="rounded-none border px-3.5 py-1 text-[11px] font-bold tracking-wide" style={{ fontFamily: "'Courier Prime', monospace", color: '#1a1208', borderColor: 'rgba(26, 18, 8, 0.45)', background: 'rgba(26, 18, 8, 0.06)' }}>
-            {label}
-          </span>
+          <Popover open={pickerOpen} onOpenChange={setPickerOpen}>
+            <PopoverTrigger asChild>
+              <button
+                type="button"
+                className="rounded-none border px-3 py-1 text-[11px] font-bold tracking-wide flex items-center gap-1.5 active:opacity-80"
+                style={{
+                  fontFamily: "'Courier Prime', monospace",
+                  color: '#1a1208',
+                  borderColor: 'rgba(26, 18, 8, 0.45)',
+                  background: 'rgba(26, 18, 8, 0.06)',
+                }}
+                aria-label="Välj årtionde"
+              >
+                {label}
+                <ChevronDown className="h-3 w-3" strokeWidth={2.5} />
+              </button>
+            </PopoverTrigger>
+            <PopoverContent
+              align="end"
+              sideOffset={6}
+              className="w-44 p-1 rounded-none border shadow-lg"
+              style={{
+                background: '#f5efe0',
+                borderColor: 'rgba(26, 18, 8, 0.45)',
+                fontFamily: "'Courier Prime', monospace",
+              }}
+            >
+              <div className="max-h-72 overflow-y-auto">
+                {DECADES.map((d) => {
+                  const text = d === 0 ? "ODATERAT" : `${d}-talet`;
+                  const active = d === year;
+                  return (
+                    <button
+                      key={d}
+                      type="button"
+                      onClick={() => {
+                        onChange(d);
+                        setPickerOpen(false);
+                      }}
+                      className={`w-full text-left px-3 py-2 text-[12px] tracking-wide transition-colors ${
+                        active ? 'font-bold' : 'font-normal hover:bg-black/5'
+                      }`}
+                      style={{
+                        color: '#1a1208',
+                        background: active ? 'rgba(26, 18, 8, 0.12)' : 'transparent',
+                      }}
+                    >
+                      {text}
+                    </button>
+                  );
+                })}
+              </div>
+            </PopoverContent>
+          </Popover>
         )}
       </div>
 
