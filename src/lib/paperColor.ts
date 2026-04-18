@@ -98,5 +98,24 @@ export function getPaperBackgroundImage(year: number | null | undefined): string
     );
   }
 
+  // 4) Water/damp stains — large soft blooms with a slightly darker "tide-mark"
+  //    edge. Only meaningful on older paper (aging > ~0.4).
+  if (aging > 0.4) {
+    const dampCount = 1 + Math.floor(rand() * 2); // 1–2
+    for (let i = 0; i < dampCount; i++) {
+      const x = Math.round(rand() * 100);
+      const y2 = Math.round(rand() * 100);
+      const w = 45 + Math.round(rand() * 35); // very large
+      const h = 30 + Math.round(rand() * 30);
+      const intensity = (aging - 0.4) / 0.6; // 0..1
+      const innerAlpha = (0.04 + rand() * 0.04) * intensity;
+      const ringAlpha = (0.08 + rand() * 0.06) * intensity;
+      // Soft amber bloom
+      layers.push(
+        `radial-gradient(ellipse ${w}% ${h}% at ${x}% ${y2}%, rgba(160, 115, 60, ${innerAlpha.toFixed(3)}) 0%, rgba(140, 95, 45, ${(innerAlpha * 0.7).toFixed(3)}) 55%, rgba(110, 75, 35, ${ringAlpha.toFixed(3)}) 72%, transparent 78%)`
+      );
+    }
+  }
+
   return layers.join(", ");
 }
