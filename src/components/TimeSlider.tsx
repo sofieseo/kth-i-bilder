@@ -239,6 +239,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
                 left: `${pct}%`,
                 fontFamily: "'Courier Prime', monospace",
                 color: isActive ? '#1a1208' : 'rgba(26, 18, 8, 0.45)',
+                transformOrigin: isFirst ? 'left center' : isLast ? 'right center' : 'center center',
               }}
               className={`absolute cursor-pointer transition-all duration-200 ${align} whitespace-nowrap ${
                 isActive
