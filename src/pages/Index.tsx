@@ -130,7 +130,7 @@ const Index = () => {
 
   return (
     <div className="relative flex h-screen w-screen flex-col">
-      {/* Blurred brick background layer with soft parallax */}
+      {/* Blurred brick background layer */}
       <div
         aria-hidden
         className="fixed inset-0 -z-10"
@@ -139,9 +139,7 @@ const Index = () => {
           backgroundSize: "600px",
           backgroundPosition: "center",
           filter: "blur(1.5px) brightness(0.75)",
-          transform: `scale(1.06) translate3d(0, ${-scrollTop * 0.18}px, 0)`,
-          transition: "transform 120ms linear",
-          willChange: "transform",
+          transform: "scale(1.03)",
         }}
       />
       {/* Dark overlay to push texture into the background */}
