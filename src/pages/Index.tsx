@@ -29,6 +29,11 @@ const Index = () => {
   const [searchSelectedPhoto, setSearchSelectedPhoto] = useState<UnifiedPhoto | null>(null);
   const [searchNavSet, setSearchNavSet] = useState<UnifiedPhoto[] | null>(null);
   const [reopenSearchSignal, setReopenSearchSignal] = useState(0);
+  const [scrollTop, setScrollTop] = useState(0);
+  const [scrollToTopSignal, setScrollToTopSignal] = useState(0);
+  // Shrink header on mobile after a small scroll threshold
+  const headerShrunk = scrollTop > 40;
+  const showBackToTop = scrollTop > 600;
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
