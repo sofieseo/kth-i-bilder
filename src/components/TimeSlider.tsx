@@ -176,8 +176,6 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
   }
 
   const ACCENT = '#5e6f54';
-  const trackRef = useRef<HTMLDivElement | null>(null);
-  const [dragging, setDragging] = useState(false);
 
   const setFromClientX = (clientX: number) => {
     const el = trackRef.current;
@@ -187,22 +185,6 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
     const idx = Math.round(pct * (DECADES.length - 1));
     if (DECADES[idx] !== year) onChange(DECADES[idx]);
   };
-
-  useEffect(() => {
-    if (!dragging) return;
-    const onMove = (e: PointerEvent) => setFromClientX(e.clientX);
-    const onUp = () => setDragging(false);
-    window.addEventListener('pointermove', onMove);
-    window.addEventListener('pointerup', onUp);
-    window.addEventListener('pointercancel', onUp);
-    return () => {
-      window.removeEventListener('pointermove', onMove);
-      window.removeEventListener('pointerup', onUp);
-      window.removeEventListener('pointercancel', onUp);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dragging, year]);
-
 
   return (
     <div className="w-full relative z-10">
