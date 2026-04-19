@@ -62,6 +62,29 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isMobile, decadeIndex, onChange]);
 
+  // Desktop: drag the slider
+  useEffect(() => {
+    if (!dragging) return;
+    const setFromX = (clientX: number) => {
+      const el = trackRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+      const idx = Math.round(pct * (DECADES.length - 1));
+      if (DECADES[idx] !== year) onChange(DECADES[idx]);
+    };
+    const onMove = (e: PointerEvent) => setFromX(e.clientX);
+    const onUp = () => setDragging(false);
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onUp);
+    return () => {
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onUp);
+    };
+  }, [dragging, year, onChange]);
+
   const label = year === 0 ? "ODATERAT" : `${year}-talet`;
 
   const goPrev = () => {
