@@ -167,52 +167,71 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {loading && results.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24">
-            <Search className="h-10 w-10 animate-search-tilt mb-3" style={{ color: "#f4f1ea" }} />
-            <span className="text-sm font-medium" style={{ color: "#f4f1ea" }}>Söker i arkiven</span>
-          </div>
-        ) : results.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24">
-            <ImageOff className="h-10 w-10 text-white/30 mb-3" />
-            <p className="text-base font-bold text-white text-center px-4">Inga foton hittades för detta årtionde</p>
-            <p className="text-sm text-white/60 mt-1">Prova att dra i tidslinjen</p>
-          </div>
-        ) : (
-          <>
-            {loading && (
-              <div className="flex items-center gap-2 mb-3 text-xs" style={{ color: "#f4f1ea" }}>
-                <Search className="h-3 w-3 animate-search-tilt" style={{ color: "#f4f1ea" }} />
-                <span>Söker i fler arkiv…</span>
-              </div>
-            )}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3 items-start">
-              {results.map((photo) => (
-                <PhotoCard
-                  key={`${year}-${photo.id}-${photo.imageUrl ?? "no-image"}`}
-                  photo={photo}
-                  decade={year}
-                  onClick={() => handleSelectPhoto(photo)}
-                  isAdmin={isAdmin}
-                  onHide={onHidePhoto}
-                  onMarkUndated={onMarkUndated}
-                />
-              ))}
+        <div
+          style={{
+            transform: swipeDx !== 0 ? `translateX(${swipeDx}px)` : undefined,
+            opacity:
+              transitionPhase === "out"
+                ? 0
+                : swipeDx !== 0
+                ? Math.max(0.55, 1 - Math.abs(swipeDx) / 320)
+                : 1,
+            transition:
+              swipeDx !== 0
+                ? "none"
+                : transitionPhase === "out"
+                ? "opacity 180ms ease-out"
+                : "opacity 280ms ease-out, transform 220ms ease-out",
+            willChange: "transform, opacity",
+          }}
+        >
+          {loading && results.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-24">
+              <Search className="h-10 w-10 animate-search-tilt mb-3" style={{ color: "#f4f1ea" }} />
+              <span className="text-sm font-medium" style={{ color: "#f4f1ea" }}>Söker i arkiven</span>
             </div>
-          </>
-        )}
-        {results.length > 0 && !loading && (
-          <p
-            className="mt-10 mb-2 px-4 text-center text-[10px] sm:text-xs leading-relaxed"
-            style={{
-              color: "rgba(244, 241, 234, 0.55)",
-              fontFamily: "'Courier Prime', monospace",
-              textShadow: "0 1px 2px rgba(0,0,0,0.6)",
-            }}
-          >
-            Data från Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan &amp; Wikimedia Commons. Ett hobbyprojekt av Sofie Seo.
-          </p>
-        )}
+          ) : results.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-24">
+              <ImageOff className="h-10 w-10 text-white/30 mb-3" />
+              <p className="text-base font-bold text-white text-center px-4">Inga foton hittades för detta årtionde</p>
+              <p className="text-sm text-white/60 mt-1">Prova att dra i tidslinjen</p>
+            </div>
+          ) : (
+            <>
+              {loading && (
+                <div className="flex items-center gap-2 mb-3 text-xs" style={{ color: "#f4f1ea" }}>
+                  <Search className="h-3 w-3 animate-search-tilt" style={{ color: "#f4f1ea" }} />
+                  <span>Söker i fler arkiv…</span>
+                </div>
+              )}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3 items-start">
+                {results.map((photo) => (
+                  <PhotoCard
+                    key={`${year}-${photo.id}-${photo.imageUrl ?? "no-image"}`}
+                    photo={photo}
+                    decade={year}
+                    onClick={() => handleSelectPhoto(photo)}
+                    isAdmin={isAdmin}
+                    onHide={onHidePhoto}
+                    onMarkUndated={onMarkUndated}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+          {results.length > 0 && !loading && (
+            <p
+              className="mt-10 mb-2 px-4 text-center text-[10px] sm:text-xs leading-relaxed"
+              style={{
+                color: "rgba(244, 241, 234, 0.55)",
+                fontFamily: "'Courier Prime', monospace",
+                textShadow: "0 1px 2px rgba(0,0,0,0.6)",
+              }}
+            >
+              Data från Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan &amp; Wikimedia Commons. Ett hobbyprojekt av Sofie Seo.
+            </p>
+          )}
+        </div>
       </div>
 
       {selectedPhoto && (
