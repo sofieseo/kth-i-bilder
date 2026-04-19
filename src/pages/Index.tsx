@@ -278,12 +278,17 @@ const Index = () => {
         type="button"
         aria-label="Tillbaka till toppen"
         onClick={() => setScrollToTopSignal((n) => n + 1)}
-        className={`fixed bottom-5 right-5 z-40 flex h-11 w-11 items-center justify-center bg-black/75 text-white shadow-[0_6px_16px_rgba(0,0,0,0.45)] backdrop-blur transition-all duration-200 hover:bg-black ${
+        className={`ink-border fixed bottom-5 right-5 z-40 flex items-center gap-1.5 px-3 py-1.5 text-xs shadow-[0_6px_16px_rgba(0,0,0,0.45)] transition-all duration-200 ${
           showBackToTop ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-3 pointer-events-none"
         }`}
-        style={{ borderRadius: 0 }}
+        style={{
+          color: '#1a1208',
+          fontFamily: "'Courier Prime', monospace",
+          backgroundColor: getPaperStyle(year).color,
+        }}
       >
-        <ArrowUp className="h-5 w-5" />
+        <ArrowUp className="h-3.5 w-3.5" />
+        <span className="hidden sm:inline">Till toppen</span>
       </button>
 
       <HiddenPhotosModal open={showHidden} onClose={() => setShowHidden(false)} onRestore={handleRestorePhoto} />
