@@ -17,10 +17,24 @@ interface PhotoGalleryProps {
   onPhotoOpened?: () => void;
   onLightboxClosed?: (wasFromSearch: boolean) => void;
   onSwipeDecade?: (direction: "prev" | "next") => void;
+  onScroll?: (scrollTop: number) => void;
+  scrollToTopSignal?: number;
 }
 
-export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onMarkUndated, openPhoto, openPhotoNavSet, onPhotoOpened, onLightboxClosed, onSwipeDecade }: PhotoGalleryProps) {
+export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onMarkUndated, openPhoto, openPhotoNavSet, onPhotoOpened, onLightboxClosed, onSwipeDecade, onScroll, scrollToTopSignal }: PhotoGalleryProps) {
   const isMobile = useIsMobile();
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+
+  // Smooth scroll to top when signal changes
+  useEffect(() => {
+    if (scrollToTopSignal === undefined) return;
+    scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  }, [scrollToTopSignal]);
+
+  // Reset scroll on decade change
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: 0 });
+  }, [year]);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
   const swipeHandled = useRef(false);
@@ -162,7 +176,9 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
   return (
     <>
       <div
+        ref={scrollRef}
         className="flex-1 overflow-y-auto px-2 sm:px-4 pb-6 pt-2 sm:pt-4"
+        onScroll={onScroll ? (e) => onScroll((e.target as HTMLDivElement).scrollTop) : undefined}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}

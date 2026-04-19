@@ -1,5 +1,5 @@
 import { useMemo, useState, useRef, useEffect } from "react";
-import { EyeOff, BarChart3, LogIn, LogOut, RefreshCw } from "lucide-react";
+import { EyeOff, BarChart3, LogIn, LogOut, RefreshCw, ArrowUp } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { SearchPalette } from "@/components/SearchPalette";
 import { toast } from "sonner";
@@ -29,6 +29,11 @@ const Index = () => {
   const [searchSelectedPhoto, setSearchSelectedPhoto] = useState<UnifiedPhoto | null>(null);
   const [searchNavSet, setSearchNavSet] = useState<UnifiedPhoto[] | null>(null);
   const [reopenSearchSignal, setReopenSearchSignal] = useState(0);
+  const [scrollTop, setScrollTop] = useState(0);
+  const [scrollToTopSignal, setScrollToTopSignal] = useState(0);
+  // Shrink header on mobile after a small scroll threshold
+  const headerShrunk = scrollTop > 40;
+  const showBackToTop = scrollTop > 600;
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -125,7 +130,7 @@ const Index = () => {
 
   return (
     <div className="relative flex h-screen w-screen flex-col">
-      {/* Blurred brick background layer */}
+      {/* Blurred brick background layer with soft parallax */}
       <div
         aria-hidden
         className="fixed inset-0 -z-10"
@@ -134,7 +139,9 @@ const Index = () => {
           backgroundSize: "600px",
           backgroundPosition: "center",
           filter: "blur(1.5px) brightness(0.75)",
-          transform: "scale(1.03)",
+          transform: `scale(1.06) translate3d(0, ${-scrollTop * 0.18}px, 0)`,
+          transition: "transform 120ms linear",
+          willChange: "transform",
         }}
       />
       {/* Dark overlay to push texture into the background */}
@@ -151,13 +158,18 @@ const Index = () => {
           };
         })()}
       >
-         <div className="paper-aged px-3 py-2 sm:px-6 sm:py-3 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.7)]">
+         <div
+           className={`paper-aged sm:px-6 sm:py-3 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.7)] transition-[padding] duration-200 ${headerShrunk ? "px-3 py-1" : "px-3 py-2"}`}
+         >
               {(() => {
                 const curl = getPageCurl(year);
                 return curl ? <div aria-hidden className={`page-curl ${curl.corner}`} /> : null;
               })()}
               <div className="relative z-10 flex items-center justify-between">
-                <h1 className="text-xl sm:text-3xl font-semibold font-slab uppercase tracking-[0.12em] sm:tracking-[0.2em]" style={{ color: '#1a1208' }}>
+                <h1
+                  className={`font-semibold font-slab uppercase tracking-[0.12em] sm:tracking-[0.2em] sm:text-3xl transition-[font-size] duration-200 ${headerShrunk ? "text-base" : "text-xl"}`}
+                  style={{ color: '#1a1208' }}
+                >
                   KTH i bilder
                 </h1>
                 <div className="flex items-center gap-2">
@@ -219,11 +231,18 @@ const Index = () => {
                   )}
                 </div>
               </div>
-              <p className="relative z-10 text-[10px] sm:text-xs leading-relaxed mt-1 max-w-3xl" style={{ color: 'rgba(26, 18, 8, 0.78)', fontFamily: "'Courier Prime', monospace" }}>
-                <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv.</span>
-                <span className="hidden sm:inline">En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH). Bilderna hämtas från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.</span>
-              </p>
-              <div className="relative z-10 mt-2 sm:mt-4 pt-2 sm:pt-4" style={{ borderTop: '1px dashed rgba(26, 18, 8, 0.35)' }}>
+              <div
+                className={`overflow-hidden transition-[max-height,opacity,margin] duration-200 ${headerShrunk ? "max-h-0 opacity-0 sm:max-h-40 sm:opacity-100" : "max-h-40 opacity-100"}`}
+              >
+                <p className="relative z-10 text-[10px] sm:text-xs leading-relaxed mt-1 max-w-3xl" style={{ color: 'rgba(26, 18, 8, 0.78)', fontFamily: "'Courier Prime', monospace" }}>
+                  <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv.</span>
+                  <span className="hidden sm:inline">En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH). Bilderna hämtas från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.</span>
+                </p>
+              </div>
+              <div
+                className={`relative z-10 transition-[margin,padding] duration-200 ${headerShrunk ? "mt-1 pt-1 sm:mt-4 sm:pt-4" : "mt-2 sm:mt-4 pt-2 sm:pt-4"}`}
+                style={{ borderTop: '1px dashed rgba(26, 18, 8, 0.35)' }}
+              >
                 <TimeSlider year={year} onChange={handleYearChange} />
               </div>
            </div>
@@ -252,7 +271,22 @@ const Index = () => {
             setReopenSearchSignal((n) => n + 1);
           }
         }}
+        onScroll={setScrollTop}
+        scrollToTopSignal={scrollToTopSignal}
       />
+
+      {/* Back to top button */}
+      <button
+        type="button"
+        aria-label="Tillbaka till toppen"
+        onClick={() => setScrollToTopSignal((n) => n + 1)}
+        className={`fixed bottom-5 right-5 z-40 flex h-11 w-11 items-center justify-center bg-black/75 text-white shadow-[0_6px_16px_rgba(0,0,0,0.45)] backdrop-blur transition-all duration-200 hover:bg-black ${
+          showBackToTop ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-3 pointer-events-none"
+        }`}
+        style={{ borderRadius: 0 }}
+      >
+        <ArrowUp className="h-5 w-5" />
+      </button>
 
       <HiddenPhotosModal open={showHidden} onClose={() => setShowHidden(false)} onRestore={handleRestorePhoto} />
       <AdminStatsModal open={showStats} onClose={() => setShowStats(false)} />
