@@ -278,12 +278,16 @@ const Index = () => {
         type="button"
         aria-label="Tillbaka till toppen"
         onClick={() => setScrollToTopSignal((n) => n + 1)}
-        className={`ink-border fixed bottom-3 right-3 z-40 inline-flex h-8 w-8 items-center justify-center shadow-[0_4px_10px_rgba(0,0,0,0.45)] transition-all duration-200 ${
+        className={`ink-border z-40 inline-flex h-8 w-8 items-center justify-center shadow-[0_4px_10px_rgba(0,0,0,0.45)] transition-all duration-200 ${
           showBackToTop ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-3 pointer-events-none"
         }`}
         style={{
           color: '#1a1208',
           backgroundColor: getPaperStyle(year).color,
+          position: 'fixed',
+          right: 'calc(env(safe-area-inset-right, 0px) + 12px)',
+          bottom: 'calc(env(safe-area-inset-bottom, 0px) + 12px)',
+          left: 'auto',
         }}
       >
         <ArrowUp className="h-3.5 w-3.5" />
