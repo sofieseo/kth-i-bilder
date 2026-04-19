@@ -245,6 +245,7 @@ const Index = () => {
               >
                 <TimeSlider year={year} onChange={handleYearChange} />
               </div>
+              </div>
            </div>
       </header>
 
