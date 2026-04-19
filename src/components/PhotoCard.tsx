@@ -1,8 +1,9 @@
 import { memo } from "react";
-import { ImageOff, EyeOff, CalendarOff } from "lucide-react";
+import { ImageOff, EyeOff, CalendarOff, Heart } from "lucide-react";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { getPaperStyle } from "@/lib/paperColor";
+import { usePhotoLikes } from "@/hooks/usePhotoLikes";
 
 interface PhotoCardProps {
   photo: UnifiedPhoto;
