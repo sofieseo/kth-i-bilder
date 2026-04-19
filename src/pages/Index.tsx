@@ -240,12 +240,12 @@ const Index = () => {
     Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.
   </span>
 </p>
+              </div>
               <div
                 className={`relative z-10 transition-[margin,padding] duration-200 ${headerShrunk ? "mt-1 pt-1 sm:mt-4 sm:pt-4" : "mt-2 sm:mt-4 pt-2 sm:pt-4"}`}
                 style={{ borderTop: '1px dashed rgba(26, 18, 8, 0.35)' }}
               >
                 <TimeSlider year={year} onChange={handleYearChange} />
-              </div>
               </div>
            </div>
       </header>
