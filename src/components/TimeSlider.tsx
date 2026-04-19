@@ -31,6 +31,8 @@ interface TimeSliderProps {
 export function TimeSlider({ year, onChange }: TimeSliderProps) {
   const isMobile = useIsMobile();
   const [pickerOpen, setPickerOpen] = useState(false);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const [dragging, setDragging] = useState(false);
 
   const visibleLabels = useMemo(() => {
     if (!isMobile) return DESKTOP_LABELS;
