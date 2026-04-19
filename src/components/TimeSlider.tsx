@@ -173,6 +173,34 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
     );
   }
 
+  const ACCENT = '#5e6f54';
+
+  const trackRef = React.useRef<HTMLDivElement | null>(null);
+  const [dragging, setDragging] = useState(false);
+
+  const setFromClientX = (clientX: number) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const pct = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    const idx = Math.round(pct * (DECADES.length - 1));
+    if (DECADES[idx] !== year) onChange(DECADES[idx]);
+  };
+
+  useEffect(() => {
+    if (!dragging) return;
+    const onMove = (e: PointerEvent) => setFromClientX(e.clientX);
+    const onUp = () => setDragging(false);
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onUp);
+    return () => {
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onUp);
+    };
+  }, [dragging, year]);
+
   return (
     <div className="w-full relative z-10">
       <div className="mb-2 flex items-center justify-between">
@@ -188,7 +216,6 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
           const pct = (idx / (DECADES.length - 1)) * 100;
           const isFirst = idx === 0;
           const isLast = idx === DECADES.length - 1;
-          // Anchor first label to left edge, last to right edge, rest centered
           const align = isFirst
             ? 'translate-x-0'
             : isLast
@@ -203,7 +230,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
               style={{
                 left: `${pct}%`,
                 fontFamily: "'Courier Prime', monospace",
-                color: isActive ? '#1a1208' : 'rgba(26, 18, 8, 0.45)',
+                color: isActive ? ACCENT : 'rgba(26, 18, 8, 0.45)',
               }}
               className={`absolute cursor-pointer transition-all duration-200 ${align} whitespace-nowrap ${
                 isActive
@@ -219,18 +246,17 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
 
       {/* Custom slider track with perfectly aligned thumb */}
       <div
-        className="relative w-full h-4 cursor-pointer"
+        ref={trackRef}
+        className={`relative w-full h-5 ${dragging ? 'cursor-grabbing' : 'cursor-pointer'} touch-none select-none`}
         role="slider"
         aria-valuemin={0}
         aria-valuemax={DECADES.length - 1}
         aria-valuenow={decadeIndex}
         tabIndex={0}
-        onClick={(e) => {
-          const rect = e.currentTarget.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const pct = Math.max(0, Math.min(1, x / rect.width));
-          const idx = Math.round(pct * (DECADES.length - 1));
-          onChange(DECADES[idx]);
+        onPointerDown={(e) => {
+          (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
+          setDragging(true);
+          setFromClientX(e.clientX);
         }}
       >
         {/* Track line */}
@@ -243,14 +269,14 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
         />
         {/* Thumb - positioned at exact same % as label */}
         <div
-          className="absolute top-1/2 pointer-events-none"
+          className={`absolute top-1/2 pointer-events-none transition-transform ${dragging ? 'scale-110' : ''}`}
           style={{
             left: `${(decadeIndex / (DECADES.length - 1)) * 100}%`,
-            transform: 'translate(-50%, -50%)',
-            width: '3px',
-            height: '16px',
-            background: '#1a1208',
-            boxShadow: '0 0 1px rgba(0, 0, 0, 0.4)',
+            transform: `translate(-50%, -50%) ${dragging ? 'scale(1.15)' : ''}`,
+            width: '4px',
+            height: '20px',
+            background: ACCENT,
+            boxShadow: '0 0 2px rgba(0, 0, 0, 0.4)',
           }}
         />
       </div>
