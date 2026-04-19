@@ -174,8 +174,7 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
   }
 
   const ACCENT = '#5e6f54';
-
-  const trackRef = React.useRef<HTMLDivElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
   const [dragging, setDragging] = useState(false);
 
   const setFromClientX = (clientX: number) => {
@@ -199,7 +198,9 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
       window.removeEventListener('pointerup', onUp);
       window.removeEventListener('pointercancel', onUp);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dragging, year]);
+
 
   return (
     <div className="w-full relative z-10">
