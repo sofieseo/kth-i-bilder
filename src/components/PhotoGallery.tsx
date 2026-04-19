@@ -24,6 +24,24 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
   const swipeHandled = useRef(false);
+  const horizontalLocked = useRef(false);
+  const [swipeDx, setSwipeDx] = useState(0);
+  // Crossfade transition between decades
+  const [transitionPhase, setTransitionPhase] = useState<"idle" | "out" | "in">("idle");
+  const prevYearRef = useRef(year);
+
+  // Trigger crossfade when year changes
+  useEffect(() => {
+    if (prevYearRef.current === year) return;
+    prevYearRef.current = year;
+    setTransitionPhase("out");
+    const t1 = setTimeout(() => setTransitionPhase("in"), 180);
+    const t2 = setTimeout(() => setTransitionPhase("idle"), 460);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [year]);
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     if (!isMobile || !onSwipeDecade) return;
@@ -31,6 +49,8 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
     swipeHandled.current = false;
+    horizontalLocked.current = false;
+    setSwipeDx(0);
   }, [isMobile, onSwipeDecade]);
 
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
@@ -38,18 +58,39 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
     if (touchStartX.current == null || touchStartY.current == null) return;
     const dx = e.touches[0].clientX - touchStartX.current;
     const dy = e.touches[0].clientY - touchStartY.current;
-    // Require strong horizontal intent and a minimum threshold
-    if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.8) {
-      onSwipeDecade(dx < 0 ? "next" : "prev");
-      swipeHandled.current = true;
-      touchStartX.current = null;
-      touchStartY.current = null;
+
+    // Lock to horizontal once intent is clear (avoid hijacking vertical scroll)
+    if (!horizontalLocked.current) {
+      if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+        horizontalLocked.current = true;
+      } else if (Math.abs(dy) > 12) {
+        // Vertical scroll wins — disable swipe for this gesture
+        touchStartX.current = null;
+        touchStartY.current = null;
+        return;
+      }
+    }
+
+    if (horizontalLocked.current) {
+      // Dampened follow with cap so the gallery softly follows the finger
+      const capped = Math.max(-160, Math.min(160, dx * 0.55));
+      setSwipeDx(capped);
+      // Commit the decade change once threshold passed
+      if (Math.abs(dx) > 70) {
+        onSwipeDecade(dx < 0 ? "next" : "prev");
+        swipeHandled.current = true;
+        touchStartX.current = null;
+        touchStartY.current = null;
+        setSwipeDx(0);
+      }
     }
   }, [isMobile, onSwipeDecade]);
 
   const handleTouchEnd = useCallback(() => {
     touchStartX.current = null;
     touchStartY.current = null;
+    horizontalLocked.current = false;
+    setSwipeDx(0);
   }, []);
 
   const [selectedPhoto, setSelectedPhoto] = useState<UnifiedPhoto | null>(null);
