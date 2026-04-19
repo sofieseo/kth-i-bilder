@@ -1,7 +1,6 @@
-import { X, ExternalLink, Building2, MapPin, Calendar, Tag, ImageOff, Camera, Share2, Check, ChevronLeft, ChevronRight, Heart } from "lucide-react";
+import { X, ExternalLink, Building2, MapPin, Calendar, Tag, ImageOff, Camera, Share2, Check, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
-import { usePhotoLikes } from "@/hooks/usePhotoLikes";
 import { supabase } from "@/integrations/supabase/client";
 
 interface PhotoLightboxProps {
