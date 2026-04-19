@@ -1,8 +1,9 @@
 import { memo } from "react";
-import { ImageOff, EyeOff, CalendarOff } from "lucide-react";
+import { ImageOff, EyeOff, CalendarOff, Heart } from "lucide-react";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { getPaperStyle } from "@/lib/paperColor";
+import { usePhotoLikes } from "@/hooks/usePhotoLikes";
 
 interface PhotoCardProps {
   photo: UnifiedPhoto;
@@ -35,6 +36,7 @@ function getRotation(id: string): number {
 export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMarkUndated }: PhotoCardProps) {
   const paperColor = getPaperStyle(decade).color;
   const rotation = getRotation(photo.id);
+  const { count, liked, toggleLike, loading } = usePhotoLikes(photo.id, photo.imageUrl);
 
   return (
     <button
@@ -65,6 +67,26 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
           {photo.provider}
         </span>
         <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 4px 1px rgba(0,0,0,0.3)" }} />
+        <button
+          onClick={(e) => { e.stopPropagation(); if (!loading) toggleLike(); }}
+          aria-label={liked ? "Ta bort gillamarkering" : "Gilla foto"}
+          className="absolute bottom-1 left-1 z-10 inline-flex items-center gap-1 px-1.5 py-0.5 bg-black/25 hover:bg-black/45 transition-colors"
+        >
+          <Heart
+            className="h-3 w-3"
+            style={{
+              color: liked ? "#a44a3f" : "transparent",
+              fill: liked ? "#a44a3f" : "transparent",
+              stroke: liked ? "#a44a3f" : "#000",
+              strokeWidth: 2.2,
+            }}
+          />
+          {count > 0 && (
+            <span className="text-[9px] font-semibold leading-none" style={{ color: liked ? "#a44a3f" : "#fff" }}>
+              {count}
+            </span>
+          )}
+        </button>
       </div>
       <div className="mt-1.5 px-1 h-[4.5rem] overflow-hidden">
         <h3 className="text-xs font-semibold leading-tight text-stone-800 line-clamp-2 uppercase">
