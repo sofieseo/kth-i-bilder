@@ -129,7 +129,7 @@ const Index = () => {
   }, [results, hiddenIds, undatedIds, year]);
 
   return (
-    <div className="relative flex h-screen w-screen flex-col">
+    <div className="relative flex w-screen flex-col" style={{ height: "100dvh" }}>
       {/* Blurred brick background layer */}
       <div
         aria-hidden
