@@ -103,14 +103,16 @@ export function TimeSlider({ year, onChange, compact = false }: TimeSliderProps)
     const canNext = decadeIndex < DECADES.length - 1;
     return (
       <div className="w-full relative z-10">
-        <div className="mb-1.5 text-center">
-          <span
-            className="text-[10px] uppercase tracking-[0.2em] font-semibold"
-            style={{ fontFamily: "'Courier Prime', monospace", color: 'rgba(26, 18, 8, 0.7)' }}
-          >
-            Välj årtionde
-          </span>
-        </div>
+        {!compact && (
+          <div className="mb-1.5 text-center">
+            <span
+              className="text-[10px] uppercase tracking-[0.2em] font-semibold"
+              style={{ fontFamily: "'Courier Prime', monospace", color: 'rgba(26, 18, 8, 0.7)' }}
+            >
+              Välj årtionde
+            </span>
+          </div>
+        )}
         <div className="flex items-stretch gap-1.5">
           <button
             type="button"
