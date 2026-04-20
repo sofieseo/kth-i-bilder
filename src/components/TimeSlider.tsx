@@ -26,6 +26,7 @@ const DESKTOP_LABELS = DECADES.map((d) => ({
 interface TimeSliderProps {
   year: number;
   onChange: (year: number) => void;
+  compact?: boolean;
 }
 
 export function TimeSlider({ year, onChange }: TimeSliderProps) {
