@@ -181,13 +181,3 @@ export async function fetchAllPhotos(
 
   return result;
 }
-
-// Keep streaming version for backward compat (unused now but safe to keep)
-export async function fetchAllPhotosStreaming(
-  year: number,
-  onUpdate: (photos: UnifiedPhoto[]) => void,
-  searchQuery?: string,
-): Promise<void> {
-  const photos = await fetchAllPhotos(year, searchQuery);
-  onUpdate(photos);
-}
