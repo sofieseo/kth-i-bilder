@@ -116,14 +116,10 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
             onClick={goPrev}
             disabled={!canPrev}
             aria-label="Föregående årtionde"
-            className="flex items-center justify-center px-2 border active:opacity-70 disabled:opacity-30"
-            style={{
-              color: '#1a1208',
-              borderColor: 'rgba(26, 18, 8, 0.45)',
-              background: 'rgba(26, 18, 8, 0.06)',
-            }}
+            className="ink-border flex items-center justify-center px-2.5 active:opacity-70 disabled:opacity-30"
+            style={{ color: '#1a1208' }}
           >
-            <ChevronLeft className="h-5 w-5" strokeWidth={2.5} />
+            <ChevronLeft className="h-4 w-4" strokeWidth={2} />
           </button>
           <Popover open={pickerOpen} onOpenChange={setPickerOpen}>
             <PopoverTrigger asChild>
@@ -184,14 +180,10 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
             onClick={goNext}
             disabled={!canNext}
             aria-label="Nästa årtionde"
-            className="flex items-center justify-center px-2 border active:opacity-70 disabled:opacity-30"
-            style={{
-              color: '#1a1208',
-              borderColor: 'rgba(26, 18, 8, 0.45)',
-              background: 'rgba(26, 18, 8, 0.06)',
-            }}
+            className="ink-border flex items-center justify-center px-2.5 active:opacity-70 disabled:opacity-30"
+            style={{ color: '#1a1208' }}
           >
-            <ChevronRight className="h-5 w-5" strokeWidth={2.5} />
+            <ChevronRight className="h-4 w-4" strokeWidth={2} />
           </button>
         </div>
       </div>
