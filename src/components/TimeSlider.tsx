@@ -29,7 +29,7 @@ interface TimeSliderProps {
   compact?: boolean;
 }
 
-export function TimeSlider({ year, onChange }: TimeSliderProps) {
+export function TimeSlider({ year, onChange, compact = false }: TimeSliderProps) {
   const isMobile = useIsMobile();
   const [pickerOpen, setPickerOpen] = useState(false);
   const trackRef = useRef<HTMLDivElement | null>(null);
