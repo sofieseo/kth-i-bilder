@@ -26,9 +26,10 @@ const DESKTOP_LABELS = DECADES.map((d) => ({
 interface TimeSliderProps {
   year: number;
   onChange: (year: number) => void;
+  compact?: boolean;
 }
 
-export function TimeSlider({ year, onChange }: TimeSliderProps) {
+export function TimeSlider({ year, onChange, compact = false }: TimeSliderProps) {
   const isMobile = useIsMobile();
   const [pickerOpen, setPickerOpen] = useState(false);
   const trackRef = useRef<HTMLDivElement | null>(null);
@@ -102,14 +103,16 @@ export function TimeSlider({ year, onChange }: TimeSliderProps) {
     const canNext = decadeIndex < DECADES.length - 1;
     return (
       <div className="w-full relative z-10">
-        <div className="mb-1.5 text-center">
-          <span
-            className="text-[10px] uppercase tracking-[0.2em] font-semibold"
-            style={{ fontFamily: "'Courier Prime', monospace", color: 'rgba(26, 18, 8, 0.7)' }}
-          >
-            Välj årtionde
-          </span>
-        </div>
+        {!compact && (
+          <div className="mb-1.5 text-center">
+            <span
+              className="text-[10px] uppercase tracking-[0.2em] font-semibold"
+              style={{ fontFamily: "'Courier Prime', monospace", color: 'rgba(26, 18, 8, 0.7)' }}
+            >
+              Välj årtionde
+            </span>
+          </div>
+        )}
         <div className="flex items-stretch gap-1.5">
           <button
             type="button"
