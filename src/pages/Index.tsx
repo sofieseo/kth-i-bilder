@@ -33,7 +33,7 @@ const Index = () => {
   const [scrollToTopSignal, setScrollToTopSignal] = useState(0);
   // Shrink header on mobile after a small scroll threshold
   const headerShrunk = scrollTop > 40;
-  const showBackToTop = scrollTop > 600;
+  const showBackToTop = scrollTop > 40;
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
