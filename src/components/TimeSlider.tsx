@@ -130,14 +130,18 @@ export function TimeSlider({ year, onChange, compact = false }: TimeSliderProps)
                 type="button"
                 className="flex-1 border px-3 py-2.5 flex items-center justify-center gap-2 active:opacity-80 shadow-sm"
                 style={{
-                  fontFamily: "'Courier Prime', monospace",
                   color: '#f5efe0',
                   borderColor: 'rgba(26, 18, 8, 0.55)',
                   background: '#5e6f54',
                 }}
                 aria-label="Välj årtionde"
               >
-                <span className="text-base font-bold tracking-[0.15em]">{label}</span>
+                <span
+                  className="text-2xl leading-none"
+                  style={{ fontFamily: "'Caveat', cursive", transform: 'rotate(-1.5deg)', display: 'inline-block' }}
+                >
+                  {label}
+                </span>
                 <ChevronDown className="h-4 w-4" strokeWidth={2.5} style={{ color: '#f5efe0' }} />
               </button>
             </PopoverTrigger>
