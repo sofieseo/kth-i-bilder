@@ -130,14 +130,18 @@ export function TimeSlider({ year, onChange, compact = false }: TimeSliderProps)
                 type="button"
                 className="flex-1 border px-3 py-2.5 flex items-center justify-center gap-2 active:opacity-80 shadow-sm"
                 style={{
-                  fontFamily: "'Courier Prime', monospace",
                   color: '#f5efe0',
                   borderColor: 'rgba(26, 18, 8, 0.55)',
                   background: '#5e6f54',
                 }}
                 aria-label="Välj årtionde"
               >
-                <span className="text-base font-bold tracking-[0.15em]">{label}</span>
+                <span
+                  className="text-2xl leading-none"
+                  style={{ fontFamily: "'Caveat', cursive", transform: 'rotate(-1.5deg)', display: 'inline-block' }}
+                >
+                  {label}
+                </span>
                 <ChevronDown className="h-4 w-4" strokeWidth={2.5} style={{ color: '#f5efe0' }} />
               </button>
             </PopoverTrigger>
@@ -232,13 +236,13 @@ export function TimeSlider({ year, onChange, compact = false }: TimeSliderProps)
               onClick={() => onChange(decade)}
               style={{
                 left: `${pct}%`,
-                fontFamily: "'Courier Prime', monospace",
-                color: isActive ? '#1a1208' : 'rgba(26, 18, 8, 0.45)',
+                fontFamily: isActive ? "'Caveat', cursive" : "'Courier Prime', monospace",
+                color: isActive ? '#1a1208' : 'rgba(26, 18, 8, 0.6)',
                 transformOrigin: isFirst ? 'left center' : isLast ? 'right center' : 'center center',
               }}
               className={`absolute cursor-pointer transition-all duration-200 ${align} whitespace-nowrap ${
                 isActive
-                  ? 'text-[15px] sm:text-[17px] font-bold scale-110'
+                  ? 'text-[22px] sm:text-[26px] font-normal scale-110 leading-none'
                   : 'hover:opacity-90 text-[10px] sm:text-[11px] font-semibold'
               }`}
             >
