@@ -14,7 +14,7 @@ import { useAdminMode } from "@/hooks/useAdminMode";
 import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
 import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
-import { getPaperStyle, getHeaderPaperStyle, getPaperBackgroundImage } from "@/lib/paperColor";
+import { getPaperStyle, getHeaderPaperStyle, getPaperBackgroundImage, getPageCurl } from "@/lib/paperColor";
 
 const Index = () => {
   const { year, results, loading, handleYearChange } = usePhotoFetch(0);
@@ -129,27 +129,41 @@ const Index = () => {
   }, [results, hiddenIds, undatedIds, year]);
 
   return (
-    <div
-      className="relative flex w-screen flex-col"
-      style={(() => {
+    <div className="relative flex w-screen flex-col" style={{ height: "100dvh" }}>
+      {/* Blurred brick background layer */}
+      <div
+        aria-hidden
+        className="fixed inset-0 -z-10"
+        style={{
+          backgroundImage: "url('/images/brick-bg.jpg')",
+          backgroundSize: "600px",
+          backgroundPosition: "center",
+          filter: "blur(1.5px) brightness(0.75)",
+          transform: "scale(1.03)",
+        }}
+      />
+      {/* Dark overlay to push texture into the background */}
+      <div aria-hidden className="fixed inset-0 -z-10 bg-black/40" />
+      <header
+        className="shrink-0 px-2 py-1.5 sm:px-4 sm:py-3"
+        style={(() => {
           const { color, spots, edgeTint } = getHeaderPaperStyle(year);
           const spotsImage = getPaperBackgroundImage(year);
           return {
-            height: "100dvh",
             ['--paper-color' as any]: color,
             ['--paper-spots' as any]: String(spots),
             ['--paper-spots-image' as any]: spotsImage,
             ['--header-edge-tint' as any]: edgeTint,
           };
         })()}
-    >
-      <div aria-hidden className="paper-aged header-paper fixed inset-0 -z-10" />
-      <header
-        className="shrink-0 px-2 py-1.5 sm:px-4 sm:py-3"
       >
          <div
-           className={`sm:px-6 sm:py-3 transition-[padding] duration-200 ${headerShrunk ? "px-3 py-1" : "px-3 py-2"}`}
+           className={`paper-aged header-paper sm:px-6 sm:py-3 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.7)] transition-[padding] duration-200 ${headerShrunk ? "px-3 py-1" : "px-3 py-2"}`}
          >
+              {(() => {
+                const curl = getPageCurl(year);
+                return curl ? <div aria-hidden className={`page-curl ${curl.corner}`} /> : null;
+              })()}
               <div className="relative z-10 flex items-center justify-between">
                 <h1
                   className={`font-semibold font-slab uppercase tracking-[0.12em] sm:tracking-[0.2em] sm:text-3xl transition-[font-size] duration-200 ${headerShrunk ? "text-base" : "text-xl"}`}
