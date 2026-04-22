@@ -162,11 +162,11 @@
   color: hsl(var(--paper-ink) / 0.74);
   border: 1.5px solid hsl(var(--paper-ink) / 0.58);
   transform: rotate(var(--stamp-rotation, -3deg));
-  background-color: hsl(0 0% 100% / 0.72);
+  background-color: hsl(0 0% 100% / 0.78);
   background-image:
     radial-gradient(ellipse at 18% 35%, hsl(var(--paper-ink) / 0.07), transparent 44%),
     radial-gradient(ellipse at 78% 68%, hsl(var(--paper-ink) / 0.05), transparent 46%);
-  mix-blend-mode: multiply;
+  box-shadow: 0 1px 3px hsl(var(--paper-ink) / 0.18);
 }
 .provider-stamp::after {
   content: "";
