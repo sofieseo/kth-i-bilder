@@ -47,6 +47,8 @@
     --slider-track: 212 100% 28%;
     --hotspot-pulse: 36 90% 55%;
     --paper-ink: 30 36% 7%;
+    --archive-green: 150 13% 32%;
+    --archive-green-foreground: 45 38% 92%;
 
     font-family: 'Courier Prime', monospace;
   }
