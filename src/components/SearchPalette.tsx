@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { fetchAllPhotosForSearch } from "@/data/fetchAllPhotosForSearch";
 import type { UnifiedPhoto } from "@/data/types";
-import { getPaperStyle } from "@/lib/paperColor";
+import { getHeaderPaperStyle } from "@/lib/paperColor";
 
 interface SearchPaletteProps {
   onSelect: (photo: UnifiedPhoto, results: UnifiedPhoto[]) => void;
@@ -47,7 +47,11 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
   const [allPhotos, setAllPhotos] = useState<UnifiedPhoto[]>([]);
   const [loadingPhotos, setLoadingPhotos] = useState(false);
 
-  const { color: paperColor, spots: paperSpots } = getPaperStyle(year);
+  const {
+    color: headerPaperColor,
+    spots: headerPaperSpots,
+    edgeTint: headerEdgeTint,
+  } = getHeaderPaperStyle(year);
 
   // Reopen palette when parent signals (e.g. lightbox closed)
   useEffect(() => {
@@ -153,12 +157,13 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
             Skriv ett sökord för att söka bland alla bilder i arkivet.
           </DialogDescription>
 
-          <div className="paper-aged mt-[12vh] w-[min(48rem,calc(100vw-2rem))] overflow-hidden border shadow-lg max-sm:mt-0 max-sm:min-h-0 max-sm:max-h-[90vh] max-sm:w-full max-sm:border-0">
+          <div className="paper-aged header-paper mt-[12vh] w-[min(48rem,calc(100vw-2rem))] overflow-hidden border shadow-lg max-sm:mt-0 max-sm:min-h-0 max-sm:max-h-[90vh] max-sm:w-full max-sm:border-0">
             <div
               className="relative"
               style={{
-                ["--paper-color" as any]: paperColor,
-                ["--paper-spots" as any]: String(paperSpots),
+                ["--paper-color" as any]: headerPaperColor,
+                ["--paper-spots" as any]: String(headerPaperSpots),
+                ["--header-edge-tint" as any]: headerEdgeTint,
                 borderColor: "rgba(26, 18, 8, 0.35)",
                 color: "#1a1208",
                 fontFamily: "'Courier Prime', monospace",
