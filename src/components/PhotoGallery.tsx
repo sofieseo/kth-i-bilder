@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect, useRef, useMemo, useCallback } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { Search, ImageOff } from "lucide-react";
 import { PhotoCard } from "./PhotoCard";
 import { PhotoLightbox } from "./PhotoLightbox";
@@ -40,21 +40,6 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
   const swipeHandled = useRef(false);
   const horizontalLocked = useRef(false);
   const [swipeDx, setSwipeDx] = useState(0);
-  // Crossfade transition between decades
-  const [transitionPhase, setTransitionPhase] = useState<"idle" | "out" | "in">("idle");
-  const prevYearRef = useRef(year);
-
-  // Trigger page-turn entrance when year changes
-  useLayoutEffect(() => {
-    if (prevYearRef.current === year) return;
-    prevYearRef.current = year;
-    setTransitionPhase("in");
-    const t1 = window.setTimeout(() => setTransitionPhase("idle"), 280);
-    return () => {
-      clearTimeout(t1);
-    };
-  }, [year]);
-
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     if (!isMobile || !onSwipeDecade) return;
     if (e.touches.length !== 1) return;
