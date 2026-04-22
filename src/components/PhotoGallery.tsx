@@ -182,6 +182,8 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
         onTouchEnd={handleTouchEnd}
       >
         <div
+          key={year}
+          className="gallery-page-turn"
           style={{
             transform:
               swipeDx !== 0

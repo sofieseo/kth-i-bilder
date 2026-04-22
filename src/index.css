@@ -95,6 +95,23 @@
   animation: search-tilt 2.4s ease-in-out infinite;
 }
 
+@keyframes gallery-page-turn {
+  0% { opacity: 0.35; transform: translateY(-14px) rotateX(7deg); }
+  55% { opacity: 1; transform: translateY(3px) rotateX(0deg); }
+  100% { opacity: 1; transform: translateY(0) rotateX(0deg); }
+}
+
+.gallery-page-turn {
+  transform-origin: top center;
+  animation: gallery-page-turn 420ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-page-turn {
+    animation: none;
+  }
+}
+
 
 /* Aged paper background — color follows polaroid frames per decade */
 .paper-aged {
