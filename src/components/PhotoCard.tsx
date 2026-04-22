@@ -71,9 +71,6 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
         <h3 className="text-xs font-semibold leading-tight text-stone-800 line-clamp-2 uppercase">
           {photo.title}
         </h3>
-        {photo.description && photo.description !== photo.title && (
-          <p className="text-[9px] text-stone-500 line-clamp-1 mt-0.5">{photo.description}</p>
-        )}
         <p className="text-[8px] text-stone-400 mt-0.5 line-clamp-1">{photo.source}</p>
       </div>
       <button
