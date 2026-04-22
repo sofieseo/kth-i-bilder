@@ -27,14 +27,14 @@ export function getPaperStyle(year: number | null | undefined): {
   const y = Math.max(minYear, Math.min(maxYear, year));
   const t = (y - minYear) / (maxYear - minYear); // 0 = oldest, 1 = newest
 
-  // Interpolate between an aged paper tone and pure white
-  const r = Math.round(236 + (255 - 236) * t);
-  const g = Math.round(229 + (255 - 229) * t);
-  const b = Math.round(210 + (255 - 210) * t);
+  // Interpolate from a lighter aged paper tone to a soft present-day archival white
+  const r = Math.round(243 + (253 - 243) * t);
+  const g = Math.round(240 + (253 - 240) * t);
+  const b = Math.round(229 + (250 - 229) * t);
   const color = `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
 
-  // Spots fade from ~0.55 (oldest) to 0.04 (newest) — subtle, won't disturb text
-  const spots = Math.round((0.55 - (0.55 - 0.04) * t) * 100) / 100;
+  // Spots fade from older paper into the present while staying subtle
+  const spots = Math.round((0.42 - (0.42 - 0.03) * t) * 100) / 100;
 
   return { color, spots };
 }

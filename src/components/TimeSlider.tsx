@@ -242,7 +242,7 @@ export function TimeSlider({ year, onChange, compact = false }: TimeSliderProps)
               }}
               className={`absolute cursor-pointer transition-all duration-200 ${align} whitespace-nowrap ${
                 isActive
-                  ? 'text-sm sm:text-base font-bold scale-110 leading-none'
+                  ? 'text-base sm:text-lg font-bold scale-110 leading-none'
                   : 'hover:opacity-90 text-[10px] sm:text-[11px] font-semibold'
               }`}
             >
