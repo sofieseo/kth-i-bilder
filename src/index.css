@@ -47,9 +47,6 @@
     --slider-track: 212 100% 28%;
     --hotspot-pulse: 36 90% 55%;
     --paper-ink: 30 36% 7%;
-    --archive-green: 145 22% 22%;
-    --archive-green-foreground: 42 30% 92%;
-    --archive-green-border: 145 18% 15%;
 
     font-family: 'Courier Prime', monospace;
   }
@@ -78,13 +75,6 @@
     background: hsla(var(--panel-glass));
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-  }
-
-  .archive-header-band {
-    background: hsl(var(--archive-green));
-    color: hsl(var(--archive-green-foreground));
-    border-top: 1px solid hsl(var(--archive-green-border));
-    box-shadow: inset 0 1px 0 hsl(var(--archive-green-foreground) / 0.08);
   }
 }
 
