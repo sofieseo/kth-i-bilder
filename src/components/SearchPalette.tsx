@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { Search, Loader2, X } from "lucide-react";
+import { Search, X } from "lucide-react";
 import {
   Dialog,
   DialogClose,
@@ -10,6 +10,7 @@ import {
 import { fetchAllPhotosForSearch } from "@/data/fetchAllPhotosForSearch";
 import type { UnifiedPhoto } from "@/data/types";
 import { getHeaderPaperStyle } from "@/lib/paperColor";
+import { SearchResultsList } from "./SearchResultsList";
 
 interface SearchPaletteProps {
   onSelect: (photo: UnifiedPhoto, results: UnifiedPhoto[]) => void;
@@ -42,6 +43,7 @@ function matchesQuery(photo: UnifiedPhoto, q: string): boolean {
 
 export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPaletteProps) {
   const [open, setOpen] = useState(false);
+  const [desktopResultsOpen, setDesktopResultsOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [submitted, setSubmitted] = useState("");
   const [allPhotos, setAllPhotos] = useState<UnifiedPhoto[]>([]);
@@ -73,7 +75,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
   }, []);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open && !desktopResultsOpen) return;
 
     let cancelled = false;
     setLoadingPhotos(true);
@@ -88,12 +90,20 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
     return () => {
       cancelled = true;
     };
-  }, [open]);
+  }, [open, desktopResultsOpen]);
 
   const filtered = useMemo(() => {
     if (!submitted.trim()) return [];
     return allPhotos.filter((photo) => matchesQuery(photo, submitted));
   }, [allPhotos, submitted]);
+
+  useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      setSubmitted(query);
+    }, 180);
+
+    return () => window.clearTimeout(timeout);
+  }, [query]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
@@ -105,6 +115,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
   const handleSelect = (photo: UnifiedPhoto) => {
     onSelect(photo, filtered);
     setOpen(false);
+    setDesktopResultsOpen(false);
     // keep query/submitted so the user can reopen and see the same results
   };
 
@@ -128,24 +139,42 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
         <span>Sök</span>
       </button>
 
-      <label
-        className="ink-border hidden h-10 w-64 items-center gap-2 px-3 text-xs transition-colors lg:w-80 sm:flex"
-        style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
-      >
-        <Search className="h-4 w-4 shrink-0 opacity-70" />
-        <input
-          className="h-full min-w-0 flex-1 bg-transparent uppercase tracking-[0.12em] outline-none placeholder:text-black/35"
+      <div className="relative hidden sm:block">
+        <label
+          className="ink-border flex h-10 w-64 items-center gap-2 px-3 text-xs transition-colors lg:w-80"
           style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
-          placeholder="Skriv sökord"
-          value={query}
-          onFocus={() => setOpen(true)}
-          onChange={(e) => {
-            setQuery(e.target.value);
-            setOpen(true);
-          }}
-          aria-label="Sök bland bilder"
-        />
-      </label>
+        >
+          <Search className="h-4 w-4 shrink-0 opacity-70" />
+          <input
+            className="h-full min-w-0 flex-1 bg-transparent uppercase tracking-[0.12em] outline-none placeholder:text-black/35"
+            style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
+            placeholder="Skriv sökord"
+            value={query}
+            onFocus={() => setDesktopResultsOpen(true)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setDesktopResultsOpen(true);
+            }}
+            aria-label="Sök bland bilder"
+          />
+        </label>
+
+        {desktopResultsOpen && (
+          <div
+            className="paper-aged header-paper absolute right-0 top-full z-40 mt-2 w-[min(36rem,calc(100vw-2rem))] overflow-hidden border shadow-lg"
+            style={{
+              ["--paper-color" as any]: headerPaperColor,
+              ["--paper-spots" as any]: String(headerPaperSpots),
+              ["--header-edge-tint" as any]: headerEdgeTint,
+              borderColor: "rgba(26, 18, 8, 0.35)",
+              color: "#1a1208",
+              fontFamily: "'Courier Prime', monospace",
+            }}
+          >
+            <SearchResultsList loadingPhotos={loadingPhotos} submitted={submitted} filtered={filtered} onSelect={handleSelect} />
+          </div>
+        )}
+      </div>
 
       <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogContent
@@ -202,69 +231,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
                 />
               </div>
 
-              <div className="relative z-10 max-h-[65vh] overflow-y-auto max-sm:max-h-[calc(90vh-4rem)]">
-                {loadingPhotos && (
-                  <div className="flex items-center justify-center py-6">
-                    <Loader2
-                      className="h-5 w-5 animate-spin"
-                      style={{ color: "rgba(26, 18, 8, 0.6)" }}
-                    />
-                  </div>
-                )}
-
-                {!loadingPhotos && !submitted.trim() && <div className="py-5" />}
-
-                {!loadingPhotos && submitted.trim() && filtered.length === 0 && (
-                  <p
-                    className="py-6 text-center text-sm uppercase tracking-wider"
-                    style={{ color: "rgba(26, 18, 8, 0.65)" }}
-                  >
-                    Inga träffar
-                  </p>
-                )}
-
-                {filtered.length > 0 && (
-                  <div>
-                    <p
-                      className="px-4 py-2 text-[10px] uppercase tracking-[0.2em]"
-                      style={{
-                        color: "rgba(26, 18, 8, 0.6)",
-                        borderBottom: "1px dashed rgba(26, 18, 8, 0.25)",
-                      }}
-                    >
-                      {filtered.length} träffar
-                    </p>
-
-                    {filtered.map((photo) => (
-                      <button
-                        key={photo.id}
-                        onClick={() => handleSelect(photo)}
-                        className="flex w-full items-center gap-3 rounded-none px-4 py-2 text-left transition-colors hover:bg-black/5"
-                        style={{ borderBottom: "1px dashed rgba(26, 18, 8, 0.2)" }}
-                      >
-                        {photo.imageUrl && (
-                          <img
-                            src={photo.imageUrl}
-                            alt=""
-                            className="h-10 w-10 shrink-0 rounded-none object-cover sm:h-20 sm:w-20"
-                            style={{ border: "1px solid rgba(26, 18, 8, 0.3)" }}
-                          />
-                        )}
-                        <div className="min-w-0 flex-1">
-                          <p className="truncate text-sm font-medium" style={{ color: "#1a1208" }}>
-                            {photo.title}
-                          </p>
-                          <p className="mt-0.5 truncate text-xs" style={{ color: "rgba(26, 18, 8, 0.65)" }}>
-                            {[photo.year, photo.photographer, photo.place, photo.provider]
-                              .filter(Boolean)
-                              .join(" · ")}
-                          </p>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <SearchResultsList loadingPhotos={loadingPhotos} submitted={submitted} filtered={filtered} onSelect={handleSelect} />
             </div>
           </div>
         </DialogContent>
