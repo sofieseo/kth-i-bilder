@@ -61,8 +61,7 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
           <ImageOff className="h-8 w-8 text-muted-foreground/40" />
         </div>
         <span
-          className="absolute top-1 left-1 text-[7px] px-1 py-0.5 leading-tight"
-          style={{ backgroundColor: `${paperColor}dd`, color: "#78716c" }}
+          className="provider-stamp absolute top-1 left-1 max-w-[74%] truncate px-1.5 py-0.5 text-[6.5px] font-bold uppercase leading-tight tracking-[0.18em]"
         >
           {photo.provider}
         </span>

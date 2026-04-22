@@ -182,22 +182,14 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
         onTouchEnd={handleTouchEnd}
       >
         <div
-          key={year}
-          className="gallery-page-turn"
           style={{
             transform:
               swipeDx !== 0
                 ? `translateX(${swipeDx}px)`
-                : transitionPhase === "out"
-                ? "translateY(-4px)"
-                : transitionPhase === "in"
-                ? "translateY(2px)"
                 : "translateY(0)",
             opacity:
               swipeDx !== 0
                 ? Math.max(0.55, 1 - Math.abs(swipeDx) / 320)
-                : transitionPhase === "in"
-                ? 0.72
                 : 1,
             transition:
               swipeDx !== 0
