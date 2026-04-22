@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import { useState, useEffect, useLayoutEffect, useRef, useMemo, useCallback } from "react";
 import { Search, ImageOff } from "lucide-react";
 import { PhotoCard } from "./PhotoCard";
 import { PhotoLightbox } from "./PhotoLightbox";
@@ -44,16 +44,14 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
   const [transitionPhase, setTransitionPhase] = useState<"idle" | "out" | "in">("idle");
   const prevYearRef = useRef(year);
 
-  // Trigger crossfade when year changes
-  useEffect(() => {
+  // Trigger page-turn entrance when year changes
+  useLayoutEffect(() => {
     if (prevYearRef.current === year) return;
     prevYearRef.current = year;
-    setTransitionPhase("out");
-    const t1 = setTimeout(() => setTransitionPhase("in"), 180);
-    const t2 = setTimeout(() => setTransitionPhase("idle"), 460);
+    setTransitionPhase("in");
+    const t1 = window.setTimeout(() => setTransitionPhase("idle"), 280);
     return () => {
       clearTimeout(t1);
-      clearTimeout(t2);
     };
   }, [year]);
 
@@ -194,17 +192,15 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
                 ? "translateY(2px)"
                 : "translateY(0)",
             opacity:
-              transitionPhase === "out"
-                ? 0
-                : swipeDx !== 0
+              swipeDx !== 0
                 ? Math.max(0.55, 1 - Math.abs(swipeDx) / 320)
+                : transitionPhase === "in"
+                ? 0.72
                 : 1,
             transition:
               swipeDx !== 0
                 ? "none"
-                : transitionPhase === "out"
-                ? "opacity 180ms ease-out, transform 180ms ease-out"
-                : "opacity 280ms ease-out, transform 220ms ease-out",
+                : "opacity 280ms ease-out, transform 280ms ease-out",
             willChange: "transform, opacity",
           }}
         >
