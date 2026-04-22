@@ -138,7 +138,7 @@ export function TimeSlider({ year, onChange, compact = false }: TimeSliderProps)
               >
                 <span
                   className="text-2xl leading-none"
-                  style={{ fontFamily: "'Caveat', cursive", transform: 'rotate(-1.5deg)', display: 'inline-block' }}
+                  style={{ fontFamily: "'Courier Prime', monospace", display: 'inline-block' }}
                 >
                   {label}
                 </span>
@@ -236,13 +236,13 @@ export function TimeSlider({ year, onChange, compact = false }: TimeSliderProps)
               onClick={() => onChange(decade)}
               style={{
                 left: `${pct}%`,
-                fontFamily: isActive ? "'Caveat', cursive" : "'Courier Prime', monospace",
+                fontFamily: "'Courier Prime', monospace",
                 color: isActive ? '#1a1208' : 'rgba(26, 18, 8, 0.6)',
                 transformOrigin: isFirst ? 'left center' : isLast ? 'right center' : 'center center',
               }}
               className={`absolute cursor-pointer transition-all duration-200 ${align} whitespace-nowrap ${
                 isActive
-                  ? 'text-[22px] sm:text-[26px] font-normal scale-110 leading-none'
+                  ? 'text-sm sm:text-base font-bold scale-110 leading-none'
                   : 'hover:opacity-90 text-[10px] sm:text-[11px] font-semibold'
               }`}
             >

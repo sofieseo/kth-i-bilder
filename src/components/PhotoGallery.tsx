@@ -185,7 +185,14 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
       >
         <div
           style={{
-            transform: swipeDx !== 0 ? `translateX(${swipeDx}px)` : undefined,
+            transform:
+              swipeDx !== 0
+                ? `translateX(${swipeDx}px)`
+                : transitionPhase === "out"
+                ? "translateY(-4px)"
+                : transitionPhase === "in"
+                ? "translateY(2px)"
+                : "translateY(0)",
             opacity:
               transitionPhase === "out"
                 ? 0
@@ -196,7 +203,7 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
               swipeDx !== 0
                 ? "none"
                 : transitionPhase === "out"
-                ? "opacity 180ms ease-out"
+                ? "opacity 180ms ease-out, transform 180ms ease-out"
                 : "opacity 280ms ease-out, transform 220ms ease-out",
             willChange: "transform, opacity",
           }}
