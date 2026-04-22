@@ -60,18 +60,15 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
         <div className={`flex h-full w-full items-center justify-center absolute inset-0 ${photo.imageUrl ? "hidden" : ""}`}>
           <ImageOff className="h-8 w-8 text-muted-foreground/40" />
         </div>
-        <span
-          className="absolute top-1 left-1 max-w-[74%] truncate bg-background/80 px-1.5 py-0.5 text-[8px] font-medium leading-tight tracking-normal text-foreground"
-        >
-          {photo.provider}
-        </span>
         <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 4px 1px rgba(0,0,0,0.3)" }} />
       </div>
       <div className="mt-1.5 px-1 h-[4.5rem] overflow-hidden">
         <h3 className="text-[13px] font-semibold leading-tight text-stone-800 line-clamp-3 uppercase">
           {photo.title}
         </h3>
-        <p className="text-[9px] font-semibold text-stone-600 mt-0.5 line-clamp-1">{photo.source}</p>
+        <p className="text-[9px] font-semibold text-stone-600 mt-0.5 line-clamp-1">
+          {photo.provider === photo.source ? photo.source : `${photo.provider}, ${photo.source}`}
+        </p>
       </div>
       <button
         onClick={(e) => { e.stopPropagation(); if (!loading) toggleLike(); }}
