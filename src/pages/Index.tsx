@@ -157,13 +157,13 @@ const Index = () => {
         })()}
       >
          <div
-           className={`paper-aged sm:px-6 sm:py-3 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.7)] transition-[padding] duration-200 ${headerShrunk ? "px-3 py-1" : "px-3 py-2"}`}
+           className={`overflow-hidden paper-aged shadow-[0_18px_40px_-8px_rgba(0,0,0,0.7)] transition-[padding] duration-200 ${headerShrunk ? "px-3 py-1 sm:px-0 sm:py-0" : "px-3 py-2 sm:px-0 sm:py-0"}`}
          >
               {(() => {
                 const curl = getPageCurl(year);
                 return curl ? <div aria-hidden className={`page-curl ${curl.corner}`} /> : null;
               })()}
-              <div className="relative z-10 flex items-center justify-between">
+              <div className={`relative z-10 flex items-center justify-between sm:px-6 ${headerShrunk ? "sm:pt-3" : "sm:pt-3"}`}>
                 <h1
                   className={`font-semibold font-slab uppercase tracking-[0.12em] sm:tracking-[0.2em] sm:text-3xl transition-[font-size] duration-200 ${headerShrunk ? "text-base" : "text-xl"}`}
                   style={{ color: '#1a1208' }}
@@ -230,7 +230,7 @@ const Index = () => {
                 </div>
               </div>
               <div
-                className={`overflow-hidden transition-[max-height,opacity,margin] duration-200 ${headerShrunk ? "max-h-0 opacity-0 sm:max-h-40 sm:opacity-100" : "max-h-40 opacity-100"}`}
+                className={`overflow-hidden transition-[max-height,opacity,margin] duration-200 sm:px-6 ${headerShrunk ? "max-h-0 opacity-0 sm:max-h-40 sm:opacity-100" : "max-h-40 opacity-100"}`}
               >
                 <p className="relative z-10 text-[10px] sm:text-xs leading-relaxed mt-1 max-w-3xl" style={{ color: 'rgba(26, 18, 8, 0.78)', fontFamily: "'Courier Prime', monospace" }}>
   <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv.</span>
@@ -242,7 +242,7 @@ const Index = () => {
 </p>
               </div>
               <div
-                className={`relative z-10 transition-[margin,padding] duration-200 ${headerShrunk ? "mt-1 pt-1 sm:mt-4 sm:pt-4" : "mt-2 sm:mt-4 pt-2 sm:pt-4"}`}
+                className={`relative z-10 transition-[margin,padding] duration-200 ${headerShrunk ? "mt-1 pt-1 sm:mt-4 sm:pt-3 sm:pb-3 sm:px-6 sm:archive-header-band" : "mt-2 pt-2 sm:mt-4 sm:pt-3 sm:pb-3 sm:px-6 sm:archive-header-band"}`}
                 style={{ borderTop: '1px dashed rgba(26, 18, 8, 0.35)' }}
               >
                 <TimeSlider year={year} onChange={handleYearChange} compact={headerShrunk} />
