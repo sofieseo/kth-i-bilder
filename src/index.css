@@ -95,24 +95,6 @@
   animation: search-tilt 2.4s ease-in-out infinite;
 }
 
-@keyframes gallery-page-turn {
-  0% { opacity: 0.35; transform: translateY(-14px) rotateX(7deg); }
-  55% { opacity: 1; transform: translateY(3px) rotateX(0deg); }
-  100% { opacity: 1; transform: translateY(0) rotateX(0deg); }
-}
-
-.gallery-page-turn {
-  transform-origin: top center;
-  animation: gallery-page-turn 420ms ease-out both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .gallery-page-turn {
-    animation: none;
-  }
-}
-
-
 /* Aged paper background — color follows polaroid frames per decade */
 .paper-aged {
   background-color: var(--paper-color, #ede8d8);
@@ -184,6 +166,24 @@
   background-size: 180px 1.5px;
   background-position: center top;
   filter: drop-shadow(0 2px 2px hsl(var(--paper-ink) / 0.28));
+}
+
+/* Archive-style provider stamp on photo cards */
+.provider-stamp {
+  color: hsl(var(--paper-ink) / 0.66);
+  border: 1.5px solid hsl(var(--paper-ink) / 0.5);
+  transform: rotate(-3deg);
+  background-image:
+    linear-gradient(90deg, hsl(var(--paper-ink) / 0.08), transparent 38%, hsl(var(--paper-ink) / 0.05) 70%, transparent),
+    repeating-linear-gradient(105deg, transparent 0 5px, hsl(var(--paper-ink) / 0.08) 5px 6px, transparent 6px 11px);
+  mix-blend-mode: multiply;
+}
+.provider-stamp::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border: 0.75px solid hsl(var(--paper-ink) / 0.32);
+  pointer-events: none;
 }
 
 /* Timeline slider – ink-line style on paper */
