@@ -145,7 +145,7 @@ const Index = () => {
       {/* Dark overlay to push texture into the background */}
       <div aria-hidden className="fixed inset-0 -z-10 bg-black/40" />
       <header
-        className="shrink-0 px-2 py-1.5 sm:px-4 sm:py-3"
+        className="shrink-0 px-2 py-1.5 sm:px-4 sm:py-3 lg:px-8 lg:pt-6 xl:px-10"
         style={(() => {
           const { color, spots, edgeTint } = getHeaderPaperStyle(year);
           const spotsImage = getPaperBackgroundImage(year);
