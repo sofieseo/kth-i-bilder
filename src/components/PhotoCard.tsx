@@ -33,9 +33,18 @@ function getRotation(id: string): number {
   return Math.round(direction * magnitude * 10) / 10;
 }
 
+function getStampRotation(id: string): number {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash = Math.imul(hash ^ id.charCodeAt(i), 2654435761);
+  }
+  return -3 + ((Math.abs(hash) % 25) - 12) / 10;
+}
+
 export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMarkUndated }: PhotoCardProps) {
   const paperColor = getPaperStyle(decade).color;
   const rotation = getRotation(photo.id);
+  const stampRotation = getStampRotation(photo.id);
   const { count, liked, toggleLike, loading } = usePhotoLikes(photo.id, photo.imageUrl);
 
   return (
@@ -62,6 +71,7 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
         </div>
         <span
           className="provider-stamp absolute top-1 left-1 max-w-[74%] truncate px-1.5 py-0.5 text-[6.5px] font-bold uppercase leading-tight tracking-[0.18em]"
+          style={{ ['--stamp-rotation' as any]: `${stampRotation}deg` }}
         >
           {photo.provider}
         </span>
