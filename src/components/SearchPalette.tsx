@@ -43,7 +43,6 @@ function matchesQuery(photo: UnifiedPhoto, q: string): boolean {
 
 export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPaletteProps) {
   const [open, setOpen] = useState(false);
-  const [desktopResultsOpen, setDesktopResultsOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [submitted, setSubmitted] = useState("");
   const [allPhotos, setAllPhotos] = useState<UnifiedPhoto[]>([]);
@@ -75,7 +74,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
   }, []);
 
   useEffect(() => {
-    if (!open && !desktopResultsOpen) return;
+    if (!open) return;
 
     let cancelled = false;
     setLoadingPhotos(true);
@@ -90,7 +89,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
     return () => {
       cancelled = true;
     };
-  }, [open, desktopResultsOpen]);
+  }, [open]);
 
   const filtered = useMemo(() => {
     if (!submitted.trim()) return [];
@@ -115,7 +114,6 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
   const handleSelect = (photo: UnifiedPhoto) => {
     onSelect(photo, filtered);
     setOpen(false);
-    setDesktopResultsOpen(false);
     // keep query/submitted so the user can reopen and see the same results
   };
 
@@ -139,7 +137,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
         <span>Sök</span>
       </button>
 
-      <div className="relative hidden sm:block">
+      <div className="hidden sm:block">
         <label
           className="ink-border flex h-10 w-64 items-center gap-2 px-3 text-xs transition-colors lg:w-80"
           style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
@@ -150,30 +148,16 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
             style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
             placeholder="Skriv sökord"
             value={query}
-            onFocus={() => setDesktopResultsOpen(true)}
+            onFocus={() => {
+              if (query.trim()) setOpen(true);
+            }}
             onChange={(e) => {
               setQuery(e.target.value);
-              setDesktopResultsOpen(true);
+              setOpen(true);
             }}
             aria-label="Sök bland bilder"
           />
         </label>
-
-        {desktopResultsOpen && (
-          <div
-            className="paper-aged header-paper absolute right-0 top-full z-40 mt-2 w-[min(36rem,calc(100vw-2rem))] overflow-hidden border shadow-lg"
-            style={{
-              ["--paper-color" as any]: headerPaperColor,
-              ["--paper-spots" as any]: String(headerPaperSpots),
-              ["--header-edge-tint" as any]: headerEdgeTint,
-              borderColor: "rgba(26, 18, 8, 0.35)",
-              color: "#1a1208",
-              fontFamily: "'Courier Prime', monospace",
-            }}
-          >
-            <SearchResultsList loadingPhotos={loadingPhotos} submitted={submitted} filtered={filtered} onSelect={handleSelect} />
-          </div>
-        )}
       </div>
 
       <Dialog open={open} onOpenChange={handleOpenChange}>
