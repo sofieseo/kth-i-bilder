@@ -250,8 +250,6 @@ const Index = () => {
            </div>
       </header>
 
-      <div aria-hidden className="ink-divider shrink-0" />
-
       <PhotoGallery
         results={visibleResults}
         year={year}
