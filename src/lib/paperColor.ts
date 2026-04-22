@@ -19,8 +19,8 @@ export function getPaperStyle(year: number | null | undefined): {
   color: string;
   spots: number;
 } {
-  // Undated bucket = oldest tier
-  if (year == null || year === 0) return { color: "#ece5d2", spots: 0.55 };
+  // Undated bucket = same paper tone as the oldest dated tier (1820)
+  if (year == null || year === 0) return { color: "#f3f0e5", spots: 0.42 };
 
   const minYear = 1820;
   const maxYear = 2020;
