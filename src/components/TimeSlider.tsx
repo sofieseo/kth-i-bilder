@@ -130,9 +130,9 @@ export function TimeSlider({ year, onChange, compact = false }: TimeSliderProps)
                 type="button"
                 className="flex-1 border px-3 py-2.5 flex items-center justify-center gap-2 active:opacity-80 shadow-sm"
                 style={{
-                  color: '#f5efe0',
+                  color: 'hsl(var(--archive-green-foreground))',
                   borderColor: 'rgba(26, 18, 8, 0.55)',
-                  background: '#5e6f54',
+                  background: 'hsl(var(--archive-green))',
                 }}
                 aria-label="Välj årtionde"
               >
@@ -142,7 +142,7 @@ export function TimeSlider({ year, onChange, compact = false }: TimeSliderProps)
                 >
                   {label}
                 </span>
-                <ChevronDown className="h-4 w-4" strokeWidth={2.5} style={{ color: '#f5efe0' }} />
+                <ChevronDown className="h-4 w-4" strokeWidth={2.5} style={{ color: 'hsl(var(--archive-green-foreground))' }} />
               </button>
             </PopoverTrigger>
             <PopoverContent
@@ -197,7 +197,7 @@ export function TimeSlider({ year, onChange, compact = false }: TimeSliderProps)
     );
   }
 
-  const ACCENT = '#5e6f54';
+  const ACCENT = 'hsl(var(--archive-green))';
 
   const setFromClientX = (clientX: number) => {
     const el = trackRef.current;
