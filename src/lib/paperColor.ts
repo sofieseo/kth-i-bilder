@@ -40,7 +40,7 @@ export function getPaperStyle(year: number | null | undefined): {
 }
 
 /**
- * Header paper uses its own cool gray-blue archive-label tone so it still ages
+ * Header paper uses its own cool blue-gray archive-folder tone so it still ages
  * with the timeline without matching the photo frames exactly.
  */
 export function getHeaderPaperStyle(year: number | null | undefined): {
@@ -54,15 +54,15 @@ export function getHeaderPaperStyle(year: number | null | undefined): {
   const t = (y - minYear) / (maxYear - minYear);
   const aging = 1 - t;
 
-  const hue = Math.round(210 + 8 * aging);
-  const saturation = Math.round(10 + 8 * aging);
-  const lightness = Math.round(97 - 9 * aging);
-  const spotStrength = Math.round((0.18 + 0.24 * aging) * 100) / 100;
+  const hue = Math.round(205 + 7 * aging);
+  const saturation = Math.round(14 + 6 * aging);
+  const lightness = Math.round(91 - 6 * aging);
+  const spotStrength = Math.round((0.1 + 0.18 * aging) * 100) / 100;
 
   return {
     color: `hsl(${hue} ${saturation}% ${lightness}%)`,
     spots: spotStrength,
-    edgeTint: `hsl(210 18% ${Math.round(46 + 18 * t)}% / ${Math.round((0.12 + 0.13 * aging) * 100) / 100})`,
+    edgeTint: `hsl(207 18% ${Math.round(54 + 12 * t)}% / ${Math.round((0.1 + 0.12 * aging) * 100) / 100})`,
   };
 }
 
