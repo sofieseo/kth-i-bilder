@@ -40,6 +40,33 @@ export function getPaperStyle(year: number | null | undefined): {
 }
 
 /**
+ * Header paper uses its own cooler archive-label tone so it still ages
+ * with the timeline without matching the photo frames exactly.
+ */
+export function getHeaderPaperStyle(year: number | null | undefined): {
+  color: string;
+  spots: number;
+  edgeTint: string;
+} {
+  const minYear = 1820;
+  const maxYear = 2020;
+  const y = year == null || year === 0 ? minYear : Math.max(minYear, Math.min(maxYear, year));
+  const t = (y - minYear) / (maxYear - minYear);
+  const aging = 1 - t;
+
+  const hue = Math.round(92 - 18 * aging);
+  const saturation = Math.round(6 + 16 * aging);
+  const lightness = Math.round(96 - 11 * aging);
+  const spotStrength = Math.round((0.18 + 0.24 * aging) * 100) / 100;
+
+  return {
+    color: `hsl(${hue} ${saturation}% ${lightness}%)`,
+    spots: spotStrength,
+    edgeTint: `hsl(132 20% ${Math.round(34 + 14 * t)}% / ${Math.round((0.14 + 0.14 * aging) * 100) / 100})`,
+  };
+}
+
+/**
  * Returns a "page curl" config for select decades, or null.
  * Only two non-consecutive decades have a curl, in different corners.
  * Placed in bottom corners so it never overlaps the header text/title.

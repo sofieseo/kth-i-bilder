@@ -14,7 +14,7 @@ import { useAdminMode } from "@/hooks/useAdminMode";
 import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
 import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
-import { getPaperStyle, getPaperBackgroundImage, getPageCurl } from "@/lib/paperColor";
+import { getPaperStyle, getHeaderPaperStyle, getPaperBackgroundImage, getPageCurl } from "@/lib/paperColor";
 
 const Index = () => {
   const { year, results, loading, handleYearChange } = usePhotoFetch(0);
@@ -147,17 +147,18 @@ const Index = () => {
       <header
         className="shrink-0 px-2 py-1.5 sm:px-4 sm:py-3"
         style={(() => {
-          const { color, spots } = getPaperStyle(year);
+          const { color, spots, edgeTint } = getHeaderPaperStyle(year);
           const spotsImage = getPaperBackgroundImage(year);
           return {
             ['--paper-color' as any]: color,
             ['--paper-spots' as any]: String(spots),
             ['--paper-spots-image' as any]: spotsImage,
+            ['--header-edge-tint' as any]: edgeTint,
           };
         })()}
       >
          <div
-           className={`paper-aged sm:px-6 sm:py-3 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.7)] transition-[padding] duration-200 ${headerShrunk ? "px-3 py-1" : "px-3 py-2"}`}
+           className={`paper-aged header-paper sm:px-6 sm:py-3 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.7)] transition-[padding] duration-200 ${headerShrunk ? "px-3 py-1" : "px-3 py-2"}`}
          >
               {(() => {
                 const curl = getPageCurl(year);
