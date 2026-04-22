@@ -116,13 +116,32 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
     <>
       <button
         onClick={() => setOpen(true)}
-        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors sm:hidden"
         style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
         aria-label="Sök bland bilder (Ctrl+K)"
       >
         <Search className="h-3.5 w-3.5" />
-        <span className="hidden sm:inline">Sök</span>
+        <span>Sök</span>
       </button>
+
+      <label
+        className="ink-border hidden h-10 w-64 items-center gap-2 px-3 text-xs transition-colors lg:w-80 sm:flex"
+        style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
+      >
+        <Search className="h-4 w-4 shrink-0 opacity-70" />
+        <input
+          className="h-full min-w-0 flex-1 bg-transparent uppercase tracking-[0.12em] outline-none placeholder:text-black/35"
+          style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
+          placeholder="Skriv sökord"
+          value={query}
+          onFocus={() => setOpen(true)}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setOpen(true);
+          }}
+          aria-label="Sök bland bilder"
+        />
+      </label>
 
       <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogContent
