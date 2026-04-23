@@ -272,7 +272,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
                 <li>
                   <a
                     className="underline decoration-dashed underline-offset-4"
-                    href="https://www.google.com/search?q=site%3Aflickr.com+Kungliga+Tekniska+H%C3%B6gskolan"
+                    href="https://flickr.com/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
