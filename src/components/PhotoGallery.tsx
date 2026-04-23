@@ -217,18 +217,6 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
               </div>
             </>
           )}
-          {results.length > 0 && !loading && (
-            <p
-              className="mt-10 mb-2 px-4 text-center text-[10px] sm:text-xs leading-relaxed"
-              style={{
-                color: "rgba(244, 241, 234, 0.55)",
-                fontFamily: "'Courier Prime', monospace",
-                textShadow: "0 1px 2px rgba(0,0,0,0.6)",
-              }}
-            >
-              Data från Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan &amp; Wikimedia Commons. Ett hobbyprojekt av Sofie Seo.
-            </p>
-          )}
         </div>
       </div>
 
