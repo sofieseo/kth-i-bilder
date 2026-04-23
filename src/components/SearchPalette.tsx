@@ -232,7 +232,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
           </DialogDescription>
 
           <div
-            className="paper-aged header-paper mt-[12vh] w-[min(32rem,calc(100vw-2rem))] overflow-hidden border shadow-lg max-sm:mt-0 max-sm:w-full max-sm:border-0"
+            className="paper-aged header-paper mt-[12vh] w-[min(40rem,calc(100vw-2rem))] overflow-hidden border shadow-lg max-sm:mt-0 max-sm:w-full max-sm:border-0"
             style={paperDialogStyle}
           >
             <div className="relative p-6 pr-12 text-sm leading-relaxed" style={inkTextStyle}>
