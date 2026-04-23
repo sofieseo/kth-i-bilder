@@ -1,11 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { Search, X } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { fetchAllPhotosForSearch } from "@/data/fetchAllPhotosForSearch";
 import type { UnifiedPhoto } from "@/data/types";
 import { getHeaderPaperStyle } from "@/lib/paperColor";
@@ -48,11 +43,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
   const [allPhotos, setAllPhotos] = useState<UnifiedPhoto[]>([]);
   const [loadingPhotos, setLoadingPhotos] = useState(false);
 
-  const {
-    color: headerPaperColor,
-    spots: headerPaperSpots,
-    edgeTint: headerEdgeTint,
-  } = getHeaderPaperStyle(year);
+  const { color: headerPaperColor, spots: headerPaperSpots, edgeTint: headerEdgeTint } = getHeaderPaperStyle(year);
 
   // Reopen palette when parent signals (e.g. lightbox closed)
   useEffect(() => {
@@ -147,7 +138,10 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
       </button>
 
       <div className="hidden sm:flex sm:items-center sm:gap-2">
-        <label className="ink-border flex h-10 w-64 items-center gap-2 px-3 text-xs transition-colors lg:w-80" style={inkTextStyle}>
+        <label
+          className="ink-border flex h-10 w-64 items-center gap-2 px-3 text-xs transition-colors lg:w-80"
+          style={inkTextStyle}
+        >
           <Search className="h-4 w-4 shrink-0 opacity-70" />
           <input
             className="h-full min-w-0 flex-1 bg-transparent uppercase tracking-[0.12em] outline-none placeholder:text-black/35"
@@ -204,10 +198,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
                 className="relative z-10 flex items-center px-4 pr-12"
                 style={{ borderBottom: "1px dashed rgba(26, 18, 8, 0.35)" }}
               >
-                <Search
-                  className="mr-2 h-4 w-4 shrink-0"
-                  style={{ color: "rgba(26, 18, 8, 0.55)" }}
-                />
+                <Search className="mr-2 h-4 w-4 shrink-0" style={{ color: "rgba(26, 18, 8, 0.55)" }} />
                 <input
                   className="flex h-16 w-full rounded-none bg-transparent py-3 text-sm uppercase tracking-[0.14em] outline-none placeholder:text-black/30"
                   style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
@@ -219,7 +210,12 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
                 />
               </div>
 
-              <SearchResultsList loadingPhotos={loadingPhotos} submitted={submitted} filtered={filtered} onSelect={handleSelect} />
+              <SearchResultsList
+                loadingPhotos={loadingPhotos}
+                submitted={submitted}
+                filtered={filtered}
+                onSelect={handleSelect}
+              />
             </div>
           </div>
         </DialogContent>
@@ -253,13 +249,23 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
               <p className="mb-3 uppercase tracking-[0.08em]">Fler bilder finns bland annat hos:</p>
               <ul className="mb-6 space-y-2">
                 <li>
-                  <a className="underline decoration-dashed underline-offset-4" href="https://digitalt.kb.se/" target="_blank" rel="noopener noreferrer">
+                  <a
+                    className="underline decoration-dashed underline-offset-4"
+                    href="https://digitalt.kb.se/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     KB digitalt
                   </a>{" "}
-                  <span className="opacity-75">(vykortssamling)</span>
+                  <span className="opacity-75">(vykortssamling, sök: Kungliga Tekniska Högskolan)</span>
                 </li>
                 <li>
-                  <a className="underline decoration-dashed underline-offset-4" href="https://flickr.com/" target="_blank" rel="noopener noreferrer">
+                  <a
+                    className="underline decoration-dashed underline-offset-4"
+                    href="https://flickr.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Flickr
                   </a>
                 </li>
