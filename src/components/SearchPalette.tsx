@@ -272,7 +272,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
                 <li>
                   <a
                     className="underline decoration-dashed underline-offset-4"
-                    href="https://flickr.com/"
+                    href="https://www.flickr.com/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
