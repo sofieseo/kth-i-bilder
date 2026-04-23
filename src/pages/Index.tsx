@@ -233,7 +233,14 @@ const Index = () => {
               <div
                 className={`overflow-hidden transition-[max-height,opacity,margin] duration-200 ${headerShrunk ? "max-h-0 opacity-0 sm:max-h-40 sm:opacity-100" : "max-h-40 opacity-100"}`}
               >
-                
+                <p className="relative z-10 text-[10px] sm:text-xs leading-relaxed mt-1 max-w-3xl" style={{ color: 'rgba(26, 18, 8, 0.78)', fontFamily: "'Courier Prime', monospace" }}>
+                  <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv.</span>
+                  <span className="hidden sm:inline">
+                    En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH).<br />
+                    Bilderna hämtas från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum,<br />
+                    Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.
+                  </span>
+                </p>
               </div>
               <div
                 className={`relative z-10 transition-[margin,padding] duration-200 ${headerShrunk ? "mt-1 pt-1 sm:mt-4 sm:pt-4" : "mt-2 sm:mt-4 pt-2 sm:pt-4"}`}
