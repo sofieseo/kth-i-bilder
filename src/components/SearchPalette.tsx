@@ -129,22 +129,12 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
     <>
       <button
         onClick={() => setOpen(true)}
-        className="ink-border flex h-[2.25rem] items-center gap-1.5 px-3 text-xs transition-colors sm:hidden"
+        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors sm:hidden"
         style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
         aria-label="Sök bland bilder (Ctrl+K)"
       >
         <Search className="h-3.5 w-3.5" />
         <span>Sök</span>
-      </button>
-
-      <button
-        type="button"
-        onClick={() => setInfoOpen(true)}
-        className="ink-border flex h-[2.25rem] w-10 shrink-0 items-center justify-center px-2.5 text-sm font-bold transition-opacity hover:opacity-80 sm:hidden"
-        style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
-        aria-label="Information om KTH i bilder"
-      >
-        i
       </button>
 
       <div className="hidden sm:flex sm:items-center sm:gap-2">
@@ -242,7 +232,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
           </DialogDescription>
 
           <div
-            className="paper-aged header-paper mt-[12vh] w-[min(40rem,calc(100vw-2rem))] overflow-hidden border shadow-lg max-sm:mt-0 max-sm:w-full max-sm:border-0"
+            className="paper-aged header-paper mt-[12vh] w-[min(32rem,calc(100vw-2rem))] overflow-hidden border shadow-lg max-sm:mt-0 max-sm:w-full max-sm:border-0"
             style={paperDialogStyle}
           >
             <div className="relative p-6 pr-12 text-sm leading-relaxed" style={inkTextStyle}>
@@ -283,7 +273,10 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
 
               <p className="text-xs leading-relaxed opacity-65">
                 KTH i bilder är ett hobbyprojekt av{" "}
-                <a className="underline decoration-dashed underline-offset-4" href="mailto:sofieanden@gmail.com">
+                <a
+                  className="underline decoration-dashed underline-offset-4"
+                  href="https://www.linkedin.com/in/sofieseo/"
+                >
                   Sofie Seo
                 </a>{" "}
                 för att prova på vibekodning.
