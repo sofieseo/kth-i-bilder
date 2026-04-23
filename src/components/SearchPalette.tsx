@@ -137,6 +137,16 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
         <span>Sök</span>
       </button>
 
+      <button
+        type="button"
+        onClick={() => setInfoOpen(true)}
+        className="ink-border flex h-9 w-9 shrink-0 items-center justify-center text-sm font-bold transition-opacity hover:opacity-80 sm:hidden"
+        style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
+        aria-label="Information om KTH i bilder"
+      >
+        i
+      </button>
+
       <div className="hidden sm:flex sm:items-center sm:gap-2">
         <label
           className="ink-border flex h-10 w-64 items-center gap-2 px-3 text-xs transition-colors lg:w-80"
