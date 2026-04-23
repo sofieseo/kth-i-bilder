@@ -129,7 +129,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
     <>
       <button
         onClick={() => setOpen(true)}
-        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors sm:hidden"
+        className="ink-border flex h-[2.25rem] items-center gap-1.5 px-3 text-xs transition-colors sm:hidden"
         style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
         aria-label="Sök bland bilder (Ctrl+K)"
       >
