@@ -127,15 +127,26 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
 
   return (
     <>
-      <button
-        onClick={() => setOpen(true)}
-        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors sm:hidden"
-        style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
-        aria-label="Sök bland bilder (Ctrl+K)"
-      >
-        <Search className="h-3.5 w-3.5" />
-        <span>Sök</span>
-      </button>
+      <div className="flex items-center gap-2 sm:hidden">
+        <button
+          onClick={() => setOpen(true)}
+          className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+          style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
+          aria-label="Sök bland bilder (Ctrl+K)"
+        >
+          <Search className="h-3.5 w-3.5" />
+          <span>Sök</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setInfoOpen(true)}
+          className="ink-border flex h-8 w-8 shrink-0 items-center justify-center text-xs font-bold transition-opacity hover:opacity-80"
+          style={inkTextStyle}
+          aria-label="Information om KTH i bilder"
+        >
+          i
+        </button>
+      </div>
 
       <div className="hidden sm:flex sm:items-center sm:gap-2">
         <label
