@@ -2,7 +2,6 @@ import { useState, useEffect, useMemo } from "react";
 import { Search, X } from "lucide-react";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogTitle,
@@ -43,6 +42,7 @@ function matchesQuery(photo: UnifiedPhoto, q: string): boolean {
 
 export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPaletteProps) {
   const [open, setOpen] = useState(false);
+  const [infoOpen, setInfoOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [submitted, setSubmitted] = useState("");
   const [allPhotos, setAllPhotos] = useState<UnifiedPhoto[]>([]);
@@ -125,6 +125,15 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
     }
   };
 
+  const paperDialogStyle = {
+    ["--paper-color" as any]: headerPaperColor,
+    ["--paper-spots" as any]: String(headerPaperSpots),
+    ["--header-edge-tint" as any]: headerEdgeTint,
+    borderColor: "rgba(26, 18, 8, 0.35)",
+  };
+
+  const inkTextStyle = { color: "#1a1208", fontFamily: "'Courier Prime', monospace" };
+
   return (
     <>
       <button
@@ -137,15 +146,12 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
         <span>Sök</span>
       </button>
 
-      <div className="hidden sm:block">
-        <label
-          className="ink-border flex h-10 w-64 items-center gap-2 px-3 text-xs transition-colors lg:w-80"
-          style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
-        >
+      <div className="hidden sm:flex sm:items-center sm:gap-2">
+        <label className="ink-border flex h-10 w-64 items-center gap-2 px-3 text-xs transition-colors lg:w-80" style={inkTextStyle}>
           <Search className="h-4 w-4 shrink-0 opacity-70" />
           <input
             className="h-full min-w-0 flex-1 bg-transparent uppercase tracking-[0.12em] outline-none placeholder:text-black/35"
-            style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
+            style={inkTextStyle}
             placeholder="Skriv sökord"
             value={query}
             onFocus={() => {
@@ -158,6 +164,15 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
             aria-label="Sök bland bilder"
           />
         </label>
+        <button
+          type="button"
+          onClick={() => setInfoOpen(true)}
+          className="ink-border flex h-10 w-10 shrink-0 items-center justify-center text-sm font-bold transition-opacity hover:opacity-80"
+          style={inkTextStyle}
+          aria-label="Information om KTH i bilder"
+        >
+          i
+        </button>
       </div>
 
       <Dialog open={open} onOpenChange={handleOpenChange}>
