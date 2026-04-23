@@ -187,20 +187,9 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
 
           <div
             className="paper-aged header-paper mt-[12vh] w-[min(48rem,calc(100vw-2rem))] overflow-hidden border shadow-lg max-sm:mt-0 max-sm:min-h-0 max-sm:max-h-[90vh] max-sm:w-full max-sm:border-0"
-            style={{
-              ["--paper-color" as any]: headerPaperColor,
-              ["--paper-spots" as any]: String(headerPaperSpots),
-              ["--header-edge-tint" as any]: headerEdgeTint,
-              borderColor: "rgba(26, 18, 8, 0.35)",
-            }}
+            style={paperDialogStyle}
           >
-            <div
-              className="relative"
-              style={{
-                color: "#1a1208",
-                fontFamily: "'Courier Prime', monospace",
-              }}
-            >
+            <div className="relative" style={inkTextStyle}>
               <button
                 type="button"
                 onClick={() => handleOpenChange(false)}
@@ -231,6 +220,58 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
               </div>
 
               <SearchResultsList loadingPhotos={loadingPhotos} submitted={submitted} filtered={filtered} onSelect={handleSelect} />
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={infoOpen} onOpenChange={setInfoOpen}>
+        <DialogContent
+          className="!fixed !inset-0 !left-0 !top-0 !z-50 !flex !items-start !justify-center !gap-0 !w-screen !max-w-none !translate-x-0 !translate-y-0 !border-0 !bg-transparent !p-0 !shadow-none [&>button]:hidden"
+          aria-describedby="info-palette-description"
+        >
+          <DialogTitle className="sr-only">Information</DialogTitle>
+          <DialogDescription id="info-palette-description" className="sr-only">
+            Information om fler bildkällor och projektet KTH i bilder.
+          </DialogDescription>
+
+          <div
+            className="paper-aged header-paper mt-[12vh] w-[min(32rem,calc(100vw-2rem))] overflow-hidden border shadow-lg max-sm:mt-0 max-sm:w-full max-sm:border-0"
+            style={paperDialogStyle}
+          >
+            <div className="relative p-6 pr-12 text-sm leading-relaxed" style={inkTextStyle}>
+              <button
+                type="button"
+                onClick={() => setInfoOpen(false)}
+                className="absolute right-3 top-3 z-20 flex h-8 w-8 items-center justify-center transition-opacity hover:opacity-100"
+                style={{ color: "rgba(26, 18, 8, 0.75)" }}
+                aria-label="Stäng information"
+              >
+                <X className="h-5 w-5" />
+              </button>
+
+              <p className="mb-3 uppercase tracking-[0.08em]">Fler bilder finns bland annat hos:</p>
+              <ul className="mb-6 space-y-2">
+                <li>
+                  <a className="underline decoration-dashed underline-offset-4" href="https://digitalt.kb.se/" target="_blank" rel="noopener noreferrer">
+                    KB digitalt
+                  </a>{" "}
+                  <span className="opacity-75">(vykortssamling)</span>
+                </li>
+                <li>
+                  <a className="underline decoration-dashed underline-offset-4" href="https://flickr.com/" target="_blank" rel="noopener noreferrer">
+                    Flickr
+                  </a>
+                </li>
+              </ul>
+
+              <p className="text-xs leading-relaxed opacity-65">
+                KTH i bilder är ett hobbyprojekt av{" "}
+                <a className="underline decoration-dashed underline-offset-4" href="mailto:sofieanden@gmail.com">
+                  Sofie Seo
+                </a>{" "}
+                för att prova på vibekodning.
+              </p>
             </div>
           </div>
         </DialogContent>
