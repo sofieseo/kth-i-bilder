@@ -37,19 +37,17 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
     return () => window.removeEventListener("keydown", handler);
   }, [year, onChange]);
 
-  // Auto-scroll active tab into view
+  // Auto-scroll active tab into view (only relevant on mobile)
   useEffect(() => {
     if (activeRef.current && containerRef.current) {
       activeRef.current.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
     }
   }, [year]);
 
-  const activeColor = getHeaderPaperStyle(year).color;
-
   return (
     <div
       ref={containerRef}
-      className={`flex items-end overflow-x-auto overflow-y-visible no-scrollbar relative ${compact ? "pt-1" : "pt-2"}`}
+      className={`flex items-end overflow-x-auto md:overflow-x-visible overflow-y-visible no-scrollbar relative md:w-full ${compact ? "pt-1" : "pt-2"}`}
       style={{ scrollbarWidth: "none" }}
     >
       {DECADES.map((decade, idx) => {
@@ -62,37 +60,34 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             type="button"
             onClick={() => onChange(decade)}
             aria-pressed={isActive}
-            className={`relative shrink-0 font-mono tracking-widest transition-all ${
+            className={`relative shrink-0 md:shrink md:flex-1 md:min-w-0 font-mono tracking-widest transition-all ${
               isActive
-                ? `${compact ? "h-8 px-3 text-[11px]" : "h-10 px-4 text-sm"} font-bold`
-                : `${compact ? "h-7 px-2.5 text-[10px]" : "h-8 px-3 text-xs"} hover:-translate-y-0.5`
+                ? `${compact ? "h-8 px-3 text-[12px]" : "h-11 px-4 text-base"} font-bold`
+                : `${compact ? "h-7 px-2.5 text-[10px]" : "h-9 px-3 text-xs"} hover:-translate-y-0.5`
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
               backgroundColor: tabColor,
               color: "#1a1208",
-              border: "1px solid rgba(26, 18, 8, 0.55)",
-              borderBottom: isActive ? `1px solid ${activeColor}` : "1px solid rgba(26, 18, 8, 0.55)",
+              borderTop: "1px solid rgba(60, 40, 15, 0.55)",
+              borderLeft: "1px solid rgba(60, 40, 15, 0.55)",
+              borderRight: "1px solid rgba(60, 40, 15, 0.55)",
+              borderBottom: "none",
               borderTopLeftRadius: 8,
               borderTopRightRadius: 8,
               fontFamily: "'Courier Prime', monospace",
-              opacity: isActive ? 1 : 0.78,
+              opacity: isActive ? 1 : 0.82,
               zIndex: isActive ? 50 : 10 + idx,
+              // Active tab "merges" into the page below by overlapping 1px
               marginBottom: isActive ? -1 : 0,
               boxShadow: isActive
-                ? "inset 0 2px 4px rgba(255,255,255,0.35), 0 -2px 6px rgba(0,0,0,0.08)"
-                : "inset 0 1px 2px rgba(255,255,255,0.2)",
+                ? "inset 0 2px 4px rgba(255,255,255,0.35), -2px -2px 6px rgba(0,0,0,0.06)"
+                : "inset 0 1px 2px rgba(255,255,255,0.2), -1px -1px 3px rgba(0,0,0,0.04)",
             }}
           >
             {labelFor(decade)}
           </button>
         );
       })}
-      {/* The bottom line that the active tab "merges" with */}
-      <div
-        aria-hidden
-        className="absolute bottom-0 left-0 right-0 pointer-events-none"
-        style={{ borderBottom: "1px solid rgba(26, 18, 8, 0.55)", zIndex: 1 }}
-      />
     </div>
   );
 }

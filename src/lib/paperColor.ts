@@ -48,21 +48,24 @@ export function getHeaderPaperStyle(year: number | null | undefined): {
   spots: number;
   edgeTint: string;
 } {
+  // Classic manila archive folder tone — warm cream/tan, slightly aged for older decades.
   const minYear = 1820;
   const maxYear = 2020;
   const y = year == null || year === 0 ? minYear : Math.max(minYear, Math.min(maxYear, year));
   const t = (y - minYear) / (maxYear - minYear);
   const aging = 1 - t;
 
-  const hue = Math.round(205 + 7 * aging);
-  const saturation = Math.round(14 + 6 * aging);
-  const lightness = Math.round(91 - 6 * aging);
-  const spotStrength = Math.round((0.1 + 0.18 * aging) * 100) / 100;
+  // Hue 36–40 = manilla/kraft tan. Saturation a bit higher for older folders.
+  const hue = Math.round(38 - 2 * aging);
+  const saturation = Math.round(34 + 8 * aging);
+  // Lightness: newer folders are brighter cream, older are slightly darker tan.
+  const lightness = Math.round(80 - 7 * aging);
+  const spotStrength = Math.round((0.12 + 0.2 * aging) * 100) / 100;
 
   return {
     color: `hsl(${hue} ${saturation}% ${lightness}%)`,
     spots: spotStrength,
-    edgeTint: `hsl(207 18% ${Math.round(54 + 12 * t)}% / ${Math.round((0.1 + 0.12 * aging) * 100) / 100})`,
+    edgeTint: `hsl(32 30% ${Math.round(46 + 10 * t)}% / ${Math.round((0.12 + 0.14 * aging) * 100) / 100})`,
   };
 }
 
