@@ -14,7 +14,7 @@ import { useAdminMode } from "@/hooks/useAdminMode";
 import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
 import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
-import { getPaperStyle, getHeaderPaperStyle, getPaperBackgroundImage, getArchiveHeaderPaper, getCleanPaperBackgroundImage } from "@/lib/paperColor";
+import { getPaperStyle, getHeaderPaperStyle, getPaperBackgroundImage } from "@/lib/paperColor";
 
 const Index = () => {
   const { year, results, loading, handleYearChange } = usePhotoFetch(0);
@@ -150,21 +150,22 @@ const Index = () => {
         {/* Outer wrapper: leaves manila visible above + on the sides so the
             header looks like a paper resting on top of the folders */}
         <div className={`px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-2 sm:pt-3" : "pt-4 sm:pt-6"}`}>
-          {/* Archive green paper backdrop for title, subtitle, search and admin actions */}
+          {/* Manila paper backdrop matching the search dialog tone */}
           <div
             className="relative px-3 py-2 sm:px-6 sm:py-4 lg:px-8 lg:py-5"
             style={{
-              backgroundColor: getArchiveHeaderPaper().color,
-              boxShadow: `inset 0 -1px 0 ${getArchiveHeaderPaper().edgeTint}, 0 4px 10px rgba(40, 65, 50, 0.18), 0 1px 2px rgba(40, 65, 50, 0.12)`,
+              backgroundColor: getHeaderPaperStyle(year).color,
+              boxShadow:
+                "0 1px 0 rgba(255, 248, 230, 0.5) inset, 0 -1px 2px rgba(120, 85, 40, 0.12) inset, 0 6px 14px -4px rgba(60, 40, 15, 0.28), 0 14px 24px -8px rgba(60, 40, 15, 0.18), 2px 3px 6px rgba(60, 40, 15, 0.16)",
             }}
           >
-            {/* Clean paper texture - no stains, no specks */}
+            {/* Rich paper texture matching the dialog look */}
             <div
               aria-hidden
               className="pointer-events-none absolute inset-0"
               style={{
-                backgroundImage: getCleanPaperBackgroundImage(year),
-                opacity: 0.5,
+                backgroundImage: getPaperBackgroundImage(year),
+                opacity: 0.55,
                 mixBlendMode: "multiply",
               }}
             />

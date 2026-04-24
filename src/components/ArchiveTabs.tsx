@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { getHeaderPaperStyle, getCleanPaperBackgroundImage } from "@/lib/paperColor";
+import { getHeaderPaperStyle, getPaperBackgroundImage } from "@/lib/paperColor";
 
 const DECADES: number[] = [0, 1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020];
 
@@ -53,7 +53,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
       {DECADES.map((decade, idx) => {
         const isActive = decade === year;
         const tabColor = getHeaderPaperStyle(decade).color;
-        const paperBg = getCleanPaperBackgroundImage(decade);
+        const paperBg = getPaperBackgroundImage(decade);
         return (
           <button
             key={decade}
@@ -72,17 +72,19 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               // Realistic folder tab: only the top-right corner is rounded
               borderTopLeftRadius: "0",
               borderTopRightRadius: "12px 16px",
-              borderTop: "1px solid rgba(120, 85, 40, 0.45)",
-              borderLeft: "1px solid rgba(120, 85, 40, 0.45)",
-              borderRight: "1px solid rgba(120, 85, 40, 0.45)",
+              borderTop: "1px solid rgba(120, 85, 40, 0.28)",
+              borderLeft: "1px solid rgba(120, 85, 40, 0.28)",
+              borderRight: "1px solid rgba(120, 85, 40, 0.28)",
               borderBottom: "none",
               fontFamily: "'Courier Prime', monospace",
-              opacity: isActive ? 1 : 0.88,
+              opacity: isActive ? 1 : 0.9,
               zIndex: isActive ? 50 : 10 + idx,
-              marginBottom: isActive ? -1 : 0,
+              // Pull tabs down so they visually merge into the page background below
+              marginBottom: isActive ? -6 : -4,
+              paddingBottom: isActive ? (compact ? 10 : 14) : (compact ? 8 : 10),
               boxShadow: isActive
-                ? "inset 0 2px 3px rgba(255, 248, 230, 0.55), inset 0 -1px 2px rgba(120, 85, 40, 0.15), 0 -2px 6px rgba(60, 40, 15, 0.18), -2px 0 4px rgba(60, 40, 15, 0.10)"
-                : "inset 0 1px 2px rgba(255, 248, 230, 0.4), inset 0 -1px 2px rgba(120, 85, 40, 0.15), 0 -1px 4px rgba(60, 40, 15, 0.12), -1px 0 3px rgba(60, 40, 15, 0.08)",
+                ? "inset 0 2px 3px rgba(255, 248, 230, 0.55), inset 0 -8px 10px -6px rgba(120, 85, 40, 0.05), 0 -2px 6px rgba(60, 40, 15, 0.18), -2px 0 4px rgba(60, 40, 15, 0.10)"
+                : "inset 0 1px 2px rgba(255, 248, 230, 0.4), inset 0 -8px 10px -6px rgba(120, 85, 40, 0.05), 0 -1px 4px rgba(60, 40, 15, 0.12), -1px 0 3px rgba(60, 40, 15, 0.08)",
             }}
           >
             {/* Clean paper texture overlay (no damp stains, no specks) */}
