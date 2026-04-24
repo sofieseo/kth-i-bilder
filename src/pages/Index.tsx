@@ -14,7 +14,7 @@ import { useAdminMode } from "@/hooks/useAdminMode";
 import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
 import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
-import { getPaperStyle, getHeaderPaperStyle, getPaperBackgroundImage, getPageCurl } from "@/lib/paperColor";
+import { getPaperStyle, getHeaderPaperStyle, getPaperBackgroundImage } from "@/lib/paperColor";
 
 const Index = () => {
   const { year, results, loading, handleYearChange } = usePhotoFetch(0);
@@ -136,13 +136,23 @@ const Index = () => {
         backgroundColor: getHeaderPaperStyle(year).color,
       }}
     >
-      {/* Subtle paper texture overlay matching active folder */}
+      {/* Paper texture overlay matching active folder — stronger so the manila feels real */}
       <div
         aria-hidden
         className="fixed inset-0 -z-10 pointer-events-none"
         style={{
           backgroundImage: getPaperBackgroundImage(year),
-          opacity: 0.6,
+          opacity: 0.85,
+          mixBlendMode: "multiply",
+        }}
+      />
+      {/* Very subtle fiber/noise layer for tactile paper feel */}
+      <div
+        aria-hidden
+        className="fixed inset-0 -z-10 pointer-events-none"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(115deg, rgba(120, 85, 40, 0.025) 0px, rgba(120, 85, 40, 0.025) 1px, transparent 1px, transparent 3px), repeating-linear-gradient(25deg, rgba(120, 85, 40, 0.02) 0px, rgba(120, 85, 40, 0.02) 1px, transparent 1px, transparent 4px)",
           mixBlendMode: "multiply",
         }}
       />
@@ -152,10 +162,8 @@ const Index = () => {
          <div
            className={`relative sm:px-6 sm:py-3 transition-[padding] duration-200 ${headerShrunk ? "px-3 py-1" : "px-3 py-2"}`}
          >
-              {(() => {
-                const curl = getPageCurl(year);
-                return curl ? <div aria-hidden className={`page-curl ${curl.corner}`} /> : null;
-              })()}
+              {/* page curls removed */}
+
               <div className="relative z-10 flex items-center justify-between">
                 <h1
                   className={`font-semibold font-slab uppercase tracking-[0.12em] sm:tracking-[0.2em] sm:text-3xl transition-[font-size] duration-200 ${headerShrunk ? "text-base" : "text-xl"}`}

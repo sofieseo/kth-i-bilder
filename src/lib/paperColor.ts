@@ -74,12 +74,9 @@ export function getHeaderPaperStyle(year: number | null | undefined): {
  * Only two non-consecutive decades have a curl, in different corners.
  * Placed in bottom corners so it never overlaps the header text/title.
  */
-export function getPageCurl(year: number | null | undefined): {
+export function getPageCurl(_year: number | null | undefined): {
   corner: "bottom-left" | "bottom-right";
 } | null {
-  if (year == null) return null;
-  if (year === 1860) return { corner: "bottom-left" };
-  if (year === 1940) return { corner: "bottom-right" };
   return null;
 }
 
