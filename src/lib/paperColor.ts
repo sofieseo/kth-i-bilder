@@ -200,16 +200,16 @@ export function getArchiveHeaderPaper(): {
 }
 
 /**
- * Uniform warm cream/beige paper tone used for the page background and
- * for all archive folder tabs. Matches the search/info dialog look.
+ * Uniform warm manilla folder tone used for the page background and
+ * for all archive folder tabs. Classic archive folder color.
  */
 export function getArchivePaperBeige(): {
   color: string;
   edgeTint: string;
 } {
   return {
-    color: "#ede8d8",
-    edgeTint: "hsl(38 28% 52% / 0.28)",
+    color: "#d9c39a",
+    edgeTint: "hsl(36 38% 42% / 0.32)",
   };
 }
 
