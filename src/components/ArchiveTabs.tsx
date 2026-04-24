@@ -78,7 +78,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               borderLeft: "1px solid rgba(95, 65, 25, 0.32)",
               borderRight: "1px solid rgba(95, 65, 25, 0.38)",
               borderBottom: "none",
-              fontFamily: "'Courier Prime', monospace",
+              fontFamily: "'Caveat', cursive",
               opacity: 1,
               zIndex: isActive ? 50 : 10 + idx,
               // Pull tabs deep into the page so there is NO visible seam below
