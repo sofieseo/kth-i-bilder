@@ -142,9 +142,9 @@ const Index = () => {
         className="fixed inset-0 -z-10 pointer-events-none"
         style={{
           backgroundImage:
-            "repeating-linear-gradient(90deg, rgba(120, 95, 50, 0.06) 0 1px, transparent 1px 7px), radial-gradient(ellipse at 18% 22%, rgba(120, 95, 50, 0.06), transparent 55%), radial-gradient(ellipse at 82% 78%, rgba(120, 95, 50, 0.07), transparent 60%)",
+            "radial-gradient(ellipse at 18% 22%, rgba(120, 95, 50, 0.06), transparent 55%), radial-gradient(ellipse at 82% 78%, rgba(120, 95, 50, 0.07), transparent 60%), radial-gradient(circle at 65% 35%, rgba(80, 60, 25, 0.04), transparent 40%)",
           mixBlendMode: "multiply",
-          opacity: 0.9,
+          opacity: 1,
         }}
       />
       <header className="shrink-0">
