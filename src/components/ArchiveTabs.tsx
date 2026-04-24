@@ -87,14 +87,14 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
                 : "inset 0 1px 2px rgba(255, 248, 230, 0.4), inset 0 -8px 10px -6px rgba(120, 85, 40, 0.05), 0 -1px 4px rgba(60, 40, 15, 0.12), -1px 0 3px rgba(60, 40, 15, 0.08)",
             }}
           >
-            {/* Subtle lined-paper texture overlay matching the dialog look */}
+            {/* Soft paper texture overlay (no lines) matching the dialog look */}
             <span
               aria-hidden
               className="pointer-events-none absolute inset-0"
               style={{
                 backgroundImage:
-                  "repeating-linear-gradient(90deg, rgba(120, 95, 50, 0.05) 0 1px, transparent 1px 7px), radial-gradient(ellipse at 30% 30%, rgba(120, 95, 50, 0.05), transparent 60%)",
-                opacity: 0.85,
+                  "radial-gradient(ellipse at 30% 30%, rgba(120, 95, 50, 0.06), transparent 60%), radial-gradient(ellipse at 70% 70%, rgba(120, 95, 50, 0.05), transparent 60%)",
+                opacity: 1,
                 mixBlendMode: "multiply",
                 borderTopLeftRadius: "inherit",
                 borderTopRightRadius: "inherit",
