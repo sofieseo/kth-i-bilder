@@ -14,7 +14,7 @@ import { useAdminMode } from "@/hooks/useAdminMode";
 import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
 import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
-import { getPaperStyle, getHeaderPaperStyle, getPaperBackgroundImage, getArchiveHeaderPaper } from "@/lib/paperColor";
+import { getPaperStyle, getHeaderPaperStyle, getPaperBackgroundImage, getArchiveHeaderPaper, getCleanPaperBackgroundImage } from "@/lib/paperColor";
 
 const Index = () => {
   const { year, results, loading, handleYearChange } = usePhotoFetch(0);
@@ -150,21 +150,21 @@ const Index = () => {
         {/* Outer wrapper: leaves manila visible above + on the sides so the
             header looks like a paper resting on top of the folders */}
         <div className={`px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-2 sm:pt-3" : "pt-4 sm:pt-6"}`}>
-          {/* Gray-blue archival paper backdrop for title, subtitle, search and admin actions */}
+          {/* Archive green paper backdrop for title, subtitle, search and admin actions */}
           <div
             className="relative px-3 py-2 sm:px-6 sm:py-4 lg:px-8 lg:py-5"
             style={{
               backgroundColor: getArchiveHeaderPaper().color,
-              boxShadow: `inset 0 -1px 0 ${getArchiveHeaderPaper().edgeTint}, 0 4px 10px rgba(40, 50, 65, 0.18), 0 1px 2px rgba(40, 50, 65, 0.12)`,
+              boxShadow: `inset 0 -1px 0 ${getArchiveHeaderPaper().edgeTint}, 0 4px 10px rgba(40, 65, 50, 0.18), 0 1px 2px rgba(40, 65, 50, 0.12)`,
             }}
           >
-            {/* Rich aged-paper texture (same as before — uses the active decade) */}
+            {/* Clean paper texture - no stains, no specks */}
             <div
               aria-hidden
               className="pointer-events-none absolute inset-0"
               style={{
-                backgroundImage: getPaperBackgroundImage(year),
-                opacity: 0.55,
+                backgroundImage: getCleanPaperBackgroundImage(year),
+                opacity: 0.5,
                 mixBlendMode: "multiply",
               }}
             />
