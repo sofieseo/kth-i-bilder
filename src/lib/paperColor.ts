@@ -186,7 +186,7 @@ export function getCleanPaperBackgroundImage(year: number | null | undefined): s
 }
 
 /**
- * Cool blue-gray archive header paper tone (independent of the active decade).
+ * Archive green header paper tone - a classic archival green folder color.
  * Used as a backdrop behind the title, subtitle and search controls.
  */
 export function getArchiveHeaderPaper(): {
@@ -194,7 +194,7 @@ export function getArchiveHeaderPaper(): {
   edgeTint: string;
 } {
   return {
-    color: "hsl(212 18% 78%)",
-    edgeTint: "hsl(212 22% 52% / 0.35)",
+    color: "hsl(140 18% 72%)",
+    edgeTint: "hsl(140 22% 42% / 0.35)",
   };
 }
