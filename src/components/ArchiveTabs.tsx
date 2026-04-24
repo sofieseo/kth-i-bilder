@@ -57,7 +57,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
         // Per-tab subtle hue variation so no two folders look identical
         const hueShift = ((idx * 37) % 11) - 5; // -5..+5
         const lightShift = ((idx * 53) % 7) - 3; // -3..+3
-        const tabColor = `hsl(${36 + hueShift} ${44 + lightShift}% ${${'$'}{72 + lightShift}}%)`.replace("${72 + lightShift}}", String(72 + lightShift));
+        const tabColor = `hsl(${36 + hueShift} ${44 + lightShift}% ${72 + lightShift}%)`;
         return (
           <button
             key={decade}
