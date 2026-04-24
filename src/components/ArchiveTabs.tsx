@@ -54,6 +54,10 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
     >
       {DECADES.map((decade, idx) => {
         const isActive = decade === year;
+        // Per-tab subtle hue variation so no two folders look identical
+        const hueShift = ((idx * 37) % 11) - 5; // -5..+5
+        const lightShift = ((idx * 53) % 7) - 3; // -3..+3
+        const tabColor = `hsl(${36 + hueShift} ${44 + lightShift}% ${72 + lightShift}%)`;
         return (
           <button
             key={decade}
@@ -67,33 +71,44 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
                 : `${compact ? "h-7 px-2.5 text-[10px]" : "h-9 px-3 text-xs"} hover:-translate-y-0.5`
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
-              backgroundColor: beige.color,
+              backgroundColor: tabColor,
               color: "#1a1208",
               // Realistic folder tab: only the top-right corner is rounded
               borderTopLeftRadius: "0",
               borderTopRightRadius: "12px 16px",
-              borderTop: "1px solid rgba(120, 85, 40, 0.28)",
-              borderLeft: "1px solid rgba(120, 85, 40, 0.28)",
-              borderRight: "1px solid rgba(120, 85, 40, 0.28)",
+              borderTop: "1px solid rgba(95, 65, 25, 0.42)",
+              borderLeft: "1px solid rgba(95, 65, 25, 0.38)",
+              borderRight: "1px solid rgba(95, 65, 25, 0.42)",
               borderBottom: "none",
               fontFamily: "'Courier Prime', monospace",
-              opacity: isActive ? 1 : 0.92,
+              opacity: isActive ? 1 : 0.95,
               zIndex: isActive ? 50 : 10 + idx,
               // Pull tabs down so they visually merge into the page background below
               marginBottom: isActive ? -6 : -4,
               paddingBottom: isActive ? (compact ? 10 : 14) : (compact ? 8 : 10),
+              // No bright highlight on top — just gentle inner aging + outer shadow
               boxShadow: isActive
-                ? "inset 0 2px 3px rgba(255, 248, 230, 0.55), inset 0 -8px 10px -6px rgba(120, 85, 40, 0.05), 0 -2px 6px rgba(60, 40, 15, 0.18), -2px 0 4px rgba(60, 40, 15, 0.10)"
-                : "inset 0 1px 2px rgba(255, 248, 230, 0.4), inset 0 -8px 10px -6px rgba(120, 85, 40, 0.05), 0 -1px 4px rgba(60, 40, 15, 0.12), -1px 0 3px rgba(60, 40, 15, 0.08)",
+                ? "inset 0 -10px 14px -8px rgba(80, 50, 15, 0.28), inset 0 6px 10px -6px rgba(80, 50, 15, 0.18), 0 -2px 6px rgba(60, 40, 15, 0.22), -2px 0 5px rgba(60, 40, 15, 0.14), 2px 0 5px rgba(60, 40, 15, 0.10)"
+                : "inset 0 -10px 14px -8px rgba(80, 50, 15, 0.24), inset 0 6px 10px -6px rgba(80, 50, 15, 0.16), 0 -1px 5px rgba(60, 40, 15, 0.16), -1px 0 4px rgba(60, 40, 15, 0.10)",
             }}
           >
-            {/* Soft paper texture overlay (no lines) matching the dialog look */}
+            {/* Photorealistic paper texture: vertical fibers + foxing + soft patches */}
             <span
               aria-hidden
               className="pointer-events-none absolute inset-0"
               style={{
                 backgroundImage:
-                  "radial-gradient(ellipse at 30% 30%, rgba(120, 95, 50, 0.06), transparent 60%), radial-gradient(ellipse at 70% 70%, rgba(120, 95, 50, 0.05), transparent 60%)",
+                  // Vertical paper fibers (very fine)
+                  "repeating-linear-gradient(90deg, rgba(80, 55, 20, 0.045) 0 0.5px, transparent 0.5px 3px), " +
+                  // Horizontal cross-fibers (subtler)
+                  "repeating-linear-gradient(0deg, rgba(80, 55, 20, 0.025) 0 0.5px, transparent 0.5px 5px), " +
+                  // Worn darker bottom edge (where folders touch the desk)
+                  "linear-gradient(180deg, transparent 0%, transparent 60%, rgba(70, 45, 15, 0.10) 92%, rgba(70, 45, 15, 0.16) 100%), " +
+                  // Worn left edge
+                  "linear-gradient(90deg, rgba(70, 45, 15, 0.10) 0%, transparent 6%, transparent 94%, rgba(70, 45, 15, 0.10) 100%), " +
+                  // Soft uneven patches
+                  `radial-gradient(ellipse at ${20 + idx * 7 % 60}% 30%, rgba(110, 75, 25, 0.07), transparent 60%), ` +
+                  `radial-gradient(ellipse at ${70 - idx * 5 % 50}% 70%, rgba(110, 75, 25, 0.06), transparent 60%)`,
                 opacity: 1,
                 mixBlendMode: "multiply",
                 borderTopLeftRadius: "inherit",
