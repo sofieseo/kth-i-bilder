@@ -69,10 +69,9 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             style={{
               backgroundColor: tabColor,
               color: "#1a1208",
-              // Realistic folder tab: only the top-left corner is rounded,
-              // top-right is straight (like a real cut tab in the reference image)
-              borderTopLeftRadius: "12px 16px",
-              borderTopRightRadius: "0",
+              // Realistic folder tab: only the top-right corner is rounded
+              borderTopLeftRadius: "0",
+              borderTopRightRadius: "12px 16px",
               borderTop: "1px solid rgba(120, 85, 40, 0.45)",
               borderLeft: "1px solid rgba(120, 85, 40, 0.45)",
               borderRight: "1px solid rgba(120, 85, 40, 0.45)",

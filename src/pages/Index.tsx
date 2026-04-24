@@ -147,27 +147,28 @@ const Index = () => {
         }}
       />
       <header className="shrink-0">
-        {/* Gray-blue archival paper backdrop for title, subtitle, search and admin actions */}
-        <div
-          className="relative px-2 py-2 sm:px-4 sm:py-3 lg:px-8 lg:pt-5 lg:pb-4 xl:px-10"
-          style={{
-            backgroundColor: getArchiveHeaderPaper().color,
-            boxShadow: `inset 0 -1px 0 ${getArchiveHeaderPaper().edgeTint}, 0 2px 4px rgba(40, 50, 65, 0.10)`,
-          }}
-        >
-          {/* Subtle paper texture for the gray-blue header */}
+        {/* Outer wrapper: leaves manila visible above + on the sides so the
+            header looks like a paper resting on top of the folders */}
+        <div className={`px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-2 sm:pt-3" : "pt-4 sm:pt-6"}`}>
+          {/* Gray-blue archival paper backdrop for title, subtitle, search and admin actions */}
           <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
+            className="relative px-3 py-2 sm:px-6 sm:py-4 lg:px-8 lg:py-5"
             style={{
-              backgroundImage: getPaperBackgroundImage(2020),
-              opacity: 0.45,
-              mixBlendMode: "multiply",
+              backgroundColor: getArchiveHeaderPaper().color,
+              boxShadow: `inset 0 -1px 0 ${getArchiveHeaderPaper().edgeTint}, 0 4px 10px rgba(40, 50, 65, 0.18), 0 1px 2px rgba(40, 50, 65, 0.12)`,
             }}
-          />
-          <div
-            className={`relative z-10 sm:px-6 transition-[padding] duration-200 ${headerShrunk ? "px-3" : "px-3"}`}
           >
+            {/* Rich aged-paper texture (same as before — uses the active decade) */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0"
+              style={{
+                backgroundImage: getPaperBackgroundImage(year),
+                opacity: 0.55,
+                mixBlendMode: "multiply",
+              }}
+            />
+            <div className="relative z-10">
               <div className="flex items-center justify-between">
                 <h1
                   className={`font-semibold font-slab uppercase tracking-[0.12em] sm:tracking-[0.2em] sm:text-3xl transition-[font-size] duration-200 ${headerShrunk ? "text-base" : "text-xl"}`}
@@ -246,6 +247,7 @@ const Index = () => {
                   </span>
                 </p>
               </div>
+            </div>
           </div>
         </div>
 
