@@ -169,16 +169,24 @@ const Index = () => {
             style={{
               backgroundColor: getArchiveHeaderPaper().color,
               boxShadow:
-                "0 1px 0 rgba(255, 255, 240, 0.35) inset, 0 -1px 2px rgba(40, 60, 45, 0.18) inset, 0 6px 14px -4px rgba(40, 55, 45, 0.30), 0 14px 24px -8px rgba(40, 55, 45, 0.20), 2px 3px 6px rgba(40, 55, 45, 0.18)",
+                "inset 0 -10px 16px -10px rgba(30, 50, 35, 0.30), 0 6px 14px -4px rgba(40, 55, 45, 0.32), 0 14px 26px -8px rgba(40, 55, 45, 0.22), 2px 3px 6px rgba(40, 55, 45, 0.20)",
             }}
           >
-            {/* Lined-paper texture matching the dialog look */}
+            {/* Photorealistic green archive paper texture */}
             <div
               aria-hidden
               className="pointer-events-none absolute inset-0"
               style={{
                 backgroundImage:
-                  "radial-gradient(ellipse at 20% 25%, rgba(40, 60, 45, 0.07), transparent 60%), radial-gradient(ellipse at 80% 75%, rgba(40, 60, 45, 0.06), transparent 60%), radial-gradient(circle at 60% 40%, rgba(30, 50, 40, 0.04), transparent 45%)",
+                  "repeating-linear-gradient(90deg, rgba(35, 55, 40, 0.06) 0 0.5px, transparent 0.5px 3px), " +
+                  "repeating-linear-gradient(0deg, rgba(35, 55, 40, 0.035) 0 0.5px, transparent 0.5px 5px), " +
+                  "radial-gradient(ellipse at 18% 28%, rgba(30, 55, 40, 0.10), transparent 55%), " +
+                  "radial-gradient(ellipse at 82% 72%, rgba(30, 55, 40, 0.09), transparent 55%), " +
+                  "radial-gradient(ellipse at 60% 30%, rgba(45, 65, 50, 0.06), transparent 50%), " +
+                  "radial-gradient(circle at 22% 48%, rgba(25, 40, 30, 0.18) 0.5px, transparent 1.2px), " +
+                  "radial-gradient(circle at 71% 36%, rgba(25, 40, 30, 0.16) 0.6px, transparent 1.3px), " +
+                  "radial-gradient(circle at 48% 78%, rgba(25, 40, 30, 0.14) 0.5px, transparent 1.1px), " +
+                  "radial-gradient(ellipse 110% 100% at 50% 50%, transparent 65%, rgba(25, 40, 30, 0.18) 100%)",
                 mixBlendMode: "multiply",
                 opacity: 1,
               }}
