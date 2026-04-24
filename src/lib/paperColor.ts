@@ -198,3 +198,26 @@ export function getArchiveHeaderPaper(): {
     edgeTint: "hsl(140 22% 42% / 0.35)",
   };
 }
+
+/**
+ * Clean paper texture for header - no stains, no specks, just subtle paper grain.
+ * Used on archive green header for a clean archival look.
+ */
+export function getHeaderPaperBackgroundImage(): string {
+  const rand = mulberry32(999); // Fixed seed for consistent header texture
+  const layers: string[] = [];
+
+  // Very subtle warm patches for paper unevenness
+  const patchCount = 2 + Math.floor(rand() * 2);
+  for (let i = 0; i < patchCount; i++) {
+    const x = Math.round(rand() * 100);
+    const y2 = Math.round(rand() * 100);
+    const w = 40 + Math.round(rand() * 40);
+    const h = 30 + Math.round(rand() * 30);
+    const alpha = 0.015 + rand() * 0.02;
+    layers.push(
+      `radial-gradient(ellipse ${w}% ${h}% at ${x}% ${y2}%, rgba(150, 110, 55, ${alpha.toFixed(3)}), transparent 75%)`
+    );
+  }
+  return layers.join(", ");
+}
