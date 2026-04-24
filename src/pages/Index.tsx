@@ -4,7 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { SearchPalette } from "@/components/SearchPalette";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { TimeSlider } from "@/components/TimeSlider";
+import { ArchiveTabs } from "@/components/ArchiveTabs";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { HiddenPhotosModal } from "@/components/HiddenPhotosModal";
 import { AdminStatsModal } from "@/components/AdminStatsModal";
