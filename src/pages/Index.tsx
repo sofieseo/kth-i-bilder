@@ -133,157 +133,44 @@ const Index = () => {
       className="relative flex w-screen flex-col transition-colors duration-300"
       style={{
         height: "100dvh",
-        backgroundColor: getHeaderPaperStyle(year).color,
+        backgroundColor: getArchivePaperBeige().color,
       }}
     >
-      {/* Paper texture overlay matching active folder */}
+      {/* Lined-paper texture overlay matching the search/info dialog */}
       <div
         aria-hidden
         className="fixed inset-0 -z-10 pointer-events-none"
         style={{
-          backgroundImage: getPaperBackgroundImage(year),
-          opacity: 0.6,
+          backgroundImage:
+            "repeating-linear-gradient(90deg, rgba(120, 95, 50, 0.06) 0 1px, transparent 1px 7px), radial-gradient(ellipse at 18% 22%, rgba(120, 95, 50, 0.06), transparent 55%), radial-gradient(ellipse at 82% 78%, rgba(120, 95, 50, 0.07), transparent 60%)",
           mixBlendMode: "multiply",
+          opacity: 0.9,
         }}
       />
       <header className="shrink-0">
-        {/* Outer wrapper: leaves manila visible above + on the sides so the
-            header looks like a paper resting on top of the folders */}
+        {/* Outer wrapper: leaves beige paper visible above + on the sides so the
+            green header looks like an archive sheet resting on the folders */}
         <div className={`px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-2 sm:pt-3" : "pt-4 sm:pt-6"}`}>
-          {/* Manila paper backdrop matching the search dialog tone */}
+          {/* Archive-green paper backdrop */}
           <div
             className="relative px-3 py-2 sm:px-6 sm:py-4 lg:px-8 lg:py-5"
             style={{
-              backgroundColor: getHeaderPaperStyle(year).color,
+              backgroundColor: getArchiveHeaderPaper().color,
               boxShadow:
-                "0 1px 0 rgba(255, 248, 230, 0.5) inset, 0 -1px 2px rgba(120, 85, 40, 0.12) inset, 0 6px 14px -4px rgba(60, 40, 15, 0.28), 0 14px 24px -8px rgba(60, 40, 15, 0.18), 2px 3px 6px rgba(60, 40, 15, 0.16)",
+                "0 1px 0 rgba(255, 255, 240, 0.35) inset, 0 -1px 2px rgba(40, 60, 45, 0.18) inset, 0 6px 14px -4px rgba(40, 55, 45, 0.30), 0 14px 24px -8px rgba(40, 55, 45, 0.20), 2px 3px 6px rgba(40, 55, 45, 0.18)",
             }}
           >
-            {/* Rich paper texture matching the dialog look */}
+            {/* Lined-paper texture matching the dialog look */}
             <div
               aria-hidden
               className="pointer-events-none absolute inset-0"
               style={{
-                backgroundImage: getPaperBackgroundImage(year),
-                opacity: 0.55,
+                backgroundImage:
+                  "repeating-linear-gradient(90deg, rgba(40, 60, 45, 0.07) 0 1px, transparent 1px 7px), radial-gradient(ellipse at 20% 25%, rgba(40, 60, 45, 0.06), transparent 60%), radial-gradient(ellipse at 80% 75%, rgba(40, 60, 45, 0.05), transparent 60%)",
                 mixBlendMode: "multiply",
+                opacity: 0.9,
               }}
             />
-            <div className="relative z-10">
-              <div className="flex items-center justify-between">
-                <h1
-                  className={`font-semibold font-slab uppercase tracking-[0.12em] sm:tracking-[0.2em] sm:text-3xl transition-[font-size] duration-200 ${headerShrunk ? "text-base" : "text-xl"}`}
-                  style={{ color: '#1a1208' }}
-                >
-                  KTH i bilder
-                </h1>
-                <div className="flex items-center gap-2">
-                  <SearchPalette
-                    year={year}
-                    reopenSignal={reopenSearchSignal}
-                    onSelect={(photo, results) => {
-                      setSearchNavSet(results);
-                      setSearchSelectedPhoto(photo);
-                    }}
-                  />
-                  {wantsAdmin && !isAdmin && (
-                    <button
-                      onClick={() => setShowLogin(true)}
-                      className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-                      style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
-                    >
-                      <LogIn className="h-3.5 w-3.5" />
-                      Logga in
-                    </button>
-                  )}
-                  {isAdmin && (
-                    <>
-                      <button
-                        onClick={() => setShowStats(true)}
-                        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-                        style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
-                      >
-                        <BarChart3 className="h-3.5 w-3.5" />
-                        Statistik
-                      </button>
-                      <button
-                        onClick={() => setShowHidden(true)}
-                        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-                        style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
-                      >
-                        <EyeOff className="h-3.5 w-3.5" />
-                        Dolda ({hiddenIds.size})
-                      </button>
-                      <button
-                        onClick={handleClearCache}
-                        disabled={clearingCache}
-                        title={year === 0 ? "Rensa cache för odaterade" : `Rensa cache för ${Math.floor(year / 10) * 10}-talet`}
-                        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors disabled:opacity-50"
-                        style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
-                      >
-                        <RefreshCw className={`h-3.5 w-3.5 ${clearingCache ? "animate-spin" : ""}`} />
-                        Rensa cache
-                      </button>
-                      <button
-                        onClick={handleLogout}
-                        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-                        style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
-                      >
-                        <LogOut className="h-3.5 w-3.5" />
-                        Logga ut
-                      </button>
-                    </>
-                  )}
-                </div>
-              </div>
-              <div
-                className={`overflow-hidden transition-[max-height,opacity,margin] duration-200 ${headerShrunk ? "max-h-0 opacity-0 sm:max-h-40 sm:opacity-100" : "max-h-40 opacity-100"}`}
-              >
-                <p className="text-[10px] sm:text-xs leading-relaxed mt-1 max-w-3xl" style={{ color: 'rgba(26, 18, 8, 0.78)', fontFamily: "'Courier Prime', monospace" }}>
-                  <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv.</span>
-                  <span className="hidden sm:inline">
-                    En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH).<br />
-                    Bilderna hämtas från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum,<br />
-                    Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Small gap between header paper and folder tabs */}
-        <div className={`px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-2" : "pt-3"}`}>
-          <ArchiveTabs year={year} onChange={handleYearChange} compact={headerShrunk} />
-        </div>
-      </header>
-
-      <PhotoGallery
-        results={visibleResults}
-        year={year}
-        loading={loading}
-        isAdmin={isAdmin}
-        onHidePhoto={handleHidePhoto}
-        onMarkUndated={isAdmin ? handleMarkUndated : undefined}
-        openPhoto={searchSelectedPhoto}
-        openPhotoNavSet={searchNavSet}
-        onPhotoOpened={() => setSearchSelectedPhoto(null)}
-        onSwipeDecade={(direction) => {
-          const DECADES = [0, 1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020];
-          const idx = DECADES.indexOf(year);
-          if (idx === -1) return;
-          const nextIdx = direction === "next" ? Math.min(DECADES.length - 1, idx + 1) : Math.max(0, idx - 1);
-          if (nextIdx !== idx) handleYearChange(DECADES[nextIdx]);
-        }}
-        onLightboxClosed={(wasFromSearch) => {
-          if (wasFromSearch) {
-            setSearchNavSet(null);
-            setReopenSearchSignal((n) => n + 1);
-          }
-        }}
-        onScroll={setScrollTop}
-        scrollToTopSignal={scrollToTopSignal}
-      />
 
       {/* Back to top button */}
       <button
