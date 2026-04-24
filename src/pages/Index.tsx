@@ -14,7 +14,7 @@ import { useAdminMode } from "@/hooks/useAdminMode";
 import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
 import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
-import { getPaperStyle, getHeaderPaperStyle, getPaperBackgroundImage } from "@/lib/paperColor";
+import { getPaperStyle, getArchiveHeaderPaper, getArchivePaperBeige } from "@/lib/paperColor";
 
 const Index = () => {
   const { year, results, loading, handleYearChange } = usePhotoFetch(0);
@@ -133,40 +133,42 @@ const Index = () => {
       className="relative flex w-screen flex-col transition-colors duration-300"
       style={{
         height: "100dvh",
-        backgroundColor: getHeaderPaperStyle(year).color,
+        backgroundColor: getArchivePaperBeige().color,
       }}
     >
-      {/* Paper texture overlay matching active folder */}
+      {/* Lined-paper texture overlay matching the search/info dialog */}
       <div
         aria-hidden
         className="fixed inset-0 -z-10 pointer-events-none"
         style={{
-          backgroundImage: getPaperBackgroundImage(year),
-          opacity: 0.6,
+          backgroundImage:
+            "repeating-linear-gradient(90deg, rgba(120, 95, 50, 0.06) 0 1px, transparent 1px 7px), radial-gradient(ellipse at 18% 22%, rgba(120, 95, 50, 0.06), transparent 55%), radial-gradient(ellipse at 82% 78%, rgba(120, 95, 50, 0.07), transparent 60%)",
           mixBlendMode: "multiply",
+          opacity: 0.9,
         }}
       />
       <header className="shrink-0">
-        {/* Outer wrapper: leaves manila visible above + on the sides so the
-            header looks like a paper resting on top of the folders */}
+        {/* Outer wrapper: leaves beige paper visible above + on the sides so the
+            green header looks like an archive sheet resting on the folders */}
         <div className={`px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-2 sm:pt-3" : "pt-4 sm:pt-6"}`}>
-          {/* Manila paper backdrop matching the search dialog tone */}
+          {/* Archive-green paper backdrop */}
           <div
             className="relative px-3 py-2 sm:px-6 sm:py-4 lg:px-8 lg:py-5"
             style={{
-              backgroundColor: getHeaderPaperStyle(year).color,
+              backgroundColor: getArchiveHeaderPaper().color,
               boxShadow:
-                "0 1px 0 rgba(255, 248, 230, 0.5) inset, 0 -1px 2px rgba(120, 85, 40, 0.12) inset, 0 6px 14px -4px rgba(60, 40, 15, 0.28), 0 14px 24px -8px rgba(60, 40, 15, 0.18), 2px 3px 6px rgba(60, 40, 15, 0.16)",
+                "0 1px 0 rgba(255, 255, 240, 0.35) inset, 0 -1px 2px rgba(40, 60, 45, 0.18) inset, 0 6px 14px -4px rgba(40, 55, 45, 0.30), 0 14px 24px -8px rgba(40, 55, 45, 0.20), 2px 3px 6px rgba(40, 55, 45, 0.18)",
             }}
           >
-            {/* Rich paper texture matching the dialog look */}
+            {/* Lined-paper texture matching the dialog look */}
             <div
               aria-hidden
               className="pointer-events-none absolute inset-0"
               style={{
-                backgroundImage: getPaperBackgroundImage(year),
-                opacity: 0.55,
+                backgroundImage:
+                  "repeating-linear-gradient(90deg, rgba(40, 60, 45, 0.07) 0 1px, transparent 1px 7px), radial-gradient(ellipse at 20% 25%, rgba(40, 60, 45, 0.06), transparent 60%), radial-gradient(ellipse at 80% 75%, rgba(40, 60, 45, 0.05), transparent 60%)",
                 mixBlendMode: "multiply",
+                opacity: 0.9,
               }}
             />
             <div className="relative z-10">
@@ -258,32 +260,36 @@ const Index = () => {
         </div>
       </header>
 
-      <PhotoGallery
-        results={visibleResults}
-        year={year}
-        loading={loading}
-        isAdmin={isAdmin}
-        onHidePhoto={handleHidePhoto}
-        onMarkUndated={isAdmin ? handleMarkUndated : undefined}
-        openPhoto={searchSelectedPhoto}
-        openPhotoNavSet={searchNavSet}
-        onPhotoOpened={() => setSearchSelectedPhoto(null)}
-        onSwipeDecade={(direction) => {
-          const DECADES = [0, 1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020];
-          const idx = DECADES.indexOf(year);
-          if (idx === -1) return;
-          const nextIdx = direction === "next" ? Math.min(DECADES.length - 1, idx + 1) : Math.max(0, idx - 1);
-          if (nextIdx !== idx) handleYearChange(DECADES[nextIdx]);
-        }}
-        onLightboxClosed={(wasFromSearch) => {
-          if (wasFromSearch) {
+      <main className="flex-1 min-h-0 overflow-hidden">
+        <PhotoGallery
+          year={year}
+          results={visibleResults}
+          loading={loading}
+          isAdmin={isAdmin}
+          onHidePhoto={handleHidePhoto}
+          onMarkUndated={handleMarkUndated}
+          onSwipeDecade={(direction) => {
+            const decades = [0, 1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020];
+            const idx = decades.indexOf(year);
+            if (idx === -1) return;
+            if (direction === "next" && idx < decades.length - 1) handleYearChange(decades[idx + 1]);
+            if (direction === "prev" && idx > 0) handleYearChange(decades[idx - 1]);
+          }}
+          openPhoto={searchSelectedPhoto}
+          openPhotoNavSet={searchNavSet ?? undefined}
+          onPhotoOpened={() => {
+            // keep state so the lightbox knows it came from search
+          }}
+          onLightboxClosed={() => {
+            const wasFromSearch = !!searchSelectedPhoto;
+            setSearchSelectedPhoto(null);
             setSearchNavSet(null);
-            setReopenSearchSignal((n) => n + 1);
-          }
-        }}
-        onScroll={setScrollTop}
-        scrollToTopSignal={scrollToTopSignal}
-      />
+            if (wasFromSearch) setReopenSearchSignal((n) => n + 1);
+          }}
+          onScroll={(top) => setScrollTop(top)}
+          scrollToTopSignal={scrollToTopSignal}
+        />
+      </main>
 
       {/* Back to top button */}
       <button

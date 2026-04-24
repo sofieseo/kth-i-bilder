@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { getHeaderPaperStyle, getPaperBackgroundImage } from "@/lib/paperColor";
+import { getArchivePaperBeige } from "@/lib/paperColor";
 
 const DECADES: number[] = [0, 1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020];
 
@@ -44,6 +44,8 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
     }
   }, [year]);
 
+  const beige = getArchivePaperBeige();
+
   return (
     <div
       ref={containerRef}
@@ -52,8 +54,6 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
     >
       {DECADES.map((decade, idx) => {
         const isActive = decade === year;
-        const tabColor = getHeaderPaperStyle(decade).color;
-        const paperBg = getPaperBackgroundImage(decade);
         return (
           <button
             key={decade}
@@ -67,7 +67,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
                 : `${compact ? "h-7 px-2.5 text-[10px]" : "h-9 px-3 text-xs"} hover:-translate-y-0.5`
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
-              backgroundColor: tabColor,
+              backgroundColor: beige.color,
               color: "#1a1208",
               // Realistic folder tab: only the top-right corner is rounded
               borderTopLeftRadius: "0",
@@ -77,7 +77,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               borderRight: "1px solid rgba(120, 85, 40, 0.28)",
               borderBottom: "none",
               fontFamily: "'Courier Prime', monospace",
-              opacity: isActive ? 1 : 0.9,
+              opacity: isActive ? 1 : 0.92,
               zIndex: isActive ? 50 : 10 + idx,
               // Pull tabs down so they visually merge into the page background below
               marginBottom: isActive ? -6 : -4,
@@ -87,13 +87,14 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
                 : "inset 0 1px 2px rgba(255, 248, 230, 0.4), inset 0 -8px 10px -6px rgba(120, 85, 40, 0.05), 0 -1px 4px rgba(60, 40, 15, 0.12), -1px 0 3px rgba(60, 40, 15, 0.08)",
             }}
           >
-            {/* Clean paper texture overlay (no damp stains, no specks) */}
+            {/* Subtle lined-paper texture overlay matching the dialog look */}
             <span
               aria-hidden
               className="pointer-events-none absolute inset-0"
               style={{
-                backgroundImage: paperBg,
-                opacity: 0.5,
+                backgroundImage:
+                  "repeating-linear-gradient(90deg, rgba(120, 95, 50, 0.05) 0 1px, transparent 1px 7px), radial-gradient(ellipse at 30% 30%, rgba(120, 95, 50, 0.05), transparent 60%)",
+                opacity: 0.85,
                 mixBlendMode: "multiply",
                 borderTopLeftRadius: "inherit",
                 borderTopRightRadius: "inherit",
