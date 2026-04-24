@@ -280,7 +280,7 @@ const Index = () => {
         </div>
       </header>
 
-      <main className="flex-1 min-h-0 overflow-hidden">
+      <main className="flex flex-col flex-1 min-h-0 overflow-hidden">
         <PhotoGallery
           year={year}
           results={visibleResults}
