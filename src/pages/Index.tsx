@@ -136,13 +136,23 @@ const Index = () => {
         backgroundColor: getHeaderPaperStyle(year).color,
       }}
     >
-      {/* Subtle paper texture overlay matching active folder */}
+      {/* Paper texture overlay matching active folder — stronger so the manila feels real */}
       <div
         aria-hidden
         className="fixed inset-0 -z-10 pointer-events-none"
         style={{
           backgroundImage: getPaperBackgroundImage(year),
-          opacity: 0.6,
+          opacity: 0.85,
+          mixBlendMode: "multiply",
+        }}
+      />
+      {/* Very subtle fiber/noise layer for tactile paper feel */}
+      <div
+        aria-hidden
+        className="fixed inset-0 -z-10 pointer-events-none"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(115deg, rgba(120, 85, 40, 0.025) 0px, rgba(120, 85, 40, 0.025) 1px, transparent 1px, transparent 3px), repeating-linear-gradient(25deg, rgba(120, 85, 40, 0.02) 0px, rgba(120, 85, 40, 0.02) 1px, transparent 1px, transparent 4px)",
           mixBlendMode: "multiply",
         }}
       />
