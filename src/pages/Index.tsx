@@ -170,7 +170,121 @@ const Index = () => {
                 mixBlendMode: "multiply",
                 opacity: 0.9,
               }}
-            />
+            <div className="relative z-10">
+              <div className="flex items-center justify-between">
+                <h1
+                  className={`font-semibold font-slab uppercase tracking-[0.12em] sm:tracking-[0.2em] sm:text-3xl transition-[font-size] duration-200 ${headerShrunk ? "text-base" : "text-xl"}`}
+                  style={{ color: '#1a1208' }}
+                >
+                  KTH i bilder
+                </h1>
+                <div className="flex items-center gap-2">
+                  <SearchPalette
+                    year={year}
+                    reopenSignal={reopenSearchSignal}
+                    onSelect={(photo, results) => {
+                      setSearchNavSet(results);
+                      setSearchSelectedPhoto(photo);
+                    }}
+                  />
+                  {wantsAdmin && !isAdmin && (
+                    <button
+                      onClick={() => setShowLogin(true)}
+                      className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+                      style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
+                    >
+                      <LogIn className="h-3.5 w-3.5" />
+                      Logga in
+                    </button>
+                  )}
+                  {isAdmin && (
+                    <>
+                      <button
+                        onClick={() => setShowStats(true)}
+                        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+                        style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
+                      >
+                        <BarChart3 className="h-3.5 w-3.5" />
+                        Statistik
+                      </button>
+                      <button
+                        onClick={() => setShowHidden(true)}
+                        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+                        style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
+                      >
+                        <EyeOff className="h-3.5 w-3.5" />
+                        Dolda ({hiddenIds.size})
+                      </button>
+                      <button
+                        onClick={handleClearCache}
+                        disabled={clearingCache}
+                        title={year === 0 ? "Rensa cache för odaterade" : `Rensa cache för ${Math.floor(year / 10) * 10}-talet`}
+                        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors disabled:opacity-50"
+                        style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
+                      >
+                        <RefreshCw className={`h-3.5 w-3.5 ${clearingCache ? "animate-spin" : ""}`} />
+                        Rensa cache
+                      </button>
+                      <button
+                        onClick={handleLogout}
+                        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+                        style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
+                      >
+                        <LogOut className="h-3.5 w-3.5" />
+                        Logga ut
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+              <div
+                className={`overflow-hidden transition-[max-height,opacity,margin] duration-200 ${headerShrunk ? "max-h-0 opacity-0 sm:max-h-40 sm:opacity-100" : "max-h-40 opacity-100"}`}
+              >
+                <p className="text-[10px] sm:text-xs leading-relaxed mt-1 max-w-3xl" style={{ color: 'rgba(26, 18, 8, 0.78)', fontFamily: "'Courier Prime', monospace" }}>
+                  <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv.</span>
+                  <span className="hidden sm:inline">
+                    En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH).<br />
+                    Bilderna hämtas från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum,<br />
+                    Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Small gap between header paper and folder tabs */}
+        <div className={`px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-2" : "pt-3"}`}>
+          <ArchiveTabs year={year} onChange={handleYearChange} compact={headerShrunk} />
+        </div>
+      </header>
+
+      <main className="flex-1 min-h-0 overflow-hidden">
+        <PhotoGallery
+          year={year}
+          results={visibleResults}
+          loading={loading}
+          isAdmin={isAdmin}
+          onHidePhoto={handleHidePhoto}
+          onMarkUndated={handleMarkUndated}
+          onSwipeDecade={(direction) => {
+            const decades = [0, 1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020];
+            const idx = decades.indexOf(year);
+            if (idx === -1) return;
+            if (direction === "next" && idx < decades.length - 1) handleYearChange(decades[idx + 1]);
+            if (direction === "prev" && idx > 0) handleYearChange(decades[idx - 1]);
+          }}
+          forcedSelectedPhoto={searchSelectedPhoto}
+          forcedNavSet={searchNavSet ?? undefined}
+          onLightboxClosed={() => {
+            setSearchSelectedPhoto(null);
+            setSearchNavSet(null);
+            if (searchSelectedPhoto) setReopenSearchSignal((n) => n + 1);
+          }}
+          onScroll={(top) => setScrollTop(top)}
+          scrollToTopSignal={scrollToTopSignal}
+        />
+      </main>
 
       {/* Back to top button */}
       <button
