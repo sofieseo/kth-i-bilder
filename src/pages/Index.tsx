@@ -152,10 +152,8 @@ const Index = () => {
          <div
            className={`relative sm:px-6 sm:py-3 transition-[padding] duration-200 ${headerShrunk ? "px-3 py-1" : "px-3 py-2"}`}
          >
-              {(() => {
-                const curl = getPageCurl(year);
-                return curl ? <div aria-hidden className={`page-curl ${curl.corner}`} /> : null;
-              })()}
+              {/* page curls removed */}
+
               <div className="relative z-10 flex items-center justify-between">
                 <h1
                   className={`font-semibold font-slab uppercase tracking-[0.12em] sm:tracking-[0.2em] sm:text-3xl transition-[font-size] duration-200 ${headerShrunk ? "text-base" : "text-xl"}`}
