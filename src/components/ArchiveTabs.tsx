@@ -94,7 +94,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               className="pointer-events-none absolute inset-0"
               style={{
                 backgroundImage: paperBg,
-                opacity: 0.5,
+                opacity: 0.6,
                 mixBlendMode: "multiply",
                 borderTopLeftRadius: "inherit",
                 borderTopRightRadius: "inherit",
