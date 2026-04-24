@@ -275,12 +275,16 @@ const Index = () => {
             if (direction === "next" && idx < decades.length - 1) handleYearChange(decades[idx + 1]);
             if (direction === "prev" && idx > 0) handleYearChange(decades[idx - 1]);
           }}
-          forcedSelectedPhoto={searchSelectedPhoto}
-          forcedNavSet={searchNavSet ?? undefined}
+          openPhoto={searchSelectedPhoto}
+          openPhotoNavSet={searchNavSet ?? undefined}
+          onPhotoOpened={() => {
+            // keep state so the lightbox knows it came from search
+          }}
           onLightboxClosed={() => {
+            const wasFromSearch = !!searchSelectedPhoto;
             setSearchSelectedPhoto(null);
             setSearchNavSet(null);
-            if (searchSelectedPhoto) setReopenSearchSignal((n) => n + 1);
+            if (wasFromSearch) setReopenSearchSignal((n) => n + 1);
           }}
           onScroll={(top) => setScrollTop(top)}
           scrollToTopSignal={scrollToTopSignal}
