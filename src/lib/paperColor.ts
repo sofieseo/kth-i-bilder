@@ -200,6 +200,20 @@ export function getArchiveHeaderPaper(): {
 }
 
 /**
+ * Uniform warm cream/beige paper tone used for the page background and
+ * for all archive folder tabs. Matches the search/info dialog look.
+ */
+export function getArchivePaperBeige(): {
+  color: string;
+  edgeTint: string;
+} {
+  return {
+    color: "#ede8d8",
+    edgeTint: "hsl(38 28% 52% / 0.28)",
+  };
+}
+
+/**
  * Clean paper texture for header - no stains, no specks, just subtle paper grain.
  * Used on archive green header for a clean archival look.
  */
