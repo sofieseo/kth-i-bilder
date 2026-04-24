@@ -14,7 +14,7 @@ import { useAdminMode } from "@/hooks/useAdminMode";
 import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
 import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
-import { getPaperStyle, getHeaderPaperStyle, getPaperBackgroundImage, getPageCurl } from "@/lib/paperColor";
+import { getPaperStyle, getHeaderPaperStyle, getPaperBackgroundImage } from "@/lib/paperColor";
 
 const Index = () => {
   const { year, results, loading, handleYearChange } = usePhotoFetch(0);
