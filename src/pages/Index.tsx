@@ -14,7 +14,7 @@ import { useAdminMode } from "@/hooks/useAdminMode";
 import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
 import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
-import { getPaperStyle, getHeaderPaperStyle, getPaperBackgroundImage } from "@/lib/paperColor";
+import { getPaperStyle, getHeaderPaperStyle, getPaperBackgroundImage, getArchiveHeaderPaper } from "@/lib/paperColor";
 
 const Index = () => {
   const { year, results, loading, handleYearChange } = usePhotoFetch(0);
@@ -146,15 +146,29 @@ const Index = () => {
           mixBlendMode: "multiply",
         }}
       />
-      <header
-        className="shrink-0 px-2 py-1.5 sm:px-4 sm:py-3 lg:px-8 lg:pt-6 xl:px-10"
-      >
-         <div
-           className={`relative sm:px-6 sm:py-3 transition-[padding] duration-200 ${headerShrunk ? "px-3 py-1" : "px-3 py-2"}`}
-         >
-              {/* page curls removed */}
-
-              <div className="relative z-10 flex items-center justify-between">
+      <header className="shrink-0">
+        {/* Gray-blue archival paper backdrop for title, subtitle, search and admin actions */}
+        <div
+          className="relative px-2 py-2 sm:px-4 sm:py-3 lg:px-8 lg:pt-5 lg:pb-4 xl:px-10"
+          style={{
+            backgroundColor: getArchiveHeaderPaper().color,
+            boxShadow: `inset 0 -1px 0 ${getArchiveHeaderPaper().edgeTint}, 0 2px 4px rgba(40, 50, 65, 0.10)`,
+          }}
+        >
+          {/* Subtle paper texture for the gray-blue header */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              backgroundImage: getPaperBackgroundImage(2020),
+              opacity: 0.45,
+              mixBlendMode: "multiply",
+            }}
+          />
+          <div
+            className={`relative z-10 sm:px-6 transition-[padding] duration-200 ${headerShrunk ? "px-3" : "px-3"}`}
+          >
+              <div className="flex items-center justify-between">
                 <h1
                   className={`font-semibold font-slab uppercase tracking-[0.12em] sm:tracking-[0.2em] sm:text-3xl transition-[font-size] duration-200 ${headerShrunk ? "text-base" : "text-xl"}`}
                   style={{ color: '#1a1208' }}
@@ -223,7 +237,7 @@ const Index = () => {
               <div
                 className={`overflow-hidden transition-[max-height,opacity,margin] duration-200 ${headerShrunk ? "max-h-0 opacity-0 sm:max-h-40 sm:opacity-100" : "max-h-40 opacity-100"}`}
               >
-                <p className="relative z-10 text-[10px] sm:text-xs leading-relaxed mt-1 max-w-3xl" style={{ color: 'rgba(26, 18, 8, 0.78)', fontFamily: "'Courier Prime', monospace" }}>
+                <p className="text-[10px] sm:text-xs leading-relaxed mt-1 max-w-3xl" style={{ color: 'rgba(26, 18, 8, 0.78)', fontFamily: "'Courier Prime', monospace" }}>
                   <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv.</span>
                   <span className="hidden sm:inline">
                     En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH).<br />
@@ -232,12 +246,13 @@ const Index = () => {
                   </span>
                 </p>
               </div>
-              <div
-                className={`relative z-10 transition-[margin,padding] duration-200 ${headerShrunk ? "mt-1 sm:mt-4" : "mt-2 sm:mt-4"}`}
-              >
-                <ArchiveTabs year={year} onChange={handleYearChange} compact={headerShrunk} />
-              </div>
-           </div>
+          </div>
+        </div>
+
+        {/* Small gap between header paper and folder tabs */}
+        <div className={`px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-2" : "pt-3"}`}>
+          <ArchiveTabs year={year} onChange={handleYearChange} compact={headerShrunk} />
+        </div>
       </header>
 
       <PhotoGallery
