@@ -166,9 +166,9 @@ const Index = () => {
               className="pointer-events-none absolute inset-0"
               style={{
                 backgroundImage:
-                  "repeating-linear-gradient(90deg, rgba(40, 60, 45, 0.07) 0 1px, transparent 1px 7px), radial-gradient(ellipse at 20% 25%, rgba(40, 60, 45, 0.06), transparent 60%), radial-gradient(ellipse at 80% 75%, rgba(40, 60, 45, 0.05), transparent 60%)",
+                  "radial-gradient(ellipse at 20% 25%, rgba(40, 60, 45, 0.07), transparent 60%), radial-gradient(ellipse at 80% 75%, rgba(40, 60, 45, 0.06), transparent 60%), radial-gradient(circle at 60% 40%, rgba(30, 50, 40, 0.04), transparent 45%)",
                 mixBlendMode: "multiply",
-                opacity: 0.9,
+                opacity: 1,
               }}
             />
             <div className="relative z-10">
