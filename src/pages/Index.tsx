@@ -148,19 +148,9 @@ const Index = () => {
       />
       <header
         className="shrink-0 px-2 py-1.5 sm:px-4 sm:py-3 lg:px-8 lg:pt-6 xl:px-10"
-        style={(() => {
-          const { color, spots, edgeTint } = getHeaderPaperStyle(year);
-          const spotsImage = getPaperBackgroundImage(year);
-          return {
-            ['--paper-color' as any]: color,
-            ['--paper-spots' as any]: String(spots),
-            ['--paper-spots-image' as any]: spotsImage,
-            ['--header-edge-tint' as any]: edgeTint,
-          };
-        })()}
       >
          <div
-           className={`paper-aged header-paper sm:px-6 sm:py-3 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.7)] transition-[padding] duration-200 ${headerShrunk ? "px-3 py-1" : "px-3 py-2"}`}
+           className={`relative sm:px-6 sm:py-3 transition-[padding] duration-200 ${headerShrunk ? "px-3 py-1" : "px-3 py-2"}`}
          >
               {(() => {
                 const curl = getPageCurl(year);
