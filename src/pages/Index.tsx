@@ -129,21 +129,23 @@ const Index = () => {
   }, [results, hiddenIds, undatedIds, year]);
 
   return (
-    <div className="relative flex w-screen flex-col" style={{ height: "100dvh" }}>
-      {/* Blurred brick background layer */}
+    <div
+      className="relative flex w-screen flex-col transition-colors duration-300"
+      style={{
+        height: "100dvh",
+        backgroundColor: getHeaderPaperStyle(year).color,
+      }}
+    >
+      {/* Subtle paper texture overlay matching active folder */}
       <div
         aria-hidden
-        className="fixed inset-0 -z-10"
+        className="fixed inset-0 -z-10 pointer-events-none"
         style={{
-          backgroundImage: "url('/images/brick-bg.jpg')",
-          backgroundSize: "600px",
-          backgroundPosition: "center",
-          filter: "blur(1.5px) brightness(0.75)",
-          transform: "scale(1.03)",
+          backgroundImage: getPaperBackgroundImage(year),
+          opacity: 0.6,
+          mixBlendMode: "multiply",
         }}
       />
-      {/* Dark overlay to push texture into the background */}
-      <div aria-hidden className="fixed inset-0 -z-10 bg-black/40" />
       <header
         className="shrink-0 px-2 py-1.5 sm:px-4 sm:py-3 lg:px-8 lg:pt-6 xl:px-10"
         style={(() => {
