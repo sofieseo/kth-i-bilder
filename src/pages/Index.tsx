@@ -170,6 +170,7 @@ const Index = () => {
                 mixBlendMode: "multiply",
                 opacity: 0.9,
               }}
+            />
             <div className="relative z-10">
               <div className="flex items-center justify-between">
                 <h1
