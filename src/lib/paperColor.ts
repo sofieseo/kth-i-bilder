@@ -160,3 +160,41 @@ export function getPaperBackgroundImage(year: number | null | undefined): string
 
   return layers.join(", ");
 }
+
+/**
+ * Clean paper texture without damp stains or dark foxing specks.
+ * Used on archive folder tabs where we want a uniform manila look.
+ */
+export function getCleanPaperBackgroundImage(year: number | null | undefined): string {
+  const decade = year == null || year === 0 ? 0 : Math.floor(year / 10) * 10;
+  const rand = mulberry32(decade + 1);
+  const layers: string[] = [];
+
+  // Just a few very subtle warm patches for slight unevenness
+  const patchCount = 2 + Math.floor(rand() * 2);
+  for (let i = 0; i < patchCount; i++) {
+    const x = Math.round(rand() * 100);
+    const y2 = Math.round(rand() * 100);
+    const w = 40 + Math.round(rand() * 40);
+    const h = 30 + Math.round(rand() * 30);
+    const alpha = 0.02 + rand() * 0.025;
+    layers.push(
+      `radial-gradient(ellipse ${w}% ${h}% at ${x}% ${y2}%, rgba(150, 110, 55, ${alpha.toFixed(3)}), transparent 75%)`
+    );
+  }
+  return layers.join(", ");
+}
+
+/**
+ * Cool blue-gray archive header paper tone (independent of the active decade).
+ * Used as a backdrop behind the title, subtitle and search controls.
+ */
+export function getArchiveHeaderPaper(): {
+  color: string;
+  edgeTint: string;
+} {
+  return {
+    color: "hsl(212 18% 78%)",
+    edgeTint: "hsl(212 22% 52% / 0.35)",
+  };
+}
