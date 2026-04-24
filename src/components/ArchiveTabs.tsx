@@ -62,10 +62,10 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             type="button"
             onClick={() => onChange(decade)}
             aria-pressed={isActive}
-            className={`relative shrink-0 md:shrink md:flex-1 md:min-w-0 font-mono tracking-widest transition-all ${
+            className={`relative shrink-0 md:shrink md:flex-1 md:min-w-0 transition-all ${
               isActive
-                ? `${compact ? "h-9 px-3 text-[12px]" : "h-12 px-4 text-base"} font-bold`
-                : `${compact ? "h-7 px-2.5 text-[10px]" : "h-9 px-3 text-xs"} hover:-translate-y-0.5`
+                ? `${compact ? "h-9 px-3 text-xl" : "h-12 px-4 text-3xl"} font-bold`
+                : `${compact ? "h-7 px-2.5 text-base" : "h-9 px-3 text-xl"} hover:-translate-y-0.5`
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
               backgroundColor: tabColor,
@@ -78,7 +78,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               borderLeft: "1px solid rgba(95, 65, 25, 0.32)",
               borderRight: "1px solid rgba(95, 65, 25, 0.38)",
               borderBottom: "none",
-              fontFamily: "'Courier Prime', monospace",
+              fontFamily: "'Caveat', cursive",
               opacity: 1,
               zIndex: isActive ? 50 : 10 + idx,
               // Pull tabs deep into the page so there is NO visible seam below

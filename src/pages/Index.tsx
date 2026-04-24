@@ -168,8 +168,7 @@ const Index = () => {
             className="relative px-3 py-2 sm:px-6 sm:py-4 lg:px-8 lg:py-5"
             style={{
               backgroundColor: getArchiveHeaderPaper().color,
-              boxShadow:
-                "inset 0 -10px 16px -10px rgba(30, 50, 35, 0.30), 0 6px 14px -4px rgba(40, 55, 45, 0.32), 0 14px 26px -8px rgba(40, 55, 45, 0.22), 2px 3px 6px rgba(40, 55, 45, 0.20)",
+              boxShadow: "none",
             }}
           >
             {/* Photorealistic green archive paper texture */}
