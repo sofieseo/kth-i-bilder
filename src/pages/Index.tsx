@@ -149,9 +149,8 @@ const Index = () => {
         }}
       />
       <header className="shrink-0 relative z-20">
-        {/* Outer wrapper: leaves beige paper visible above + on the sides so the
-            steel drawer looks like an open archive cabinet sitting above the folders */}
-        <div className={`px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-2 sm:pt-3" : "pt-4 sm:pt-6"}`}>
+        {/* Cabinet drawer spans edge-to-edge — no folder paper shows above or beside it */}
+        <div>
           {/* Glossy dark-green enameled archive cabinet drawer */}
           <div
             className="relative px-3 pt-2 pb-4 sm:px-6 sm:pt-4 sm:pb-6 lg:px-8 lg:pt-5 lg:pb-7"
