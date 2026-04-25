@@ -159,42 +159,57 @@ const Index = () => {
           opacity: 1,
         }}
       />
-      <header className="shrink-0">
+      <header className="shrink-0 relative z-20">
         {/* Outer wrapper: leaves beige paper visible above + on the sides so the
-            green header looks like an archive sheet resting on the folders */}
+            steel drawer looks like an open archive cabinet sitting above the folders */}
         <div className={`px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-2 sm:pt-3" : "pt-4 sm:pt-6"}`}>
-          {/* Archive-green paper backdrop */}
+          {/* Industrial steel archive drawer */}
           <div
-            className="relative px-3 py-2 sm:px-6 sm:py-4 lg:px-8 lg:py-5"
+            className="relative px-3 pt-2 pb-4 sm:px-6 sm:pt-4 sm:pb-6 lg:px-8 lg:pt-5 lg:pb-7"
             style={{
-              backgroundColor: getArchiveHeaderPaper().color,
-              boxShadow: "none",
+              // Brushed steel gradient: lighter at top, slightly darker at bottom
+              background:
+                "linear-gradient(180deg, #6b6e72 0%, #5a5d61 38%, #4e5155 70%, #3f4246 100%)",
+              boxShadow:
+                // Outer drop shadow + crisp top highlight + dark bottom edge
+                "0 6px 14px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 rgba(0, 0, 0, 0.55)",
             }}
           >
-            {/* Photorealistic green archive paper texture */}
+            {/* Brushed metal texture: vertical micro-grain + subtle horizontal banding */}
             <div
               aria-hidden
               className="pointer-events-none absolute inset-0"
               style={{
                 backgroundImage:
-                  "repeating-linear-gradient(90deg, rgba(35, 55, 40, 0.06) 0 0.5px, transparent 0.5px 3px), " +
-                  "repeating-linear-gradient(0deg, rgba(35, 55, 40, 0.035) 0 0.5px, transparent 0.5px 5px), " +
-                  "radial-gradient(ellipse at 18% 28%, rgba(30, 55, 40, 0.10), transparent 55%), " +
-                  "radial-gradient(ellipse at 82% 72%, rgba(30, 55, 40, 0.09), transparent 55%), " +
-                  "radial-gradient(ellipse at 60% 30%, rgba(45, 65, 50, 0.06), transparent 50%), " +
-                  "radial-gradient(circle at 22% 48%, rgba(25, 40, 30, 0.18) 0.5px, transparent 1.2px), " +
-                  "radial-gradient(circle at 71% 36%, rgba(25, 40, 30, 0.16) 0.6px, transparent 1.3px), " +
-                  "radial-gradient(circle at 48% 78%, rgba(25, 40, 30, 0.14) 0.5px, transparent 1.1px), " +
-                  "radial-gradient(ellipse 110% 100% at 50% 50%, transparent 65%, rgba(25, 40, 30, 0.18) 100%)",
-                mixBlendMode: "multiply",
+                  // Fine vertical brushed lines
+                  "repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0 0.5px, rgba(0, 0, 0, 0.05) 0.5px 1.5px, transparent 1.5px 3px), " +
+                  // Very subtle horizontal banding (rolled steel)
+                  "repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 6px), " +
+                  // Soft top highlight
+                  "linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, transparent 22%), " +
+                  // Soft bottom shadow inside drawer face
+                  "linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0%, transparent 30%)",
+                mixBlendMode: "overlay",
                 opacity: 1,
+              }}
+            />
+            {/* Thin metallic top rail */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute left-0 right-0 top-0 h-[2px]"
+              style={{
+                background:
+                  "linear-gradient(180deg, #9ea2a6 0%, #777a7e 50%, #2f3236 100%)",
               }}
             />
             <div className="relative z-10">
               <div className="flex items-center justify-between">
                 <h1
                   className={`font-semibold font-slab uppercase tracking-[0.12em] sm:tracking-[0.2em] sm:text-3xl transition-[font-size] duration-200 ${headerShrunk ? "text-base" : "text-xl"}`}
-                  style={{ color: '#1a1208' }}
+                  style={{
+                    color: '#f0eee8',
+                    textShadow: "0 1px 0 rgba(0,0,0,0.55), 0 0 1px rgba(0,0,0,0.4)",
+                  }}
                 >
                   KTH i bilder
                 </h1>
@@ -211,7 +226,7 @@ const Index = () => {
                     <button
                       onClick={() => setShowLogin(true)}
                       className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-                      style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
+                      style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace" }}
                     >
                       <LogIn className="h-3.5 w-3.5" />
                       Logga in
@@ -222,7 +237,7 @@ const Index = () => {
                       <button
                         onClick={() => setShowStats(true)}
                         className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-                        style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
+                        style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace" }}
                       >
                         <BarChart3 className="h-3.5 w-3.5" />
                         Statistik
@@ -230,7 +245,7 @@ const Index = () => {
                       <button
                         onClick={() => setShowHidden(true)}
                         className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-                        style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
+                        style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace" }}
                       >
                         <EyeOff className="h-3.5 w-3.5" />
                         Dolda ({hiddenIds.size})
@@ -240,7 +255,7 @@ const Index = () => {
                         disabled={clearingCache}
                         title={year === 0 ? "Rensa cache för odaterade" : `Rensa cache för ${Math.floor(year / 10) * 10}-talet`}
                         className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors disabled:opacity-50"
-                        style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
+                        style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace" }}
                       >
                         <RefreshCw className={`h-3.5 w-3.5 ${clearingCache ? "animate-spin" : ""}`} />
                         Rensa cache
@@ -248,7 +263,7 @@ const Index = () => {
                       <button
                         onClick={handleLogout}
                         className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-                        style={{ color: '#1a1208', fontFamily: "'Courier Prime', monospace" }}
+                        style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace" }}
                       >
                         <LogOut className="h-3.5 w-3.5" />
                         Logga ut
@@ -260,7 +275,7 @@ const Index = () => {
               <div
                 className={`overflow-hidden transition-[max-height,opacity,margin] duration-200 ${headerShrunk ? "max-h-0 opacity-0 sm:max-h-40 sm:opacity-100" : "max-h-40 opacity-100"}`}
               >
-                <p className="text-[10px] sm:text-xs leading-relaxed mt-1 max-w-3xl" style={{ color: 'rgba(26, 18, 8, 0.78)', fontFamily: "'Courier Prime', monospace" }}>
+                <p className="text-[10px] sm:text-xs leading-relaxed mt-1 max-w-3xl" style={{ color: 'rgba(240, 238, 232, 0.78)', fontFamily: "'Courier Prime', monospace" }}>
                   <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv.</span>
                   <span className="hidden sm:inline">
                     En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH).<br />
@@ -270,11 +285,20 @@ const Index = () => {
                 </p>
               </div>
             </div>
+            {/* Drawer front lip — thin darker band at the bottom that the folder tabs peek up behind */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute left-0 right-0 bottom-0 h-[6px]"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.45) 60%, rgba(0,0,0,0.7) 100%)",
+              }}
+            />
           </div>
         </div>
 
-        {/* Small gap between header paper and folder tabs */}
-        <div className={`px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-2" : "pt-3"}`}>
+        {/* Folder tabs rise up from behind the drawer's front lip */}
+        <div className={`px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "-mt-2" : "-mt-3"} relative z-10`}>
           <ArchiveTabs year={year} onChange={handleYearChange} compact={headerShrunk} />
         </div>
       </header>
