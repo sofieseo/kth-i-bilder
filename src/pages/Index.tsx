@@ -163,43 +163,43 @@ const Index = () => {
         {/* Outer wrapper: leaves beige paper visible above + on the sides so the
             steel drawer looks like an open archive cabinet sitting above the folders */}
         <div className={`px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-2 sm:pt-3" : "pt-4 sm:pt-6"}`}>
-          {/* Industrial steel archive drawer */}
+          {/* Glossy dark-green enameled archive cabinet drawer */}
           <div
             className="relative px-3 pt-2 pb-4 sm:px-6 sm:pt-4 sm:pb-6 lg:px-8 lg:pt-5 lg:pb-7"
             style={{
-              // Brushed steel gradient: lighter at top, slightly darker at bottom
+              // Deep enamel green base — slightly lighter at the top where light hits the curved drawer face
               background:
-                "linear-gradient(180deg, #6b6e72 0%, #5a5d61 38%, #4e5155 70%, #3f4246 100%)",
+                "linear-gradient(180deg, #1f4a32 0%, #173a26 30%, #11301f 65%, #0c2417 100%)",
               boxShadow:
-                // Outer drop shadow + crisp top highlight + dark bottom edge
-                "0 6px 14px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 rgba(0, 0, 0, 0.55)",
+                // Outer drop shadow + crisp top highlight (curved metal lip catching light) + dark inner bottom edge
+                "0 8px 18px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 0 rgba(0, 0, 0, 0.7)",
             }}
           >
-            {/* Brushed metal texture: vertical micro-grain + subtle horizontal banding */}
+            {/* Photorealistic enamel lacquer: broad soft sheen + faint diagonal highlight + slight wear at the bottom */}
             <div
               aria-hidden
               className="pointer-events-none absolute inset-0"
               style={{
                 backgroundImage:
-                  // Fine vertical brushed lines
-                  "repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0 0.5px, rgba(0, 0, 0, 0.05) 0.5px 1.5px, transparent 1.5px 3px), " +
-                  // Very subtle horizontal banding (rolled steel)
-                  "repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 6px), " +
-                  // Soft top highlight
-                  "linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, transparent 22%), " +
-                  // Soft bottom shadow inside drawer face
-                  "linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0%, transparent 30%)",
-                mixBlendMode: "overlay",
+                  // Curved top sheen — thin bright band where light hits the rolled metal edge
+                  "linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 8%, transparent 18%), " +
+                  // Soft diagonal lacquer reflection across the drawer face
+                  "linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.06) 28%, rgba(255, 255, 255, 0.10) 38%, transparent 55%), " +
+                  // Subtle vignette toward bottom — paint deepens away from the light
+                  "linear-gradient(0deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.08) 18%, transparent 35%), " +
+                  // Very faint enamel grain so it doesn't read as plastic
+                  "radial-gradient(ellipse 130% 90% at 50% 30%, rgba(255, 255, 255, 0.05), transparent 60%)",
                 opacity: 1,
               }}
             />
-            {/* Thin metallic top rail */}
+            {/* Polished metal top rail — bright reflective edge of the drawer */}
             <div
               aria-hidden
-              className="pointer-events-none absolute left-0 right-0 top-0 h-[2px]"
+              className="pointer-events-none absolute left-0 right-0 top-0 h-[3px]"
               style={{
                 background:
-                  "linear-gradient(180deg, #9ea2a6 0%, #777a7e 50%, #2f3236 100%)",
+                  "linear-gradient(180deg, #d4d6d8 0%, #8a8d90 45%, #3b3e41 80%, #1a1c1e 100%)",
+                boxShadow: "0 1px 0 rgba(0,0,0,0.4)",
               }}
             />
             <div className="relative z-10">
