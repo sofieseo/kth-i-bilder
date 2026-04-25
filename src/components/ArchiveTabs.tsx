@@ -90,23 +90,6 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
                 : "0 -1px 5px rgba(60, 40, 15, 0.14), -1px 0 4px rgba(60, 40, 15, 0.09)",
             }}
           >
-            {/* Photorealistic paper texture matching the page background */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0"
-              style={{
-                backgroundImage:
-                  "repeating-linear-gradient(90deg, rgba(80, 55, 20, 0.045) 0 0.5px, transparent 0.5px 3px), " +
-                  "repeating-linear-gradient(0deg, rgba(80, 55, 20, 0.025) 0 0.5px, transparent 0.5px 5px), " +
-                  // Per-tab uneven patches so no two folders look identical
-                  `radial-gradient(ellipse at ${20 + (idx * 7) % 60}% 30%, rgba(110, 75, 25, 0.07), transparent 60%), ` +
-                  `radial-gradient(ellipse at ${70 - (idx * 5) % 50}% 70%, rgba(110, 75, 25, 0.06), transparent 60%)`,
-                opacity: 1,
-                mixBlendMode: "multiply",
-                borderTopLeftRadius: "inherit",
-                borderTopRightRadius: "inherit",
-              }}
-            />
             <span className="relative z-10">{labelFor(decade)}</span>
           </button>
         );

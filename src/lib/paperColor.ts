@@ -207,9 +207,10 @@ export function getArchivePaperBeige(): {
   color: string;
   edgeTint: string;
 } {
+  // Classic manilla folder tone — warm tan/kraft, slightly muted and earthy
   return {
-    color: "#d9c39a",
-    edgeTint: "hsl(36 38% 42% / 0.32)",
+    color: "#cdb185",
+    edgeTint: "hsl(34 32% 38% / 0.34)",
   };
 }
 
