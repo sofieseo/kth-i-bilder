@@ -285,13 +285,40 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Folder tabs rise up from behind the drawer's front lip */}
-        <div className={`px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "-mt-2" : "-mt-3"} relative z-10`}>
+        {/* Folder tabs rise up from behind the drawer's front lip — sit on the manilla folder area */}
+        <div
+          className={`px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "-mt-2 pt-1" : "-mt-3 pt-1"} relative z-10`}
+          style={{ backgroundColor: getArchivePaperBeige().color }}
+        >
           <ArchiveTabs year={year} onChange={handleYearChange} compact={headerShrunk} />
         </div>
       </header>
 
-      <main className="flex flex-col flex-1 min-h-0 overflow-hidden">
+      <main
+        className="flex flex-col flex-1 min-h-0 overflow-hidden relative"
+        style={{ backgroundColor: getArchivePaperBeige().color }}
+      >
+        {/* Photorealistic manilla folder texture inside the open folder area */}
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(90deg, rgba(80, 55, 20, 0.05) 0 0.5px, transparent 0.5px 3px), " +
+              "repeating-linear-gradient(0deg, rgba(80, 55, 20, 0.03) 0 0.5px, transparent 0.5px 5px), " +
+              "radial-gradient(ellipse at 12% 18%, rgba(160, 115, 50, 0.10), transparent 45%), " +
+              "radial-gradient(ellipse at 88% 22%, rgba(120, 80, 30, 0.08), transparent 50%), " +
+              "radial-gradient(ellipse at 22% 78%, rgba(120, 80, 30, 0.07), transparent 55%), " +
+              "radial-gradient(ellipse at 78% 82%, rgba(160, 115, 50, 0.09), transparent 50%), " +
+              "radial-gradient(circle at 17% 34%, rgba(70, 45, 15, 0.18) 0.6px, transparent 1.4px), " +
+              "radial-gradient(circle at 63% 21%, rgba(70, 45, 15, 0.16) 0.5px, transparent 1.2px), " +
+              "radial-gradient(circle at 41% 67%, rgba(70, 45, 15, 0.15) 0.7px, transparent 1.5px), " +
+              "radial-gradient(circle at 84% 56%, rgba(70, 45, 15, 0.14) 0.5px, transparent 1.2px), " +
+              "radial-gradient(ellipse 120% 90% at 50% 50%, transparent 60%, rgba(60, 40, 15, 0.18) 100%)",
+            mixBlendMode: "multiply",
+          }}
+        />
+        <div className="relative z-10 flex flex-col flex-1 min-h-0">
         <PhotoGallery
           year={year}
           results={visibleResults}
