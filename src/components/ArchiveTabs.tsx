@@ -81,9 +81,9 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               fontFamily: "'Caveat', cursive",
               opacity: 1,
               zIndex: isActive ? 50 : 10 + idx,
-              // Pull tabs deep into the page so there is NO visible seam below
-              marginBottom: isActive ? -14 : -12,
-              paddingBottom: isActive ? (compact ? 18 : 22) : (compact ? 16 : 18),
+              // Keep bottom edge constant for ALL tabs — active only grows upward
+              marginBottom: -12,
+              paddingBottom: compact ? 16 : 18,
               // Only soft side/top shadow — no bottom shadow that would create a seam
               boxShadow: isActive
                 ? "0 -2px 6px rgba(60, 40, 15, 0.18), -2px 0 5px rgba(60, 40, 15, 0.12), 2px 0 5px rgba(60, 40, 15, 0.10)"
