@@ -347,6 +347,7 @@ const Index = () => {
           onScroll={(top) => setScrollTop(top)}
           scrollToTopSignal={scrollToTopSignal}
         />
+        </div>
       </main>
 
       {/* Back to top button */}
