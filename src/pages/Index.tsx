@@ -133,36 +133,24 @@ const Index = () => {
       className="relative flex w-screen flex-col transition-colors duration-300"
       style={{
         height: "100dvh",
-        backgroundColor: getArchivePaperBeige().color,
+        // Dark "room" backdrop behind the cabinet — deep neutral so the green pops
+        backgroundColor: "#1a1814",
       }}
     >
-      {/* Photorealistic manilla folder texture: vertical fibers, foxing, vignette */}
+      {/* Subtle room vignette so the cabinet feels lit from above */}
       <div
         aria-hidden
         className="fixed inset-0 -z-10 pointer-events-none"
         style={{
           backgroundImage:
-            "repeating-linear-gradient(90deg, rgba(80, 55, 20, 0.05) 0 0.5px, transparent 0.5px 3px), " +
-            "repeating-linear-gradient(0deg, rgba(80, 55, 20, 0.03) 0 0.5px, transparent 0.5px 5px), " +
-            "radial-gradient(ellipse at 12% 18%, rgba(160, 115, 50, 0.10), transparent 45%), " +
-            "radial-gradient(ellipse at 88% 22%, rgba(120, 80, 30, 0.08), transparent 50%), " +
-            "radial-gradient(ellipse at 22% 78%, rgba(120, 80, 30, 0.07), transparent 55%), " +
-            "radial-gradient(ellipse at 78% 82%, rgba(160, 115, 50, 0.09), transparent 50%), " +
-            "radial-gradient(ellipse at 50% 50%, rgba(90, 60, 20, 0.04), transparent 70%), " +
-            "radial-gradient(circle at 17% 34%, rgba(70, 45, 15, 0.18) 0.6px, transparent 1.4px), " +
-            "radial-gradient(circle at 63% 21%, rgba(70, 45, 15, 0.16) 0.5px, transparent 1.2px), " +
-            "radial-gradient(circle at 41% 67%, rgba(70, 45, 15, 0.15) 0.7px, transparent 1.5px), " +
-            "radial-gradient(circle at 84% 56%, rgba(70, 45, 15, 0.14) 0.5px, transparent 1.2px), " +
-            "radial-gradient(circle at 28% 89%, rgba(70, 45, 15, 0.16) 0.6px, transparent 1.3px), " +
-            "radial-gradient(ellipse 120% 90% at 50% 50%, transparent 60%, rgba(60, 40, 15, 0.18) 100%)",
-          mixBlendMode: "multiply",
+            "radial-gradient(ellipse 120% 80% at 50% 0%, rgba(255, 255, 255, 0.04), transparent 60%), " +
+            "radial-gradient(ellipse 140% 100% at 50% 100%, rgba(0, 0, 0, 0.55), transparent 70%)",
           opacity: 1,
         }}
       />
       <header className="shrink-0 relative z-20">
-        {/* Outer wrapper: leaves beige paper visible above + on the sides so the
-            steel drawer looks like an open archive cabinet sitting above the folders */}
-        <div className={`px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-2 sm:pt-3" : "pt-4 sm:pt-6"}`}>
+        {/* Cabinet drawer spans edge-to-edge — no folder paper shows above or beside it */}
+        <div>
           {/* Glossy dark-green enameled archive cabinet drawer */}
           <div
             className="relative px-3 pt-2 pb-4 sm:px-6 sm:pt-4 sm:pb-6 lg:px-8 lg:pt-5 lg:pb-7"
@@ -297,13 +285,40 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Folder tabs rise up from behind the drawer's front lip */}
-        <div className={`px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "-mt-2" : "-mt-3"} relative z-10`}>
+        {/* Folder tabs rise up from behind the drawer's front lip — sit on the manilla folder area */}
+        <div
+          className={`px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "-mt-2 pt-1" : "-mt-3 pt-1"} relative z-10`}
+          style={{ backgroundColor: getArchivePaperBeige().color }}
+        >
           <ArchiveTabs year={year} onChange={handleYearChange} compact={headerShrunk} />
         </div>
       </header>
 
-      <main className="flex flex-col flex-1 min-h-0 overflow-hidden">
+      <main
+        className="flex flex-col flex-1 min-h-0 overflow-hidden relative"
+        style={{ backgroundColor: getArchivePaperBeige().color }}
+      >
+        {/* Photorealistic manilla folder texture inside the open folder area */}
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(90deg, rgba(80, 55, 20, 0.05) 0 0.5px, transparent 0.5px 3px), " +
+              "repeating-linear-gradient(0deg, rgba(80, 55, 20, 0.03) 0 0.5px, transparent 0.5px 5px), " +
+              "radial-gradient(ellipse at 12% 18%, rgba(160, 115, 50, 0.10), transparent 45%), " +
+              "radial-gradient(ellipse at 88% 22%, rgba(120, 80, 30, 0.08), transparent 50%), " +
+              "radial-gradient(ellipse at 22% 78%, rgba(120, 80, 30, 0.07), transparent 55%), " +
+              "radial-gradient(ellipse at 78% 82%, rgba(160, 115, 50, 0.09), transparent 50%), " +
+              "radial-gradient(circle at 17% 34%, rgba(70, 45, 15, 0.18) 0.6px, transparent 1.4px), " +
+              "radial-gradient(circle at 63% 21%, rgba(70, 45, 15, 0.16) 0.5px, transparent 1.2px), " +
+              "radial-gradient(circle at 41% 67%, rgba(70, 45, 15, 0.15) 0.7px, transparent 1.5px), " +
+              "radial-gradient(circle at 84% 56%, rgba(70, 45, 15, 0.14) 0.5px, transparent 1.2px), " +
+              "radial-gradient(ellipse 120% 90% at 50% 50%, transparent 60%, rgba(60, 40, 15, 0.18) 100%)",
+            mixBlendMode: "multiply",
+          }}
+        />
+        <div className="relative z-10 flex flex-col flex-1 min-h-0">
         <PhotoGallery
           year={year}
           results={visibleResults}
@@ -332,6 +347,7 @@ const Index = () => {
           onScroll={(top) => setScrollTop(top)}
           scrollToTopSignal={scrollToTopSignal}
         />
+        </div>
       </main>
 
       {/* Back to top button */}
