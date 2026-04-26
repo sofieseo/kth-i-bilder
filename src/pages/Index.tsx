@@ -15,6 +15,7 @@ import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
 import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { getPaperStyle, getArchivePaperBeige } from "@/lib/paperColor";
+import archiveCabinetHeader from "@/assets/archive-cabinet-header.jpg";
 
 const Index = () => {
   const { year, results, loading, handleYearChange } = usePhotoFetch(0);
