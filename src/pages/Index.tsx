@@ -150,174 +150,125 @@ const Index = () => {
         }}
       />
       <header className="shrink-0 relative z-20">
-        {/* Cabinet drawer spans edge-to-edge — no folder paper shows above or beside it */}
-        <div>
-          {/* Worn olive-green painted steel archive cabinet drawer */}
+        {/* Photographic archive cabinet drawer — uses a real generated photo as the backdrop.
+            The brass label holder visible in the photo is positioned roughly center-bottom,
+            so we place the title text on top of it using absolute positioning. */}
+        <div
+          className={`relative w-full overflow-hidden transition-[height] duration-300`}
+          style={{
+            // Aspect ratio of the source image is 1920x1080 (~16:9). We constrain by height
+            // so the cabinet stays a consistent visual band regardless of viewport width.
+            height: headerShrunk ? "120px" : "200px",
+            backgroundImage: `url(${archiveCabinetHeader})`,
+            backgroundSize: "cover",
+            // Center horizontally; bias vertically so the brass label stays visible
+            backgroundPosition: "center 60%",
+            backgroundRepeat: "no-repeat",
+            boxShadow: "0 8px 18px rgba(0, 0, 0, 0.55), inset 0 -1px 0 rgba(0, 0, 0, 0.7)",
+          }}
+        >
+          {/* Subtle dark overlay so the white control buttons stay readable on lighter areas of the photo */}
           <div
-            className="relative px-3 pt-3 pb-3 sm:px-6 sm:pt-4 sm:pb-4 lg:px-8 lg:pt-5 lg:pb-5"
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
             style={{
-              // Muted olive/sage paint — flatter and more matte than enamel
               background:
-                "linear-gradient(180deg, #4a5840 0%, #3d4a35 35%, #34402d 70%, #2a3424 100%)",
-              boxShadow:
-                "0 8px 18px rgba(0, 0, 0, 0.55), inset 0 -1px 0 rgba(0, 0, 0, 0.7)",
+                "linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.05) 35%, rgba(0,0,0,0.0) 60%, rgba(0,0,0,0.25) 100%)",
+            }}
+          />
+
+          {/* Top control row: search + admin buttons (overlay on photo) */}
+          <div className="absolute top-0 left-0 right-0 z-10 px-3 sm:px-6 lg:px-8 pt-3 sm:pt-4">
+            <div className="flex items-center justify-end gap-2">
+              <SearchPalette
+                year={year}
+                reopenSignal={reopenSearchSignal}
+                onSelect={(photo, results) => {
+                  setSearchNavSet(results);
+                  setSearchSelectedPhoto(photo);
+                }}
+              />
+              {wantsAdmin && !isAdmin && (
+                <button
+                  onClick={() => setShowLogin(true)}
+                  className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+                  style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
+                >
+                  <LogIn className="h-3.5 w-3.5" />
+                  Logga in
+                </button>
+              )}
+              {isAdmin && (
+                <>
+                  <button
+                    onClick={() => setShowStats(true)}
+                    className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+                    style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
+                  >
+                    <BarChart3 className="h-3.5 w-3.5" />
+                    Statistik
+                  </button>
+                  <button
+                    onClick={() => setShowHidden(true)}
+                    className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+                    style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
+                  >
+                    <EyeOff className="h-3.5 w-3.5" />
+                    Dolda ({hiddenIds.size})
+                  </button>
+                  <button
+                    onClick={handleClearCache}
+                    disabled={clearingCache}
+                    title={year === 0 ? "Rensa cache för odaterade" : `Rensa cache för ${Math.floor(year / 10) * 10}-talet`}
+                    className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors disabled:opacity-50"
+                    style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
+                  >
+                    <RefreshCw className={`h-3.5 w-3.5 ${clearingCache ? "animate-spin" : ""}`} />
+                    Rensa cache
+                  </button>
+                  <button
+                    onClick={handleLogout}
+                    className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+                    style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
+                  >
+                    <LogOut className="h-3.5 w-3.5" />
+                    Logga ut
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Title positioned over the brass label in the photograph.
+              In the source image the brass label sits roughly at horizontal center,
+              vertically around 55-70% of the image height. */}
+          <div
+            className="absolute left-1/2 -translate-x-1/2 z-10 text-center"
+            style={{
+              top: headerShrunk ? "50%" : "55%",
+              transform: "translate(-50%, -50%)",
+              // Width matches the visible brass label area in the photo (~28% of image width)
+              width: headerShrunk ? "min(60vw, 280px)" : "min(70vw, 420px)",
             }}
           >
-            {/* Worn matte paint: subtle vertical streaking + uneven wear patches */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0"
+            <h1
+              className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-xs sm:text-base" : "text-sm sm:text-xl"}`}
               style={{
-                backgroundImage:
-                  // Faint vertical brushstroke streaking
-                  "repeating-linear-gradient(90deg, rgba(0,0,0,0.04) 0 1px, transparent 1px 7px), " +
-                  // Uneven dirt/wear patches
-                  "radial-gradient(ellipse 35% 60% at 8% 30%, rgba(0,0,0,0.18), transparent 70%), " +
-                  "radial-gradient(ellipse 30% 50% at 92% 70%, rgba(0,0,0,0.16), transparent 70%), " +
-                  "radial-gradient(ellipse 25% 40% at 45% 85%, rgba(0,0,0,0.12), transparent 70%), " +
-                  // Faint dust/scratches
-                  "radial-gradient(circle at 22% 55%, rgba(180, 175, 150, 0.06) 0.5px, transparent 1.5px), " +
-                  "radial-gradient(circle at 67% 38%, rgba(180, 175, 150, 0.05) 0.4px, transparent 1.2px)",
-                opacity: 1,
+                color: "#3a2810",
+                fontWeight: 700,
               }}
-            />
-            {/* Heavy paint chipping along the very top edge — exposing lighter primer/metal */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute left-0 right-0 top-0 h-[5px]"
-              style={{
-                backgroundImage:
-                  // Irregular chipping pattern using overlapping radials
-                  "radial-gradient(ellipse 18px 4px at 6% 0%, #c9c2a8 50%, transparent 70%), " +
-                  "radial-gradient(ellipse 12px 3px at 19% 0%, #b8b09a 55%, transparent 75%), " +
-                  "radial-gradient(ellipse 22px 5px at 31% 0%, #d4cdb4 50%, transparent 70%), " +
-                  "radial-gradient(ellipse 14px 3px at 44% 0%, #b0a890 55%, transparent 75%), " +
-                  "radial-gradient(ellipse 20px 4px at 58% 0%, #c2bba0 50%, transparent 72%), " +
-                  "radial-gradient(ellipse 16px 4px at 72% 0%, #b8b09a 55%, transparent 75%), " +
-                  "radial-gradient(ellipse 24px 5px at 86% 0%, #cec7ae 48%, transparent 70%), " +
-                  "radial-gradient(ellipse 12px 3px at 96% 0%, #a89f88 55%, transparent 75%), " +
-                  "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.25) 100%)",
-              }}
-            />
-            {/* Top control row: search + admin buttons */}
-            <div className="relative z-10">
-              <div className="flex items-center justify-end gap-2">
-                <SearchPalette
-                  year={year}
-                  reopenSignal={reopenSearchSignal}
-                  onSelect={(photo, results) => {
-                    setSearchNavSet(results);
-                    setSearchSelectedPhoto(photo);
-                  }}
-                />
-                {wantsAdmin && !isAdmin && (
-                  <button
-                    onClick={() => setShowLogin(true)}
-                    className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-                    style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace" }}
-                  >
-                    <LogIn className="h-3.5 w-3.5" />
-                    Logga in
-                  </button>
-                )}
-                {isAdmin && (
-                  <>
-                    <button
-                      onClick={() => setShowStats(true)}
-                      className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-                      style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace" }}
-                    >
-                      <BarChart3 className="h-3.5 w-3.5" />
-                      Statistik
-                    </button>
-                    <button
-                      onClick={() => setShowHidden(true)}
-                      className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-                      style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace" }}
-                    >
-                      <EyeOff className="h-3.5 w-3.5" />
-                      Dolda ({hiddenIds.size})
-                    </button>
-                    <button
-                      onClick={handleClearCache}
-                      disabled={clearingCache}
-                      title={year === 0 ? "Rensa cache för odaterade" : `Rensa cache för ${Math.floor(year / 10) * 10}-talet`}
-                      className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors disabled:opacity-50"
-                      style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace" }}
-                    >
-                      <RefreshCw className={`h-3.5 w-3.5 ${clearingCache ? "animate-spin" : ""}`} />
-                      Rensa cache
-                    </button>
-                    <button
-                      onClick={handleLogout}
-                      className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-                      style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace" }}
-                    >
-                      <LogOut className="h-3.5 w-3.5" />
-                      Logga ut
-                    </button>
-                  </>
-                )}
-              </div>
-
-              {/* Brass label holder — centered card with title and subtitle, like the reference image */}
-              <div
-                className={`mx-auto overflow-hidden transition-all duration-200 ${headerShrunk ? "mt-2 max-w-[260px] sm:max-w-md" : "mt-3 max-w-md sm:max-w-xl"}`}
+            >
+              KTH i bilder
+            </h1>
+            {!headerShrunk && (
+              <p
+                className="mt-0.5 sm:mt-1 text-[8px] sm:text-[10px] leading-tight"
+                style={{ color: "#5a3f18", fontFamily: "'Courier Prime', monospace" }}
               >
-                {/* Brass frame */}
-                <div
-                  className="relative px-1 py-1"
-                  style={{
-                    background:
-                      "linear-gradient(180deg, #d4b878 0%, #b8964a 25%, #8a6a30 55%, #b8964a 80%, #d4b878 100%)",
-                    boxShadow:
-                      "0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,235,180,0.6), inset 0 -1px 0 rgba(60,40,10,0.5)",
-                  }}
-                >
-                  {/* Tiny brass screws in corners */}
-                  <span aria-hidden className="absolute left-1 top-1 h-1.5 w-1.5 rounded-full" style={{ background: "radial-gradient(circle at 30% 30%, #f4d98a, #6b4f1c)" }} />
-                  <span aria-hidden className="absolute right-1 top-1 h-1.5 w-1.5 rounded-full" style={{ background: "radial-gradient(circle at 30% 30%, #f4d98a, #6b4f1c)" }} />
-                  <span aria-hidden className="absolute left-1 bottom-1 h-1.5 w-1.5 rounded-full" style={{ background: "radial-gradient(circle at 30% 30%, #f4d98a, #6b4f1c)" }} />
-                  <span aria-hidden className="absolute right-1 bottom-1 h-1.5 w-1.5 rounded-full" style={{ background: "radial-gradient(circle at 30% 30%, #f4d98a, #6b4f1c)" }} />
-                  {/* Aged paper label card */}
-                  <div
-                    className={`text-center ${headerShrunk ? "px-3 py-1" : "px-4 py-2 sm:py-3"}`}
-                    style={{
-                      background:
-                        "linear-gradient(180deg, #f1e7c8 0%, #e8dab0 60%, #d9c592 100%)",
-                      boxShadow: "inset 0 1px 2px rgba(120,90,40,0.25)",
-                    }}
-                  >
-                    <h1
-                      className={`font-slab uppercase tracking-[0.18em] transition-[font-size] duration-200 ${headerShrunk ? "text-sm sm:text-lg" : "text-lg sm:text-2xl"}`}
-                      style={{
-                        color: "#3a2810",
-                        fontWeight: 700,
-                      }}
-                    >
-                      KTH i bilder
-                    </h1>
-                    <div
-                      className={`overflow-hidden transition-[max-height,opacity,margin] duration-200 ${headerShrunk ? "max-h-0 opacity-0 sm:max-h-20 sm:opacity-100 sm:mt-1" : "max-h-20 opacity-100 mt-1"}`}
-                    >
-                      <p className="text-[10px] sm:text-xs leading-snug" style={{ color: "#5a3f18", fontFamily: "'Courier Prime', monospace" }}>
-                        <span className="sm:hidden">Ett bildarkiv från öppna källor.</span>
-                        <span className="hidden sm:inline">Fotografier med koppling till Kungliga Tekniska Högskolan, från Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Drawer front lip — thin darker band at the bottom that the folder tabs peek up behind */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute left-0 right-0 bottom-0 h-[6px]"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.45) 60%, rgba(0,0,0,0.75) 100%)",
-              }}
-            />
+                <span className="sm:hidden">Ett bildarkiv från öppna källor.</span>
+                <span className="hidden sm:inline">Bilder från Alvin, Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan & Wikimedia.</span>
+              </p>
+            )}
           </div>
         </div>
 
