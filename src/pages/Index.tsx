@@ -151,35 +151,33 @@ const Index = () => {
       />
       <header className="shrink-0 relative z-20">
         {/* Photographic archive cabinet drawer — uses a real generated photo as the backdrop.
-            The brass label holder visible in the photo is positioned roughly center-bottom,
-            so we place the title text on top of it using absolute positioning. */}
+            The brass label holder is centered around 50% horizontally and ~58% vertically.
+            We use `contain`-like sizing on desktop so the entire label is always visible. */}
         <div
           className={`relative w-full overflow-hidden transition-[height] duration-300`}
           style={{
-            // Aspect ratio of the source image is 1920x1080 (~16:9). We constrain by height
-            // so the cabinet stays a consistent visual band regardless of viewport width.
-            height: headerShrunk ? "120px" : "200px",
+            height: headerShrunk ? "110px" : "180px",
             backgroundImage: `url(${archiveCabinetHeader})`,
+            // `cover` keeps the photo filling the band; center positioning keeps the label centred.
             backgroundSize: "cover",
-            // Center horizontally; bias vertically so the brass label stays visible
-            backgroundPosition: "center 60%",
+            backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
             boxShadow: "0 8px 18px rgba(0, 0, 0, 0.55), inset 0 -1px 0 rgba(0, 0, 0, 0.7)",
           }}
         >
-          {/* Subtle dark overlay so the white control buttons stay readable on lighter areas of the photo */}
+          {/* Subtle top/bottom darkening so overlaid controls stay readable on lighter areas */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.05) 35%, rgba(0,0,0,0.0) 60%, rgba(0,0,0,0.25) 100%)",
+                "linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.10) 28%, rgba(0,0,0,0.0) 55%, rgba(0,0,0,0.30) 100%)",
             }}
           />
 
           {/* Top control row: search + admin buttons (overlay on photo) */}
-          <div className="absolute top-0 left-0 right-0 z-10 px-3 sm:px-6 lg:px-8 pt-3 sm:pt-4">
-            <div className="flex items-center justify-end gap-2">
+          <div className="absolute top-0 left-0 right-0 z-10 px-3 sm:px-6 lg:px-8 pt-2 sm:pt-3">
+            <div className="flex items-center justify-end gap-2 flex-wrap">
               <SearchPalette
                 year={year}
                 reopenSignal={reopenSearchSignal}
@@ -240,19 +238,18 @@ const Index = () => {
           </div>
 
           {/* Title positioned over the brass label in the photograph.
-              In the source image the brass label sits roughly at horizontal center,
-              vertically around 55-70% of the image height. */}
+              In the source image the brass label sits at horizontal center,
+              vertically around 58% of the image height, ~32% wide. */}
           <div
-            className="absolute left-1/2 -translate-x-1/2 z-10 text-center"
+            className="absolute left-1/2 z-10 text-center px-2"
             style={{
-              top: headerShrunk ? "50%" : "55%",
+              top: "58%",
               transform: "translate(-50%, -50%)",
-              // Width matches the visible brass label area in the photo (~28% of image width)
-              width: headerShrunk ? "min(60vw, 280px)" : "min(70vw, 420px)",
+              width: headerShrunk ? "min(70vw, 260px)" : "min(60vw, 360px)",
             }}
           >
             <h1
-              className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-xs sm:text-base" : "text-sm sm:text-xl"}`}
+              className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-sm sm:text-base" : "text-base sm:text-lg md:text-xl"}`}
               style={{
                 color: "#3a2810",
                 fontWeight: 700,
@@ -262,11 +259,11 @@ const Index = () => {
             </h1>
             {!headerShrunk && (
               <p
-                className="mt-0.5 sm:mt-1 text-[8px] sm:text-[10px] leading-tight"
+                className="mt-1 text-[9px] sm:text-[10px] leading-tight"
                 style={{ color: "#5a3f18", fontFamily: "'Courier Prime', monospace" }}
               >
                 <span className="sm:hidden">Ett bildarkiv från öppna källor.</span>
-                <span className="hidden sm:inline">Bilder från Alvin, Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan & Wikimedia.</span>
+                <span className="hidden sm:inline">Bilder från Alvin, Stadsmuseet, DigitaltMuseum, Europeana m.fl.</span>
               </p>
             )}
           </div>
