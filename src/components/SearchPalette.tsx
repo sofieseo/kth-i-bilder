@@ -10,6 +10,8 @@ interface SearchPaletteProps {
   onSelect: (photo: UnifiedPhoto, results: UnifiedPhoto[]) => void;
   year?: number;
   reopenSignal?: number;
+  /** When true, render the trigger inputs/buttons in light (white) styling for dark backgrounds */
+  light?: boolean;
 }
 
 function matchesQuery(photo: UnifiedPhoto, q: string): boolean {
