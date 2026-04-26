@@ -156,9 +156,10 @@ const Index = () => {
         <div
           className={`relative w-full overflow-hidden transition-[height] duration-300`}
           style={{
-            height: headerShrunk ? "110px" : "180px",
+            // Taller on desktop so the entire brass label is visible without cropping.
+            // Image is 16:9 — at viewport widths ~1500px the natural height is ~280px.
+            height: headerShrunk ? "110px" : "clamp(180px, 28vw, 320px)",
             backgroundImage: `url(${archiveCabinetHeader})`,
-            // `cover` keeps the photo filling the band; center positioning keeps the label centred.
             backgroundSize: "cover",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
@@ -179,6 +180,7 @@ const Index = () => {
           <div className="absolute top-0 left-0 right-0 z-10 px-3 sm:px-6 lg:px-8 pt-2 sm:pt-3">
             <div className="flex items-center justify-end gap-2 flex-wrap">
               <SearchPalette
+                light
                 year={year}
                 reopenSignal={reopenSearchSignal}
                 onSelect={(photo, results) => {
