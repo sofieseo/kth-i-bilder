@@ -240,14 +240,13 @@ const Index = () => {
           </div>
 
           {/* Title positioned over the brass label in the photograph.
-              In the source image the brass label sits at horizontal center,
-              vertically around 58% of the image height, ~32% wide. */}
+              Brass label sits at horizontal center, ~58% vertically, ~32% wide. */}
           <div
             className="absolute left-1/2 z-10 text-center px-2"
             style={{
               top: "58%",
               transform: "translate(-50%, -50%)",
-              width: headerShrunk ? "min(70vw, 260px)" : "min(60vw, 360px)",
+              width: headerShrunk ? "min(70vw, 260px)" : "min(58vw, 460px)",
             }}
           >
             <h1
@@ -261,11 +260,11 @@ const Index = () => {
             </h1>
             {!headerShrunk && (
               <p
-                className="mt-1 text-[9px] sm:text-[10px] leading-tight"
+                className="mt-1 sm:mt-1.5 text-[8px] sm:text-[10px] md:text-[11px] leading-snug"
                 style={{ color: "#5a3f18", fontFamily: "'Courier Prime', monospace" }}
               >
-                <span className="sm:hidden">Ett bildarkiv från öppna källor.</span>
-                <span className="hidden sm:inline">Bilder från Alvin, Stadsmuseet, DigitaltMuseum, Europeana m.fl.</span>
+                <span className="sm:hidden">Bilder från Alvin, Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan & Wikimedia.</span>
+                <span className="hidden sm:inline">Bilder från Alvin, Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan & Wikimedia.</span>
               </p>
             )}
           </div>
