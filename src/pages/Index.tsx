@@ -285,10 +285,17 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Folder tabs rise up from behind the drawer's front lip — sit on the manilla folder area */}
+        {/* Dark interior of the open cabinet — folder tabs rise up out of the shadow */}
         <div
-          className={`px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "-mt-2 pt-1" : "-mt-3 pt-1"} relative z-10`}
-          style={{ backgroundColor: getArchivePaperBeige().color }}
+          className={`relative px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-3 pb-0" : "pt-5 pb-0"} z-10`}
+          style={{
+            // Deep shadow inside the drawer — almost black, with a subtle gradient suggesting depth
+            background:
+              "linear-gradient(180deg, #050403 0%, #0a0806 40%, #110d08 80%, #1a1410 100%)",
+            boxShadow:
+              // Strong inner shadow at the top — the drawer's front lip casts a shadow down into the interior
+              "inset 0 12px 18px -6px rgba(0, 0, 0, 0.85), inset 0 2px 4px rgba(0, 0, 0, 0.95)",
+          }}
         >
           <ArchiveTabs year={year} onChange={handleYearChange} compact={headerShrunk} />
         </div>
