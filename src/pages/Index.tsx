@@ -238,19 +238,18 @@ const Index = () => {
           </div>
 
           {/* Title positioned over the brass label in the photograph.
-              In the source image the brass label sits roughly at horizontal center,
-              vertically around 55-70% of the image height. */}
+              In the source image the brass label sits at horizontal center,
+              vertically around 58% of the image height, ~32% wide. */}
           <div
-            className="absolute left-1/2 -translate-x-1/2 z-10 text-center"
+            className="absolute left-1/2 z-10 text-center px-2"
             style={{
-              top: headerShrunk ? "50%" : "55%",
+              top: "58%",
               transform: "translate(-50%, -50%)",
-              // Width matches the visible brass label area in the photo (~28% of image width)
-              width: headerShrunk ? "min(60vw, 280px)" : "min(70vw, 420px)",
+              width: headerShrunk ? "min(70vw, 260px)" : "min(60vw, 360px)",
             }}
           >
             <h1
-              className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-xs sm:text-base" : "text-sm sm:text-xl"}`}
+              className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-sm sm:text-base" : "text-base sm:text-lg md:text-xl"}`}
               style={{
                 color: "#3a2810",
                 fontWeight: 700,
@@ -260,11 +259,11 @@ const Index = () => {
             </h1>
             {!headerShrunk && (
               <p
-                className="mt-0.5 sm:mt-1 text-[8px] sm:text-[10px] leading-tight"
+                className="mt-1 text-[9px] sm:text-[10px] leading-tight"
                 style={{ color: "#5a3f18", fontFamily: "'Courier Prime', monospace" }}
               >
                 <span className="sm:hidden">Ett bildarkiv från öppna källor.</span>
-                <span className="hidden sm:inline">Bilder från Alvin, Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan & Wikimedia.</span>
+                <span className="hidden sm:inline">Bilder från Alvin, Stadsmuseet, DigitaltMuseum, Europeana m.fl.</span>
               </p>
             )}
           </div>
