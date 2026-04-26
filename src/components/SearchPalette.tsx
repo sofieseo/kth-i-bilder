@@ -37,7 +37,7 @@ function matchesQuery(photo: UnifiedPhoto, q: string): boolean {
     .every((word) => haystack.includes(word));
 }
 
-export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPaletteProps) {
+export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false }: SearchPaletteProps) {
   const [open, setOpen] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
   const [query, setQuery] = useState("");
