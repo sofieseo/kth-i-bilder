@@ -156,9 +156,10 @@ const Index = () => {
         <div
           className={`relative w-full overflow-hidden transition-[height] duration-300`}
           style={{
-            height: headerShrunk ? "110px" : "180px",
+            // Taller on desktop so the entire brass label is visible without cropping.
+            // Image is 16:9 — at viewport widths ~1500px the natural height is ~280px.
+            height: headerShrunk ? "110px" : "clamp(180px, 28vw, 320px)",
             backgroundImage: `url(${archiveCabinetHeader})`,
-            // `cover` keeps the photo filling the band; center positioning keeps the label centred.
             backgroundSize: "cover",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
@@ -179,6 +180,7 @@ const Index = () => {
           <div className="absolute top-0 left-0 right-0 z-10 px-3 sm:px-6 lg:px-8 pt-2 sm:pt-3">
             <div className="flex items-center justify-end gap-2 flex-wrap">
               <SearchPalette
+                light
                 year={year}
                 reopenSignal={reopenSearchSignal}
                 onSelect={(photo, results) => {
@@ -238,14 +240,13 @@ const Index = () => {
           </div>
 
           {/* Title positioned over the brass label in the photograph.
-              In the source image the brass label sits at horizontal center,
-              vertically around 58% of the image height, ~32% wide. */}
+              Brass label sits at horizontal center, ~58% vertically, ~32% wide. */}
           <div
             className="absolute left-1/2 z-10 text-center px-2"
             style={{
               top: "58%",
               transform: "translate(-50%, -50%)",
-              width: headerShrunk ? "min(70vw, 260px)" : "min(60vw, 360px)",
+              width: headerShrunk ? "min(70vw, 260px)" : "min(58vw, 460px)",
             }}
           >
             <h1
@@ -259,11 +260,11 @@ const Index = () => {
             </h1>
             {!headerShrunk && (
               <p
-                className="mt-1 text-[9px] sm:text-[10px] leading-tight"
+                className="mt-1 sm:mt-1.5 text-[8px] sm:text-[10px] md:text-[11px] leading-snug"
                 style={{ color: "#5a3f18", fontFamily: "'Courier Prime', monospace" }}
               >
-                <span className="sm:hidden">Ett bildarkiv från öppna källor.</span>
-                <span className="hidden sm:inline">Bilder från Alvin, Stadsmuseet, DigitaltMuseum, Europeana m.fl.</span>
+                <span className="sm:hidden">Bilder från Alvin, Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan & Wikimedia.</span>
+                <span className="hidden sm:inline">Bilder från Alvin, Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan & Wikimedia.</span>
               </p>
             )}
           </div>

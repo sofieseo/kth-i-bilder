@@ -10,6 +10,8 @@ interface SearchPaletteProps {
   onSelect: (photo: UnifiedPhoto, results: UnifiedPhoto[]) => void;
   year?: number;
   reopenSignal?: number;
+  /** When true, render the trigger inputs/buttons in light (white) styling for dark backgrounds */
+  light?: boolean;
 }
 
 function matchesQuery(photo: UnifiedPhoto, q: string): boolean {
@@ -35,7 +37,7 @@ function matchesQuery(photo: UnifiedPhoto, q: string): boolean {
     .every((word) => haystack.includes(word));
 }
 
-export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPaletteProps) {
+export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false }: SearchPaletteProps) {
   const [open, setOpen] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -124,6 +126,16 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
   };
 
   const inkTextStyle = { color: "#1a1208", fontFamily: "'Courier Prime', monospace" };
+  // Trigger styling – switches to white-on-transparent when `light` is set so the controls
+  // stay readable on dark photographic backdrops (e.g. the green archive cabinet header).
+  const triggerStyle = light
+    ? {
+        color: "#ffffff",
+        fontFamily: "'Courier Prime', monospace",
+        borderColor: "rgba(255,255,255,0.7)",
+        backgroundColor: "rgba(0,0,0,0.35)",
+      }
+    : inkTextStyle;
 
   return (
     <>
@@ -131,7 +143,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
         <button
           onClick={() => setOpen(true)}
           className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-          style={{ color: "#1a1208", fontFamily: "'Courier Prime', monospace" }}
+          style={triggerStyle}
           aria-label="Sök bland bilder (Ctrl+K)"
         >
           <Search className="h-3.5 w-3.5" />
@@ -141,7 +153,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
           type="button"
           onClick={() => setInfoOpen(true)}
           className="ink-border flex h-8 w-8 shrink-0 items-center justify-center text-xs font-bold transition-opacity hover:opacity-80"
-          style={inkTextStyle}
+          style={triggerStyle}
           aria-label="Information om KTH i bilder"
         >
           i
@@ -151,12 +163,12 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
       <div className="hidden sm:flex sm:items-center sm:gap-2">
         <label
           className="ink-border flex h-10 w-64 items-center gap-2 px-3 text-xs transition-colors lg:w-80"
-          style={inkTextStyle}
+          style={triggerStyle}
         >
-          <Search className="h-4 w-4 shrink-0 opacity-70" />
+          <Search className="h-4 w-4 shrink-0 opacity-80" />
           <input
-            className="h-full min-w-0 flex-1 bg-transparent uppercase tracking-[0.12em] outline-none placeholder:text-black/35"
-            style={inkTextStyle}
+            className={`h-full min-w-0 flex-1 bg-transparent uppercase tracking-[0.12em] outline-none ${light ? "placeholder:text-white/55" : "placeholder:text-black/35"}`}
+            style={triggerStyle}
             placeholder="Skriv sökord"
             value={query}
             onFocus={() => {
@@ -173,7 +185,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal }: SearchPalett
           type="button"
           onClick={() => setInfoOpen(true)}
           className="ink-border flex h-10 w-10 shrink-0 items-center justify-center text-sm font-bold transition-opacity hover:opacity-80"
-          style={inkTextStyle}
+          style={triggerStyle}
           aria-label="Information om KTH i bilder"
         >
           i
