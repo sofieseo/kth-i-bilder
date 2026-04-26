@@ -126,6 +126,16 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
   };
 
   const inkTextStyle = { color: "#1a1208", fontFamily: "'Courier Prime', monospace" };
+  // Trigger styling – switches to white-on-transparent when `light` is set so the controls
+  // stay readable on dark photographic backdrops (e.g. the green archive cabinet header).
+  const triggerStyle = light
+    ? {
+        color: "#ffffff",
+        fontFamily: "'Courier Prime', monospace",
+        borderColor: "rgba(255,255,255,0.7)",
+        backgroundColor: "rgba(0,0,0,0.35)",
+      }
+    : inkTextStyle;
 
   return (
     <>
