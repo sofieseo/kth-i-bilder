@@ -126,16 +126,34 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
   };
 
   const inkTextStyle = { color: "#1a1208", fontFamily: "'Courier Prime', monospace" };
-  // Trigger styling – switches to white-on-transparent when `light` is set so the controls
-  // stay readable on dark photographic backdrops (e.g. the green archive cabinet header).
-  const triggerStyle = light
-    ? {
-        color: "#ffffff",
-        fontFamily: "'Courier Prime', monospace",
-        borderColor: "rgba(255,255,255,0.7)",
-        backgroundColor: "rgba(0,0,0,0.35)",
-      }
-    : inkTextStyle;
+  const triggerStyle = inkTextStyle;
+
+  // === Dymo label tape styling ===
+  // Embossed dark plastic strip with raised white sans-serif caps. Used on the
+  // archive cabinet header so the search/info controls feel like a real label
+  // someone slapped onto the drawer.
+  const dymoBase: React.CSSProperties = {
+    // Slight vertical gradient mimics the convex curl of a plastic Dymo strip
+    background:
+      "linear-gradient(180deg, #1f1f1f 0%, #0a0a0a 45%, #161616 100%)",
+    color: "#f5f5f5",
+    fontFamily: "'Arial Narrow', 'Helvetica Neue', Arial, sans-serif",
+    fontWeight: 700,
+    letterSpacing: "0.22em",
+    // Embossed letter effect: bright top edge + dark bottom edge
+    textShadow:
+      "0 -1px 0 rgba(255,255,255,0.55), 0 1px 0 rgba(0,0,0,0.95), 0 0 1px rgba(255,255,255,0.25)",
+    // Plastic strip: subtle outer rim + inner highlight along the top
+    boxShadow:
+      "0 2px 4px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.6)",
+    border: "none",
+    borderRadius: 0,
+  };
+  const dymoButtonStyle: React.CSSProperties = { ...dymoBase };
+  const dymoInputStyle: React.CSSProperties = {
+    ...dymoBase,
+    // input children should not inherit text-shadow on the caret
+  };
 
   return (
     <>
