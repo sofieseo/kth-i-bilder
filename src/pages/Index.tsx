@@ -16,6 +16,8 @@ import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { getPaperStyle, getArchivePaperBeige } from "@/lib/paperColor";
 import archiveCabinetHeader from "@/assets/archive-cabinet-header.jpg";
+import cabinetInteriorTexture from "@/assets/cabinet-interior-shadow.jpg";
+import manilaFolderTexture from "@/assets/manila-folder-texture.jpg";
 
 const Index = () => {
   const { year, results, loading, handleYearChange } = usePhotoFetch(0);
@@ -270,19 +272,34 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Dark interior of the open cabinet — folder tabs rise up out of the shadow */}
+        {/* Dark interior of the open cabinet — folder tabs rise up out of the shadow.
+            Background is a photorealistic dark leather/wood texture that scales fluidly
+            across viewports while a strong top inner shadow keeps the "drawer lip" feel. */}
         <div
           className={`relative px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-3 pb-0" : "pt-5 pb-0"} z-10`}
           style={{
-            // Deep shadow inside the drawer — almost black, with a subtle gradient suggesting depth
-            background:
-              "linear-gradient(180deg, #050403 0%, #0a0806 40%, #110d08 80%, #1a1410 100%)",
+            backgroundImage: `url(${cabinetInteriorTexture})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+            backgroundRepeat: "no-repeat",
+            backgroundColor: "#0a0806",
             boxShadow:
               // Strong inner shadow at the top — the drawer's front lip casts a shadow down into the interior
               "inset 0 12px 18px -6px rgba(0, 0, 0, 0.85), inset 0 2px 4px rgba(0, 0, 0, 0.95)",
           }}
         >
-          <ArchiveTabs year={year} onChange={handleYearChange} compact={headerShrunk} />
+          {/* Darkening overlay so the texture never overpowers the tabs */}
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.55) 100%)",
+            }}
+          />
+          <div className="relative">
+            <ArchiveTabs year={year} onChange={handleYearChange} compact={headerShrunk} />
+          </div>
         </div>
       </header>
 
@@ -290,23 +307,17 @@ const Index = () => {
         className="flex flex-col flex-1 min-h-0 overflow-hidden relative"
         style={{ backgroundColor: getArchivePaperBeige().color }}
       >
-        {/* Photorealistic manilla folder texture inside the open folder area */}
+        {/* Photorealistic manilla folder paper texture — fills the open folder area
+            and stretches responsively across all viewports. */}
         <div
           aria-hidden
           className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage:
-              "repeating-linear-gradient(90deg, rgba(80, 55, 20, 0.05) 0 0.5px, transparent 0.5px 3px), " +
-              "repeating-linear-gradient(0deg, rgba(80, 55, 20, 0.03) 0 0.5px, transparent 0.5px 5px), " +
-              "radial-gradient(ellipse at 12% 18%, rgba(160, 115, 50, 0.10), transparent 45%), " +
-              "radial-gradient(ellipse at 88% 22%, rgba(120, 80, 30, 0.08), transparent 50%), " +
-              "radial-gradient(ellipse at 22% 78%, rgba(120, 80, 30, 0.07), transparent 55%), " +
-              "radial-gradient(ellipse at 78% 82%, rgba(160, 115, 50, 0.09), transparent 50%), " +
-              "radial-gradient(circle at 17% 34%, rgba(70, 45, 15, 0.18) 0.6px, transparent 1.4px), " +
-              "radial-gradient(circle at 63% 21%, rgba(70, 45, 15, 0.16) 0.5px, transparent 1.2px), " +
-              "radial-gradient(circle at 41% 67%, rgba(70, 45, 15, 0.15) 0.7px, transparent 1.5px), " +
-              "radial-gradient(circle at 84% 56%, rgba(70, 45, 15, 0.14) 0.5px, transparent 1.2px), " +
-              "radial-gradient(ellipse 120% 90% at 50% 50%, transparent 60%, rgba(60, 40, 15, 0.18) 100%)",
+            backgroundImage: `url(${manilaFolderTexture})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+            backgroundRepeat: "no-repeat",
+            opacity: 0.85,
             mixBlendMode: "multiply",
           }}
         />
