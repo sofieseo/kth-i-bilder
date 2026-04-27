@@ -126,34 +126,52 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
   };
 
   const inkTextStyle = { color: "#1a1208", fontFamily: "'Courier Prime', monospace" };
-  // Trigger styling – switches to white-on-transparent when `light` is set so the controls
-  // stay readable on dark photographic backdrops (e.g. the green archive cabinet header).
-  const triggerStyle = light
-    ? {
-        color: "#ffffff",
-        fontFamily: "'Courier Prime', monospace",
-        borderColor: "rgba(255,255,255,0.7)",
-        backgroundColor: "rgba(0,0,0,0.35)",
-      }
-    : inkTextStyle;
+  const triggerStyle = inkTextStyle;
+
+  // === Dymo label tape styling ===
+  // Embossed dark plastic strip with raised white sans-serif caps. Used on the
+  // archive cabinet header so the search/info controls feel like a real label
+  // someone slapped onto the drawer.
+  const dymoBase: React.CSSProperties = {
+    // Slight vertical gradient mimics the convex curl of a plastic Dymo strip
+    background:
+      "linear-gradient(180deg, #1f1f1f 0%, #0a0a0a 45%, #161616 100%)",
+    color: "#f5f5f5",
+    fontFamily: "'Arial Narrow', 'Helvetica Neue', Arial, sans-serif",
+    fontWeight: 700,
+    letterSpacing: "0.22em",
+    // Embossed letter effect: bright top edge + dark bottom edge
+    textShadow:
+      "0 -1px 0 rgba(255,255,255,0.55), 0 1px 0 rgba(0,0,0,0.95), 0 0 1px rgba(255,255,255,0.25)",
+    // Plastic strip: subtle outer rim + inner highlight along the top
+    boxShadow:
+      "0 2px 4px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.6)",
+    border: "none",
+    borderRadius: 0,
+  };
+  const dymoButtonStyle: React.CSSProperties = { ...dymoBase };
+  const dymoInputStyle: React.CSSProperties = {
+    ...dymoBase,
+    // input children should not inherit text-shadow on the caret
+  };
 
   return (
     <>
       <div className="flex items-center gap-2 sm:hidden">
         <button
           onClick={() => setOpen(true)}
-          className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-          style={triggerStyle}
+          className={light ? "flex items-center gap-1.5 px-3 py-1.5 text-[11px] uppercase transition-transform hover:-translate-y-px" : "ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"}
+          style={light ? dymoButtonStyle : triggerStyle}
           aria-label="Sök bland bilder (Ctrl+K)"
         >
           <Search className="h-3.5 w-3.5" />
-          <span>Sök</span>
+          <span>SÖK</span>
         </button>
         <button
           type="button"
           onClick={() => setInfoOpen(true)}
-          className="ink-border flex h-8 w-8 shrink-0 items-center justify-center text-xs font-bold transition-opacity hover:opacity-80"
-          style={triggerStyle}
+          className={light ? "flex h-8 w-8 shrink-0 items-center justify-center text-xs uppercase transition-transform hover:-translate-y-px" : "ink-border flex h-8 w-8 shrink-0 items-center justify-center text-xs font-bold transition-opacity hover:opacity-80"}
+          style={light ? dymoButtonStyle : triggerStyle}
           aria-label="Information om KTH i bilder"
         >
           i
@@ -162,14 +180,14 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
 
       <div className="hidden sm:flex sm:items-center sm:gap-2">
         <label
-          className="ink-border flex h-10 w-64 items-center gap-2 px-3 text-xs transition-colors lg:w-80"
-          style={triggerStyle}
+          className={light ? "flex h-9 w-64 items-center gap-2 px-3 text-[11px] uppercase transition-transform lg:w-80" : "ink-border flex h-10 w-64 items-center gap-2 px-3 text-xs transition-colors lg:w-80"}
+          style={light ? dymoInputStyle : triggerStyle}
         >
           <Search className="h-4 w-4 shrink-0 opacity-80" />
           <input
-            className={`h-full min-w-0 flex-1 bg-transparent uppercase tracking-[0.12em] outline-none ${light ? "placeholder:text-white/55" : "placeholder:text-black/35"}`}
-            style={triggerStyle}
-            placeholder="Skriv sökord"
+            className={`h-full min-w-0 flex-1 bg-transparent uppercase outline-none ${light ? "tracking-[0.22em] placeholder:text-white/45" : "tracking-[0.12em] placeholder:text-black/35"}`}
+            style={light ? { color: "#f5f5f5", fontFamily: "'Arial Narrow', 'Helvetica Neue', Arial, sans-serif", fontWeight: 700, letterSpacing: "0.22em", textShadow: "0 -1px 0 rgba(255,255,255,0.55), 0 1px 0 rgba(0,0,0,0.95)" } : triggerStyle}
+            placeholder="SKRIV SÖKORD"
             value={query}
             onFocus={() => {
               if (query.trim()) setOpen(true);
@@ -184,8 +202,8 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
         <button
           type="button"
           onClick={() => setInfoOpen(true)}
-          className="ink-border flex h-10 w-10 shrink-0 items-center justify-center text-sm font-bold transition-opacity hover:opacity-80"
-          style={triggerStyle}
+          className={light ? "flex h-9 w-9 shrink-0 items-center justify-center text-sm uppercase transition-transform hover:-translate-y-px" : "ink-border flex h-10 w-10 shrink-0 items-center justify-center text-sm font-bold transition-opacity hover:opacity-80"}
+          style={light ? dymoButtonStyle : triggerStyle}
           aria-label="Information om KTH i bilder"
         >
           i
