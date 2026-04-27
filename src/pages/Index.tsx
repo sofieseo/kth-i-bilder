@@ -177,67 +177,85 @@ const Index = () => {
             }}
           />
 
-          {/* Top control row: search + admin buttons (overlay on photo) */}
-          <div className="absolute top-0 left-0 right-0 z-10 px-3 sm:px-6 lg:px-8 pt-2 sm:pt-3">
-            <div className="flex items-center justify-end gap-2 flex-wrap">
-              <SearchPalette
-                light
-                year={year}
-                reopenSignal={reopenSearchSignal}
-                onSelect={(photo, results) => {
-                  setSearchNavSet(results);
-                  setSearchSelectedPhoto(photo);
-                }}
-              />
-              {wantsAdmin && !isAdmin && (
-                <button
-                  onClick={() => setShowLogin(true)}
-                  className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-                  style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
-                >
-                  <LogIn className="h-3.5 w-3.5" />
-                  Logga in
-                </button>
-              )}
-              {isAdmin && (
-                <>
+          {/* Dymo label strip — sök & info "klistrade" på lådans övre högra hörn.
+              Lätt rotation ger känslan av en handpåklistrad etikett. Admin-knapparna
+              behåller sin tidigare stil och ligger på en egen rad ovanför. */}
+          {(wantsAdmin || isAdmin) && (
+            <div className="absolute top-0 left-0 right-0 z-10 px-3 sm:px-6 lg:px-8 pt-2 sm:pt-3">
+              <div className="flex items-center justify-end gap-2 flex-wrap">
+                {wantsAdmin && !isAdmin && (
                   <button
-                    onClick={() => setShowStats(true)}
+                    onClick={() => setShowLogin(true)}
                     className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
                     style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
                   >
-                    <BarChart3 className="h-3.5 w-3.5" />
-                    Statistik
+                    <LogIn className="h-3.5 w-3.5" />
+                    Logga in
                   </button>
-                  <button
-                    onClick={() => setShowHidden(true)}
-                    className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-                    style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
-                  >
-                    <EyeOff className="h-3.5 w-3.5" />
-                    Dolda ({hiddenIds.size})
-                  </button>
-                  <button
-                    onClick={handleClearCache}
-                    disabled={clearingCache}
-                    title={year === 0 ? "Rensa cache för odaterade" : `Rensa cache för ${Math.floor(year / 10) * 10}-talet`}
-                    className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors disabled:opacity-50"
-                    style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
-                  >
-                    <RefreshCw className={`h-3.5 w-3.5 ${clearingCache ? "animate-spin" : ""}`} />
-                    Rensa cache
-                  </button>
-                  <button
-                    onClick={handleLogout}
-                    className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-                    style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
-                  >
-                    <LogOut className="h-3.5 w-3.5" />
-                    Logga ut
-                  </button>
-                </>
-              )}
+                )}
+                {isAdmin && (
+                  <>
+                    <button
+                      onClick={() => setShowStats(true)}
+                      className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+                      style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
+                    >
+                      <BarChart3 className="h-3.5 w-3.5" />
+                      Statistik
+                    </button>
+                    <button
+                      onClick={() => setShowHidden(true)}
+                      className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+                      style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
+                    >
+                      <EyeOff className="h-3.5 w-3.5" />
+                      Dolda ({hiddenIds.size})
+                    </button>
+                    <button
+                      onClick={handleClearCache}
+                      disabled={clearingCache}
+                      title={year === 0 ? "Rensa cache för odaterade" : `Rensa cache för ${Math.floor(year / 10) * 10}-talet`}
+                      className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors disabled:opacity-50"
+                      style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
+                    >
+                      <RefreshCw className={`h-3.5 w-3.5 ${clearingCache ? "animate-spin" : ""}`} />
+                      Rensa cache
+                    </button>
+                    <button
+                      onClick={handleLogout}
+                      className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+                      style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
+                    >
+                      <LogOut className="h-3.5 w-3.5" />
+                      Logga ut
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
+          )}
+
+          {/* Dymo-remsa: sök + info, klistrad på övre högra delen av lådan.
+              Lite rotation ger en autentisk "tejpad" känsla. Placeringen är
+              identisk på mobil och desktop (top: 8-12px, höger). */}
+          <div
+            className="absolute z-20"
+            style={{
+              top: (wantsAdmin || isAdmin) ? "44px" : "10px",
+              right: "12px",
+              transform: "rotate(-1.2deg)",
+              transformOrigin: "top right",
+            }}
+          >
+            <SearchPalette
+              light
+              year={year}
+              reopenSignal={reopenSearchSignal}
+              onSelect={(photo, results) => {
+                setSearchNavSet(results);
+                setSearchSelectedPhoto(photo);
+              }}
+            />
           </div>
 
           {/* Title positioned over the brass label in the photograph.
