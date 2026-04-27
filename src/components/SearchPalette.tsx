@@ -5,6 +5,8 @@ import { fetchAllPhotosForSearch } from "@/data/fetchAllPhotosForSearch";
 import type { UnifiedPhoto } from "@/data/types";
 import { getHeaderPaperStyle } from "@/lib/paperColor";
 import { SearchResultsList } from "./SearchResultsList";
+import dymoSok from "@/assets/dymo-sok.png";
+import dymoInfo from "@/assets/dymo-info.png";
 
 interface SearchPaletteProps {
   onSelect: (photo: UnifiedPhoto, results: UnifiedPhoto[]) => void;
@@ -155,60 +157,87 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
     // input children should not inherit text-shadow on the caret
   };
 
+  // Drop-shadow used for both Dymo image stickers in light mode
+  const dymoShadow = "drop-shadow(0 2px 3px rgba(0,0,0,0.55)) drop-shadow(0 0 1px rgba(0,0,0,0.4))";
+
   return (
     <>
-      <div className="flex items-center gap-2 sm:hidden">
-        <button
-          onClick={() => setOpen(true)}
-          className={light ? "flex items-center gap-1.5 px-3 py-1.5 text-[11px] uppercase transition-transform hover:-translate-y-px" : "ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"}
-          style={light ? dymoButtonStyle : triggerStyle}
-          aria-label="Sök bland bilder (Ctrl+K)"
-        >
-          <Search className="h-3.5 w-3.5" />
-          <span>SÖK</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => setInfoOpen(true)}
-          className={light ? "flex h-8 w-8 shrink-0 items-center justify-center text-xs uppercase transition-transform hover:-translate-y-px" : "ink-border flex h-8 w-8 shrink-0 items-center justify-center text-xs font-bold transition-opacity hover:opacity-80"}
-          style={light ? dymoButtonStyle : triggerStyle}
-          aria-label="Information om KTH i bilder"
-        >
-          i
-        </button>
-      </div>
+      {light ? (
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setOpen(true)}
+            aria-label="Sök bland bilder (Ctrl+K)"
+            className="block transition-transform hover:-translate-y-px active:translate-y-0"
+            style={{ filter: dymoShadow }}
+          >
+            <img src={dymoSok} alt="" className="block h-7 w-auto sm:h-9" draggable={false} />
+          </button>
+          <button
+            type="button"
+            onClick={() => setInfoOpen(true)}
+            aria-label="Information om KTH i bilder"
+            className="block transition-transform hover:-translate-y-px active:translate-y-0"
+            style={{ filter: dymoShadow }}
+          >
+            <img src={dymoInfo} alt="" className="block h-7 w-7 sm:h-9 sm:w-9" draggable={false} />
+          </button>
+        </div>
+      ) : (
+        <>
+          <div className="flex items-center gap-2 sm:hidden">
+            <button
+              onClick={() => setOpen(true)}
+              className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+              style={triggerStyle}
+              aria-label="Sök bland bilder (Ctrl+K)"
+            >
+              <Search className="h-3.5 w-3.5" />
+              <span>Sök</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setInfoOpen(true)}
+              className="ink-border flex h-8 w-8 shrink-0 items-center justify-center text-xs font-bold transition-opacity hover:opacity-80"
+              style={triggerStyle}
+              aria-label="Information om KTH i bilder"
+            >
+              i
+            </button>
+          </div>
 
-      <div className="hidden sm:flex sm:items-center sm:gap-2">
-        <label
-          className={light ? "flex h-9 w-64 items-center gap-2 px-3 text-[11px] uppercase transition-transform lg:w-80" : "ink-border flex h-10 w-64 items-center gap-2 px-3 text-xs transition-colors lg:w-80"}
-          style={light ? dymoInputStyle : triggerStyle}
-        >
-          <Search className="h-4 w-4 shrink-0 opacity-80" />
-          <input
-            className={`h-full min-w-0 flex-1 bg-transparent uppercase outline-none ${light ? "tracking-[0.22em] placeholder:text-white/45" : "tracking-[0.12em] placeholder:text-black/35"}`}
-            style={light ? { color: "#f5f5f5", fontFamily: "'Arial Narrow', 'Helvetica Neue', Arial, sans-serif", fontWeight: 700, letterSpacing: "0.22em", textShadow: "0 -1px 0 rgba(255,255,255,0.55), 0 1px 0 rgba(0,0,0,0.95)" } : triggerStyle}
-            placeholder="SKRIV SÖKORD"
-            value={query}
-            onFocus={() => {
-              if (query.trim()) setOpen(true);
-            }}
-            onChange={(e) => {
-              setQuery(e.target.value);
-              setOpen(true);
-            }}
-            aria-label="Sök bland bilder"
-          />
-        </label>
-        <button
-          type="button"
-          onClick={() => setInfoOpen(true)}
-          className={light ? "flex h-9 w-9 shrink-0 items-center justify-center text-sm uppercase transition-transform hover:-translate-y-px" : "ink-border flex h-10 w-10 shrink-0 items-center justify-center text-sm font-bold transition-opacity hover:opacity-80"}
-          style={light ? dymoButtonStyle : triggerStyle}
-          aria-label="Information om KTH i bilder"
-        >
-          i
-        </button>
-      </div>
+          <div className="hidden sm:flex sm:items-center sm:gap-2">
+            <label
+              className="ink-border flex h-10 w-64 items-center gap-2 px-3 text-xs transition-colors lg:w-80"
+              style={triggerStyle}
+            >
+              <Search className="h-4 w-4 shrink-0 opacity-80" />
+              <input
+                className="h-full min-w-0 flex-1 bg-transparent uppercase tracking-[0.12em] outline-none placeholder:text-black/35"
+                style={triggerStyle}
+                placeholder="Skriv sökord"
+                value={query}
+                onFocus={() => {
+                  if (query.trim()) setOpen(true);
+                }}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setOpen(true);
+                }}
+                aria-label="Sök bland bilder"
+              />
+            </label>
+            <button
+              type="button"
+              onClick={() => setInfoOpen(true)}
+              className="ink-border flex h-10 w-10 shrink-0 items-center justify-center text-sm font-bold transition-opacity hover:opacity-80"
+              style={triggerStyle}
+              aria-label="Information om KTH i bilder"
+            >
+              i
+            </button>
+          </div>
+        </>
+      )}
 
       <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogContent
