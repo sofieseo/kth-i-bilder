@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { getArchivePaperBeige } from "@/lib/paperColor";
+import manilaFolderTexture from "@/assets/manila-folder-texture.jpg";
 
 const DECADES: number[] = [0, 1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020];
 
@@ -69,14 +70,18 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
               backgroundColor: tabColor,
+              backgroundImage: `url(${manilaFolderTexture})`,
+              backgroundSize: "180% auto",
+              backgroundPosition: `${(idx * 37) % 100}% ${(idx * 53) % 100}%`,
+              backgroundBlendMode: "multiply",
               color: "#1a1208",
               // Realistic folder tab: only the top-right corner is rounded
               borderTopLeftRadius: "0",
               borderTopRightRadius: "12px 16px",
               // Only top + side borders, no bottom — tab dissolves into the page
-              borderTop: "1px solid rgba(95, 65, 25, 0.38)",
-              borderLeft: "1px solid rgba(95, 65, 25, 0.32)",
-              borderRight: "1px solid rgba(95, 65, 25, 0.38)",
+              borderTop: "1px solid rgba(75, 50, 18, 0.55)",
+              borderLeft: "1px solid rgba(75, 50, 18, 0.45)",
+              borderRight: "1px solid rgba(75, 50, 18, 0.55)",
               borderBottom: "none",
               fontFamily: "'Caveat', cursive",
               opacity: 1,
@@ -84,10 +89,11 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               // Keep bottom edge constant for ALL tabs — active only grows upward
               marginBottom: -12,
               paddingBottom: compact ? 16 : 18,
-              // Only soft side/top shadow — no bottom shadow that would create a seam
+              // Warm amber glow against the black cabinet interior so tabs read as
+              // part of the same manila folder family rather than floating chips.
               boxShadow: isActive
-                ? "0 -2px 6px rgba(60, 40, 15, 0.18), -2px 0 5px rgba(60, 40, 15, 0.12), 2px 0 5px rgba(60, 40, 15, 0.10)"
-                : "0 -1px 5px rgba(60, 40, 15, 0.14), -1px 0 4px rgba(60, 40, 15, 0.09)",
+                ? "0 -3px 10px rgba(205, 145, 70, 0.18), 0 -2px 6px rgba(0, 0, 0, 0.45), -2px 0 6px rgba(0, 0, 0, 0.35), 2px 0 6px rgba(0, 0, 0, 0.30)"
+                : "0 -2px 8px rgba(0, 0, 0, 0.40), -1px 0 5px rgba(0, 0, 0, 0.30), 1px 0 5px rgba(0, 0, 0, 0.25)",
             }}
           >
             <span className="relative z-10">{labelFor(decade)}</span>
