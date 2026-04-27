@@ -157,12 +157,12 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
     // input children should not inherit text-shadow on the caret
   };
 
-  // === Light mode (Dymo image stickers on the cabinet) ===
-  if (light) {
-    // Common drop-shadow so the labels look stuck on the metal
-    const dymoShadow = "drop-shadow(0 2px 3px rgba(0,0,0,0.55)) drop-shadow(0 0 1px rgba(0,0,0,0.4))";
-    return (
-      <>
+  // Drop-shadow used for both Dymo image stickers in light mode
+  const dymoShadow = "drop-shadow(0 2px 3px rgba(0,0,0,0.55)) drop-shadow(0 0 1px rgba(0,0,0,0.4))";
+
+  return (
+    <>
+      {light ? (
         <div className="flex items-center gap-2">
           <button
             onClick={() => setOpen(true)}
@@ -170,12 +170,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
             className="block transition-transform hover:-translate-y-px active:translate-y-0"
             style={{ filter: dymoShadow }}
           >
-            <img
-              src={dymoSok}
-              alt=""
-              className="block h-7 w-auto sm:h-8"
-              draggable={false}
-            />
+            <img src={dymoSok} alt="" className="block h-7 w-auto sm:h-9" draggable={false} />
           </button>
           <button
             type="button"
@@ -184,73 +179,65 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
             className="block transition-transform hover:-translate-y-px active:translate-y-0"
             style={{ filter: dymoShadow }}
           >
-            <img
-              src={dymoInfo}
-              alt=""
-              className="block h-7 w-7 sm:h-8 sm:w-8"
-              draggable={false}
-            />
+            <img src={dymoInfo} alt="" className="block h-7 w-7 sm:h-9 sm:w-9" draggable={false} />
           </button>
         </div>
-        {renderDialogs()}
-      </>
-    );
-  }
+      ) : (
+        <>
+          <div className="flex items-center gap-2 sm:hidden">
+            <button
+              onClick={() => setOpen(true)}
+              className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+              style={triggerStyle}
+              aria-label="Sök bland bilder (Ctrl+K)"
+            >
+              <Search className="h-3.5 w-3.5" />
+              <span>Sök</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setInfoOpen(true)}
+              className="ink-border flex h-8 w-8 shrink-0 items-center justify-center text-xs font-bold transition-opacity hover:opacity-80"
+              style={triggerStyle}
+              aria-label="Information om KTH i bilder"
+            >
+              i
+            </button>
+          </div>
 
-  return (
-    <>
-      <div className="flex items-center gap-2 sm:hidden">
-        <button
-          onClick={() => setOpen(true)}
-          className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-          style={triggerStyle}
-          aria-label="Sök bland bilder (Ctrl+K)"
-        >
-          <Search className="h-3.5 w-3.5" />
-          <span>Sök</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => setInfoOpen(true)}
-          className="ink-border flex h-8 w-8 shrink-0 items-center justify-center text-xs font-bold transition-opacity hover:opacity-80"
-          style={triggerStyle}
-          aria-label="Information om KTH i bilder"
-        >
-          i
-        </button>
-      </div>
-
-      <div className="hidden sm:flex sm:items-center sm:gap-2">
-        <label
-          className="ink-border flex h-10 w-64 items-center gap-2 px-3 text-xs transition-colors lg:w-80"
-          style={triggerStyle}
-        >
-          <Search className="h-4 w-4 shrink-0 opacity-80" />
-          <input
-            className="h-full min-w-0 flex-1 bg-transparent uppercase tracking-[0.12em] outline-none placeholder:text-black/35"
-            style={triggerStyle}
-            placeholder="Skriv sökord"
-            value={query}
-            onFocus={() => {
-              if (query.trim()) setOpen(true);
-            }}
-            onChange={(e) => {
-              setQuery(e.target.value);
-              setOpen(true);
-            }}
-            aria-label="Sök bland bilder"
-          />
-        </label>
-        <button
-          type="button"
-          onClick={() => setInfoOpen(true)}
-          className="ink-border flex h-10 w-10 shrink-0 items-center justify-center text-sm font-bold transition-opacity hover:opacity-80"
-          style={triggerStyle}
-          aria-label="Information om KTH i bilder"
-        >
-          i
-        </button>
-      </div>
+          <div className="hidden sm:flex sm:items-center sm:gap-2">
+            <label
+              className="ink-border flex h-10 w-64 items-center gap-2 px-3 text-xs transition-colors lg:w-80"
+              style={triggerStyle}
+            >
+              <Search className="h-4 w-4 shrink-0 opacity-80" />
+              <input
+                className="h-full min-w-0 flex-1 bg-transparent uppercase tracking-[0.12em] outline-none placeholder:text-black/35"
+                style={triggerStyle}
+                placeholder="Skriv sökord"
+                value={query}
+                onFocus={() => {
+                  if (query.trim()) setOpen(true);
+                }}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setOpen(true);
+                }}
+                aria-label="Sök bland bilder"
+              />
+            </label>
+            <button
+              type="button"
+              onClick={() => setInfoOpen(true)}
+              className="ink-border flex h-10 w-10 shrink-0 items-center justify-center text-sm font-bold transition-opacity hover:opacity-80"
+              style={triggerStyle}
+              aria-label="Information om KTH i bilder"
+            >
+              i
+            </button>
+          </div>
+        </>
+      )}
 
       <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogContent
