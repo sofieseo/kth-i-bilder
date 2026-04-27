@@ -16,7 +16,6 @@ import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { getPaperStyle, getArchivePaperBeige } from "@/lib/paperColor";
 import archiveCabinetHeader from "@/assets/archive-cabinet-header.jpg";
-import cabinetInteriorTexture from "@/assets/cabinet-interior-shadow.jpg";
 import manilaFolderTexture from "@/assets/manila-folder-texture.jpg";
 
 const Index = () => {
