@@ -271,8 +271,8 @@ const Index = () => {
             style={{
               top: "50%",
               transform: "translate(-50%, -50%)",
-              width: headerShrunk ? "min(46vw, 260px)" : "clamp(300px, 31vw, 430px)",
-              maxHeight: headerShrunk ? "58%" : "32%",
+              width: headerShrunk ? "min(38vw, 220px)" : "clamp(300px, 31vw, 430px)",
+              maxHeight: headerShrunk ? "70%" : "32%",
               padding: "0 1%",
               display: "flex",
               flexDirection: "column",
