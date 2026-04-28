@@ -157,17 +157,15 @@ const Index = () => {
         <div
           className={`relative w-full overflow-hidden transition-[height] duration-300`}
           style={{
-            // Image is 1920x1088 (~16:9). We use background-size: 100% 100% so the
-            // ENTIRE drawer (including the silver label holder) is always visible
-            // on every viewport — no cropping. Height scales with viewport width
-            // so the cabinet keeps its natural proportions.
-            height: headerShrunk ? "70px" : "clamp(200px, 32vw, 360px)",
+            // Image is 1920x1088 (~16:9). Expanded: stretch to 100% 100% so the
+            // ENTIRE drawer is visible. Compact: zoom in on the silver label
+            // band only — image scaled to ~450% height with vertical center
+            // pinned on the label holder, so the label is shown WHOLE and large
+            // enough to host the title comfortably on every viewport.
+            height: headerShrunk ? "clamp(74px, 13vw, 110px)" : "clamp(200px, 32vw, 360px)",
             backgroundImage: `url(${archiveCabinetHeader})`,
-            // In compact mode keep natural aspect ratio (100% auto) so the
-            // silver label holder shrinks proportionally instead of being
-            // stretched or zoomed. The drawer becomes a slim band at the top.
-            backgroundSize: headerShrunk ? "100% auto" : "100% 100%",
-            backgroundPosition: headerShrunk ? "center 38%" : "center center",
+            backgroundSize: headerShrunk ? "100% 450%" : "100% 100%",
+            backgroundPosition: headerShrunk ? "center 50%" : "center center",
             backgroundRepeat: "no-repeat",
             backgroundColor: "#7d8a6a",
             boxShadow: "0 8px 18px rgba(0, 0, 0, 0.55), inset 0 -1px 0 rgba(0, 0, 0, 0.7)",
@@ -271,8 +269,11 @@ const Index = () => {
             style={{
               top: "50%",
               transform: "translate(-50%, -50%)",
-              width: headerShrunk ? "min(38vw, 220px)" : "clamp(300px, 31vw, 430px)",
-              maxHeight: headerShrunk ? "70%" : "32%",
+              // In compact mode the image is zoomed in horizontally at 100% width,
+              // so the silver label holder occupies roughly the same fraction of
+              // the viewport as in the expanded view — use the same width logic.
+              width: "clamp(220px, 31vw, 430px)",
+              maxHeight: headerShrunk ? "80%" : "32%",
               padding: "0 1%",
               display: "flex",
               flexDirection: "column",
@@ -281,7 +282,7 @@ const Index = () => {
             }}
           >
             <h1
-              className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-sm sm:text-base" : "text-base sm:text-lg md:text-xl"}`}
+              className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-xs sm:text-sm md:text-base" : "text-base sm:text-lg md:text-xl"}`}
               style={{
                 color: "#2a2418",
                 fontWeight: 700,
