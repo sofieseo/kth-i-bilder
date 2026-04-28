@@ -163,7 +163,10 @@ const Index = () => {
             // so the cabinet keeps its natural proportions.
             height: headerShrunk ? "110px" : "clamp(200px, 32vw, 360px)",
             backgroundImage: `url(${archiveCabinetHeader})`,
-            backgroundSize: "100% 100%",
+            // In compact mode use 'cover' so the silver label keeps its natural
+            // proportions (no vertical stretching). In full mode keep 100% 100%
+            // so the entire drawer face is visible without cropping.
+            backgroundSize: headerShrunk ? "cover" : "100% 100%",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
             backgroundColor: "#7d8a6a",
