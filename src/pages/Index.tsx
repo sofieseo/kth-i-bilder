@@ -238,16 +238,16 @@ const Index = () => {
             </div>
           )}
 
-          {/* Dymo-remsa: sök + info, klistrad på övre vänstra delen av lådan
-              (logisk plats — på den platta målade ytan, inte i någon skarv).
-              Lite rotation ger en autentisk "tejpad" känsla. */}
+          {/* Dymo-remsa: sök + info, klistrad på övre HÖGRA delen av lådans platta
+              metallyta. Vi placerar dem inom drawer-facet (som börjar ~13% från
+              toppen av bilden) så de aldrig sitter på skarven mellan lådorna. */}
           <div
             className="absolute z-20"
             style={{
-              top: (wantsAdmin || isAdmin) ? "44px" : "10px",
-              left: "12px",
-              transform: "rotate(-1.2deg)",
-              transformOrigin: "top left",
+              top: (wantsAdmin || isAdmin) ? "calc(13% + 44px)" : "calc(13% + 12px)",
+              right: "3%",
+              transform: "rotate(1.2deg)",
+              transformOrigin: "top right",
             }}
           >
             <SearchPalette
@@ -266,10 +266,10 @@ const Index = () => {
           <div
             className="absolute left-1/2 z-10 text-center"
             style={{
-              top: "49%",
+              top: "47%",
               transform: "translate(-50%, -50%)",
-              width: headerShrunk ? "min(60vw, 320px)" : "min(48vw, 540px)",
-              maxHeight: headerShrunk ? "60%" : "26%",
+              width: headerShrunk ? "min(60vw, 320px)" : "min(32vw, 420px)",
+              maxHeight: headerShrunk ? "60%" : "30%",
               padding: "0 1%",
               display: "flex",
               flexDirection: "column",
@@ -278,7 +278,7 @@ const Index = () => {
             }}
           >
             <h1
-              className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-sm sm:text-base" : "text-sm sm:text-base md:text-lg lg:text-xl"}`}
+              className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-sm sm:text-base" : "text-sm sm:text-base md:text-lg"}`}
               style={{
                 color: "#2a2418",
                 fontWeight: 700,
@@ -288,7 +288,7 @@ const Index = () => {
             </h1>
             {!headerShrunk && (
               <p
-                className="mt-1 sm:mt-1.5 text-[8px] sm:text-[9px] md:text-[10px] lg:text-[11px] leading-snug"
+                className="mt-1 sm:mt-1.5 text-[8px] sm:text-[9px] md:text-[10px] leading-snug"
                 style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace" }}
               >
                 <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv</span>
@@ -319,7 +319,7 @@ const Index = () => {
 
       <main
         className="flex flex-col flex-1 min-h-0 overflow-hidden relative"
-        style={{ backgroundColor: getArchivePaperBeige().color, zIndex: 5, marginTop: "-14px" }}
+        style={{ backgroundColor: getArchivePaperBeige().color, zIndex: 5, marginTop: "-28px", boxShadow: "0 -2px 6px rgba(0,0,0,0.4)" }}
       >
         {/* Photorealistic manilla folder paper texture — fills the open folder area
             and stretches responsively across all viewports. The folder paper rises
