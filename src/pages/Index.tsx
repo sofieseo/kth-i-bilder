@@ -244,7 +244,7 @@ const Index = () => {
           <div
             className="absolute z-20"
             style={{
-              top: (wantsAdmin || isAdmin) ? "calc(13% + 44px)" : "calc(13% + 12px)",
+              top: (wantsAdmin || isAdmin) ? "calc(8% + 44px)" : "8%",
               right: "3%",
               transform: "rotate(1.2deg)",
               transformOrigin: "top right",
