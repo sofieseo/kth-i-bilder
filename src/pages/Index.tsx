@@ -150,10 +150,10 @@ const Index = () => {
           opacity: 1,
         }}
       />
-      <header className="shrink-0 relative z-20">
+      <header className="shrink-0 relative z-10">
         {/* Photographic archive cabinet drawer — uses a real generated photo as the backdrop.
-            The brass label holder is centered around 50% horizontally and ~58% vertically.
-            We use `contain`-like sizing on desktop so the entire label is always visible. */}
+            The silver label holder is centered. We use 100% 100% sizing so the
+            entire drawer face is always visible — no cropping. */}
         <div
           className={`relative w-full overflow-hidden transition-[height] duration-300`}
           style={{
@@ -299,14 +299,16 @@ const Index = () => {
         </div>
 
         {/* Dark interior of the open cabinet — solid black so the manila folder tabs
-            stand out cleanly. A strong top inner shadow keeps the "drawer lip" feel. */}
+            stand out cleanly. The tabs sit INSIDE this dark drawer area and their
+            bottom edges are covered by the manila folder paper below (folders rise
+            from behind the paper, like real archive folders peeking out). */}
         <div
-          className={`relative px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-3 pb-0" : "pt-5 pb-0"} z-10`}
+          className={`relative px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-3 pb-0" : "pt-5 pb-0"}`}
           style={{
             backgroundColor: "#000000",
             boxShadow:
-              // Strong inner shadow at the top — the drawer's front lip casts a shadow down into the interior
               "inset 0 12px 18px -6px rgba(0, 0, 0, 0.95), inset 0 2px 4px rgba(0, 0, 0, 1)",
+            zIndex: 1,
           }}
         >
           <div className="relative">
@@ -317,10 +319,11 @@ const Index = () => {
 
       <main
         className="flex flex-col flex-1 min-h-0 overflow-hidden relative"
-        style={{ backgroundColor: getArchivePaperBeige().color }}
+        style={{ backgroundColor: getArchivePaperBeige().color, zIndex: 5, marginTop: "-14px" }}
       >
         {/* Photorealistic manilla folder paper texture — fills the open folder area
-            and stretches responsively across all viewports. */}
+            and stretches responsively across all viewports. The folder paper rises
+            slightly above the tab base so tabs appear to come from BEHIND the paper. */}
         <div
           aria-hidden
           className="absolute inset-0 pointer-events-none"
