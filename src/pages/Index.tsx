@@ -303,7 +303,7 @@ const Index = () => {
             bottom edges are covered by the manila folder paper below (folders rise
             from behind the paper, like real archive folders peeking out). */}
         <div
-          className={`relative px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-3 pb-8" : "pt-5 pb-12"}`}
+          className={`relative px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-3 pb-0" : "pt-5 pb-0"}`}
           style={{
             backgroundColor: "#000000",
             boxShadow:
