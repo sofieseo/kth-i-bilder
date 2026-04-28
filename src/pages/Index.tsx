@@ -166,7 +166,7 @@ const Index = () => {
             // In compact mode use 'cover' so the silver label keeps its natural
             // proportions (no vertical stretching). In full mode keep 100% 100%
             // so the entire drawer face is visible without cropping.
-            backgroundSize: headerShrunk ? "auto 100%" : "100% 100%",
+            backgroundSize: headerShrunk ? "cover" : "100% 100%",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
             backgroundColor: "#7d8a6a",
