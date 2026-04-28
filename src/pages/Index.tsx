@@ -303,7 +303,7 @@ const Index = () => {
                 className="mt-1.5 sm:mt-2 text-[7px] sm:text-[9px] md:text-[9px] leading-tight px-2"
                 style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace" }}
               >
-                <span className="sm:hidden">Fotografier från KTH ur öppna arkiv</span>
+                <span className="sm:hidden">Fotografier från öppna arkiv</span>
                 <span className="hidden sm:inline">En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH) från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.</span>
               </p>
             )}
