@@ -244,7 +244,7 @@ const Index = () => {
           <div
             className="absolute z-20"
             style={{
-              top: (wantsAdmin || isAdmin) ? "calc(8% + 44px)" : "8%",
+              top: (wantsAdmin || isAdmin) ? "calc(14% + 44px)" : "14%",
               right: "3%",
               transform: "rotate(1.2deg)",
               transformOrigin: "top right",
@@ -303,7 +303,7 @@ const Index = () => {
             bottom edges are covered by the manila folder paper below (folders rise
             from behind the paper, like real archive folders peeking out). */}
         <div
-          className={`relative overflow-visible px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-3 pb-0" : "pt-5 pb-0"}`}
+            className={`relative overflow-visible px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-3 pb-0" : "pt-5 pb-0"}`}
           style={{
             backgroundColor: "#000000",
             boxShadow:
@@ -319,7 +319,7 @@ const Index = () => {
 
       <main
         className="flex flex-col flex-1 min-h-0 overflow-hidden relative isolate"
-        style={{ backgroundColor: getArchivePaperBeige().color, zIndex: 5, marginTop: headerShrunk ? "-30px" : "-36px", boxShadow: "0 -3px 8px rgba(0,0,0,0.5), inset 0 6px 8px -4px rgba(0,0,0,0.25)" }}
+        style={{ backgroundColor: getArchivePaperBeige().color, zIndex: 5, marginTop: headerShrunk ? "-42px" : "-54px", boxShadow: "0 -3px 8px rgba(0,0,0,0.5), inset 0 6px 8px -4px rgba(0,0,0,0.25)" }}
       >
         {/* Photorealistic manilla folder paper texture — fills the open folder area
             and stretches responsively across all viewports. The folder paper rises
