@@ -166,7 +166,7 @@ const Index = () => {
             // by dropping the bg-position-y to ~62% (label center is at ~52%).
             height: headerShrunk ? "clamp(96px, 15vw, 130px)" : "clamp(200px, 32vw, 360px)",
             backgroundImage: `url(${archiveCabinetHeader})`,
-            backgroundSize: headerShrunk ? "auto 220%" : "100% 100%",
+            backgroundSize: headerShrunk ? "cover" : "100% 100%",
             backgroundPosition: headerShrunk ? "center 58%" : "center center",
             backgroundRepeat: "no-repeat",
             backgroundColor: "#7d8a6a",
