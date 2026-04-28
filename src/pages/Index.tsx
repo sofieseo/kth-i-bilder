@@ -238,16 +238,16 @@ const Index = () => {
             </div>
           )}
 
-          {/* Dymo-remsa: sök + info, klistrad på övre vänstra delen av lådan
-              (logisk plats — på den platta målade ytan, inte i någon skarv).
-              Lite rotation ger en autentisk "tejpad" känsla. */}
+          {/* Dymo-remsa: sök + info, klistrad på övre HÖGRA delen av lådans platta
+              metallyta. Vi placerar dem inom drawer-facet (som börjar ~13% från
+              toppen av bilden) så de aldrig sitter på skarven mellan lådorna. */}
           <div
             className="absolute z-20"
             style={{
-              top: (wantsAdmin || isAdmin) ? "44px" : "10px",
-              left: "12px",
-              transform: "rotate(-1.2deg)",
-              transformOrigin: "top left",
+              top: (wantsAdmin || isAdmin) ? "calc(13% + 44px)" : "calc(13% + 12px)",
+              right: "3%",
+              transform: "rotate(1.2deg)",
+              transformOrigin: "top right",
             }}
           >
             <SearchPalette
