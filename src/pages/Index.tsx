@@ -150,10 +150,10 @@ const Index = () => {
           opacity: 1,
         }}
       />
-      <header className="shrink-0 relative z-20">
+      <header className="shrink-0 relative z-10">
         {/* Photographic archive cabinet drawer — uses a real generated photo as the backdrop.
-            The brass label holder is centered around 50% horizontally and ~58% vertically.
-            We use `contain`-like sizing on desktop so the entire label is always visible. */}
+            The silver label holder is centered. We use 100% 100% sizing so the
+            entire drawer face is always visible — no cropping. */}
         <div
           className={`relative w-full overflow-hidden transition-[height] duration-300`}
           style={{
