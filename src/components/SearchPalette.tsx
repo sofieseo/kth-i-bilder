@@ -181,7 +181,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
           <button
             onClick={() => setOpen(true)}
             aria-label="Sök bland bilder (Ctrl+K)"
-            className="inline-flex items-center justify-center px-3 text-xs sm:text-sm transition-transform hover:-translate-y-px active:translate-y-0 h-7 w-7 sm:h-9 sm:w-auto sm:min-w-9"
+            className="inline-flex items-center justify-center px-2.5 sm:px-3 text-xs sm:text-sm transition-transform hover:-translate-y-px active:translate-y-0 h-7 sm:h-9"
             style={flatDymoStyle}
           >
             Sök
