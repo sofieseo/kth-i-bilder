@@ -63,10 +63,10 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             type="button"
             onClick={() => onChange(decade)}
             aria-pressed={isActive}
-            className={`relative shrink-0 md:shrink md:flex-1 md:min-w-0 transition-all ${
+            className={`relative inline-flex shrink-0 items-start justify-center overflow-hidden leading-none md:shrink md:flex-1 md:min-w-0 transition-all ${
               isActive
-                ? `${compact ? "h-16 px-3 text-xl" : "h-24 px-4 text-3xl"} font-bold`
-                : `${compact ? "h-14 px-2.5 text-base" : "h-20 px-3 text-xl"} hover:-translate-y-0.5`
+                ? `${compact ? "h-12 px-2 pt-2 text-[18px]" : "h-[78px] px-2 pt-3 text-[22px]"} font-bold`
+                : `${compact ? "h-10 px-2 pt-2 text-[15px]" : "h-16 px-2 pt-3 text-[18px]"} hover:-translate-y-0.5`
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
               backgroundColor: tabColor,
@@ -86,10 +86,10 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               fontFamily: "'Caveat', cursive",
               opacity: 1,
               zIndex: isActive ? 50 : 10 + idx,
-              // The folder below masks this lower part. Extra height keeps the
-              // year labels fully visible while the tabs still sit behind paper.
-              marginBottom: compact ? -42 : -54,
-              paddingBottom: compact ? 40 : 52,
+              // The folder below overlaps the lower part; labels are pinned high
+              // so the full decade remains visible while tabs sit behind paper.
+              marginBottom: 0,
+              paddingBottom: 0,
               // Warm amber glow against the black cabinet interior so tabs read as
               // part of the same manila folder family rather than floating chips.
               boxShadow: isActive
