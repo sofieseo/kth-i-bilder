@@ -5,7 +5,6 @@ import { fetchAllPhotosForSearch } from "@/data/fetchAllPhotosForSearch";
 import type { UnifiedPhoto } from "@/data/types";
 import { getHeaderPaperStyle } from "@/lib/paperColor";
 import { SearchResultsList } from "./SearchResultsList";
-import dymoSok from "@/assets/dymo-sok.png";
 import dymoInfo from "@/assets/dymo-info.png";
 
 interface SearchPaletteProps {
