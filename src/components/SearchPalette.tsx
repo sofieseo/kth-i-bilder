@@ -330,6 +330,10 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
                 <X className="h-5 w-5" />
               </button>
 
+              <p className="mb-4 text-sm leading-relaxed">
+                En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH) från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.
+              </p>
+
               <p className="mb-3 uppercase tracking-[0.08em]">Fler bilder finns bland annat hos:</p>
               <ul className="mb-6 space-y-2">
                 <li>
