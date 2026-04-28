@@ -280,8 +280,8 @@ const Index = () => {
               // drawer width on desktop. On narrow mobile screens the holder is
               // proportionally larger, so we use a vw-based clamp that scales
               // down with viewport width — keeping all text inside the silver.
-              width: "min(58vw, 430px)",
-              maxHeight: headerShrunk ? "80%" : "32%",
+              width: "min(48vw, 430px)",
+              maxHeight: headerShrunk ? "80%" : "36%",
               padding: "0 1%",
               display: "flex",
               flexDirection: "column",
