@@ -269,8 +269,11 @@ const Index = () => {
             style={{
               top: "50%",
               transform: "translate(-50%, -50%)",
-              width: headerShrunk ? "min(38vw, 220px)" : "clamp(300px, 31vw, 430px)",
-              maxHeight: headerShrunk ? "70%" : "32%",
+              // In compact mode the image is zoomed in horizontally at 100% width,
+              // so the silver label holder occupies roughly the same fraction of
+              // the viewport as in the expanded view — use the same width logic.
+              width: "clamp(220px, 31vw, 430px)",
+              maxHeight: headerShrunk ? "80%" : "32%",
               padding: "0 1%",
               display: "flex",
               flexDirection: "column",
@@ -279,7 +282,7 @@ const Index = () => {
             }}
           >
             <h1
-              className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-sm sm:text-base" : "text-base sm:text-lg md:text-xl"}`}
+              className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-xs sm:text-sm md:text-base" : "text-base sm:text-lg md:text-xl"}`}
               style={{
                 color: "#2a2418",
                 fontWeight: 700,
