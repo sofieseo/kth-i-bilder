@@ -150,7 +150,7 @@ const Index = () => {
           opacity: 1,
         }}
       />
-      <header className="shrink-0 relative z-10">
+      <header className="shrink-0 relative" style={{ zIndex: 1 }}>
         {/* Photographic archive cabinet drawer — uses a real generated photo as the backdrop.
             The silver label holder is centered. We use 100% 100% sizing so the
             entire drawer face is always visible — no cropping. */}
@@ -244,7 +244,7 @@ const Index = () => {
           <div
             className="absolute z-20"
             style={{
-              top: (wantsAdmin || isAdmin) ? "calc(13% + 44px)" : "calc(13% + 12px)",
+              top: (wantsAdmin || isAdmin) ? "calc(8% + 44px)" : "8%",
               right: "3%",
               transform: "rotate(1.2deg)",
               transformOrigin: "top right",
@@ -266,10 +266,10 @@ const Index = () => {
           <div
             className="absolute left-1/2 z-10 text-center"
             style={{
-              top: "47%",
+              top: "50%",
               transform: "translate(-50%, -50%)",
-              width: headerShrunk ? "min(60vw, 320px)" : "min(32vw, 420px)",
-              maxHeight: headerShrunk ? "60%" : "30%",
+              width: headerShrunk ? "min(60vw, 320px)" : "min(46vw, 600px)",
+              maxHeight: headerShrunk ? "60%" : "40%",
               padding: "0 1%",
               display: "flex",
               flexDirection: "column",
@@ -278,7 +278,7 @@ const Index = () => {
             }}
           >
             <h1
-              className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-sm sm:text-base" : "text-sm sm:text-base md:text-lg"}`}
+              className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-sm sm:text-base" : "text-base sm:text-lg md:text-xl"}`}
               style={{
                 color: "#2a2418",
                 fontWeight: 700,
@@ -288,11 +288,11 @@ const Index = () => {
             </h1>
             {!headerShrunk && (
               <p
-                className="mt-1 sm:mt-1.5 text-[8px] sm:text-[9px] md:text-[10px] leading-snug"
+                className="mt-1.5 sm:mt-2 text-[9px] sm:text-[10px] md:text-[11px] leading-snug"
                 style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace" }}
               >
                 <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv</span>
-                <span className="hidden sm:inline">En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH). Bilderna hämtas från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.</span>
+                <span className="hidden sm:inline">En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH) från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.</span>
               </p>
             )}
           </div>
@@ -318,8 +318,8 @@ const Index = () => {
       </header>
 
       <main
-        className="flex flex-col flex-1 min-h-0 overflow-hidden relative"
-        style={{ backgroundColor: getArchivePaperBeige().color, zIndex: 5, marginTop: "-28px", boxShadow: "0 -2px 6px rgba(0,0,0,0.4)" }}
+        className="flex flex-col flex-1 min-h-0 overflow-hidden relative isolate"
+        style={{ backgroundColor: getArchivePaperBeige().color, zIndex: 5, marginTop: "-22px", boxShadow: "0 -3px 8px rgba(0,0,0,0.5), inset 0 6px 8px -4px rgba(0,0,0,0.25)" }}
       >
         {/* Photorealistic manilla folder paper texture — fills the open folder area
             and stretches responsively across all viewports. The folder paper rises
