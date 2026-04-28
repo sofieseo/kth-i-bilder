@@ -181,7 +181,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
           <button
             onClick={() => setOpen(true)}
             aria-label="Sök bland bilder (Ctrl+K)"
-            className="inline-flex items-center justify-center px-3 text-xs sm:text-sm uppercase transition-transform hover:-translate-y-px active:translate-y-0 h-7 sm:h-9"
+            className="inline-flex items-center justify-center px-2.5 sm:px-3 text-xs sm:text-sm transition-transform hover:-translate-y-px active:translate-y-0 h-7 sm:h-9"
             style={flatDymoStyle}
           >
             Sök
@@ -329,6 +329,10 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
               >
                 <X className="h-5 w-5" />
               </button>
+
+              <p className="mb-4 text-sm leading-relaxed">
+                En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH) från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.
+              </p>
 
               <p className="mb-3 uppercase tracking-[0.08em]">Fler bilder finns bland annat hos:</p>
               <ul className="mb-6 space-y-2">
