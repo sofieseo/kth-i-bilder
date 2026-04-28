@@ -238,16 +238,16 @@ const Index = () => {
             </div>
           )}
 
-          {/* Dymo-remsa: sök + info, klistrad på övre högra delen av lådan.
-              Lite rotation ger en autentisk "tejpad" känsla. Placeringen är
-              identisk på mobil och desktop (top: 8-12px, höger). */}
+          {/* Dymo-remsa: sök + info, klistrad på övre vänstra delen av lådan
+              (logisk plats — på den platta målade ytan, inte i någon skarv).
+              Lite rotation ger en autentisk "tejpad" känsla. */}
           <div
             className="absolute z-20"
             style={{
               top: (wantsAdmin || isAdmin) ? "44px" : "10px",
-              right: "12px",
+              left: "12px",
               transform: "rotate(-1.2deg)",
-              transformOrigin: "top right",
+              transformOrigin: "top left",
             }}
           >
             <SearchPalette
@@ -261,20 +261,26 @@ const Index = () => {
             />
           </div>
 
-          {/* Title positioned over the brass label in the photograph.
-              Brass label sits at horizontal center, ~58% vertically, ~32% wide. */}
+          {/* Title positioned over the silver metal label holder in the photograph.
+              Label holder is centered horizontally and vertically at ~48%, ~50% wide. */}
           <div
-            className="absolute left-1/2 z-10 text-center px-2"
+            className="absolute left-1/2 z-10 text-center"
             style={{
-              top: "58%",
+              top: "49%",
               transform: "translate(-50%, -50%)",
-              width: headerShrunk ? "min(70vw, 260px)" : "min(58vw, 460px)",
+              width: headerShrunk ? "min(60vw, 320px)" : "min(48vw, 540px)",
+              maxHeight: headerShrunk ? "60%" : "26%",
+              padding: "0 1%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <h1
-              className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-sm sm:text-base" : "text-base sm:text-lg md:text-xl"}`}
+              className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-sm sm:text-base" : "text-sm sm:text-base md:text-lg lg:text-xl"}`}
               style={{
-                color: "#3a2810",
+                color: "#2a2418",
                 fontWeight: 700,
               }}
             >
@@ -282,11 +288,11 @@ const Index = () => {
             </h1>
             {!headerShrunk && (
               <p
-                className="mt-1 sm:mt-1.5 text-[8px] sm:text-[10px] md:text-[11px] leading-snug"
-                style={{ color: "#5a3f18", fontFamily: "'Courier Prime', monospace" }}
+                className="mt-1 sm:mt-1.5 text-[8px] sm:text-[9px] md:text-[10px] lg:text-[11px] leading-snug"
+                style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace" }}
               >
-                <span className="sm:hidden">Bilder från Alvin, Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan & Wikimedia.</span>
-                <span className="hidden sm:inline">Bilder från Alvin, Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan & Wikimedia.</span>
+                <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv</span>
+                <span className="hidden sm:inline">En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH). Bilderna hämtas från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.</span>
               </p>
             )}
           </div>
