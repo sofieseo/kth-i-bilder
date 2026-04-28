@@ -240,16 +240,21 @@ const Index = () => {
             </div>
           )}
 
-          {/* Dymo-remsa: sök + info, klistrad på övre HÖGRA delen av lådans platta
-              metallyta. Vi placerar dem inom drawer-facet (som börjar ~13% från
-              toppen av bilden) så de aldrig sitter på skarven mellan lådorna. */}
+          {/* Dymo-remsa: sök + info, klistrad på lådans övre högra del. I
+              expanderat läge sitter de en bit ner på själva lådfronten (inte
+              vid bildens topp- eller sidkant). I kompakt läge centreras de
+              vertikalt så de hamnar bredvid silveretiketten. */}
           <div
             className="absolute z-20"
             style={{
-              top: (wantsAdmin || isAdmin) ? "calc(14% + 44px)" : "14%",
-              right: "3%",
-              transform: "rotate(1.2deg)",
-              transformOrigin: "top right",
+              top: headerShrunk
+                ? "50%"
+                : ((wantsAdmin || isAdmin) ? "calc(18% + 44px)" : "18%"),
+              right: "5%",
+              transform: headerShrunk
+                ? "translateY(-50%) rotate(1.2deg)"
+                : "rotate(1.2deg)",
+              transformOrigin: "center right",
             }}
           >
             <SearchPalette
