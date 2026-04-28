@@ -268,8 +268,8 @@ const Index = () => {
             style={{
               top: "50%",
               transform: "translate(-50%, -50%)",
-              width: headerShrunk ? "min(60vw, 320px)" : "min(46vw, 600px)",
-              maxHeight: headerShrunk ? "60%" : "40%",
+              width: headerShrunk ? "min(46vw, 260px)" : "clamp(300px, 31vw, 430px)",
+              maxHeight: headerShrunk ? "58%" : "32%",
               padding: "0 1%",
               display: "flex",
               flexDirection: "column",
@@ -288,7 +288,7 @@ const Index = () => {
             </h1>
             {!headerShrunk && (
               <p
-                className="mt-1.5 sm:mt-2 text-[9px] sm:text-[10px] md:text-[11px] leading-snug"
+                className="mt-1.5 sm:mt-2 text-[8px] sm:text-[9px] md:text-[9px] leading-tight"
                 style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace" }}
               >
                 <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv</span>
