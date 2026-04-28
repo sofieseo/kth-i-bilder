@@ -16,6 +16,7 @@ import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { getPaperStyle, getArchivePaperBeige } from "@/lib/paperColor";
 import archiveCabinetHeader from "@/assets/archive-cabinet-header.jpg";
+import labelHolder from "@/assets/label-holder.png";
 import manilaFolderTexture from "@/assets/manila-folder-texture.jpg";
 
 const Index = () => {
@@ -152,21 +153,15 @@ const Index = () => {
       />
       <header className="shrink-0 relative" style={{ zIndex: 1 }}>
         {/* Photographic archive cabinet drawer — uses a real generated photo as the backdrop.
-            The silver label holder is centered. We use 100% 100% sizing so the
-            entire drawer face is always visible — no cropping. */}
+            The silver label holder is rendered as a separate transparent PNG layer on top,
+            so it can never be cropped regardless of viewport size. */}
         <div
           className={`relative w-full overflow-hidden transition-[height] duration-300`}
           style={{
-            // Image is 1376x704. Expanded: stretch to 100% 100% so the entire
-            // drawer is visible. Compact: scale image so the silver label holder
-            // band shows whole, but keep the image's natural aspect ratio so the
-            // holder doesn't get vertically clipped in compact mode. The compact
-            // height is intentionally a little taller so both the upper and lower
-            // metal edges remain visible while the image still spans the full width.
-            height: headerShrunk ? "clamp(132px, 17vw, 180px)" : "clamp(200px, 32vw, 360px)",
+            height: headerShrunk ? "clamp(110px, 14vw, 160px)" : "clamp(200px, 32vw, 360px)",
             backgroundImage: `url(${archiveCabinetHeader})`,
-            backgroundSize: headerShrunk ? "cover" : "100% 100%",
-            backgroundPosition: headerShrunk ? "center 54%" : "center center",
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
             backgroundColor: "#7d8a6a",
             boxShadow: "0 8px 18px rgba(0, 0, 0, 0.55), inset 0 -1px 0 rgba(0, 0, 0, 0.7)",
@@ -240,10 +235,25 @@ const Index = () => {
             </div>
           )}
 
-          {/* Dymo-remsa: sök + info, klistrad på lådans övre högra del. I
-              expanderat läge sitter de en bit ner på själva lådfronten (inte
-              vid bildens topp- eller sidkant). I kompakt läge centreras de
-              vertikalt så de hamnar bredvid silveretiketten. */}
+          {/* Separat etiketthållar-lager. Ligger som en egen PNG ovanpå arkivlådan
+              så att hela ramen alltid syns oavsett bakgrundens beskärning. Storleken
+              är satt med width + aspect-ratio så bilden behåller sina proportioner
+              och aldrig klipps upptill eller nertill. */}
+          <div
+            aria-hidden
+            className="absolute left-1/2 top-1/2 z-[5] pointer-events-none"
+            style={{
+              transform: "translate(-50%, -50%)",
+              width: "min(72vw, 640px)",
+              aspectRatio: "1584 / 672",
+              backgroundImage: `url(${labelHolder})`,
+              backgroundSize: "100% 100%",
+              backgroundRepeat: "no-repeat",
+              filter: "drop-shadow(0 6px 10px rgba(0,0,0,0.45))",
+            }}
+          />
+
+          {/* Dymo-remsa: sök + info, klistrad på lådans övre högra del. */}
           <div
             className="absolute z-20"
             style={{
@@ -268,19 +278,12 @@ const Index = () => {
             />
           </div>
 
-          {/* Title positioned over the silver metal label holder in the photograph.
-              Label holder is centered horizontally and vertically at ~48%, ~50% wide. */}
+          {/* Title positioned over the silver metal label holder layer. */}
           <div
-            className="absolute left-1/2 z-10 text-center"
+            className="absolute left-1/2 top-1/2 z-10 text-center"
             style={{
-              top: "50%",
               transform: "translate(-50%, -50%)",
-              // The silver label holder occupies roughly the central 31% of the
-              // drawer width on desktop. On narrow mobile screens the holder is
-              // proportionally larger, so we use a vw-based clamp that scales
-              // down with viewport width — keeping all text inside the silver.
-              width: "min(48vw, 430px)",
-              maxHeight: headerShrunk ? "80%" : "36%",
+              width: "min(60vw, 520px)",
               padding: "0 1%",
               display: "flex",
               flexDirection: "column",
@@ -299,11 +302,10 @@ const Index = () => {
             </h1>
             {!headerShrunk && (
               <p
-                className="mt-1.5 sm:mt-2 text-[6px] sm:text-[9px] md:text-[9px] leading-tight px-1 whitespace-nowrap sm:whitespace-normal"
+                className="mt-1.5 sm:mt-2 text-[7px] sm:text-[10px] md:text-[11px] leading-tight px-1 whitespace-nowrap"
                 style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0.02em" }}
               >
-                <span className="sm:hidden">Fotografier från öppna arkiv</span>
-                <span className="hidden sm:inline">En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH) från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.</span>
+                Fotografier från öppna arkiv
               </p>
             )}
           </div>
