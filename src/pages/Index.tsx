@@ -157,13 +157,16 @@ const Index = () => {
         <div
           className={`relative w-full overflow-hidden transition-[height] duration-300`}
           style={{
-            // Taller on desktop so the entire brass label is visible without cropping.
-            // Image is 16:9 — at viewport widths ~1500px the natural height is ~280px.
-            height: headerShrunk ? "110px" : "clamp(180px, 28vw, 320px)",
+            // Image is 1920x1088 (~16:9). We use background-size: 100% 100% so the
+            // ENTIRE drawer (including the silver label holder) is always visible
+            // on every viewport — no cropping. Height scales with viewport width
+            // so the cabinet keeps its natural proportions.
+            height: headerShrunk ? "110px" : "clamp(200px, 32vw, 360px)",
             backgroundImage: `url(${archiveCabinetHeader})`,
-            backgroundSize: "cover",
+            backgroundSize: "100% 100%",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
+            backgroundColor: "#7d8a6a",
             boxShadow: "0 8px 18px rgba(0, 0, 0, 0.55), inset 0 -1px 0 rgba(0, 0, 0, 0.7)",
           }}
         >
