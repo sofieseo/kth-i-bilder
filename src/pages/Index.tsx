@@ -161,13 +161,13 @@ const Index = () => {
             // ENTIRE drawer (including the silver label holder) is always visible
             // on every viewport — no cropping. Height scales with viewport width
             // so the cabinet keeps its natural proportions.
-            height: headerShrunk ? "110px" : "clamp(200px, 32vw, 360px)",
+            height: headerShrunk ? "70px" : "clamp(200px, 32vw, 360px)",
             backgroundImage: `url(${archiveCabinetHeader})`,
-            // In compact mode use 'cover' so the silver label keeps its natural
-            // proportions (no vertical stretching). In full mode keep 100% 100%
-            // so the entire drawer face is visible without cropping.
-            backgroundSize: headerShrunk ? "cover" : "100% 100%",
-            backgroundPosition: "center center",
+            // In compact mode keep natural aspect ratio (100% auto) so the
+            // silver label holder shrinks proportionally instead of being
+            // stretched or zoomed. The drawer becomes a slim band at the top.
+            backgroundSize: headerShrunk ? "100% auto" : "100% 100%",
+            backgroundPosition: headerShrunk ? "center 38%" : "center center",
             backgroundRepeat: "no-repeat",
             backgroundColor: "#7d8a6a",
             boxShadow: "0 8px 18px rgba(0, 0, 0, 0.55), inset 0 -1px 0 rgba(0, 0, 0, 0.7)",
@@ -271,8 +271,8 @@ const Index = () => {
             style={{
               top: "50%",
               transform: "translate(-50%, -50%)",
-              width: headerShrunk ? "min(46vw, 260px)" : "clamp(300px, 31vw, 430px)",
-              maxHeight: headerShrunk ? "58%" : "32%",
+              width: headerShrunk ? "min(38vw, 220px)" : "clamp(300px, 31vw, 430px)",
+              maxHeight: headerShrunk ? "70%" : "32%",
               padding: "0 1%",
               display: "flex",
               flexDirection: "column",
