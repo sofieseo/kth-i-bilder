@@ -157,8 +157,23 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
     // input children should not inherit text-shadow on the caret
   };
 
-  // Drop-shadow used for both Dymo image stickers in light mode
+  // Drop-shadow used for the dymo i-button in light mode
   const dymoShadow = "drop-shadow(0 2px 3px rgba(0,0,0,0.55)) drop-shadow(0 0 1px rgba(0,0,0,0.4))";
+
+  // Flat dymo-tape style for the light "Sök" button — matches the i-button:
+  // dark plastic strip with embossed white letters, no glossy highlight on top.
+  const flatDymoStyle: React.CSSProperties = {
+    background: "#0d0d0d",
+    color: "#f5f5f5",
+    fontFamily: "'Arial Narrow', 'Helvetica Neue', Arial, sans-serif",
+    fontWeight: 700,
+    letterSpacing: "0.18em",
+    textShadow: "0 1px 0 rgba(0,0,0,0.9)",
+    boxShadow:
+      "0 2px 3px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,0,0,0.6), inset 0 -1px 0 rgba(0,0,0,0.7)",
+    border: "none",
+    borderRadius: 0,
+  };
 
   return (
     <>
@@ -167,10 +182,10 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
           <button
             onClick={() => setOpen(true)}
             aria-label="Sök bland bilder (Ctrl+K)"
-            className="block transition-transform hover:-translate-y-px active:translate-y-0"
-            style={{ filter: dymoShadow }}
+            className="inline-flex items-center justify-center px-3 text-xs sm:text-sm uppercase transition-transform hover:-translate-y-px active:translate-y-0 h-7 sm:h-9"
+            style={flatDymoStyle}
           >
-            <img src={dymoSok} alt="" className="block h-7 w-auto sm:h-9" draggable={false} />
+            Sök
           </button>
           <button
             type="button"
