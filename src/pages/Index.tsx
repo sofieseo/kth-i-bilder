@@ -276,10 +276,11 @@ const Index = () => {
             style={{
               top: "50%",
               transform: "translate(-50%, -50%)",
-              // In compact mode the image is zoomed in horizontally at 100% width,
-              // so the silver label holder occupies roughly the same fraction of
-              // the viewport as in the expanded view — use the same width logic.
-              width: "clamp(220px, 31vw, 430px)",
+              // The silver label holder occupies roughly the central 31% of the
+              // drawer width on desktop. On narrow mobile screens the holder is
+              // proportionally larger, so we use a vw-based clamp that scales
+              // down with viewport width — keeping all text inside the silver.
+              width: "min(58vw, 430px)",
               maxHeight: headerShrunk ? "80%" : "32%",
               padding: "0 1%",
               display: "flex",
@@ -299,10 +300,10 @@ const Index = () => {
             </h1>
             {!headerShrunk && (
               <p
-                className="mt-1.5 sm:mt-2 text-[8px] sm:text-[9px] md:text-[9px] leading-tight"
+                className="mt-1.5 sm:mt-2 text-[7px] sm:text-[9px] md:text-[9px] leading-tight px-2"
                 style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace" }}
               >
-                <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv</span>
+                <span className="sm:hidden">Fotografier från KTH ur öppna arkiv</span>
                 <span className="hidden sm:inline">En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH) från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.</span>
               </p>
             )}
