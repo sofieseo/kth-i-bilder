@@ -65,8 +65,8 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             aria-pressed={isActive}
             className={`relative shrink-0 md:shrink md:flex-1 md:min-w-0 transition-all ${
               isActive
-                ? `${compact ? "h-14 px-3 text-xl" : "h-20 px-4 text-3xl"} font-bold`
-                : `${compact ? "h-12 px-2.5 text-base" : "h-16 px-3 text-xl"} hover:-translate-y-0.5`
+                ? `${compact ? "h-16 px-3 text-xl" : "h-24 px-4 text-3xl"} font-bold`
+                : `${compact ? "h-14 px-2.5 text-base" : "h-20 px-3 text-xl"} hover:-translate-y-0.5`
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
               backgroundColor: tabColor,
@@ -88,8 +88,8 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               zIndex: isActive ? 50 : 10 + idx,
               // The folder below masks this lower part. Extra height keeps the
               // year labels fully visible while the tabs still sit behind paper.
-              marginBottom: compact ? -30 : -36,
-              paddingBottom: compact ? 28 : 34,
+              marginBottom: compact ? -42 : -54,
+              paddingBottom: compact ? 40 : 52,
               // Warm amber glow against the black cabinet interior so tabs read as
               // part of the same manila folder family rather than floating chips.
               boxShadow: isActive
