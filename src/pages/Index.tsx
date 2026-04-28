@@ -157,17 +157,15 @@ const Index = () => {
         <div
           className={`relative w-full overflow-hidden transition-[height] duration-300`}
           style={{
-            // Image is 1920x1088 (~16:9). We use background-size: 100% 100% so the
-            // ENTIRE drawer (including the silver label holder) is always visible
-            // on every viewport — no cropping. Height scales with viewport width
-            // so the cabinet keeps its natural proportions.
-            height: headerShrunk ? "70px" : "clamp(200px, 32vw, 360px)",
+            // Image is 1920x1088 (~16:9). When expanded we stretch to 100% 100% so
+            // the ENTIRE drawer (including the silver label holder) is visible.
+            // When compact we scale by HEIGHT (auto 100%) so the silver label
+            // holder is shown WHOLE — never sliced — and centered horizontally.
+            // The surrounding green cabinet sides extend with a matching color.
+            height: headerShrunk ? "56px" : "clamp(200px, 32vw, 360px)",
             backgroundImage: `url(${archiveCabinetHeader})`,
-            // In compact mode keep natural aspect ratio (100% auto) so the
-            // silver label holder shrinks proportionally instead of being
-            // stretched or zoomed. The drawer becomes a slim band at the top.
-            backgroundSize: headerShrunk ? "100% auto" : "100% 100%",
-            backgroundPosition: headerShrunk ? "center 38%" : "center center",
+            backgroundSize: headerShrunk ? "auto 100%" : "100% 100%",
+            backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
             backgroundColor: "#7d8a6a",
             boxShadow: "0 8px 18px rgba(0, 0, 0, 0.55), inset 0 -1px 0 rgba(0, 0, 0, 0.7)",
