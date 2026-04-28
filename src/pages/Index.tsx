@@ -280,8 +280,8 @@ const Index = () => {
               // drawer width on desktop. On narrow mobile screens the holder is
               // proportionally larger, so we use a vw-based clamp that scales
               // down with viewport width — keeping all text inside the silver.
-              width: "min(58vw, 430px)",
-              maxHeight: headerShrunk ? "80%" : "32%",
+              width: "min(48vw, 430px)",
+              maxHeight: headerShrunk ? "80%" : "36%",
               padding: "0 1%",
               display: "flex",
               flexDirection: "column",
@@ -300,8 +300,8 @@ const Index = () => {
             </h1>
             {!headerShrunk && (
               <p
-                className="mt-1.5 sm:mt-2 text-[7px] sm:text-[9px] md:text-[9px] leading-tight px-2"
-                style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace" }}
+                className="mt-1.5 sm:mt-2 text-[6px] sm:text-[9px] md:text-[9px] leading-tight px-1 whitespace-nowrap sm:whitespace-normal"
+                style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0.02em" }}
               >
                 <span className="sm:hidden">Fotografier från öppna arkiv</span>
                 <span className="hidden sm:inline">En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH) från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.</span>
