@@ -319,7 +319,7 @@ const Index = () => {
 
       <main
         className="flex flex-col flex-1 min-h-0 overflow-hidden relative"
-        style={{ backgroundColor: getArchivePaperBeige().color, zIndex: 5 }}
+        style={{ backgroundColor: getArchivePaperBeige().color, zIndex: 5, marginTop: "-14px" }}
       >
         {/* Photorealistic manilla folder paper texture — fills the open folder area
             and stretches responsively across all viewports. The folder paper rises
