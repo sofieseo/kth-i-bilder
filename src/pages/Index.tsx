@@ -268,8 +268,8 @@ const Index = () => {
             style={{
               top: "50%",
               transform: "translate(-50%, -50%)",
-              width: headerShrunk ? "min(60vw, 320px)" : "min(46vw, 600px)",
-              maxHeight: headerShrunk ? "60%" : "40%",
+              width: headerShrunk ? "min(46vw, 260px)" : "clamp(300px, 31vw, 430px)",
+              maxHeight: headerShrunk ? "58%" : "32%",
               padding: "0 1%",
               display: "flex",
               flexDirection: "column",
@@ -288,7 +288,7 @@ const Index = () => {
             </h1>
             {!headerShrunk && (
               <p
-                className="mt-1.5 sm:mt-2 text-[9px] sm:text-[10px] md:text-[11px] leading-snug"
+                className="mt-1.5 sm:mt-2 text-[8px] sm:text-[9px] md:text-[9px] leading-tight"
                 style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace" }}
               >
                 <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv</span>
@@ -298,17 +298,16 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Dark interior of the open cabinet — solid black so the manila folder tabs
-            stand out cleanly. The tabs sit INSIDE this dark drawer area and their
-            bottom edges are covered by the manila folder paper below (folders rise
-            from behind the paper, like real archive folders peeking out). */}
+        {/* Dark interior of the open cabinet — just enough height for the folder
+            tabs to peek up behind the manila paper, with no visible gap below. */}
         <div
-            className={`relative overflow-visible px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-3 pb-0" : "pt-5 pb-0"}`}
+            className={`relative overflow-hidden px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-2" : "pt-3"}`}
           style={{
             backgroundColor: "#000000",
             boxShadow:
               "inset 0 12px 18px -6px rgba(0, 0, 0, 0.95), inset 0 2px 4px rgba(0, 0, 0, 1)",
             zIndex: 1,
+            height: headerShrunk ? "48px" : "72px",
           }}
         >
           <div className="relative">
@@ -319,7 +318,7 @@ const Index = () => {
 
       <main
         className="flex flex-col flex-1 min-h-0 overflow-hidden relative isolate"
-        style={{ backgroundColor: getArchivePaperBeige().color, zIndex: 5, marginTop: headerShrunk ? "-42px" : "-54px", boxShadow: "0 -3px 8px rgba(0,0,0,0.5), inset 0 6px 8px -4px rgba(0,0,0,0.25)" }}
+        style={{ backgroundColor: getArchivePaperBeige().color, zIndex: 5, marginTop: headerShrunk ? "-18px" : "-28px", boxShadow: "0 -3px 8px rgba(0,0,0,0.5), inset 0 6px 8px -4px rgba(0,0,0,0.25)" }}
       >
         {/* Photorealistic manilla folder paper texture — fills the open folder area
             and stretches responsively across all viewports. The folder paper rises
