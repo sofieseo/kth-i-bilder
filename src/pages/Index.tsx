@@ -158,15 +158,16 @@ const Index = () => {
           className={`relative w-full overflow-hidden transition-[height] duration-300`}
           style={{
             // Image is 1376x704. Expanded: stretch to 100% 100% so the entire
-            // drawer is visible. Compact: scale image to ~180% so the silver
-            // label holder (which spans ~51% of source height) fits WHOLE
-            // inside the container with a margin both above and below. The
-            // label center sits at ~52% of the source image, so we offset
-            // bg-position-y to ~55% to keep it perfectly centered.
-            height: headerShrunk ? "clamp(86px, 14vw, 120px)" : "clamp(200px, 32vw, 360px)",
+            // drawer is visible. Compact: scale image so the silver label holder
+            // band shows whole, but keep the image's natural aspect ratio so the
+            // holder doesn't get horizontally stretched. We zoom by HEIGHT only
+            // (`auto 220%`) which lets the image overflow horizontally and stay
+            // proportional. Bottom margin from the black tab strip is achieved
+            // by dropping the bg-position-y to ~62% (label center is at ~52%).
+            height: headerShrunk ? "clamp(96px, 15vw, 130px)" : "clamp(200px, 32vw, 360px)",
             backgroundImage: `url(${archiveCabinetHeader})`,
-            backgroundSize: headerShrunk ? "100% 180%" : "100% 100%",
-            backgroundPosition: headerShrunk ? "center 55%" : "center center",
+            backgroundSize: headerShrunk ? "auto 220%" : "100% 100%",
+            backgroundPosition: headerShrunk ? "center 58%" : "center center",
             backgroundRepeat: "no-repeat",
             backgroundColor: "#7d8a6a",
             boxShadow: "0 8px 18px rgba(0, 0, 0, 0.55), inset 0 -1px 0 rgba(0, 0, 0, 0.7)",
@@ -275,10 +276,11 @@ const Index = () => {
             style={{
               top: "50%",
               transform: "translate(-50%, -50%)",
-              // In compact mode the image is zoomed in horizontally at 100% width,
-              // so the silver label holder occupies roughly the same fraction of
-              // the viewport as in the expanded view — use the same width logic.
-              width: "clamp(220px, 31vw, 430px)",
+              // The silver label holder occupies roughly the central 31% of the
+              // drawer width on desktop. On narrow mobile screens the holder is
+              // proportionally larger, so we use a vw-based clamp that scales
+              // down with viewport width — keeping all text inside the silver.
+              width: "min(58vw, 430px)",
               maxHeight: headerShrunk ? "80%" : "32%",
               padding: "0 1%",
               display: "flex",
@@ -298,10 +300,10 @@ const Index = () => {
             </h1>
             {!headerShrunk && (
               <p
-                className="mt-1.5 sm:mt-2 text-[8px] sm:text-[9px] md:text-[9px] leading-tight"
+                className="mt-1.5 sm:mt-2 text-[7px] sm:text-[9px] md:text-[9px] leading-tight px-2"
                 style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace" }}
               >
-                <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv</span>
+                <span className="sm:hidden">Fotografier från KTH ur öppna arkiv</span>
                 <span className="hidden sm:inline">En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH) från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.</span>
               </p>
             )}
