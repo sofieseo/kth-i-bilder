@@ -266,10 +266,10 @@ const Index = () => {
           <div
             className="absolute left-1/2 z-10 text-center"
             style={{
-              top: "47%",
+              top: "50%",
               transform: "translate(-50%, -50%)",
-              width: headerShrunk ? "min(60vw, 320px)" : "min(32vw, 420px)",
-              maxHeight: headerShrunk ? "60%" : "30%",
+              width: headerShrunk ? "min(60vw, 320px)" : "min(46vw, 600px)",
+              maxHeight: headerShrunk ? "60%" : "40%",
               padding: "0 1%",
               display: "flex",
               flexDirection: "column",
@@ -278,7 +278,7 @@ const Index = () => {
             }}
           >
             <h1
-              className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-sm sm:text-base" : "text-sm sm:text-base md:text-lg"}`}
+              className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-sm sm:text-base" : "text-base sm:text-lg md:text-xl"}`}
               style={{
                 color: "#2a2418",
                 fontWeight: 700,
@@ -288,11 +288,11 @@ const Index = () => {
             </h1>
             {!headerShrunk && (
               <p
-                className="mt-1 sm:mt-1.5 text-[8px] sm:text-[9px] md:text-[10px] leading-snug"
+                className="mt-1.5 sm:mt-2 text-[9px] sm:text-[10px] md:text-[11px] leading-snug"
                 style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace" }}
               >
                 <span className="sm:hidden">En samlingsplats för KTH-fotografier från öppna arkiv</span>
-                <span className="hidden sm:inline">En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH). Bilderna hämtas från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.</span>
+                <span className="hidden sm:inline">En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH) från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.</span>
               </p>
             )}
           </div>
