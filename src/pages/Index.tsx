@@ -160,14 +160,13 @@ const Index = () => {
             // Image is 1376x704. Expanded: stretch to 100% 100% so the entire
             // drawer is visible. Compact: scale image so the silver label holder
             // band shows whole, but keep the image's natural aspect ratio so the
-            // holder doesn't get horizontally stretched. We zoom by HEIGHT only
-            // (`auto 220%`) which lets the image overflow horizontally and stay
-            // proportional. Bottom margin from the black tab strip is achieved
-            // by dropping the bg-position-y to ~62% (label center is at ~52%).
-            height: headerShrunk ? "clamp(96px, 15vw, 130px)" : "clamp(200px, 32vw, 360px)",
+            // holder doesn't get vertically clipped in compact mode. The compact
+            // height is intentionally a little taller so both the upper and lower
+            // metal edges remain visible while the image still spans the full width.
+            height: headerShrunk ? "clamp(132px, 17vw, 180px)" : "clamp(200px, 32vw, 360px)",
             backgroundImage: `url(${archiveCabinetHeader})`,
             backgroundSize: headerShrunk ? "cover" : "100% 100%",
-            backgroundPosition: headerShrunk ? "center 58%" : "center center",
+            backgroundPosition: headerShrunk ? "center 54%" : "center center",
             backgroundRepeat: "no-repeat",
             backgroundColor: "#7d8a6a",
             boxShadow: "0 8px 18px rgba(0, 0, 0, 0.55), inset 0 -1px 0 rgba(0, 0, 0, 0.7)",
