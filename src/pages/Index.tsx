@@ -15,7 +15,8 @@ import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
 import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { getPaperStyle, getArchivePaperBeige } from "@/lib/paperColor";
-import archiveCabinetHeader from "@/assets/archive-cabinet-header.jpg";
+import archiveCabinetClean from "@/assets/archive-cabinet-clean.jpg";
+import labelHolder from "@/assets/label-holder.png";
 import manilaFolderTexture from "@/assets/manila-folder-texture.jpg";
 
 const Index = () => {
@@ -157,16 +158,14 @@ const Index = () => {
         <div
           className={`relative w-full overflow-hidden transition-[height] duration-300`}
           style={{
-            // Image is 1376x704. Expanded: stretch to 100% 100% so the entire
-            // drawer is visible. Compact: scale image so the silver label holder
-            // band shows whole, but keep the image's natural aspect ratio so the
-            // holder doesn't get vertically clipped in compact mode. The compact
-            // height is intentionally a little taller so both the upper and lower
-            // metal edges remain visible while the image still spans the full width.
-            height: headerShrunk ? "clamp(132px, 17vw, 180px)" : "clamp(200px, 32vw, 360px)",
-            backgroundImage: `url(${archiveCabinetHeader})`,
-            backgroundSize: headerShrunk ? "cover" : "100% 100%",
-            backgroundPosition: headerShrunk ? "center 54%" : "center center",
+            // The drawer image is now a clean cabinet face (no label) so we can
+            // always use background-size: cover. The silver label holder is a
+            // separately positioned overlay below, which lets us scale it
+            // independently per breakpoint.
+            height: headerShrunk ? "clamp(110px, 14vw, 160px)" : "clamp(200px, 32vw, 360px)",
+            backgroundImage: `url(${archiveCabinetClean})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
             backgroundColor: "#7d8a6a",
             boxShadow: "0 8px 18px rgba(0, 0, 0, 0.55), inset 0 -1px 0 rgba(0, 0, 0, 0.7)",
@@ -268,44 +267,59 @@ const Index = () => {
             />
           </div>
 
-          {/* Title positioned over the silver metal label holder in the photograph.
-              Label holder is centered horizontally and vertically at ~48%, ~50% wide. */}
+          {/* Silver label holder — separate overlay image so it scales
+              independently from the drawer background. The holder image has a
+              ~2:1 aspect (frame visually), so we set width and let height
+              follow naturally. Title text is positioned absolutely over the
+              inner paper area of the holder. */}
           <div
-            className="absolute left-1/2 z-10 text-center"
+            className="absolute left-1/2 top-1/2 z-10"
             style={{
-              top: "50%",
               transform: "translate(-50%, -50%)",
-              // The silver label holder occupies roughly the central 31% of the
-              // drawer width on desktop. On narrow mobile screens the holder is
-              // proportionally larger, so we use a vw-based clamp that scales
-              // down with viewport width — keeping all text inside the silver.
-              width: "min(48vw, 430px)",
-              maxHeight: headerShrunk ? "80%" : "36%",
-              padding: "0 1%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
+              // Width scales with viewport but is capped so it never dominates
+              // on huge screens or shrinks too small on phones. In compact mode
+              // we shrink it slightly to fit the reduced header height.
+              width: headerShrunk
+                ? "clamp(180px, 28vw, 280px)"
+                : "clamp(220px, 38vw, 420px)",
             }}
           >
-            <h1
-              className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-xs sm:text-sm md:text-base" : "text-base sm:text-lg md:text-xl"}`}
+            <img
+              src={labelHolder}
+              alt=""
+              aria-hidden
+              className="block w-full h-auto select-none pointer-events-none"
+              draggable={false}
+              style={{ filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.45))" }}
+            />
+            {/* Inner paper area of the label holder is roughly the central
+                64% width × 24% height of the PNG. Position the text there. */}
+            <div
+              className="absolute text-center flex flex-col justify-center items-center"
               style={{
-                color: "#2a2418",
-                fontWeight: 700,
+                left: "18%",
+                right: "18%",
+                top: "38%",
+                bottom: "38%",
+                padding: "0 2%",
               }}
             >
-              KTH i bilder
-            </h1>
-            {!headerShrunk && (
-              <p
-                className="mt-1.5 sm:mt-2 text-[6px] sm:text-[9px] md:text-[9px] leading-tight px-1 whitespace-nowrap sm:whitespace-normal"
-                style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0.02em" }}
+              <h1
+                className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-[10px] sm:text-xs md:text-sm" : "text-xs sm:text-sm md:text-lg"}`}
+                style={{ color: "#2a2418", fontWeight: 700 }}
               >
-                <span className="sm:hidden">Fotografier från öppna arkiv</span>
-                <span className="hidden sm:inline">En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH) från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.</span>
-              </p>
-            )}
+                KTH i bilder
+              </h1>
+              {!headerShrunk && (
+                <p
+                  className="mt-1 sm:mt-1.5 text-[5px] sm:text-[7px] md:text-[8px] leading-tight"
+                  style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0.02em" }}
+                >
+                  <span className="sm:hidden">Fotografier från öppna arkiv</span>
+                  <span className="hidden sm:inline">Fotografier från öppna arkiv</span>
+                </p>
+              )}
+            </div>
           </div>
         </div>
 
