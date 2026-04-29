@@ -15,7 +15,7 @@ import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
 import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { getPaperStyle, getArchivePaperBeige } from "@/lib/paperColor";
-import archiveCabinetHeader from "@/assets/archive-cabinet-drawer-plain.jpg";
+import archiveCabinetHeader from "@/assets/archive-cabinet-drawer-framed.jpg";
 import labelHolder from "@/assets/label-holder.png";
 import manilaFolderTexture from "@/assets/manila-folder-texture.jpg";
 
@@ -277,7 +277,7 @@ const Index = () => {
                   className="mt-1.5 sm:mt-2 text-[7px] sm:text-[10px] md:text-[11px] leading-tight px-1 whitespace-nowrap"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0.02em" }}
                 >
-                  Fotografier från öppna arkiv
+                  Historiska fotografier från Kungliga Tekniska högskolan ur öppna arkiv
                 </p>
               )}
             </div>
