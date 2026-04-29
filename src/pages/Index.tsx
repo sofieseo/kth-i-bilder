@@ -281,7 +281,7 @@ const Index = () => {
               // we shrink it slightly to fit the reduced header height.
               width: headerShrunk
                 ? "clamp(180px, 28vw, 280px)"
-                : "clamp(220px, 38vw, 420px)",
+                : "clamp(240px, 46vw, 620px)",
             }}
           >
             <img
