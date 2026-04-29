@@ -235,23 +235,53 @@ const Index = () => {
             </div>
           )}
 
-          {/* Separat etiketthållar-lager. Ligger som en egen PNG ovanpå arkivlådan
-              så att hela ramen alltid syns oavsett bakgrundens beskärning. Storleken
-              är satt med width + aspect-ratio så bilden behåller sina proportioner
-              och aldrig klipps upptill eller nertill. */}
+          {/* Separat etiketthållar-lager. I kompakt läge styrs storleken av headerns
+              höjd i stället för viewportens bredd, så hela metallramen alltid ryms. */}
           <div
-            aria-hidden
-            className="absolute left-1/2 top-1/2 z-[5] pointer-events-none"
+            className="absolute left-1/2 top-1/2 z-10 pointer-events-none transition-[width,height] duration-300"
             style={{
               transform: "translate(-50%, -50%)",
-              width: "min(72vw, 640px)",
-              aspectRatio: "1584 / 672",
-              backgroundImage: `url(${labelHolder})`,
-              backgroundSize: "100% 100%",
-              backgroundRepeat: "no-repeat",
-              filter: "drop-shadow(0 6px 10px rgba(0,0,0,0.45))",
+              width: headerShrunk ? "auto" : "min(72vw, 640px)",
+              height: headerShrunk ? "calc(100% - 24px)" : "auto",
+              aspectRatio: headerShrunk ? undefined : "1584 / 672",
             }}
-          />
+          >
+            <img
+              src={labelHolder}
+              alt=""
+              aria-hidden="true"
+              className={headerShrunk ? "block h-full w-auto" : "block h-auto w-full"}
+              style={{
+                filter: "drop-shadow(0 6px 10px rgba(0,0,0,0.45))",
+              }}
+            />
+
+            {/* Title positioned over the silver metal label holder layer. */}
+            <div
+              className="absolute inset-0 flex flex-col items-center justify-center px-[18%] text-center"
+              style={{
+                paddingTop: headerShrunk ? "1%" : "0",
+              }}
+            >
+              <h1
+                className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-[11px] sm:text-xs md:text-sm" : "text-base sm:text-lg md:text-xl"}`}
+                style={{
+                  color: "#2a2418",
+                  fontWeight: 700,
+                }}
+              >
+                KTH i bilder
+              </h1>
+              {!headerShrunk && (
+                <p
+                  className="mt-1.5 sm:mt-2 text-[7px] sm:text-[10px] md:text-[11px] leading-tight px-1 whitespace-nowrap"
+                  style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0.02em" }}
+                >
+                  Fotografier från öppna arkiv
+                </p>
+              )}
+            </div>
+          </div>
 
           {/* Dymo-remsa: sök + info, klistrad på lådans övre högra del. */}
           <div
@@ -278,37 +308,6 @@ const Index = () => {
             />
           </div>
 
-          {/* Title positioned over the silver metal label holder layer. */}
-          <div
-            className="absolute left-1/2 top-1/2 z-10 text-center"
-            style={{
-              transform: "translate(-50%, -50%)",
-              width: "min(60vw, 520px)",
-              padding: "0 1%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <h1
-              className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-xs sm:text-sm md:text-base" : "text-base sm:text-lg md:text-xl"}`}
-              style={{
-                color: "#2a2418",
-                fontWeight: 700,
-              }}
-            >
-              KTH i bilder
-            </h1>
-            {!headerShrunk && (
-              <p
-                className="mt-1.5 sm:mt-2 text-[7px] sm:text-[10px] md:text-[11px] leading-tight px-1 whitespace-nowrap"
-                style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0.02em" }}
-              >
-                Fotografier från öppna arkiv
-              </p>
-            )}
-          </div>
         </div>
 
         {/* Dark interior of the open cabinet — just enough height for the folder
