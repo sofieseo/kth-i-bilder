@@ -151,7 +151,7 @@ const Index = () => {
           opacity: 1,
         }}
       />
-      <header className="shrink-0 relative" style={{ zIndex: 1 }}>
+      <header className="shrink-0 relative" style={{ zIndex: 20 }}>
         {/* Photographic archive cabinet drawer — uses a real generated photo as the backdrop.
             The silver label holder is rendered as a separate transparent PNG layer on top,
             so it can never be cropped regardless of viewport size. */}
