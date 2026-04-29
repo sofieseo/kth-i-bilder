@@ -151,7 +151,7 @@ const Index = () => {
           opacity: 1,
         }}
       />
-      <header className="shrink-0 relative" style={{ zIndex: 1 }}>
+      <header className="shrink-0 relative" style={{ zIndex: 20 }}>
         {/* Photographic archive cabinet drawer — uses a real generated photo as the backdrop.
             The silver label holder is rendered as a separate transparent PNG layer on top,
             so it can never be cropped regardless of viewport size. */}
@@ -313,16 +313,16 @@ const Index = () => {
         {/* Dark interior of the open cabinet — just enough height for the folder
             tabs to peek up behind the manila paper, with no visible gap below. */}
         <div
-            className={`relative overflow-hidden px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-1" : "pt-3"}`}
+            className={`relative overflow-visible px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-1" : "pt-3"}`}
           style={{
             backgroundColor: "#000000",
             boxShadow:
               "inset 0 12px 18px -6px rgba(0, 0, 0, 0.95), inset 0 2px 4px rgba(0, 0, 0, 1)",
-            zIndex: 1,
+            zIndex: 25,
             height: headerShrunk ? "62px" : "72px",
           }}
         >
-          <div className="relative">
+          <div className="relative" style={{ zIndex: 30 }}>
             <ArchiveTabs year={year} onChange={handleYearChange} compact={headerShrunk} />
           </div>
         </div>
