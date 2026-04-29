@@ -312,11 +312,15 @@ const Index = () => {
               </h1>
               {!headerShrunk && (
                 <p
-                  className="mt-1 sm:mt-1.5 text-[5px] sm:text-[7px] md:text-[8px] leading-tight"
+                  className="mt-1 sm:mt-1.5 text-[5px] sm:text-[6px] md:text-[7px] lg:text-[7px] xl:text-[8px] leading-tight"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0.02em" }}
                 >
+                  {/* Tre varianter: kort (mobil), medel (tablet/liten desktop), lång (full desktop) */}
                   <span className="sm:hidden">Fotografier från öppna arkiv</span>
-                  <span className="hidden sm:inline">Fotografier från öppna arkiv</span>
+                  <span className="hidden sm:inline xl:hidden">Fotografier från öppna arkiv</span>
+                  <span className="hidden xl:inline">
+                    En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH). Bilderna hämtas från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.
+                  </span>
                 </p>
               )}
             </div>
