@@ -266,7 +266,7 @@ const Index = () => {
             className="absolute z-20"
             style={{
               top: headerShrunk
-                ? "50%"
+                ? "78%"
                 : ((wantsAdmin || isAdmin) ? "calc(8% + 44px)" : "8%"),
               right: "3%",
               transform: headerShrunk
