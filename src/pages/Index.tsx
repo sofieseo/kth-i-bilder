@@ -151,7 +151,21 @@ const Index = () => {
           opacity: 1,
         }}
       />
-      <header className="shrink-0 relative" style={{ zIndex: 1 }}>
+      <header
+        className="shrink-0 relative"
+        style={{ zIndex: 1 }}
+        onWheel={(e) => {
+          // Forward vertical wheel scrolls from the cabinet header to the
+          // gallery scroll container so the page keeps scrolling even when
+          // the cursor hovers over the archive cabinet.
+          const scroller = document.querySelector<HTMLDivElement>(
+            "main .overflow-y-auto"
+          );
+          if (scroller && Math.abs(e.deltaY) > 0) {
+            scroller.scrollTop += e.deltaY;
+          }
+        }}
+      >
         {/* Photographic archive cabinet drawer — uses a real generated photo as the backdrop.
             The silver label holder is centered. We use 100% 100% sizing so the
             entire drawer face is always visible — no cropping. */}
