@@ -329,8 +329,8 @@ const Index = () => {
               </h1>
               {!headerShrunk && (
                 <p
-                  className="mt-1 sm:mt-1.5 text-[7px] sm:text-[7.5px] md:text-[8px] lg:text-[8.5px] xl:text-[8.5px] leading-[1.3] text-center xl:text-left"
-                  style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0.01em" }}
+                  className="mt-1 sm:mt-1.5 text-[7px] sm:text-[7.5px] md:text-[8px] lg:text-[8.5px] xl:text-[8.5px] leading-[1.3] text-center mx-auto"
+                  style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0", maxWidth: "88%" }}
                 >
                   {/* Tre varianter: kort (mobil), medel (tablet/liten desktop), lång (full desktop) */}
                   <span className="sm:hidden">Fotografier från öppna arkiv</span>
