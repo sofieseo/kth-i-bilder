@@ -35,7 +35,7 @@ const Index = () => {
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollToTopSignal, setScrollToTopSignal] = useState(0);
   // Shrink header and show "back to top" button after a small scroll threshold
-  const headerShrunk = scrollTop > 8;
+  const headerShrunk = scrollTop > 0;
   const showBackToTop = headerShrunk;
   // Cached reference to the gallery scroll container so wheel-forwarding
   // from the header doesn't query the DOM on every event.
