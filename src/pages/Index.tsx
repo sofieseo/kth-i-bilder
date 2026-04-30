@@ -298,7 +298,7 @@ const Index = () => {
               transform: "translate(-50%, -50%)",
               width: headerShrunk
                 ? "clamp(260px, 40vw, 380px)"
-                : "clamp(320px, 50vw, 620px)",
+                : "clamp(320px, 54vw, 760px)",
             }}
           >
             <img
@@ -314,11 +314,11 @@ const Index = () => {
             <div
               className="absolute text-center flex flex-col justify-center items-center"
               style={{
-                left: "12%",
-                right: "12%",
-                top: "30%",
-                bottom: "30%",
-                padding: "0 2%",
+                left: "11%",
+                right: "11%",
+                top: "26%",
+                bottom: "26%",
+                padding: "0 1.5%",
               }}
             >
               <h1
@@ -329,7 +329,7 @@ const Index = () => {
               </h1>
               {!headerShrunk && (
                 <p
-                  className="mt-1 sm:mt-1.5 text-[7px] sm:text-[7.5px] md:text-[8px] lg:text-[8.5px] xl:text-[8.5px] leading-[1.3] text-center xl:text-left"
+                  className="mt-1 sm:mt-1.5 text-[7px] sm:text-[7.5px] md:text-[8.5px] lg:text-[9.5px] xl:text-[10px] leading-[1.35] text-center xl:text-left"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0.01em" }}
                 >
                   {/* Tre varianter: kort (mobil), medel (tablet/liten desktop), lång (full desktop) */}
