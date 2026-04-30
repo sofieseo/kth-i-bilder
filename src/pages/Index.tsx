@@ -294,7 +294,7 @@ const Index = () => {
           <div
             className="absolute left-1/2 z-10"
             style={{
-              top: headerShrunk ? "50%" : "44%",
+              top: headerShrunk ? "42%" : "44%",
               transform: "translate(-50%, -50%)",
               width: headerShrunk
                 ? "clamp(260px, 40vw, 380px)"
