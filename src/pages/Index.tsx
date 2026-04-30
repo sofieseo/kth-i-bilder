@@ -277,13 +277,8 @@ const Index = () => {
           <div
             className="absolute z-20"
             style={{
-              top: headerShrunk
-                ? "78%"
-                : ((wantsAdmin || isAdmin) ? "calc(8% + 44px)" : "8%"),
+              top: (wantsAdmin || isAdmin) ? "calc(8% + 44px)" : "8%",
               right: "1.5%",
-              transform: headerShrunk
-                ? "translateY(-50%)"
-                : "none",
               transformOrigin: "center right",
             }}
           >
