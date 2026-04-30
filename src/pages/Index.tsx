@@ -164,7 +164,7 @@ const Index = () => {
             // independently per breakpoint.
             height: headerShrunk ? "clamp(110px, 14vw, 160px)" : "clamp(200px, 32vw, 360px)",
             backgroundImage: `url(${archiveCabinetClean})`,
-            backgroundSize: "cover",
+            backgroundSize: "100% 100%",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
             backgroundColor: "#7d8a6a",
