@@ -1,5 +1,6 @@
 import { X, ExternalLink, Building2, MapPin, Calendar, Tag, ImageOff, Camera, Share2, Check, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { createPortal } from "react-dom";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { supabase } from "@/integrations/supabase/client";
 
