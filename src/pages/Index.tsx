@@ -299,8 +299,8 @@ const Index = () => {
               // on huge screens or shrinks too small on phones. In compact mode
               // we shrink it slightly to fit the reduced header height.
               width: headerShrunk
-                ? "clamp(220px, 36vw, 360px)"
-                : "clamp(240px, 46vw, 620px)",
+                ? "clamp(240px, 38vw, 360px)"
+                : "clamp(280px, 52vw, 620px)",
             }}
           >
             <img
