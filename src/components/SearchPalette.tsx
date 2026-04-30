@@ -185,7 +185,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
             className="block transition-transform hover:-translate-y-px active:translate-y-0"
             style={{ filter: dymoShadow }}
           >
-            <img src={dymoSok} alt="Sök" className="block h-6 w-auto sm:h-8 md:h-9" draggable={false} />
+            <img src={dymoSok} alt="Sök" className="block h-5 w-auto sm:h-6 md:h-7" draggable={false} />
           </button>
           <button
             type="button"
@@ -194,7 +194,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
             className="block transition-transform hover:-translate-y-px active:translate-y-0"
             style={{ filter: dymoShadow }}
           >
-            <img src={dymoInfo} alt="" className="block h-6 w-auto sm:h-8 md:h-9" draggable={false} />
+            <img src={dymoInfo} alt="" className="block h-5 w-auto sm:h-6 md:h-7" draggable={false} />
           </button>
         </div>
       ) : (
