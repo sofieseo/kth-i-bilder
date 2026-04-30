@@ -299,8 +299,8 @@ const Index = () => {
               // on huge screens or shrinks too small on phones. In compact mode
               // we shrink it slightly to fit the reduced header height.
               width: headerShrunk
-                ? "clamp(220px, 36vw, 360px)"
-                : "clamp(240px, 46vw, 620px)",
+                ? "clamp(240px, 38vw, 360px)"
+                : "clamp(280px, 52vw, 620px)",
             }}
           >
             <img
@@ -331,7 +331,7 @@ const Index = () => {
               </h1>
               {!headerShrunk && (
                 <p
-                  className="mt-1 sm:mt-1.5 text-[9px] sm:text-[10px] md:text-[10px] lg:text-[10px] xl:text-[11px] leading-tight text-center xl:text-left"
+                  className="mt-1 sm:mt-1.5 text-[8px] sm:text-[10px] md:text-[10px] lg:text-[10px] xl:text-[11px] leading-tight text-center xl:text-left"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0.02em" }}
                 >
                   {/* Tre varianter: kort (mobil), medel (tablet/liten desktop), lång (full desktop) */}
