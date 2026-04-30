@@ -268,7 +268,7 @@ const Index = () => {
               top: headerShrunk
                 ? "78%"
                 : ((wantsAdmin || isAdmin) ? "calc(8% + 44px)" : "8%"),
-              right: "3%",
+              right: "1.5%",
               transform: headerShrunk
                 ? "translateY(-50%)"
                 : "none",
