@@ -183,8 +183,8 @@ const Index = () => {
             // independently per breakpoint.
             height: headerShrunk ? "clamp(100px, 12vw, 140px)" : "clamp(170px, 22vw, 240px)",
             backgroundImage: `url(${archiveCabinetClean})`,
-            backgroundSize: "115% 100%",
-            backgroundPosition: "center center",
+            backgroundSize: "115% auto",
+            backgroundPosition: "center bottom",
             backgroundRepeat: "no-repeat",
             backgroundColor: "#7d8a6a",
             boxShadow: "0 8px 18px rgba(0, 0, 0, 0.55), inset 0 -1px 0 rgba(0, 0, 0, 0.7)",
@@ -299,8 +299,8 @@ const Index = () => {
               // on huge screens or shrinks too small on phones. In compact mode
               // we shrink it slightly to fit the reduced header height.
               width: headerShrunk
-                ? "clamp(220px, 32vw, 320px)"
-                : "clamp(260px, 38vw, 440px)",
+                ? "clamp(260px, 40vw, 380px)"
+                : "clamp(320px, 48vw, 540px)",
             }}
           >
             <img
