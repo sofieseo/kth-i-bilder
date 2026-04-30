@@ -306,9 +306,9 @@ const Index = () => {
           <div
             className="absolute left-1/2 z-10"
             style={{
-              top: headerShrunk ? "42%" : "44%",
+              top: labelShrunk ? "42%" : "44%",
               transform: "translate(-50%, -50%)",
-              width: headerShrunk
+              width: labelShrunk
                 ? "clamp(260px, 40vw, 380px)"
                 : "clamp(320px, 48vw, 540px)",
             }}
@@ -334,12 +334,12 @@ const Index = () => {
               }}
             >
               <h1
-                className={`font-slab uppercase tracking-[0.16em] leading-[1.1] transition-[font-size] duration-200 ${headerShrunk ? "text-[12px] sm:text-[13px] md:text-[15px]" : "text-[15px] sm:text-[15px] md:text-lg lg:text-xl"}`}
+                className={`font-slab uppercase tracking-[0.16em] leading-[1.1] transition-[font-size] duration-200 ${labelShrunk ? "text-[12px] sm:text-[13px] md:text-[15px]" : "text-[15px] sm:text-[15px] md:text-lg lg:text-xl"}`}
                 style={{ color: "#2a2418", fontWeight: 700 }}
               >
                 KTH i bilder
               </h1>
-              {!headerShrunk && (
+              {!labelShrunk && (
                 <p
                   className="mt-1 sm:mt-1.5 text-[8px] sm:text-[8.5px] md:text-[9px] lg:text-[9.5px] xl:text-[9.5px] leading-[1.3] text-center xl:text-left mx-auto"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0", maxWidth: "88%" }}
