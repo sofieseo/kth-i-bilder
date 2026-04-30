@@ -292,12 +292,10 @@ const Index = () => {
               follow naturally. Title text is positioned absolutely over the
               inner paper area of the holder. */}
           <div
-            className="absolute left-1/2 top-1/2 z-10"
+            className="absolute left-1/2 z-10"
             style={{
+              top: headerShrunk ? "50%" : "44%",
               transform: "translate(-50%, -50%)",
-              // Width scales with viewport but is capped so it never dominates
-              // on huge screens or shrinks too small on phones. In compact mode
-              // we shrink it slightly to fit the reduced header height.
               width: headerShrunk
                 ? "clamp(260px, 40vw, 380px)"
                 : "clamp(320px, 48vw, 540px)",
@@ -316,11 +314,11 @@ const Index = () => {
             <div
               className="absolute text-center flex flex-col justify-center items-center"
               style={{
-                left: "18%",
-                right: "18%",
-                top: "38%",
-                bottom: "38%",
-                padding: "0 2%",
+                left: "14%",
+                right: "14%",
+                top: "32%",
+                bottom: "32%",
+                padding: "0 3%",
               }}
             >
               <h1
@@ -355,7 +353,7 @@ const Index = () => {
             boxShadow:
               "inset 0 12px 18px -6px rgba(0, 0, 0, 0.95), inset 0 2px 4px rgba(0, 0, 0, 1)",
             zIndex: 1,
-            height: headerShrunk ? "70px" : "82px",
+            height: headerShrunk ? "52px" : "60px",
           }}
         >
           <div className="relative">
