@@ -305,14 +305,14 @@ const Index = () => {
               }}
             >
               <h1
-                className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-[10px] sm:text-xs md:text-sm" : "text-xs sm:text-sm md:text-lg"}`}
+                className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-[12px] sm:text-sm md:text-base" : "text-sm sm:text-base md:text-xl lg:text-2xl"}`}
                 style={{ color: "#2a2418", fontWeight: 700 }}
               >
                 KTH i bilder
               </h1>
               {!headerShrunk && (
                 <p
-                  className="mt-1 sm:mt-1.5 text-[5px] sm:text-[6px] md:text-[7px] lg:text-[7px] xl:text-[8px] leading-tight"
+                  className="mt-1 sm:mt-1.5 text-[6px] sm:text-[8px] md:text-[10px] lg:text-[10px] xl:text-[11px] leading-tight"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0.02em" }}
                 >
                   {/* Tre varianter: kort (mobil), medel (tablet/liten desktop), lång (full desktop) */}
