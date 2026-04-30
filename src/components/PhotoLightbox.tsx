@@ -72,6 +72,7 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
       aria-modal="true"
       aria-label={photo.title}
       className="fixed inset-0 z-[2000] flex items-center justify-center p-0 sm:p-4"
+      style={{ height: "100dvh" }}
       onClick={onClose}
     >
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" aria-hidden="true" />
@@ -97,8 +98,8 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
       )}
 
       <div
-        className="relative z-10 w-full max-w-2xl max-h-[90vh] sm:max-h-[90vh] max-sm:h-full max-sm:max-h-full overflow-y-auto border-0 sm:border border-border shadow-2xl"
-        style={{ backgroundColor: "#f4f1ea" }}
+        className="relative z-10 w-full max-w-2xl sm:max-h-[90vh] max-sm:h-full overflow-y-auto overscroll-contain border-0 sm:border border-border shadow-2xl"
+        style={{ backgroundColor: "#f4f1ea", WebkitOverflowScrolling: "touch" }}
         onClick={(e) => e.stopPropagation()}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
