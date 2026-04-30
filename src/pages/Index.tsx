@@ -298,7 +298,7 @@ const Index = () => {
               transform: "translate(-50%, -50%)",
               width: headerShrunk
                 ? "clamp(260px, 40vw, 380px)"
-                : "clamp(320px, 48vw, 540px)",
+                : "clamp(320px, 50vw, 620px)",
             }}
           >
             <img
@@ -314,11 +314,11 @@ const Index = () => {
             <div
               className="absolute text-center flex flex-col justify-center items-center"
               style={{
-                left: "14%",
-                right: "14%",
-                top: "32%",
-                bottom: "32%",
-                padding: "0 3%",
+                left: "12%",
+                right: "12%",
+                top: "30%",
+                bottom: "30%",
+                padding: "0 2%",
               }}
             >
               <h1
