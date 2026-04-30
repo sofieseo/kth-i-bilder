@@ -75,7 +75,7 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
     touchStartY.current = null;
   }, [onPrev, onNext, hasPrev, hasNext]);
 
-  return (
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
