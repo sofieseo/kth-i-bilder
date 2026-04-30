@@ -266,12 +266,12 @@ const Index = () => {
             className="absolute z-20"
             style={{
               top: headerShrunk
-                ? "50%"
+                ? "78%"
                 : ((wantsAdmin || isAdmin) ? "calc(8% + 44px)" : "8%"),
               right: "3%",
               transform: headerShrunk
-                ? "translateY(-50%) rotate(1.2deg)"
-                : "rotate(1.2deg)",
+                ? "translateY(-50%)"
+                : "none",
               transformOrigin: "center right",
             }}
           >
@@ -329,7 +329,7 @@ const Index = () => {
               </h1>
               {!headerShrunk && (
                 <p
-                  className="mt-1 sm:mt-1.5 text-[8px] sm:text-[8.5px] md:text-[9px] lg:text-[9.5px] xl:text-[9.5px] leading-[1.3] text-center mx-auto"
+                  className="mt-1 sm:mt-1.5 text-[8px] sm:text-[8.5px] md:text-[9px] lg:text-[9.5px] xl:text-[9.5px] leading-[1.3] text-center xl:text-left mx-auto"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0", maxWidth: "88%" }}
                 >
                   {/* Tre varianter: kort (mobil), medel (tablet/liten desktop), lång (full desktop) */}
