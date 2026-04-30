@@ -220,6 +220,7 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
