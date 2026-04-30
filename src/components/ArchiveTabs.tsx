@@ -85,15 +85,18 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               borderBottom: "none",
               fontFamily: "'Caveat', cursive",
               opacity: 1,
-              zIndex: isActive ? 50 : 10 + idx,
-              // The folder below overlaps the lower part; labels are pinned high
-              // so the full decade remains visible while tabs sit behind paper.
-              marginBottom: 0,
+              // Active tab must sit ABOVE the folder paper so it merges seamlessly
+              // with the manila page below (z-index on <main> is 5).
+              zIndex: isActive ? 60 : 10 + idx,
+              // Pull the active tab down a few pixels so it visually overlaps the
+              // top edge of the folder paper, hiding the seam between tab and page.
+              marginBottom: isActive ? -4 : 0,
               paddingBottom: 0,
-              // Warm amber glow against the black cabinet interior so tabs read as
-              // part of the same manila folder family rather than floating chips.
+              // Inactive tabs keep the dark cabinet shadow. Active tab drops the
+              // top/bottom dark shadow (which previously sat in front of the page)
+              // and only retains soft side glow so it reads as continuous paper.
               boxShadow: isActive
-                ? "0 -3px 10px rgba(205, 145, 70, 0.18), 0 -2px 6px rgba(0, 0, 0, 0.45), -2px 0 6px rgba(0, 0, 0, 0.35), 2px 0 6px rgba(0, 0, 0, 0.30)"
+                ? "-3px 0 8px rgba(0, 0, 0, 0.35), 3px 0 8px rgba(0, 0, 0, 0.30)"
                 : "0 -2px 8px rgba(0, 0, 0, 0.40), -1px 0 5px rgba(0, 0, 0, 0.30), 1px 0 5px rgba(0, 0, 0, 0.25)",
             }}
           >
