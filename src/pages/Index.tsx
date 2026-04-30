@@ -322,15 +322,15 @@ const Index = () => {
               }}
             >
               <h1
-                className={`font-slab uppercase tracking-[0.18em] leading-none transition-[font-size] duration-200 ${headerShrunk ? "text-[13px] sm:text-sm md:text-base" : "text-[17px] sm:text-base md:text-xl lg:text-2xl"}`}
+                className={`font-slab uppercase tracking-[0.16em] leading-[1.1] transition-[font-size] duration-200 ${headerShrunk ? "text-[12px] sm:text-[13px] md:text-[15px]" : "text-[15px] sm:text-[15px] md:text-lg lg:text-xl"}`}
                 style={{ color: "#2a2418", fontWeight: 700 }}
               >
                 KTH i bilder
               </h1>
               {!headerShrunk && (
                 <p
-                  className="mt-1 sm:mt-1.5 text-[8px] sm:text-[10px] md:text-[10px] lg:text-[10px] xl:text-[11px] leading-tight text-center xl:text-left"
-                  style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0.02em" }}
+                  className="mt-1.5 sm:mt-2 text-[8px] sm:text-[9px] md:text-[10px] lg:text-[10px] xl:text-[10.5px] leading-[1.5] text-center xl:text-left"
+                  style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0.01em" }}
                 >
                   {/* Tre varianter: kort (mobil), medel (tablet/liten desktop), lång (full desktop) */}
                   <span className="sm:hidden">Fotografier från öppna arkiv</span>
