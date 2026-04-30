@@ -47,6 +47,14 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onPrev, onNext, hasPrev, hasNext, onClose]);
 
+  // Lock body scroll while lightbox is open (prevents iOS Safari from
+  // hijacking touch scroll for the underlying <main> scroller).
+  useEffect(() => {
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = prevOverflow; };
+  }, []);
+
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
