@@ -329,7 +329,7 @@ const Index = () => {
               </h1>
               {!headerShrunk && (
                 <p
-                  className="mt-1.5 sm:mt-2 text-[8px] sm:text-[9px] md:text-[10px] lg:text-[10px] xl:text-[10.5px] leading-[1.5] text-center xl:text-left"
+                  className="mt-1 sm:mt-1.5 text-[7px] sm:text-[8px] md:text-[8.5px] lg:text-[9px] xl:text-[9px] leading-[1.35] text-center xl:text-left"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0.01em" }}
                 >
                   {/* Tre varianter: kort (mobil), medel (tablet/liten desktop), lång (full desktop) */}
