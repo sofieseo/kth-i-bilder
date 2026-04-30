@@ -181,7 +181,7 @@ const Index = () => {
             // always use background-size: cover. The silver label holder is a
             // separately positioned overlay below, which lets us scale it
             // independently per breakpoint.
-            height: headerShrunk ? "clamp(110px, 14vw, 160px)" : "clamp(200px, 32vw, 360px)",
+            height: headerShrunk ? "clamp(100px, 12vw, 140px)" : "clamp(170px, 22vw, 240px)",
             backgroundImage: `url(${archiveCabinetClean})`,
             backgroundSize: "115% 100%",
             backgroundPosition: "center center",
@@ -299,8 +299,8 @@ const Index = () => {
               // on huge screens or shrinks too small on phones. In compact mode
               // we shrink it slightly to fit the reduced header height.
               width: headerShrunk
-                ? "clamp(240px, 38vw, 360px)"
-                : "clamp(280px, 52vw, 620px)",
+                ? "clamp(220px, 32vw, 320px)"
+                : "clamp(260px, 38vw, 440px)",
             }}
           >
             <img
