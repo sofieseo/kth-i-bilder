@@ -336,7 +336,7 @@ const Index = () => {
             boxShadow:
               "inset 0 12px 18px -6px rgba(0, 0, 0, 0.95), inset 0 2px 4px rgba(0, 0, 0, 1)",
             zIndex: 1,
-            height: headerShrunk ? "62px" : "72px",
+            height: headerShrunk ? "78px" : "96px",
           }}
         >
           <div className="relative">
