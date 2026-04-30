@@ -34,8 +34,10 @@ const Index = () => {
   const [reopenSearchSignal, setReopenSearchSignal] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollToTopSignal, setScrollToTopSignal] = useState(0);
-  // Shrink header and show "back to top" button after a small scroll threshold
+  const [holdCompactLabel, setHoldCompactLabel] = useState(false);
+  // Shrink header immediately on the first scroll pixel.
   const headerShrunk = scrollTop > 0;
+  const labelShrunk = headerShrunk || holdCompactLabel;
   const showBackToTop = headerShrunk;
   // Cached reference to the gallery scroll container so wheel-forwarding
   // from the header doesn't query the DOM on every event.
@@ -45,6 +47,16 @@ const Index = () => {
     await supabase.auth.signOut();
     toast.success("Utloggad");
   };
+
+  useEffect(() => {
+    if (headerShrunk) {
+      setHoldCompactLabel(true);
+      return;
+    }
+
+    const timeout = window.setTimeout(() => setHoldCompactLabel(false), 320);
+    return () => window.clearTimeout(timeout);
+  }, [headerShrunk]);
 
   const handleClearCache = async () => {
     setClearingCache(true);
