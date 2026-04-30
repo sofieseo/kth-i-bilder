@@ -314,11 +314,11 @@ const Index = () => {
             <div
               className="absolute text-center flex flex-col justify-center items-center"
               style={{
-                left: "14%",
-                right: "14%",
-                top: "32%",
-                bottom: "32%",
-                padding: "0 3%",
+                left: "12%",
+                right: "12%",
+                top: "30%",
+                bottom: "30%",
+                padding: "0 2%",
               }}
             >
               <h1
