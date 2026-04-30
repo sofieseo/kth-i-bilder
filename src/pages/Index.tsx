@@ -298,7 +298,7 @@ const Index = () => {
               transform: "translate(-50%, -50%)",
               width: headerShrunk
                 ? "clamp(260px, 40vw, 380px)"
-                : "clamp(320px, 48vw, 540px)",
+                : "clamp(320px, 50vw, 620px)",
             }}
           >
             <img
