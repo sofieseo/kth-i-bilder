@@ -34,9 +34,12 @@ const Index = () => {
   const [reopenSearchSignal, setReopenSearchSignal] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollToTopSignal, setScrollToTopSignal] = useState(0);
-  // Shrink header on mobile after a small scroll threshold
+  // Shrink header and show "back to top" button after a small scroll threshold
   const headerShrunk = scrollTop > 40;
-  const showBackToTop = scrollTop > 40;
+  const showBackToTop = headerShrunk;
+  // Cached reference to the gallery scroll container so wheel-forwarding
+  // from the header doesn't query the DOM on every event.
+  const galleryScrollerRef = useRef<HTMLDivElement | null>(null);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -158,10 +161,12 @@ const Index = () => {
           // Forward vertical wheel scrolls from the cabinet header to the
           // gallery scroll container so the page keeps scrolling even when
           // the cursor hovers over the archive cabinet.
-          const scroller = document.querySelector<HTMLDivElement>(
-            "main .overflow-y-auto"
-          );
-          if (scroller && Math.abs(e.deltaY) > 0) {
+          const scroller =
+            galleryScrollerRef.current ??
+            (galleryScrollerRef.current = document.querySelector<HTMLDivElement>(
+              "main .overflow-y-auto"
+            ));
+          if (scroller && e.deltaY !== 0) {
             scroller.scrollTop += e.deltaY;
           }
         }}
