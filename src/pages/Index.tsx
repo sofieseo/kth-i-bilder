@@ -268,11 +268,11 @@ const Index = () => {
               top: headerShrunk
                 ? "50%"
                 : ((wantsAdmin || isAdmin) ? "calc(8% + 44px)" : "8%"),
-              left: "3%",
+              right: "3%",
               transform: headerShrunk
-                ? "translateY(-50%) rotate(-1.2deg)"
-                : "rotate(-1.2deg)",
-              transformOrigin: "center left",
+                ? "translateY(-50%) rotate(1.2deg)"
+                : "rotate(1.2deg)",
+              transformOrigin: "center right",
             }}
           >
             <SearchPalette
