@@ -63,11 +63,11 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             type="button"
             onClick={() => onChange(decade)}
             aria-pressed={isActive}
-          className={`relative inline-flex shrink-0 items-start justify-center leading-none md:shrink md:flex-1 md:min-w-0 transition-all ${
+            className={`relative inline-flex shrink-0 items-start justify-center overflow-hidden leading-none md:shrink md:flex-1 md:min-w-0 transition-all ${
               isActive
                 ? `${compact ? "h-12 px-2 pt-2 text-[18px]" : "h-[78px] px-2 pt-3 text-[22px]"} font-bold`
                 : `${compact ? "h-10 px-2 pt-2 text-[15px]" : "h-16 px-2 pt-3 text-[18px]"} hover:-translate-y-0.5`
-            } ${idx > 0 ? "-ml-1" : ""}`}
+            } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
               backgroundColor: tabColor,
               backgroundImage: `url(${manilaFolderTexture})`,
@@ -75,21 +75,26 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               backgroundPosition: `${(idx * 37) % 100}% ${(idx * 53) % 100}%`,
               backgroundBlendMode: "multiply",
               color: "#1a1208",
-              // Trapezoidal index-tab: both top corners gently rounded, sides
-              // taper inward toward the bottom via clip-path.
-              clipPath:
-                "polygon(6% 100%, 0% 22%, 8% 0%, 92% 0%, 100% 22%, 94% 100%)",
-              border: "none",
+              // Realistic folder tab: only the top-right corner is rounded
+              borderTopLeftRadius: "0",
+              borderTopRightRadius: "12px 16px",
+              // Only top + side borders, no bottom — tab dissolves into the page
+              borderTop: "1px solid rgba(75, 50, 18, 0.55)",
+              borderLeft: "1px solid rgba(75, 50, 18, 0.45)",
+              borderRight: "1px solid rgba(75, 50, 18, 0.55)",
+              borderBottom: "none",
               fontFamily: "'Caveat', cursive",
               opacity: 1,
               zIndex: isActive ? 50 : 10 + idx,
+              // The folder below overlaps the lower part; labels are pinned high
+              // so the full decade remains visible while tabs sit behind paper.
               marginBottom: 0,
               paddingBottom: 0,
-              // Soft drop-shadow approximating a folder tab edge. With clip-path
-              // borders are not visible, so we lean on filter for outline.
-              filter: isActive
-                ? "drop-shadow(0 -2px 4px rgba(0,0,0,0.35)) drop-shadow(0 1px 2px rgba(205,145,70,0.25))"
-                : "drop-shadow(0 -1px 3px rgba(0,0,0,0.30))",
+              // Warm amber glow against the black cabinet interior so tabs read as
+              // part of the same manila folder family rather than floating chips.
+              boxShadow: isActive
+                ? "0 -3px 10px rgba(205, 145, 70, 0.18), 0 -2px 6px rgba(0, 0, 0, 0.45), -2px 0 6px rgba(0, 0, 0, 0.35), 2px 0 6px rgba(0, 0, 0, 0.30)"
+                : "0 -2px 8px rgba(0, 0, 0, 0.40), -1px 0 5px rgba(0, 0, 0, 0.30), 1px 0 5px rgba(0, 0, 0, 0.25)",
             }}
           >
             <span className="relative z-10">{labelFor(decade)}</span>
