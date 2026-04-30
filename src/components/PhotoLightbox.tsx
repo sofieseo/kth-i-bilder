@@ -1,5 +1,6 @@
 import { X, ExternalLink, Building2, MapPin, Calendar, Tag, ImageOff, Camera, Share2, Check, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { createPortal } from "react-dom";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -46,6 +47,14 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onPrev, onNext, hasPrev, hasNext, onClose]);
 
+  // Lock body scroll while lightbox is open (prevents iOS Safari from
+  // hijacking touch scroll for the underlying <main> scroller).
+  useEffect(() => {
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = prevOverflow; };
+  }, []);
+
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
@@ -66,7 +75,7 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
     touchStartY.current = null;
   }, [onPrev, onNext, hasPrev, hasNext]);
 
-  return (
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
@@ -211,6 +220,7 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
