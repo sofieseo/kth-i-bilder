@@ -5,7 +5,8 @@ import { fetchAllPhotosForSearch } from "@/data/fetchAllPhotosForSearch";
 import type { UnifiedPhoto } from "@/data/types";
 import { getHeaderPaperStyle } from "@/lib/paperColor";
 import { SearchResultsList } from "./SearchResultsList";
-import dymoInfo from "@/assets/dymo-info.png";
+import dymoInfo from "@/assets/dymo-info.jpg";
+import dymoSok from "@/assets/dymo-sok.jpg";
 
 interface SearchPaletteProps {
   onSelect: (photo: UnifiedPhoto, results: UnifiedPhoto[]) => void;
@@ -177,14 +178,14 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
   return (
     <>
       {light ? (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           <button
             onClick={() => setOpen(true)}
             aria-label="Sök bland bilder (Ctrl+K)"
-            className="inline-flex items-center justify-center px-2.5 sm:px-3 text-xs sm:text-sm transition-transform hover:-translate-y-px active:translate-y-0 h-7 sm:h-9"
-            style={flatDymoStyle}
+            className="block transition-transform hover:-translate-y-px active:translate-y-0"
+            style={{ filter: dymoShadow }}
           >
-            Sök
+            <img src={dymoSok} alt="Sök" className="block h-6 w-auto sm:h-8 md:h-9" draggable={false} />
           </button>
           <button
             type="button"
@@ -193,7 +194,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
             className="block transition-transform hover:-translate-y-px active:translate-y-0"
             style={{ filter: dymoShadow }}
           >
-            <img src={dymoInfo} alt="" className="block h-7 w-7 sm:h-9 sm:w-9" draggable={false} />
+            <img src={dymoInfo} alt="" className="block h-6 w-auto sm:h-8 md:h-9" draggable={false} />
           </button>
         </div>
       ) : (
