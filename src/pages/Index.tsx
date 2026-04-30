@@ -270,8 +270,8 @@ const Index = () => {
                 : ((wantsAdmin || isAdmin) ? "calc(8% + 44px)" : "8%"),
               right: "3%",
               transform: headerShrunk
-                ? "translateY(-50%) rotate(1.2deg)"
-                : "rotate(1.2deg)",
+                ? "translateY(-50%)"
+                : "none",
               transformOrigin: "center right",
             }}
           >
