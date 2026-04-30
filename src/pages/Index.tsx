@@ -34,8 +34,10 @@ const Index = () => {
   const [reopenSearchSignal, setReopenSearchSignal] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollToTopSignal, setScrollToTopSignal] = useState(0);
-  // Shrink header and show "back to top" button after a small scroll threshold
+  const [holdCompactLabel, setHoldCompactLabel] = useState(false);
+  // Shrink header immediately on the first scroll pixel.
   const headerShrunk = scrollTop > 0;
+  const labelShrunk = headerShrunk || holdCompactLabel;
   const showBackToTop = headerShrunk;
   // Cached reference to the gallery scroll container so wheel-forwarding
   // from the header doesn't query the DOM on every event.
@@ -45,6 +47,16 @@ const Index = () => {
     await supabase.auth.signOut();
     toast.success("Utloggad");
   };
+
+  useEffect(() => {
+    if (headerShrunk) {
+      setHoldCompactLabel(true);
+      return;
+    }
+
+    const timeout = window.setTimeout(() => setHoldCompactLabel(false), 320);
+    return () => window.clearTimeout(timeout);
+  }, [headerShrunk]);
 
   const handleClearCache = async () => {
     setClearingCache(true);
@@ -294,9 +306,9 @@ const Index = () => {
           <div
             className="absolute left-1/2 z-10"
             style={{
-              top: headerShrunk ? "42%" : "44%",
+              top: labelShrunk ? "42%" : "44%",
               transform: "translate(-50%, -50%)",
-              width: headerShrunk
+              width: labelShrunk
                 ? "clamp(260px, 40vw, 380px)"
                 : "clamp(320px, 48vw, 540px)",
             }}
@@ -322,12 +334,12 @@ const Index = () => {
               }}
             >
               <h1
-                className={`font-slab uppercase tracking-[0.16em] leading-[1.1] transition-[font-size] duration-200 ${headerShrunk ? "text-[12px] sm:text-[13px] md:text-[15px]" : "text-[15px] sm:text-[15px] md:text-lg lg:text-xl"}`}
+                className={`font-slab uppercase tracking-[0.16em] leading-[1.1] transition-[font-size] duration-200 ${labelShrunk ? "text-[12px] sm:text-[13px] md:text-[15px]" : "text-[15px] sm:text-[15px] md:text-lg lg:text-xl"}`}
                 style={{ color: "#2a2418", fontWeight: 700 }}
               >
                 KTH i bilder
               </h1>
-              {!headerShrunk && (
+              {!labelShrunk && (
                 <p
                   className="mt-1 sm:mt-1.5 text-[8px] sm:text-[8.5px] md:text-[9px] lg:text-[9.5px] xl:text-[9.5px] leading-[1.3] text-center xl:text-left mx-auto"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0", maxWidth: "88%" }}
