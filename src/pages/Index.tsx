@@ -336,7 +336,7 @@ const Index = () => {
             boxShadow:
               "inset 0 12px 18px -6px rgba(0, 0, 0, 0.95), inset 0 2px 4px rgba(0, 0, 0, 1)",
             zIndex: 1,
-            height: headerShrunk ? "78px" : "96px",
+            height: headerShrunk ? "70px" : "82px",
           }}
         >
           <div className="relative">
@@ -347,7 +347,7 @@ const Index = () => {
 
       <main
         className="flex flex-col flex-1 min-h-0 overflow-hidden relative isolate"
-        style={{ backgroundColor: getArchivePaperBeige().color, zIndex: 5, marginTop: headerShrunk ? "-26px" : "-40px", boxShadow: "0 -3px 8px rgba(0,0,0,0.5), inset 0 6px 8px -4px rgba(0,0,0,0.25)" }}
+        style={{ backgroundColor: getArchivePaperBeige().color, zIndex: 5, marginTop: headerShrunk ? "-18px" : "-22px", boxShadow: "0 -3px 8px rgba(0,0,0,0.5), inset 0 6px 8px -4px rgba(0,0,0,0.25)" }}
       >
         {/* Photorealistic manilla folder paper texture — fills the open folder area
             and stretches responsively across all viewports. The folder paper rises
