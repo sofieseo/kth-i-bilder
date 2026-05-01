@@ -1,7 +1,4 @@
 import { useEffect, useRef } from "react";
-import { getArchivePaperBeige } from "@/lib/paperColor";
-import manilaFolderTexture from "@/assets/manila-folder-texture.jpg";
-import archivePaperBlueGray from "@/assets/archive-paper-bluegray.jpg";
 
 const DECADES: number[] = [0, 1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020];
 
@@ -69,11 +66,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
                 : `${compact ? "h-10 px-2 pt-2 text-[15px]" : "h-16 px-2 pt-3 text-[18px]"} hover:-translate-y-0.5`
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
-              backgroundColor: tabColor,
-              backgroundImage: `url(${archivePaperBlueGray})`,
-              backgroundSize: "480px auto",
-              backgroundPosition: `${(idx * 73) % 100}% ${(idx * 47) % 100}%`,
-              backgroundRepeat: "repeat",
+              backgroundColor: "#D9DDD9",
               color: "#1a2422",
               borderTopLeftRadius: "0",
               borderTopRightRadius: "12px 16px",
