@@ -373,11 +373,7 @@ const Index = () => {
       <main
         className="flex flex-col flex-1 min-h-0 overflow-hidden relative isolate"
         style={{
-          backgroundColor: "#9AA8AB",
-          backgroundImage: `url(${archivePaperBlueGray})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
+          backgroundColor: "#D9DDD9",
           zIndex: 5,
           marginTop: headerShrunk ? "-14px" : "-14px",
           boxShadow: "inset 0 4px 6px -4px rgba(0,0,0,0.18)",
