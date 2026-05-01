@@ -371,20 +371,17 @@ const Index = () => {
 
       <main
         className="flex flex-col flex-1 min-h-0 overflow-hidden relative isolate"
-        style={{ backgroundColor: getArchivePaperBeige().color, zIndex: 5, marginTop: headerShrunk ? "-14px" : "-14px", boxShadow: "inset 0 4px 6px -4px rgba(0,0,0,0.18)" }}
+        style={{ backgroundColor: "#E8DAB2", zIndex: 5, marginTop: headerShrunk ? "-14px" : "-14px", boxShadow: "inset 0 4px 6px -4px rgba(0,0,0,0.18)" }}
       >
-        {/* Photorealistic manilla folder paper texture — fills the open folder area
-            and stretches responsively across all viewports. The folder paper rises
-            slightly above the tab base so tabs appear to come from BEHIND the paper. */}
+        {/* Subtle paper noise overlay over the flat manilla beige */}
         <div
           aria-hidden
           className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: `url(${manilaFolderTexture})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center center",
-            backgroundRepeat: "no-repeat",
-            opacity: 0.85,
+            backgroundImage:
+              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.18  0 0 0 0 0.13  0 0 0 0 0.05  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.35'/></svg>\")",
+            backgroundSize: "160px 160px",
+            opacity: 0.18,
             mixBlendMode: "multiply",
           }}
         />
