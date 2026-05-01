@@ -1,7 +1,4 @@
 import { useEffect, useRef } from "react";
-import { getArchivePaperBeige } from "@/lib/paperColor";
-import manilaFolderTexture from "@/assets/manila-folder-texture.jpg";
-import archivePaperBlueGray from "@/assets/archive-paper-bluegray.jpg";
 
 const DECADES: number[] = [0, 1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020];
 
