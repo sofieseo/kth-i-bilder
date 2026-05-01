@@ -66,7 +66,11 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
                 : `${compact ? "h-10 px-2 pt-2 text-[15px]" : "h-16 px-2 pt-3 text-[18px]"} hover:-translate-y-0.5`
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
-              backgroundColor: "#D9DDD9",
+              backgroundColor: "#9AA8AB",
+              backgroundImage: `
+                repeating-linear-gradient(90deg, rgba(60,75,75,0.07) 0 1px, transparent 1px 4px),
+                repeating-linear-gradient(0deg, rgba(60,75,75,0.04) 0 1px, transparent 1px 4px)
+              `,
               color: "#1a2422",
               borderTopLeftRadius: "0",
               borderTopRightRadius: "12px 16px",
