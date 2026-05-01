@@ -18,7 +18,7 @@ import { getPaperStyle, getArchivePaperBeige } from "@/lib/paperColor";
 import archiveCabinetClean from "@/assets/archive-cabinet-clean.jpg";
 import labelHolder from "@/assets/label-holder.png";
 import manilaFolderTexture from "@/assets/manila-folder-texture.jpg";
-import archivePaperBlueGray from "@/assets/archive-paper-bluegray.jpg";
+
 
 const Index = () => {
   const { year, results, loading, handleYearChange } = usePhotoFetch(0);
