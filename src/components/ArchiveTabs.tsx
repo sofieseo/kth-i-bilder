@@ -45,7 +45,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
     }
   }, [year]);
 
-  const tabColor = "#A8B5B0";
+  const tabColor = "#A6AEAB";
 
   return (
     <div
@@ -70,9 +70,9 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             style={{
               backgroundColor: tabColor,
               backgroundImage:
-                "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.22  0 0 0 0 0.26  0 0 0 0 0.25  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.4'/></svg>\"), repeating-linear-gradient(0deg, rgba(40,55,55,0.05) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, rgba(40,55,55,0.05) 0 1px, transparent 1px 3px)",
-              backgroundSize: "180px 180px, auto, auto",
-              backgroundPosition: `${(idx * 37) % 100}% ${(idx * 53) % 100}%, 0 0, 0 0`,
+                "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.20  0 0 0 0 0.22  0 0 0 0 0.21  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.55'/></svg>\"), url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.6' numOctaves='2' seed='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.18  0 0 0 0 0.20  0 0 0 0 0.19  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23f)' opacity='0.5'/></svg>\")",
+              backgroundSize: "220px 220px, 600px 600px",
+              backgroundPosition: `${(idx * 37) % 100}% ${(idx * 53) % 100}%, ${(idx * 23) % 100}% ${(idx * 41) % 100}%`,
               backgroundBlendMode: "multiply",
               color: "#1a2422",
               borderTopLeftRadius: "0",

@@ -371,27 +371,29 @@ const Index = () => {
 
       <main
         className="flex flex-col flex-1 min-h-0 overflow-hidden relative isolate"
-        style={{ backgroundColor: "#A8B5B0", zIndex: 5, marginTop: headerShrunk ? "-14px" : "-14px", boxShadow: "inset 0 4px 6px -4px rgba(0,0,0,0.18)" }}
+        style={{ backgroundColor: "#A6AEAB", zIndex: 5, marginTop: headerShrunk ? "-14px" : "-14px", boxShadow: "inset 0 4px 6px -4px rgba(0,0,0,0.18)" }}
       >
-        {/* Cool gray-blue archive-paper noise over the salvia base */}
+        {/* Fine paper grain — high-frequency noise */}
         <div
           aria-hidden
           className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage:
-              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.22  0 0 0 0 0.26  0 0 0 0 0.25  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.4'/></svg>\")",
-            backgroundSize: "180px 180px",
-            opacity: 0.22,
+              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.20  0 0 0 0 0.22  0 0 0 0 0.21  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.55'/></svg>\")",
+            backgroundSize: "220px 220px",
+            opacity: 0.28,
             mixBlendMode: "multiply",
           }}
         />
-        {/* Fine linen weave — crossed threads for an archive-paper feel */}
+        {/* Long irregular paper fibers — low-frequency noise stretched horizontally */}
         <div
           aria-hidden
           className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage:
-              "repeating-linear-gradient(0deg, rgba(40,55,55,0.05) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, rgba(40,55,55,0.05) 0 1px, transparent 1px 3px)",
+              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.6' numOctaves='2' seed='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.18  0 0 0 0 0.20  0 0 0 0 0.19  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23f)' opacity='0.5'/></svg>\")",
+            backgroundSize: "600px 600px",
+            opacity: 0.18,
             mixBlendMode: "multiply",
           }}
         />
