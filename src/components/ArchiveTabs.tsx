@@ -66,11 +66,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
                 : `${compact ? "h-10 px-2 pt-2 text-[15px]" : "h-16 px-2 pt-3 text-[18px]"} hover:-translate-y-0.5`
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
-              backgroundColor: tabColor,
-              backgroundImage: `url(${archivePaperBlueGray})`,
-              backgroundSize: "480px auto",
-              backgroundPosition: `${(idx * 73) % 100}% ${(idx * 47) % 100}%`,
-              backgroundRepeat: "repeat",
+              backgroundColor: "#D9DDD9",
               color: "#1a2422",
               borderTopLeftRadius: "0",
               borderTopRightRadius: "12px 16px",
