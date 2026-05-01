@@ -45,7 +45,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
     }
   }, [year]);
 
-  const beige = getArchivePaperBeige();
+  const tabColor = "#DFCCA0";
 
   return (
     <div
@@ -55,7 +55,6 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
     >
       {DECADES.map((decade, idx) => {
         const isActive = decade === year;
-        const tabColor = beige.color;
         return (
           <button
             key={decade}
@@ -70,34 +69,26 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
               backgroundColor: tabColor,
-              backgroundImage: `url(${manilaFolderTexture})`,
-              backgroundSize: "180% auto",
+              backgroundImage:
+                "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.18  0 0 0 0 0.13  0 0 0 0 0.05  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.35'/></svg>\")",
+              backgroundSize: "160px 160px",
               backgroundPosition: `${(idx * 37) % 100}% ${(idx * 53) % 100}%`,
               backgroundBlendMode: "multiply",
               color: "#1a1208",
-              // Realistic folder tab: only the top-right corner is rounded
               borderTopLeftRadius: "0",
               borderTopRightRadius: "12px 16px",
-              // Only top + side borders, no bottom — tab dissolves into the page
-              borderTop: "1px solid rgba(75, 50, 18, 0.55)",
-              borderLeft: "1px solid rgba(75, 50, 18, 0.45)",
-              borderRight: "1px solid rgba(75, 50, 18, 0.55)",
+              borderTop: "1px solid rgba(75, 50, 18, 0.45)",
+              borderLeft: "1px solid rgba(75, 50, 18, 0.35)",
+              borderRight: "1px solid rgba(75, 50, 18, 0.45)",
               borderBottom: "none",
               fontFamily: "'Caveat', cursive",
               opacity: 1,
-              // Active tab must sit ABOVE the folder paper so it merges seamlessly
-              // with the manila page below (z-index on <main> is 5).
               zIndex: isActive ? 60 : 10 + idx,
-              // Pull the active tab down a few pixels so it visually overlaps the
-              // top edge of the folder paper, hiding the seam between tab and page.
               marginBottom: isActive ? -4 : 0,
               paddingBottom: 0,
-              // Inactive tabs keep the dark cabinet shadow. Active tab drops the
-              // top/bottom dark shadow (which previously sat in front of the page)
-              // and only retains soft side glow so it reads as continuous paper.
               boxShadow: isActive
-                ? "-3px 0 8px rgba(0, 0, 0, 0.35), 3px 0 8px rgba(0, 0, 0, 0.30)"
-                : "0 -2px 8px rgba(0, 0, 0, 0.40), -1px 0 5px rgba(0, 0, 0, 0.30), 1px 0 5px rgba(0, 0, 0, 0.25)",
+                ? "-3px 0 8px rgba(0, 0, 0, 0.25), 3px 0 8px rgba(0, 0, 0, 0.22)"
+                : "0 -2px 6px rgba(0, 0, 0, 0.28), -1px 0 4px rgba(0, 0, 0, 0.20), 1px 0 4px rgba(0, 0, 0, 0.18)",
             }}
           >
             <span className="relative z-10">{labelFor(decade)}</span>
