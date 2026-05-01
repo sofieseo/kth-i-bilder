@@ -373,7 +373,11 @@ const Index = () => {
       <main
         className="flex flex-col flex-1 min-h-0 overflow-hidden relative isolate"
         style={{
-          backgroundColor: "#D9DDD9",
+          backgroundColor: "#9AA8AB",
+          backgroundImage: `
+            repeating-linear-gradient(90deg, rgba(60,75,75,0.07) 0 1px, transparent 1px 4px),
+            repeating-linear-gradient(0deg, rgba(60,75,75,0.04) 0 1px, transparent 1px 4px)
+          `,
           zIndex: 5,
           marginTop: headerShrunk ? "-14px" : "-14px",
           boxShadow: "inset 0 4px 6px -4px rgba(0,0,0,0.18)",
