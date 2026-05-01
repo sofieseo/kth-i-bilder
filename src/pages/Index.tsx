@@ -371,7 +371,7 @@ const Index = () => {
 
       <main
         className="flex flex-col flex-1 min-h-0 overflow-hidden relative isolate"
-        style={{ backgroundColor: "#E8DAB2", zIndex: 5, marginTop: headerShrunk ? "-14px" : "-14px", boxShadow: "inset 0 4px 6px -4px rgba(0,0,0,0.18)" }}
+        style={{ backgroundColor: "#DFCCA0", zIndex: 5, marginTop: headerShrunk ? "-14px" : "-14px", boxShadow: "inset 0 4px 6px -4px rgba(0,0,0,0.18)" }}
       >
         {/* Subtle paper noise overlay over the flat manilla beige */}
         <div
