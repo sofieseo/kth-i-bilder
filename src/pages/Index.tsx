@@ -371,17 +371,27 @@ const Index = () => {
 
       <main
         className="flex flex-col flex-1 min-h-0 overflow-hidden relative isolate"
-        style={{ backgroundColor: "#DFCCA0", zIndex: 5, marginTop: headerShrunk ? "-14px" : "-14px", boxShadow: "inset 0 4px 6px -4px rgba(0,0,0,0.18)" }}
+        style={{ backgroundColor: "#A8B5B0", zIndex: 5, marginTop: headerShrunk ? "-14px" : "-14px", boxShadow: "inset 0 4px 6px -4px rgba(0,0,0,0.18)" }}
       >
-        {/* Subtle paper noise overlay over the flat manilla beige */}
+        {/* Cool gray-blue archive-paper noise over the salvia base */}
         <div
           aria-hidden
           className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage:
-              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.18  0 0 0 0 0.13  0 0 0 0 0.05  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.35'/></svg>\")",
-            backgroundSize: "160px 160px",
-            opacity: 0.18,
+              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.22  0 0 0 0 0.26  0 0 0 0 0.25  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.4'/></svg>\")",
+            backgroundSize: "180px 180px",
+            opacity: 0.22,
+            mixBlendMode: "multiply",
+          }}
+        />
+        {/* Fine linen weave — crossed threads for an archive-paper feel */}
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(0deg, rgba(40,55,55,0.05) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, rgba(40,55,55,0.05) 0 1px, transparent 1px 3px)",
             mixBlendMode: "multiply",
           }}
         />
