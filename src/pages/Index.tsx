@@ -318,25 +318,25 @@ const Index = () => {
               style={{ filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.45))" }}
             />
             <div
-              className="absolute text-center flex flex-col justify-center items-center"
+              className="absolute flex flex-col justify-center items-stretch"
               style={{
-                left: "14%",
-                right: "14%",
-                top: "32%",
-                bottom: "32%",
-                padding: "0 3%",
+                left: "12%",
+                right: "12%",
+                top: "26%",
+                bottom: "26%",
+                padding: "0 2%",
               }}
             >
               <h1
-                className={`font-slab uppercase tracking-[0.16em] leading-[1.1] transition-[font-size] duration-200 ${labelShrunk ? "text-[11px] sm:text-[12px] md:text-[13px]" : "text-[13px] sm:text-[14px] md:text-[16px] lg:text-[18px]"}`}
+                className={`font-slab uppercase tracking-[0.14em] leading-[1.05] text-center transition-[font-size] duration-200 ${labelShrunk ? "text-[13px] sm:text-[15px] md:text-[17px]" : "text-[18px] sm:text-[20px] md:text-[24px] lg:text-[28px]"}`}
                 style={{ color: "#2a2418", fontWeight: 700 }}
               >
                 KTH i bilder
               </h1>
               {!labelShrunk && (
                 <p
-                  className="mt-1 text-[7.5px] sm:text-[8px] md:text-[8.5px] lg:text-[9px] leading-[1.3] text-center mx-auto"
-                  style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0", maxWidth: "92%" }}
+                  className="mt-1 text-[9px] sm:text-[9.5px] md:text-[10.5px] lg:text-[11px] leading-[1.25] text-left"
+                  style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0" }}
                 >
                   Fotografier med koppling till Kungliga Tekniska Högskolan (KTH) hämtade från öppna arkiv.
                 </p>
