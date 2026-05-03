@@ -342,6 +342,9 @@ const Index = () => {
                 </p>
               )}
             </div>
+          </div>
+        </div>
+
 
         {/* Dark interior of the open cabinet — just enough height for the folder
             tabs to peek up behind the manila paper, with no visible gap below. */}
