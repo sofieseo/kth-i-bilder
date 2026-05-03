@@ -328,14 +328,14 @@ const Index = () => {
               }}
             >
               <h1
-                className={`font-slab uppercase tracking-[0.14em] leading-[1.05] text-center transition-[font-size] duration-200 ${labelShrunk ? "text-[13px] sm:text-[15px] md:text-[17px]" : "text-[18px] sm:text-[20px] md:text-[24px] lg:text-[28px]"}`}
+                className={`font-slab uppercase tracking-[0.14em] leading-[1.05] text-center transition-[font-size] duration-200 ${labelShrunk ? "text-[12px] sm:text-[14px] md:text-[16px]" : "text-[17px] sm:text-[19px] md:text-[23px] lg:text-[27px]"}`}
                 style={{ color: "#2a2418", fontWeight: 700 }}
               >
                 KTH i bilder
               </h1>
               {!labelShrunk && (
                 <p
-                  className="mt-1 text-[9px] sm:text-[9.5px] md:text-[10.5px] lg:text-[11px] leading-[1.25] text-left"
+                  className="mt-1 text-[8.5px] sm:text-[9px] md:text-[9.5px] lg:text-[10px] leading-[1.25] text-left"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0" }}
                 >
                   Fotografier med koppling till Kungliga Tekniska Högskolan (KTH) hämtade från öppna arkiv.
