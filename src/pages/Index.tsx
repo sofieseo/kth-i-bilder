@@ -305,8 +305,8 @@ const Index = () => {
               top: labelShrunk ? "42%" : "44%",
               transform: "translate(-50%, -50%)",
               width: labelShrunk
-                ? "clamp(260px, 40vw, 380px)"
-                : "clamp(320px, 48vw, 540px)",
+                ? "clamp(220px, 32vw, 300px)"
+                : "clamp(260px, 38vw, 420px)",
             }}
           >
             <img
@@ -317,8 +317,6 @@ const Index = () => {
               draggable={false}
               style={{ filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.45))" }}
             />
-            {/* Inner paper area of the label holder is roughly the central
-                64% width × 24% height of the PNG. Position the text there. */}
             <div
               className="absolute text-center flex flex-col justify-center items-center"
               style={{
@@ -330,27 +328,20 @@ const Index = () => {
               }}
             >
               <h1
-                className={`font-slab uppercase tracking-[0.16em] leading-[1.1] transition-[font-size] duration-200 ${labelShrunk ? "text-[12px] sm:text-[13px] md:text-[15px]" : "text-[15px] sm:text-[15px] md:text-lg lg:text-xl"}`}
+                className={`font-slab uppercase tracking-[0.16em] leading-[1.1] transition-[font-size] duration-200 ${labelShrunk ? "text-[11px] sm:text-[12px] md:text-[13px]" : "text-[13px] sm:text-[14px] md:text-[16px] lg:text-[18px]"}`}
                 style={{ color: "#2a2418", fontWeight: 700 }}
               >
                 KTH i bilder
               </h1>
               {!labelShrunk && (
                 <p
-                  className="mt-1 sm:mt-1.5 text-[8px] sm:text-[8.5px] md:text-[9px] lg:text-[9.5px] xl:text-[9.5px] leading-[1.3] text-center xl:text-left mx-auto"
-                  style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0", maxWidth: "88%" }}
+                  className="mt-1 text-[7.5px] sm:text-[8px] md:text-[8.5px] lg:text-[9px] leading-[1.3] text-center mx-auto"
+                  style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0", maxWidth: "92%" }}
                 >
-                  {/* Tre varianter: kort (mobil), medel (tablet/liten desktop), lång (full desktop) */}
-                  <span className="sm:hidden">Fotografier från öppna arkiv</span>
-                  <span className="hidden sm:inline xl:hidden">Fotografier från öppna arkiv</span>
-                  <span className="hidden xl:inline">
-                    En samlingsplats för fotografier med koppling till Kungliga Tekniska Högskolan (KTH) som hämtas från de öppna arkiven Alvin, Digitala Stadsmuseet, DigitaltMuseum, Europeana, K-samsök, Stockholmskällan och Wikimedia Commons.
-                  </span>
+                  Fotografier med koppling till Kungliga Tekniska Högskolan (KTH) hämtade från öppna arkiv
                 </p>
               )}
             </div>
-          </div>
-        </div>
 
         {/* Dark interior of the open cabinet — just enough height for the folder
             tabs to peek up behind the manila paper, with no visible gap below. */}
