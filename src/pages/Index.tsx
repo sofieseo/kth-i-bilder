@@ -328,7 +328,7 @@ const Index = () => {
               }}
             >
               <h1
-                className={`font-slab uppercase tracking-[0.14em] leading-[1.05] text-center transition-[font-size] duration-200 ${labelShrunk ? "text-[12px] sm:text-[14px] md:text-[16px]" : "text-[17px] sm:text-[19px] md:text-[23px] lg:text-[27px]"}`}
+                className={`font-slab uppercase tracking-[0.14em] leading-[1.05] text-center transition-[font-size] duration-200 ${labelShrunk ? "text-[11px] sm:text-[13px] md:text-[15px]" : "text-[16px] sm:text-[18px] md:text-[22px] lg:text-[26px]"}`}
                 style={{ color: "#2a2418", fontWeight: 700 }}
               >
                 KTH i bilder
