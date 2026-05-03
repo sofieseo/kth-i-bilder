@@ -336,7 +336,7 @@ const Index = () => {
               {!labelShrunk && (
                 <p
                   className="mt-1 text-[8.5px] sm:text-[9px] md:text-[9.5px] lg:text-[10px] leading-[1.25] text-left"
-                  style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0", paddingLeft: "18%", paddingRight: "4%" }}
+                  style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0", paddingLeft: "8%", paddingRight: "4%" }}
                 >
                   <span className="lg:hidden">Fotografier från öppna arkiv.</span>
                   <span className="hidden lg:inline">
