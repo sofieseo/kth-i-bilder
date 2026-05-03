@@ -338,7 +338,7 @@ const Index = () => {
                   className="mt-1 text-[7.5px] sm:text-[8px] md:text-[8.5px] lg:text-[9px] leading-[1.3] text-center mx-auto"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0", maxWidth: "92%" }}
                 >
-                  Fotografier med koppling till Kungliga Tekniska Högskolan (KTH) hämtade från öppna arkiv
+                  Fotografier med koppling till Kungliga Tekniska Högskolan (KTH) hämtade från öppna arkiv.
                 </p>
               )}
             </div>
