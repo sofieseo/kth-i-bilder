@@ -35,10 +35,28 @@ const Index = () => {
   const [reopenSearchSignal, setReopenSearchSignal] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollToTopSignal, setScrollToTopSignal] = useState(0);
-  const [holdCompactLabel, setHoldCompactLabel] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches
+  );
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
   // Shrink header immediately on the first scroll pixel.
   const headerShrunk = scrollTop > 0;
-  const labelShrunk = headerShrunk || holdCompactLabel;
+  // Three discrete label modes — switch instantly to avoid jitter:
+  //  - "large":    desktop, unscrolled. Full subtitle + big title.
+  //  - "small":    desktop scrolled OR mobile unscrolled. Short subtitle.
+  //  - "smallest": mobile scrolled. Title only.
+  const labelMode: "large" | "small" | "smallest" =
+    isDesktop && !headerShrunk
+      ? "large"
+      : !isDesktop && headerShrunk
+        ? "smallest"
+        : "small";
+  const labelShrunk = labelMode !== "large";
   const showBackToTop = headerShrunk;
   // Cached reference to the gallery scroll container so wheel-forwarding
   // from the header doesn't query the DOM on every event.
@@ -49,15 +67,6 @@ const Index = () => {
     toast.success("Utloggad");
   };
 
-  useEffect(() => {
-    if (headerShrunk) {
-      setHoldCompactLabel(true);
-      return;
-    }
-
-    const timeout = window.setTimeout(() => setHoldCompactLabel(false), 320);
-    return () => window.clearTimeout(timeout);
-  }, [headerShrunk]);
 
   const handleClearCache = async () => {
     setClearingCache(true);
@@ -188,12 +197,9 @@ const Index = () => {
             The silver label holder is centered. We use 100% 100% sizing so the
             entire drawer face is always visible — no cropping. */}
         <div
-          className={`relative w-full overflow-hidden transition-[height] duration-300`}
+          className={`relative w-full overflow-hidden`}
           style={{
-            // The drawer image is now a clean cabinet face (no label) so we can
-            // always use background-size: cover. The silver label holder is a
-            // separately positioned overlay below, which lets us scale it
-            // independently per breakpoint.
+            // Instant height swap to avoid jitter while typography changes.
             height: headerShrunk ? "clamp(72px, 8vw, 100px)" : "clamp(120px, 15vw, 170px)",
             backgroundImage: `url(${archiveCabinetClean})`,
             backgroundSize: headerShrunk ? "150% auto" : "130% auto",
@@ -304,9 +310,12 @@ const Index = () => {
             style={{
               top: labelShrunk ? "42%" : "44%",
               transform: "translate(-50%, -50%)",
-              width: labelShrunk
-                ? "clamp(220px, 32vw, 300px)"
-                : "clamp(260px, 38vw, 420px)",
+              width:
+                labelMode === "large"
+                  ? "clamp(260px, 38vw, 420px)"
+                  : labelMode === "small"
+                    ? "clamp(240px, 30vw, 340px)"
+                    : "clamp(200px, 28vw, 260px)",
             }}
           >
             <img
@@ -328,20 +337,31 @@ const Index = () => {
               }}
             >
               <h1
-                className={`font-slab uppercase tracking-[0.14em] leading-[1.05] text-center transition-[font-size] duration-200 ${labelShrunk ? "text-[11px] sm:text-[13px] md:text-[15px]" : "text-[16px] sm:text-[18px] md:text-[22px] lg:text-[26px]"}`}
+                className={`font-slab uppercase tracking-[0.14em] leading-[1.05] text-center ${
+                  labelMode === "large"
+                    ? "text-[16px] sm:text-[18px] md:text-[22px] lg:text-[26px]"
+                    : labelMode === "small"
+                      ? "text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px]"
+                      : "text-[12px] sm:text-[13px]"
+                }`}
                 style={{ color: "#2a2418", fontWeight: 700 }}
               >
                 KTH i bilder
               </h1>
-              {!labelShrunk && (
+              {labelMode === "large" && (
                 <p
-                  className="mt-1 text-[8.5px] sm:text-[9px] md:text-[9.5px] lg:text-[10px] leading-[1.25] text-left"
+                  className="mt-1 text-[10px] leading-[1.25] text-left"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0", paddingLeft: "8%", paddingRight: "4%" }}
                 >
-                  <span className="lg:hidden">Fotografier från öppna arkiv.</span>
-                  <span className="hidden lg:inline">
-                    Fotografier med koppling till Kungliga Tekniska Högskolan (KTH) hämtade från öppna arkiv.
-                  </span>
+                  Fotografier med koppling till Kungliga Tekniska Högskolan (KTH) hämtade från öppna arkiv.
+                </p>
+              )}
+              {labelMode === "small" && (
+                <p
+                  className="mt-0.5 text-[9px] sm:text-[9.5px] leading-[1.25] text-center"
+                  style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0" }}
+                >
+                  Fotografier från öppna arkiv.
                 </p>
               )}
             </div>
