@@ -35,10 +35,28 @@ const Index = () => {
   const [reopenSearchSignal, setReopenSearchSignal] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollToTopSignal, setScrollToTopSignal] = useState(0);
-  const [holdCompactLabel, setHoldCompactLabel] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches
+  );
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
   // Shrink header immediately on the first scroll pixel.
   const headerShrunk = scrollTop > 0;
-  const labelShrunk = headerShrunk || holdCompactLabel;
+  // Three discrete label modes — switch instantly to avoid jitter:
+  //  - "large":    desktop, unscrolled. Full subtitle + big title.
+  //  - "small":    desktop scrolled OR mobile unscrolled. Short subtitle.
+  //  - "smallest": mobile scrolled. Title only.
+  const labelMode: "large" | "small" | "smallest" =
+    isDesktop && !headerShrunk
+      ? "large"
+      : !isDesktop && headerShrunk
+        ? "smallest"
+        : "small";
+  const labelShrunk = labelMode !== "large";
   const showBackToTop = headerShrunk;
   // Cached reference to the gallery scroll container so wheel-forwarding
   // from the header doesn't query the DOM on every event.
