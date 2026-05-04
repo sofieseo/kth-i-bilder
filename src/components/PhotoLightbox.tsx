@@ -58,6 +58,32 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
     return () => { document.body.style.overflow = prevOverflow; };
   }, []);
 
+  // Preload neighbor images so prev/next feels instant
+  useEffect(() => {
+    [prevPreloadUrl, nextPreloadUrl].forEach((url) => {
+      if (!url) return;
+      const img = new Image();
+      img.decoding = "async";
+      img.src = url;
+    });
+  }, [prevPreloadUrl, nextPreloadUrl]);
+
+  // First-time swipe hint on mobile (touch + has navigation)
+  useEffect(() => {
+    if (!(hasPrev || hasNext)) return;
+    const isTouch = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
+    if (!isTouch) return;
+    try {
+      if (localStorage.getItem("kth-swipe-hint-seen") === "1") return;
+    } catch { /* ignore */ }
+    setShowSwipeHint(true);
+    const t = setTimeout(() => {
+      setShowSwipeHint(false);
+      try { localStorage.setItem("kth-swipe-hint-seen", "1"); } catch { /* ignore */ }
+    }, 2400);
+    return () => clearTimeout(t);
+  }, [hasPrev, hasNext]);
+
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
