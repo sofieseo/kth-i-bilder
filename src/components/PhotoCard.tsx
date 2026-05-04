@@ -4,6 +4,7 @@ import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { getPaperStyle } from "@/lib/paperColor";
 import { usePhotoLikes } from "@/hooks/usePhotoLikes";
+import { buildThumbSrcSet } from "@/lib/imageSrcSet";
 
 interface PhotoCardProps {
   photo: UnifiedPhoto;
@@ -48,9 +49,12 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
         {photo.imageUrl ? (
           <img
             src={photo.imageUrl}
+            srcSet={buildThumbSrcSet(photo.imageUrl)}
+            sizes="(min-width: 1280px) 16vw, (min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, 50vw"
             alt={photo.title}
             className="h-full w-full object-cover"
             loading="lazy"
+            decoding="async"
             onError={(e) => {
               (e.target as HTMLImageElement).style.display = "none";
               (e.target as HTMLImageElement).nextElementSibling?.classList.remove("hidden");
