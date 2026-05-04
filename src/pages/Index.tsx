@@ -341,7 +341,7 @@ const Index = () => {
                   labelMode === "large"
                     ? "text-[16px] sm:text-[18px] md:text-[22px] lg:text-[26px]"
                     : labelMode === "small"
-                      ? "text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px]"
+                      ? "text-[14px] sm:text-[15px] md:text-[15px] lg:text-[16px]"
                       : "text-[12px] sm:text-[13px]"
                 }`}
                 style={{ color: "#2a2418", fontWeight: 700 }}
@@ -358,7 +358,7 @@ const Index = () => {
               )}
               {labelMode === "small" && (
                 <p
-                  className="mt-0.5 text-[9px] sm:text-[9.5px] leading-[1.25] text-center"
+                  className="mt-0.5 text-[8px] sm:text-[8.5px] leading-[1.25] text-center"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0" }}
                 >
                   Fotografier från öppna arkiv.
