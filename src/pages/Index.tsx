@@ -358,7 +358,7 @@ const Index = () => {
               )}
               {labelMode === "small" && (
                 <p
-                  className="mt-0.5 text-[9px] sm:text-[9.5px] leading-[1.25] text-center"
+                  className="mt-0.5 text-[8px] sm:text-[8.5px] leading-[1.25] text-center"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0" }}
                 >
                   Fotografier från öppna arkiv.
