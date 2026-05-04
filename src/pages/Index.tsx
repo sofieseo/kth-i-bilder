@@ -197,12 +197,9 @@ const Index = () => {
             The silver label holder is centered. We use 100% 100% sizing so the
             entire drawer face is always visible — no cropping. */}
         <div
-          className={`relative w-full overflow-hidden transition-[height] duration-300`}
+          className={`relative w-full overflow-hidden`}
           style={{
-            // The drawer image is now a clean cabinet face (no label) so we can
-            // always use background-size: cover. The silver label holder is a
-            // separately positioned overlay below, which lets us scale it
-            // independently per breakpoint.
+            // Instant height swap to avoid jitter while typography changes.
             height: headerShrunk ? "clamp(72px, 8vw, 100px)" : "clamp(120px, 15vw, 170px)",
             backgroundImage: `url(${archiveCabinetClean})`,
             backgroundSize: headerShrunk ? "150% auto" : "130% auto",
