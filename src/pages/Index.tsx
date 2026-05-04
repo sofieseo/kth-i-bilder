@@ -341,7 +341,7 @@ const Index = () => {
                   labelMode === "large"
                     ? "text-[16px] sm:text-[18px] md:text-[22px] lg:text-[26px]"
                     : labelMode === "small"
-                      ? "text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px]"
+                      ? "text-[14px] sm:text-[15px] md:text-[15px] lg:text-[16px]"
                       : "text-[12px] sm:text-[13px]"
                 }`}
                 style={{ color: "#2a2418", fontWeight: 700 }}
