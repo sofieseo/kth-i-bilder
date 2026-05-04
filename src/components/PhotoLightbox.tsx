@@ -11,10 +11,13 @@ interface PhotoLightboxProps {
   onNext?: () => void;
   hasPrev?: boolean;
   hasNext?: boolean;
+  prevPreloadUrl?: string | null;
+  nextPreloadUrl?: string | null;
 }
 
-export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext }: PhotoLightboxProps) {
+export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext, prevPreloadUrl, nextPreloadUrl }: PhotoLightboxProps) {
   const [copied, setCopied] = useState(false);
+  const [showSwipeHint, setShowSwipeHint] = useState(false);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
 
@@ -54,6 +57,32 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = prevOverflow; };
   }, []);
+
+  // Preload neighbor images so prev/next feels instant
+  useEffect(() => {
+    [prevPreloadUrl, nextPreloadUrl].forEach((url) => {
+      if (!url) return;
+      const img = new Image();
+      img.decoding = "async";
+      img.src = url;
+    });
+  }, [prevPreloadUrl, nextPreloadUrl]);
+
+  // First-time swipe hint on mobile (touch + has navigation)
+  useEffect(() => {
+    if (!(hasPrev || hasNext)) return;
+    const isTouch = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
+    if (!isTouch) return;
+    try {
+      if (localStorage.getItem("kth-swipe-hint-seen") === "1") return;
+    } catch { /* ignore */ }
+    setShowSwipeHint(true);
+    const t = setTimeout(() => {
+      setShowSwipeHint(false);
+      try { localStorage.setItem("kth-swipe-hint-seen", "1"); } catch { /* ignore */ }
+    }, 2400);
+    return () => clearTimeout(t);
+  }, [hasPrev, hasNext]);
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -121,13 +150,22 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
           <X className="h-4 w-4" />
         </button>
 
-        <div style={{ backgroundColor: "#f4f1ea" }}>
+        <div className="relative" style={{ backgroundColor: "#f4f1ea" }}>
           {photo.imageUrlFull ? (
             <img src={photo.imageUrlFull} alt={photo.title} className="w-full object-contain"
               onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
           ) : (
             <div className="flex h-48 items-center justify-center">
               <ImageOff className="h-12 w-12 text-muted-foreground/40" />
+            </div>
+          )}
+          {showSwipeHint && (
+            <div className="sm:hidden pointer-events-none absolute inset-x-0 bottom-3 flex justify-center animate-fade-in">
+              <div className="flex items-center gap-2 bg-black/70 px-3 py-1.5 text-xs font-semibold text-white" style={{ fontFamily: "'Courier Prime', monospace" }}>
+                <ChevronLeft className="h-3.5 w-3.5" />
+                <span>Svep för att bläddra</span>
+                <ChevronRight className="h-3.5 w-3.5" />
+              </div>
             </div>
           )}
         </div>

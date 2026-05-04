@@ -228,6 +228,8 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
           onNext={handleNext}
           hasPrev={hasPrev}
           hasNext={hasNext}
+          prevPreloadUrl={hasPrev ? navList[selectedIndex - 1]?.imageUrlFull ?? null : null}
+          nextPreloadUrl={hasNext ? navList[selectedIndex + 1]?.imageUrlFull ?? null : null}
         />
       )}
     </>
