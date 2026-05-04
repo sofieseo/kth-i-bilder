@@ -67,15 +67,6 @@ const Index = () => {
     toast.success("Utloggad");
   };
 
-  useEffect(() => {
-    if (headerShrunk) {
-      setHoldCompactLabel(true);
-      return;
-    }
-
-    const timeout = window.setTimeout(() => setHoldCompactLabel(false), 320);
-    return () => window.clearTimeout(timeout);
-  }, [headerShrunk]);
 
   const handleClearCache = async () => {
     setClearingCache(true);
