@@ -11,10 +11,13 @@ interface PhotoLightboxProps {
   onNext?: () => void;
   hasPrev?: boolean;
   hasNext?: boolean;
+  prevPreloadUrl?: string | null;
+  nextPreloadUrl?: string | null;
 }
 
-export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext }: PhotoLightboxProps) {
+export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext, prevPreloadUrl, nextPreloadUrl }: PhotoLightboxProps) {
   const [copied, setCopied] = useState(false);
+  const [showSwipeHint, setShowSwipeHint] = useState(false);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
 
