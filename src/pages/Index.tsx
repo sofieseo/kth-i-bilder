@@ -21,7 +21,7 @@ import manilaFolderTexture from "@/assets/manila-folder-texture.jpg";
 
 
 const Index = () => {
-  const { year, results, loading, handleYearChange } = usePhotoFetch(0);
+  const { year, results, loading, handleYearChange: rawHandleYearChange } = usePhotoFetch(0);
   const { isAdmin, wantsAdmin } = useAdminMode();
   const { hiddenIds, hidePhoto, restorePhoto } = useHiddenPhotos();
   const { undatedIds, markAsUndated } = useUndatedPhotos();
