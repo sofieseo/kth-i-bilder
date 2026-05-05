@@ -35,14 +35,6 @@ const Index = () => {
   const [reopenSearchSignal, setReopenSearchSignal] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollToTopSignal, setScrollToTopSignal] = useState(0);
-  // When the user clicks a tab, immediately reset the cached scroll
-  // position so the header expands back to its full size in the same
-  // frame — otherwise the gallery's reset-scroll effect runs slightly
-  // after render and leaves the tabs squashed against the cabinet.
-  const handleYearChange = (y: number) => {
-    setScrollTop(0);
-    rawHandleYearChange(y);
-  };
   const [isDesktop, setIsDesktop] = useState(
     () => typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches
   );
