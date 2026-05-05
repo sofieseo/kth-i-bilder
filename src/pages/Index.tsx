@@ -21,7 +21,7 @@ import manilaFolderTexture from "@/assets/manila-folder-texture.jpg";
 
 
 const Index = () => {
-  const { year, results, loading, handleYearChange } = usePhotoFetch(0);
+  const { year, results, loading, handleYearChange: rawHandleYearChange } = usePhotoFetch(0);
   const { isAdmin, wantsAdmin } = useAdminMode();
   const { hiddenIds, hidePhoto, restorePhoto } = useHiddenPhotos();
   const { undatedIds, markAsUndated } = useUndatedPhotos();
@@ -35,6 +35,14 @@ const Index = () => {
   const [reopenSearchSignal, setReopenSearchSignal] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollToTopSignal, setScrollToTopSignal] = useState(0);
+  // When the user clicks a tab, immediately reset the cached scroll
+  // position so the header expands back to its full size in the same
+  // frame — otherwise the gallery's reset-scroll effect runs slightly
+  // after render and leaves the tabs squashed against the cabinet.
+  const handleYearChange = (y: number) => {
+    setScrollTop(0);
+    rawHandleYearChange(y);
+  };
   const [isDesktop, setIsDesktop] = useState(
     () => typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches
   );
@@ -44,8 +52,10 @@ const Index = () => {
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
   }, []);
-  // Shrink header immediately on the first scroll pixel.
-  const headerShrunk = scrollTop > 0;
+  // Shrink header after a small threshold so tiny residual scroll values
+  // (e.g. browser bounce, sub-pixel offsets after scroll-up) don't keep
+  // the header in compact mode when the user is effectively at the top.
+  const headerShrunk = scrollTop > 8;
   // Three discrete label modes — switch instantly to avoid jitter:
   //  - "large":    desktop, unscrolled. Full subtitle + big title.
   //  - "small":    desktop scrolled OR mobile unscrolled. Short subtitle.
