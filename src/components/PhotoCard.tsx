@@ -51,7 +51,7 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
             src={photo.imageUrl}
             srcSet={buildThumbSrcSet(photo.imageUrl)}
             sizes="(min-width: 1280px) 16vw, (min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, 50vw"
-            alt={photo.description?.trim() || photo.title}
+            alt={(typeof photo.description === "string" && photo.description.trim()) || photo.title}
             className="h-full w-full object-cover"
             loading="lazy"
             decoding="async"

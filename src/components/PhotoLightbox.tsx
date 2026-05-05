@@ -152,7 +152,7 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
 
         <div className="relative" style={{ backgroundColor: "#f4f1ea" }}>
           {photo.imageUrlFull ? (
-            <img src={photo.imageUrlFull} alt={photo.description?.trim() || photo.title} className="w-full object-contain"
+            <img src={photo.imageUrlFull} alt={(typeof photo.description === "string" && photo.description.trim()) || photo.title} className="w-full object-contain"
               onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
           ) : (
             <div className="flex h-48 items-center justify-center">
