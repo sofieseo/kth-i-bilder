@@ -44,8 +44,10 @@ const Index = () => {
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
   }, []);
-  // Shrink header immediately on the first scroll pixel.
-  const headerShrunk = scrollTop > 0;
+  // Shrink header after a small threshold so tiny residual scroll values
+  // (e.g. browser bounce, sub-pixel offsets after scroll-up) don't keep
+  // the header in compact mode when the user is effectively at the top.
+  const headerShrunk = scrollTop > 8;
   // Three discrete label modes — switch instantly to avoid jitter:
   //  - "large":    desktop, unscrolled. Full subtitle + big title.
   //  - "small":    desktop scrolled OR mobile unscrolled. Short subtitle.
