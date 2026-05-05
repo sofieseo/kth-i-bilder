@@ -48,7 +48,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
   return (
     <div
       ref={containerRef}
-      className={`flex items-end overflow-x-auto md:overflow-x-visible overflow-y-visible no-scrollbar relative md:w-full ${compact ? "pt-2" : "pt-2"}`}
+      className={`flex items-end overflow-x-auto md:overflow-x-visible overflow-y-visible no-scrollbar relative md:w-full ${compact ? "pt-1" : "pt-2"}`}
       style={{ scrollbarWidth: "none" }}
     >
       {DECADES.map((decade, idx) => {
@@ -62,8 +62,8 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             aria-pressed={isActive}
             className={`relative inline-flex shrink-0 items-start justify-center overflow-hidden leading-none md:shrink md:flex-1 md:min-w-0 transition-all ${
               isActive
-                ? `${compact ? "h-[52px] px-2 pt-2 text-[18px]" : "h-[82px] px-2 pt-3 text-[22px]"} font-bold`
-                : `${compact ? "h-[40px] px-2 pt-2 text-[15px]" : "h-[52px] px-2 pt-2 text-[18px]"} hover:-translate-y-0.5`
+                ? `${compact ? "h-[60px] px-2 pt-2 text-[18px]" : "h-[82px] px-2 pt-3 text-[22px]"} font-bold`
+                : `${compact ? "h-10 px-2 pt-2 text-[15px]" : "h-16 px-2 pt-3 text-[18px]"} hover:-translate-y-0.5`
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
               backgroundColor: "#9AA8AB",
