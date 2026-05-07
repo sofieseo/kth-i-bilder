@@ -322,10 +322,10 @@ const Index = () => {
               transform: "translate(-50%, -50%)",
               width:
                 labelMode === "large"
-                  ? "clamp(260px, 38vw, 420px)"
+                  ? "clamp(220px, 32vw, 360px)"
                   : labelMode === "small"
-                    ? "clamp(240px, 30vw, 340px)"
-                    : "clamp(200px, 28vw, 260px)",
+                    ? "clamp(200px, 25vw, 290px)"
+                    : "clamp(170px, 23vw, 220px)",
             }}
           >
             <img
