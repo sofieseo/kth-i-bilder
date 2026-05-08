@@ -320,13 +320,13 @@ const Index = () => {
             style={{
               top: "50%",
               transform: "translate(-50%, -50%)",
-              width:
+              height:
                 labelMode === "large"
-                  ? "clamp(150px, 18.75vw, 222px)"
+                  ? "clamp(95px, 12vw, 145px)"
                   : labelMode === "small"
-                    ? "clamp(90px, 10.8vw, 129px)"
-                    : "clamp(75px, 9.3vw, 99px)",
-              aspectRatio: "1536 / 1024",
+                    ? "clamp(58px, 7vw, 80px)"
+                    : "clamp(46px, 5.5vw, 62px)",
+              aspectRatio: "1514 / 336",
             }}
           >
             <img
@@ -340,20 +340,20 @@ const Index = () => {
             <div
               className="absolute flex flex-col justify-center items-stretch"
               style={{
-                left: "13%",
-                right: "13%",
-                top: "20%",
-                bottom: "20%",
+                left: "5%",
+                right: "5%",
+                top: "12%",
+                bottom: "12%",
                 padding: "0 2%",
               }}
             >
               <h1
-                className={`font-slab uppercase tracking-[0.12em] leading-[1.05] text-center whitespace-nowrap ${
+                className={`font-slab uppercase tracking-[0.14em] leading-[1.05] text-center whitespace-nowrap ${
                   labelMode === "large"
-                    ? "text-[14px] sm:text-[17px] md:text-[20px] lg:text-[23px]"
+                    ? "text-[18px] sm:text-[22px] md:text-[26px] lg:text-[30px]"
                     : labelMode === "small"
-                      ? "text-[11px] sm:text-[12px] md:text-[13px] lg:text-[15px]"
-                      : "text-[10px] sm:text-[11px]"
+                      ? "text-[13px] sm:text-[15px] md:text-[17px] lg:text-[19px]"
+                      : "text-[11px] sm:text-[13px]"
                 }`}
                 style={{ color: "#2a2418", fontWeight: 700 }}
               >
@@ -361,18 +361,18 @@ const Index = () => {
               </h1>
               {labelMode === "large" && (
                 <p
-                  className="mt-1 text-[9px] sm:text-[10px] md:text-[11px] leading-[1.2] text-center"
+                  className="mt-0.5 text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] leading-[1.2] text-center whitespace-nowrap"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0" }}
                 >
-                  Fotografier med koppling till KTH från öppna arkiv.
+                  Fotografier med koppling till Kungliga Tekniska Högskolan från öppna arkiv.
                 </p>
               )}
               {labelMode === "small" && (
                 <p
-                  className="mt-0.5 text-[7px] sm:text-[8px] leading-[1.2] text-center"
+                  className="mt-0.5 text-[8px] sm:text-[9px] md:text-[10px] leading-[1.2] text-center whitespace-nowrap"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0" }}
                 >
-                  Fotografier från öppna arkiv.
+                  Fotografier med koppling till KTH från öppna arkiv.
                 </p>
               )}
             </div>
