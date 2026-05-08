@@ -361,7 +361,7 @@ const Index = () => {
               </h1>
               {labelMode === "large" && (
                 <p
-                  className="mt-0.5 text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] leading-[1.2] text-center whitespace-nowrap"
+                  className="mt-1 text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] leading-[1.2] text-center whitespace-nowrap"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0" }}
                 >
                   Fotografier med koppling till Kungliga Tekniska Högskolan från öppna arkiv.
@@ -369,10 +369,10 @@ const Index = () => {
               )}
               {labelMode === "small" && (
                 <p
-                  className="mt-0.5 text-[8px] sm:text-[9px] md:text-[10px] leading-[1.2] text-center whitespace-nowrap"
+                  className="mt-1 text-[8px] sm:text-[9px] md:text-[10px] leading-[1.2] text-center whitespace-nowrap"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0" }}
                 >
-                  Fotografier med koppling till KTH från öppna arkiv.
+                  Fotografier från öppna arkiv
                 </p>
               )}
             </div>
