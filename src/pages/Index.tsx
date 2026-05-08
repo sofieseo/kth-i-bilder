@@ -46,11 +46,20 @@ const Index = () => {
   const [isDesktop, setIsDesktop] = useState(
     () => typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches
   );
+  const [hasWideLabel, setHasWideLabel] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(min-width: 1280px)").matches
+  );
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
+    const desktopMq = window.matchMedia("(min-width: 1024px)");
+    const wideLabelMq = window.matchMedia("(min-width: 1280px)");
+    const desktopHandler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    const wideLabelHandler = (e: MediaQueryListEvent) => setHasWideLabel(e.matches);
+    desktopMq.addEventListener("change", desktopHandler);
+    wideLabelMq.addEventListener("change", wideLabelHandler);
+    return () => {
+      desktopMq.removeEventListener("change", desktopHandler);
+      wideLabelMq.removeEventListener("change", wideLabelHandler);
+    };
   }, []);
   // Shrink header after a small threshold so tiny residual scroll values
   // (e.g. browser bounce, sub-pixel offsets after scroll-up) don't keep
@@ -61,7 +70,7 @@ const Index = () => {
   //  - "small":    desktop scrolled OR mobile unscrolled. Short subtitle.
   //  - "smallest": mobile scrolled. Title only.
   const labelMode: "large" | "small" | "smallest" =
-    isDesktop && !headerShrunk
+    isDesktop && hasWideLabel && !headerShrunk
       ? "large"
       : !isDesktop && headerShrunk
         ? "smallest"
