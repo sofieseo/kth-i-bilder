@@ -339,20 +339,20 @@ const Index = () => {
             <div
               className="absolute flex flex-col justify-center items-stretch"
               style={{
-                left: "18%",
-                right: "18%",
-                top: "38%",
-                bottom: "38%",
+                left: "13%",
+                right: "13%",
+                top: "20%",
+                bottom: "20%",
                 padding: "0 2%",
               }}
             >
               <h1
-                className={`font-slab uppercase tracking-[0.14em] leading-[1.05] text-center whitespace-nowrap ${
+                className={`font-slab uppercase tracking-[0.12em] leading-[1.05] text-center whitespace-nowrap ${
                   labelMode === "large"
-                    ? "text-[14px] sm:text-[16px] md:text-[18px] lg:text-[22px]"
+                    ? "text-[11px] sm:text-[13px] md:text-[15px] lg:text-[17px]"
                     : labelMode === "small"
-                      ? "text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px]"
-                      : "text-[11px] sm:text-[12px]"
+                      ? "text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px]"
+                      : "text-[9px] sm:text-[10px]"
                 }`}
                 style={{ color: "#2a2418", fontWeight: 700 }}
               >
@@ -360,15 +360,15 @@ const Index = () => {
               </h1>
               {labelMode === "large" && (
                 <p
-                  className="mt-1 text-[10px] leading-[1.25] text-left"
-                  style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0", paddingLeft: "8%", paddingRight: "4%" }}
+                  className="mt-0.5 text-[8px] sm:text-[8.5px] md:text-[9px] leading-[1.2] text-center"
+                  style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0" }}
                 >
-                  Fotografier med koppling till Kungliga Tekniska Högskolan (KTH) hämtade från öppna arkiv.
+                  Fotografier med koppling till KTH från öppna arkiv.
                 </p>
               )}
               {labelMode === "small" && (
                 <p
-                  className="mt-0.5 text-[8px] sm:text-[8.5px] leading-[1.25] text-center"
+                  className="mt-0.5 text-[7px] sm:text-[7.5px] leading-[1.2] text-center"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0" }}
                 >
                   Fotografier från öppna arkiv.
