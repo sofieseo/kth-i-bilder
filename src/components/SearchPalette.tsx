@@ -120,10 +120,12 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
     }
   };
 
+  // Dialog paper matches the cream label-holder tone (sampled from
+  // src/assets/label-holder.png) instead of the manilla folder tone.
   const paperDialogStyle = {
-    ["--paper-color" as any]: headerPaperColor,
-    ["--paper-spots" as any]: String(headerPaperSpots),
-    ["--header-edge-tint" as any]: headerEdgeTint,
+    ["--paper-color" as any]: "#f1e3c5",
+    ["--paper-spots" as any]: "0.18",
+    ["--header-edge-tint" as any]: "hsl(36 38% 48% / 0.22)",
     borderColor: "rgba(26, 18, 8, 0.35)",
   };
 
