@@ -52,6 +52,18 @@ const Index = () => {
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
   }, []);
+  // Subtitle in large mode is `whitespace-nowrap` and overflows the label
+  // at narrower desktop widths. Switch to the short subtitle below this width
+  // while keeping the label itself in large mode.
+  const [wideEnoughForLongDesc, setWideEnoughForLongDesc] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(min-width: 1340px)").matches
+  );
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1340px)");
+    const handler = (e: MediaQueryListEvent) => setWideEnoughForLongDesc(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
   // Shrink header after a small threshold so tiny residual scroll values
   // (e.g. browser bounce, sub-pixel offsets after scroll-up) don't keep
   // the header in compact mode when the user is effectively at the top.
