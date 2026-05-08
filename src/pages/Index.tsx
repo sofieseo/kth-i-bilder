@@ -339,10 +339,10 @@ const Index = () => {
             <div
               className="absolute flex flex-col justify-center items-stretch"
               style={{
-                left: "12%",
-                right: "12%",
-                top: "26%",
-                bottom: "26%",
+                left: "18%",
+                right: "18%",
+                top: "38%",
+                bottom: "38%",
                 padding: "0 2%",
               }}
             >
