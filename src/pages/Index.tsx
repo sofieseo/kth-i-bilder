@@ -349,10 +349,10 @@ const Index = () => {
               <h1
                 className={`font-slab uppercase tracking-[0.12em] leading-[1.05] text-center whitespace-nowrap ${
                   labelMode === "large"
-                    ? "text-[11px] sm:text-[13px] md:text-[15px] lg:text-[17px]"
+                    ? "text-[14px] sm:text-[17px] md:text-[20px] lg:text-[23px]"
                     : labelMode === "small"
-                      ? "text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px]"
-                      : "text-[9px] sm:text-[10px]"
+                      ? "text-[11px] sm:text-[12px] md:text-[13px] lg:text-[15px]"
+                      : "text-[10px] sm:text-[11px]"
                 }`}
                 style={{ color: "#2a2418", fontWeight: 700 }}
               >
@@ -360,7 +360,7 @@ const Index = () => {
               </h1>
               {labelMode === "large" && (
                 <p
-                  className="mt-0.5 text-[8px] sm:text-[8.5px] md:text-[9px] leading-[1.2] text-center"
+                  className="mt-1 text-[9px] sm:text-[10px] md:text-[11px] leading-[1.2] text-center"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0" }}
                 >
                   Fotografier med koppling till KTH från öppna arkiv.
@@ -368,7 +368,7 @@ const Index = () => {
               )}
               {labelMode === "small" && (
                 <p
-                  className="mt-0.5 text-[7px] sm:text-[7.5px] leading-[1.2] text-center"
+                  className="mt-0.5 text-[7px] sm:text-[8px] leading-[1.2] text-center"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0" }}
                 >
                   Fotografier från öppna arkiv.
