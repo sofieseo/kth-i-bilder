@@ -76,7 +76,7 @@ const Index = () => {
   // Shrink header after a small threshold so tiny residual scroll values
   // (e.g. browser bounce, sub-pixel offsets after scroll-up) don't keep
   // the header in compact mode when the user is effectively at the top.
-  const headerShrunk = scrollTop > 8;
+  const headerShrunk = headerShrunkState;
   // Three discrete label modes — switch instantly to avoid jitter:
   //  - "large":    desktop, unscrolled. Full subtitle + big title.
   //  - "small":    desktop scrolled OR mobile unscrolled. Short subtitle.
