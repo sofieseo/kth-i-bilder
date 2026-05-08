@@ -14,12 +14,9 @@ export function buildThumbSrcSet(url: string | null | undefined): string | undef
     return `${base(400)} 400w, ${base(800)} 800w, ${base(1200)} 1200w`;
   }
 
-  // Wikimedia Commons thumb — `/NNNpx-filename`
-  const wmcMatch = url.match(/\/(\d+)px-/);
-  if (wmcMatch && /upload\.wikimedia\.org/.test(url)) {
-    const swap = (n: number) => url.replace(/\/(\d+)px-/, `/${n}px-`);
-    return `${swap(320)} 320w, ${swap(640)} 640w, ${swap(960)} 960w`;
-  }
+  // Wikimedia Commons: skip srcset — alternate thumb sizes are rate-limited
+  // (429) or rejected (400) by upload.wikimedia.org. Use the API-provided
+  // thumb URL as-is.
 
   return undefined;
 }
