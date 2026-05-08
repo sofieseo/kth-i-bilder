@@ -34,6 +34,15 @@ const Index = () => {
   const [searchNavSet, setSearchNavSet] = useState<UnifiedPhoto[] | null>(null);
   const [reopenSearchSignal, setReopenSearchSignal] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
+  // Stable shrink state with hysteresis: shrink at >24, expand only when
+  // genuinely back near the top (<=2). Prevents oscillation on decades where
+  // the gallery height with a shrunk header just barely fits the content
+  // (the layout would otherwise flip-flop between expanded/shrunk on scroll).
+  const [headerShrunkState, setHeaderShrunkState] = useState(false);
+  useEffect(() => {
+    if (!headerShrunkState && scrollTop > 24) setHeaderShrunkState(true);
+    else if (headerShrunkState && scrollTop <= 2) setHeaderShrunkState(false);
+  }, [scrollTop, headerShrunkState]);
   const [scrollToTopSignal, setScrollToTopSignal] = useState(0);
   // When the user clicks a tab, immediately reset the cached scroll
   // position so the header expands back to its full size in the same
@@ -41,6 +50,7 @@ const Index = () => {
   // after render and leaves the tabs squashed against the cabinet.
   const handleYearChange = (y: number) => {
     setScrollTop(0);
+    setHeaderShrunkState(false);
     rawHandleYearChange(y);
   };
   const [isDesktop, setIsDesktop] = useState(
@@ -67,7 +77,7 @@ const Index = () => {
   // Shrink header after a small threshold so tiny residual scroll values
   // (e.g. browser bounce, sub-pixel offsets after scroll-up) don't keep
   // the header in compact mode when the user is effectively at the top.
-  const headerShrunk = scrollTop > 8;
+  const headerShrunk = headerShrunkState;
   // Three discrete label modes — switch instantly to avoid jitter:
   //  - "large":    desktop, unscrolled. Full subtitle + big title.
   //  - "small":    desktop scrolled OR mobile unscrolled. Short subtitle.
