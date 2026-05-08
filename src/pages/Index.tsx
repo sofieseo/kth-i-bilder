@@ -318,7 +318,7 @@ const Index = () => {
           <div
             className="absolute left-1/2 z-10"
             style={{
-              top: labelShrunk ? "42%" : "44%",
+              top: labelShrunk ? "54%" : "56%",
               transform: "translate(-50%, -50%)",
               width:
                 labelMode === "large"
@@ -347,12 +347,12 @@ const Index = () => {
               }}
             >
               <h1
-                className={`font-slab uppercase tracking-[0.14em] leading-[1.05] text-center ${
+                className={`font-slab uppercase tracking-[0.14em] leading-[1.05] text-center whitespace-nowrap ${
                   labelMode === "large"
-                    ? "text-[16px] sm:text-[18px] md:text-[22px] lg:text-[26px]"
+                    ? "text-[14px] sm:text-[16px] md:text-[18px] lg:text-[22px]"
                     : labelMode === "small"
-                      ? "text-[14px] sm:text-[15px] md:text-[15px] lg:text-[16px]"
-                      : "text-[12px] sm:text-[13px]"
+                      ? "text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px]"
+                      : "text-[11px] sm:text-[12px]"
                 }`}
                 style={{ color: "#2a2418", fontWeight: 700 }}
               >
