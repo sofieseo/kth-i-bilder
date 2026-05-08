@@ -318,14 +318,14 @@ const Index = () => {
           <div
             className="absolute left-1/2 z-10"
             style={{
-              top: labelShrunk ? "52%" : "60%",
+              top: "50%",
               transform: "translate(-50%, -50%)",
               height:
                 labelMode === "large"
-                  ? "clamp(78px, 10vw, 130px)"
+                  ? "clamp(100px, 12.5vw, 148px)"
                   : labelMode === "small"
-                    ? "clamp(56px, 6.5vw, 82px)"
-                    : "clamp(46px, 6vw, 64px)",
+                    ? "clamp(60px, 7.2vw, 86px)"
+                    : "clamp(50px, 6.2vw, 66px)",
             }}
           >
             <img
