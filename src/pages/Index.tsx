@@ -50,6 +50,7 @@ const Index = () => {
   // after render and leaves the tabs squashed against the cabinet.
   const handleYearChange = (y: number) => {
     setScrollTop(0);
+    setHeaderShrunkState(false);
     rawHandleYearChange(y);
   };
   const [isDesktop, setIsDesktop] = useState(
