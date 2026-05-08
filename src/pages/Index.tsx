@@ -320,19 +320,20 @@ const Index = () => {
             style={{
               top: "50%",
               transform: "translate(-50%, -50%)",
-              height:
+              width:
                 labelMode === "large"
-                  ? "clamp(100px, 12.5vw, 148px)"
+                  ? "clamp(150px, 18.75vw, 222px)"
                   : labelMode === "small"
-                    ? "clamp(60px, 7.2vw, 86px)"
-                    : "clamp(50px, 6.2vw, 66px)",
+                    ? "clamp(90px, 10.8vw, 129px)"
+                    : "clamp(75px, 9.3vw, 99px)",
+              aspectRatio: "1536 / 1024",
             }}
           >
             <img
               src={labelHolder}
               alt=""
               aria-hidden
-              className="block h-full w-auto select-none pointer-events-none"
+              className="block w-full h-full select-none pointer-events-none"
               draggable={false}
               style={{ filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.45))" }}
             />
