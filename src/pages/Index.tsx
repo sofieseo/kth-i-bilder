@@ -318,21 +318,21 @@ const Index = () => {
           <div
             className="absolute left-1/2 z-10"
             style={{
-              top: labelShrunk ? "54%" : "56%",
+              top: labelShrunk ? "58%" : "60%",
               transform: "translate(-50%, -50%)",
-              width:
+              height:
                 labelMode === "large"
-                  ? "clamp(220px, 32vw, 360px)"
+                  ? "clamp(78px, 10vw, 130px)"
                   : labelMode === "small"
-                    ? "clamp(200px, 25vw, 290px)"
-                    : "clamp(170px, 23vw, 220px)",
+                    ? "clamp(60px, 7vw, 92px)"
+                    : "clamp(50px, 6.5vw, 70px)",
             }}
           >
             <img
               src={labelHolder}
               alt=""
               aria-hidden
-              className="block w-full h-auto select-none pointer-events-none"
+              className="block h-full w-auto select-none pointer-events-none"
               draggable={false}
               style={{ filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.45))" }}
             />
