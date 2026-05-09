@@ -146,6 +146,6 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
           )}
         </div>
       )}
-    </button>
+    </div>
   );
 });
