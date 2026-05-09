@@ -407,17 +407,17 @@ const Index = () => {
         {/* Dark interior of the open cabinet — just enough height for the folder
             tabs to peek up behind the manila paper, with no visible gap below. */}
         <div
-            className={`relative overflow-hidden px-2 sm:px-4 lg:px-8 xl:px-10 ${headerShrunk ? "pt-1" : "pt-3"}`}
+            className="relative overflow-hidden px-2 sm:px-4 lg:px-8 xl:px-10 pt-3"
           style={{
             backgroundColor: "#000000",
             boxShadow:
               "inset 0 12px 18px -6px rgba(0, 0, 0, 0.95), inset 0 2px 4px rgba(0, 0, 0, 1)",
             zIndex: 1,
-            height: headerShrunk ? "52px" : "60px",
+            height: "60px",
           }}
         >
           <div className="relative">
-            <ArchiveTabs year={year} onChange={handleYearChange} compact={headerShrunk} />
+            <ArchiveTabs year={year} onChange={handleYearChange} compact={false} />
           </div>
         </div>
       </header>
