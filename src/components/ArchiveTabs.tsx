@@ -36,18 +36,11 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
     return () => window.removeEventListener("keydown", handler);
   }, [year, onChange]);
 
-  // Auto-scroll active tab into view horizontally only (mobile).
-  // Avoid scrollIntoView because it can vertically scroll the overflow-hidden
-  // parent strip, lifting all tabs into full height.
+  // Auto-scroll active tab into view (only relevant on mobile)
   useEffect(() => {
-    const container = containerRef.current;
-    const active = activeRef.current;
-    if (!container || !active) return;
-    // Only adjust if the container is actually horizontally scrollable
-    if (container.scrollWidth <= container.clientWidth) return;
-    const target =
-      active.offsetLeft - container.clientWidth / 2 + active.offsetWidth / 2;
-    container.scrollTo({ left: Math.max(0, target), behavior: "smooth" });
+    if (activeRef.current && containerRef.current) {
+      activeRef.current.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    }
   }, [year]);
 
   const tabColor = "#9AA8AB";
