@@ -407,7 +407,7 @@ const Index = () => {
         {/* Dark interior of the open cabinet — just enough height for the folder
             tabs to peek up behind the manila paper, with no visible gap below. */}
         <div
-            className="relative px-2 sm:px-4 lg:px-8 xl:px-10 pt-3"
+            className="relative overflow-hidden px-2 sm:px-4 lg:px-8 xl:px-10 pt-3"
           style={{
             backgroundColor: "#000000",
             boxShadow:
