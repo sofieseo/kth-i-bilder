@@ -36,11 +36,18 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
     return () => window.removeEventListener("keydown", handler);
   }, [year, onChange]);
 
-  // Auto-scroll active tab into view (only relevant on mobile)
+  // Auto-scroll active tab into view horizontally only.
+  // Avoid scrollIntoView because it can also scroll overflow-hidden ancestors
+  // vertically (which makes the tab strip appear to "rise up").
   useEffect(() => {
-    if (activeRef.current && containerRef.current) {
-      activeRef.current.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-    }
+    const container = containerRef.current;
+    const active = activeRef.current;
+    if (!container || !active) return;
+    const cRect = container.getBoundingClientRect();
+    const aRect = active.getBoundingClientRect();
+    const delta = (aRect.left + aRect.width / 2) - (cRect.left + cRect.width / 2);
+    if (Math.abs(delta) < 1) return;
+    container.scrollTo({ left: container.scrollLeft + delta, behavior: "smooth" });
   }, [year]);
 
   const tabColor = "#9AA8AB";
