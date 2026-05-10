@@ -60,10 +60,10 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             type="button"
             onClick={() => onChange(decade)}
             aria-pressed={isActive}
-            className={`relative inline-flex h-16 shrink-0 items-start justify-center overflow-hidden leading-none md:shrink md:flex-1 md:min-w-0 transition-all ${
+            className={`relative inline-flex h-16 shrink-0 items-start justify-center overflow-hidden leading-none md:shrink md:flex-1 md:min-w-0 transition-all duration-200 ease-out ${
               isActive
                 ? `${compact ? "h-10 px-2 pt-2 text-[18px] -translate-y-2" : "px-2 pt-3 text-[22px] -translate-y-3"} font-bold`
-                : `${compact ? "h-10 px-2 pt-2 text-[15px]" : "px-2 pt-3 text-[18px] translate-y-0"}`
+                : `${compact ? "h-10 px-2 pt-2 text-[15px]" : "px-2 pt-3 text-[18px]"}`
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
               backgroundColor: "#9AA8AB",
