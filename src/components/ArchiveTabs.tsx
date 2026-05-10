@@ -36,13 +36,16 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
     return () => window.removeEventListener("keydown", handler);
   }, [year, onChange]);
 
-  // Auto-scroll active tab into view horizontally only.
+  // Auto-scroll active tab into view horizontally only (mobile).
   // Avoid scrollIntoView because it can also scroll overflow-hidden ancestors
-  // vertically (which makes the tab strip appear to "rise up").
+  // vertically, which makes the tab strip appear to "rise up".
   useEffect(() => {
     const container = containerRef.current;
     const active = activeRef.current;
     if (!container || !active) return;
+    // Only scroll when the container is actually horizontally scrollable
+    // (mobile). On desktop the tabs use flex-1 and fit the width.
+    if (container.scrollWidth <= container.clientWidth + 1) return;
     const cRect = container.getBoundingClientRect();
     const aRect = active.getBoundingClientRect();
     const delta = (aRect.left + aRect.width / 2) - (cRect.left + cRect.width / 2);
