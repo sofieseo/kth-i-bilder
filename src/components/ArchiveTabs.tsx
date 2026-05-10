@@ -60,10 +60,10 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             type="button"
             onClick={() => onChange(decade)}
             aria-pressed={isActive}
-            className={`relative inline-flex shrink-0 items-start justify-center overflow-hidden leading-none md:shrink md:flex-1 md:min-w-0 transition-all ${
+            className={`relative inline-flex h-16 shrink-0 items-start justify-center overflow-hidden leading-none md:shrink md:flex-1 md:min-w-0 transition-all ${
               isActive
-                ? `${compact ? "h-[60px] px-2 pt-2 text-[18px]" : "h-[82px] px-2 pt-3 text-[22px]"} font-bold`
-                : `${compact ? "h-10 px-2 pt-2 text-[15px]" : "h-16 px-2 pt-3 text-[18px]"}`
+                ? `${compact ? "h-10 px-2 pt-2 text-[18px] -translate-y-2" : "px-2 pt-3 text-[22px] -translate-y-3"} font-bold`
+                : `${compact ? "h-10 px-2 pt-2 text-[15px]" : "px-2 pt-3 text-[18px] translate-y-0"}`
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
               backgroundColor: "#9AA8AB",
@@ -76,8 +76,8 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               borderBottom: "none",
               fontFamily: "'Caveat', cursive",
               opacity: 1,
-              zIndex: isActive ? 60 : 10 + idx,
-              marginBottom: isActive ? -4 : 0,
+              zIndex: isActive ? 60 : 10,
+              marginBottom: 0,
               paddingBottom: 0,
               boxShadow: isActive
                 ? "-3px 0 8px rgba(0, 0, 0, 0.25), 3px 0 8px rgba(0, 0, 0, 0.22)"
