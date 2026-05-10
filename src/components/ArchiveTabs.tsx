@@ -62,8 +62,8 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             aria-pressed={isActive}
             className={`relative inline-flex h-16 shrink-0 items-start justify-center overflow-hidden leading-none md:shrink md:flex-1 md:min-w-0 transition-shadow duration-200 ease-out ${
               isActive
-                ? `${compact ? "h-10 px-2 pt-2 text-[18px]" : "px-2 pt-3 text-[22px]"} font-bold`
-                : `${compact ? "h-10 px-2 pt-2 text-[15px]" : "px-2 pt-3 text-[18px]"}`
+                ? `${compact ? "h-10 px-2 pt-2 text-[18px]" : "h-16 px-2 pt-3 text-[22px]"} font-bold`
+                : `${compact ? "h-8 px-2 pt-2 text-[15px]" : "h-[50px] px-2 pt-3 text-[18px]"}`
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
               backgroundColor: "#9AA8AB",
