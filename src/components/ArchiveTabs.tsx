@@ -36,18 +36,11 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
     return () => window.removeEventListener("keydown", handler);
   }, [year, onChange]);
 
-  // Auto-scroll active tab into view horizontally only.
-  // Avoid scrollIntoView because it can also scroll overflow-hidden ancestors
-  // vertically (which makes the tab strip appear to "rise up").
+  // Auto-scroll active tab into view (only relevant on mobile)
   useEffect(() => {
-    const container = containerRef.current;
-    const active = activeRef.current;
-    if (!container || !active) return;
-    const cRect = container.getBoundingClientRect();
-    const aRect = active.getBoundingClientRect();
-    const delta = (aRect.left + aRect.width / 2) - (cRect.left + cRect.width / 2);
-    if (Math.abs(delta) < 1) return;
-    container.scrollTo({ left: container.scrollLeft + delta, behavior: "smooth" });
+    if (activeRef.current && containerRef.current) {
+      activeRef.current.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    }
   }, [year]);
 
   const tabColor = "#9AA8AB";
@@ -70,7 +63,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             className={`relative inline-flex shrink-0 items-start justify-center overflow-hidden leading-none md:shrink md:flex-1 md:min-w-0 transition-all ${
               isActive
                 ? `${compact ? "h-[60px] px-2 pt-2 text-[18px]" : "h-[82px] px-2 pt-3 text-[22px]"} font-bold`
-                : `${compact ? "h-10 px-2 pt-2 text-[15px]" : "h-16 px-2 pt-3 text-[18px]"}`
+                : `${compact ? "h-10 px-2 pt-2 text-[15px]" : "h-16 px-2 pt-3 text-[18px]"} hover:-translate-y-0.5`
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
               backgroundColor: "#9AA8AB",
@@ -88,7 +81,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               paddingBottom: 0,
               boxShadow: isActive
                 ? "-3px 0 8px rgba(0, 0, 0, 0.25), 3px 0 8px rgba(0, 0, 0, 0.22)"
-                : "none",
+                : "0 -2px 6px rgba(0, 0, 0, 0.28), -1px 0 4px rgba(0, 0, 0, 0.20), 1px 0 4px rgba(0, 0, 0, 0.18)",
             }}
           >
             <span className="relative z-10">{labelFor(decade)}</span>
