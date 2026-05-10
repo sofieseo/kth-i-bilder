@@ -81,7 +81,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               paddingBottom: 0,
               boxShadow: isActive
                 ? "-3px 0 8px rgba(0, 0, 0, 0.25), 3px 0 8px rgba(0, 0, 0, 0.22)"
-                : "0 -2px 6px rgba(0, 0, 0, 0.28), -1px 0 4px rgba(0, 0, 0, 0.20), 1px 0 4px rgba(0, 0, 0, 0.18)",
+                : "none",
             }}
           >
             <span className="relative z-10">{labelFor(decade)}</span>
