@@ -344,10 +344,10 @@ const Index = () => {
               transform: "translate(-50%, -50%)",
               height:
                 labelMode === "large"
-                  ? "clamp(110px, 13vw, 160px)"
+                  ? "clamp(100px, 12vw, 145px)"
                   : labelMode === "small"
-                    ? "clamp(72px, 8.5vw, 96px)"
-                    : "clamp(58px, 6.5vw, 76px)",
+                    ? "clamp(64px, 7vw, 80px)"
+                    : "clamp(52px, 5.5vw, 62px)",
               aspectRatio: "1514 / 336",
             }}
           >
