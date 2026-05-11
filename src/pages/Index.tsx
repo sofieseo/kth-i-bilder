@@ -344,10 +344,10 @@ const Index = () => {
               transform: "translate(-50%, -50%)",
               height:
                 labelMode === "large"
-                  ? "clamp(110px, 13vw, 160px)"
+                  ? "clamp(100px, 12vw, 145px)"
                   : labelMode === "small"
-                    ? "clamp(72px, 8.5vw, 96px)"
-                    : "clamp(58px, 6.5vw, 76px)",
+                    ? "clamp(64px, 7vw, 80px)"
+                    : "clamp(52px, 5.5vw, 62px)",
               aspectRatio: "1514 / 336",
             }}
           >
@@ -372,10 +372,10 @@ const Index = () => {
               <h1
                 className={`font-slab uppercase tracking-[0.14em] leading-[1.05] text-center whitespace-nowrap ${
                   labelMode === "large"
-                    ? "text-[20px] sm:text-[24px] md:text-[28px] lg:text-[32px]"
+                    ? "text-[20px] sm:text-[22px] md:text-[26px] lg:text-[30px]"
                     : labelMode === "small"
-                      ? "text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px]"
-                      : "text-[14px] sm:text-[16px]"
+                      ? "text-[15px] sm:text-[15px] md:text-[17px] lg:text-[19px]"
+                      : "text-[13px] sm:text-[13px]"
                 }`}
                 style={{ color: "#2a2418", fontWeight: 700 }}
               >
@@ -383,7 +383,7 @@ const Index = () => {
               </h1>
               {labelMode === "large" && (
                 <p
-                  className="mt-1 text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] leading-[1.2] text-center whitespace-nowrap"
+                  className="mt-1 text-[11px] sm:text-[11px] md:text-[12px] lg:text-[13px] leading-[1.2] text-center whitespace-nowrap"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0" }}
                 >
                   {wideEnoughForLongDesc
@@ -393,7 +393,7 @@ const Index = () => {
               )}
               {labelMode === "small" && (
                 <p
-                  className="mt-1 text-[8px] sm:text-[9px] md:text-[10px] leading-[1.2] text-center whitespace-nowrap"
+                  className="mt-1 text-[9px] sm:text-[9px] md:text-[10px] leading-[1.2] text-center whitespace-nowrap"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0" }}
                 >
                   Fotografier från öppna arkiv
