@@ -180,14 +180,14 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
   return (
     <>
       {light ? (
-        <div className="flex items-center gap-1.5 sm:gap-2">
+        <div className="flex flex-col items-end gap-1.5 sm:flex-row sm:items-center sm:gap-2">
           <button
             onClick={() => setOpen(true)}
             aria-label="Sök bland bilder (Ctrl+K)"
             className="block transition-transform hover:-translate-y-px active:translate-y-0"
             style={{ filter: dymoShadow }}
           >
-            <img src={dymoSok} alt="Sök" className="block h-5 w-auto sm:h-6 md:h-7" draggable={false} />
+            <img src={dymoSok} alt="Sök" className="block h-7 w-auto sm:h-6 md:h-7" draggable={false} />
           </button>
           <button
             type="button"
@@ -196,7 +196,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
             className="block transition-transform hover:-translate-y-px active:translate-y-0"
             style={{ filter: dymoShadow }}
           >
-            <img src={dymoInfo} alt="" className="block h-5 w-auto sm:h-6 md:h-7" draggable={false} />
+            <img src={dymoInfo} alt="" className="block h-7 w-auto sm:h-6 md:h-7" draggable={false} />
           </button>
         </div>
       ) : (
