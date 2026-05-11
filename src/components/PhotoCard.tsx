@@ -74,19 +74,25 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
         </div>
         <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 4px 1px rgba(0,0,0,0.3)" }} />
       </div>
-      <div className="mt-1.5 px-1 h-[4.5rem] overflow-hidden flex flex-col">
-        <h3 className="text-[13px] font-semibold leading-tight text-stone-800 line-clamp-2 uppercase">
-          {photo.title}
-        </h3>
-        {photo.photographer && (
-          <p className="text-[10px] italic text-stone-700 mt-0.5 line-clamp-1">
-            Foto: {photo.photographer}
-          </p>
-        )}
-        <p className="text-[9px] font-semibold text-stone-600 mt-auto line-clamp-1">
-          {photo.provider === photo.source ? photo.source : `${photo.provider}, ${photo.source}`}
-        </p>
-      </div>
+      {(() => {
+        const photographer = photo.photographer?.trim();
+        const hasPhotographer = !!photographer && !/okänd|okand|unknown/i.test(photographer);
+        return (
+          <div className="mt-1.5 px-1 h-[4.5rem] overflow-hidden">
+            <h3 className={`text-[13px] font-semibold leading-tight text-stone-800 uppercase ${hasPhotographer ? "line-clamp-2" : "line-clamp-3"}`}>
+              {photo.title}
+            </h3>
+            {hasPhotographer && (
+              <p className="text-[10px] text-stone-700 mt-0.5 line-clamp-1">
+                Foto: {photographer}
+              </p>
+            )}
+            <p className="text-[9px] font-semibold text-stone-600 mt-0.5 line-clamp-1">
+              {photo.provider === photo.source ? photo.source : `${photo.provider}, ${photo.source}`}
+            </p>
+          </div>
+        );
+      })()}
       <button
         onClick={(e) => { e.stopPropagation(); if (!loading) toggleLike(); }}
         aria-label={liked ? "Ta bort gillamarkering" : "Gilla foto"}
