@@ -15,6 +15,13 @@ interface PhotoLightboxProps {
   nextPreloadUrl?: string | null;
 }
 
+function toSentenceCase(text: string): string {
+  if (!text) return text;
+  const hasLower = /[a-zåäöé]/.test(text);
+  const base = hasLower ? text : text.toLowerCase();
+  return base.replace(/(^\s*|[.!?]\s+)([a-zåäöé])/g, (_, p, c) => p + c.toUpperCase());
+}
+
 export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext, prevPreloadUrl, nextPreloadUrl }: PhotoLightboxProps) {
   const [copied, setCopied] = useState(false);
   const [showSwipeHint, setShowSwipeHint] = useState(false);
