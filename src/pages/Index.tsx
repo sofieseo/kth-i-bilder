@@ -372,10 +372,10 @@ const Index = () => {
               <h1
                 className={`font-slab uppercase tracking-[0.14em] leading-[1.05] text-center whitespace-nowrap ${
                   labelMode === "large"
-                    ? "text-[20px] sm:text-[24px] md:text-[28px] lg:text-[32px]"
+                    ? "text-[20px] sm:text-[22px] md:text-[26px] lg:text-[30px]"
                     : labelMode === "small"
-                      ? "text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px]"
-                      : "text-[14px] sm:text-[16px]"
+                      ? "text-[15px] sm:text-[15px] md:text-[17px] lg:text-[19px]"
+                      : "text-[13px] sm:text-[13px]"
                 }`}
                 style={{ color: "#2a2418", fontWeight: 700 }}
               >
