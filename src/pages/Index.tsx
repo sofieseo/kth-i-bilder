@@ -341,7 +341,9 @@ const Index = () => {
             className="absolute left-1/2 z-10"
             style={{
               top: "50%",
-              transform: "translate(-50%, -50%)",
+              transform: !isDesktop && labelMode === "small"
+                ? "translate(-50%, -50%) scaleX(0.9)"
+                : "translate(-50%, -50%)",
               height:
                 labelMode === "large"
                   ? "clamp(100px, 12vw, 145px)"
