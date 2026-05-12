@@ -346,7 +346,7 @@ const Index = () => {
                 labelMode === "large"
                   ? "clamp(100px, 12vw, 145px)"
                   : labelMode === "small"
-                    ? "clamp(64px, 7vw, 80px)"
+                    ? "clamp(74px, 7.5vw, 84px)"
                     : "clamp(52px, 5.5vw, 62px)",
               aspectRatio: "1514 / 336",
             }}
@@ -374,7 +374,7 @@ const Index = () => {
                   labelMode === "large"
                     ? "text-[20px] sm:text-[22px] md:text-[26px] lg:text-[30px]"
                     : labelMode === "small"
-                      ? "text-[15px] sm:text-[15px] md:text-[17px] lg:text-[19px]"
+                      ? "text-[17px] sm:text-[15px] md:text-[17px] lg:text-[19px]"
                       : "text-[13px] sm:text-[13px]"
                 }`}
                 style={{ color: "#2a2418", fontWeight: 700 }}
@@ -393,7 +393,7 @@ const Index = () => {
               )}
               {labelMode === "small" && (
                 <p
-                  className="mt-2 text-[9px] sm:text-[9px] md:text-[10px] leading-[1.2] text-center whitespace-nowrap"
+                  className="mt-2 text-[11px] sm:text-[9px] md:text-[10px] leading-[1.2] text-center whitespace-nowrap"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0" }}
                 >
                   Fotografier från öppna arkiv
