@@ -346,7 +346,7 @@ const Index = () => {
                 labelMode === "large"
                   ? "clamp(100px, 12vw, 145px)"
                   : labelMode === "small"
-                    ? "clamp(64px, 7vw, 80px)"
+                    ? "clamp(74px, 7.5vw, 84px)"
                     : "clamp(52px, 5.5vw, 62px)",
               aspectRatio: "1514 / 336",
             }}
