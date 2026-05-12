@@ -383,7 +383,7 @@ const Index = () => {
               </h1>
               {labelMode === "large" && (
                 <p
-                  className="mt-1 text-[11px] sm:text-[11px] md:text-[12px] lg:text-[13px] leading-[1.2] text-center whitespace-nowrap"
+                  className="mt-2.5 text-[11px] sm:text-[11px] md:text-[12px] lg:text-[13px] leading-[1.2] text-center whitespace-nowrap"
                   style={{ color: "#3d3424", fontFamily: "'Courier Prime', monospace", letterSpacing: "0" }}
                 >
                   {wideEnoughForLongDesc
