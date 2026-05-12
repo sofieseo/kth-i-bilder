@@ -17,7 +17,7 @@ serve(async (req) => {
   const description = [source, year ? `(${year})` : ""].filter(Boolean).join(" ") ||
     "KTH:s historia i bilder – fotografier från öppna arkiv";
 
-  const ogImage = image || "https://kth-i-bilder.lovable.app/og-image.jpg";
+  const ogImage = image || "https://kth-i-bilder.lovable.app/og-image-timeline.png";
 
   const html = `<!DOCTYPE html>
 <html lang="sv">
