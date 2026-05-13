@@ -70,18 +70,16 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               color: "#3a2a18",
               borderTopLeftRadius: "0",
               borderTopRightRadius: "12px 16px",
-              borderTop: "1px solid rgba(80, 55, 25, 0.35)",
-              borderLeft: "1px solid rgba(80, 55, 25, 0.25)",
-              borderRight: "1px solid rgba(80, 55, 25, 0.35)",
+              borderTop: isActive ? "1px solid transparent" : "1px solid rgba(80, 55, 25, 0.35)",
+              borderLeft: isActive ? "1px solid transparent" : "1px solid rgba(80, 55, 25, 0.25)",
+              borderRight: isActive ? "1px solid transparent" : "1px solid rgba(80, 55, 25, 0.35)",
               borderBottom: "none",
               fontFamily: "'Caveat', cursive",
               opacity: 1,
               zIndex: isActive ? 60 : 10,
               marginBottom: 0,
               paddingBottom: 0,
-              boxShadow: isActive
-                ? "-3px 0 8px rgba(0, 0, 0, 0.25), 3px 0 8px rgba(0, 0, 0, 0.22)"
-                : "none",
+              boxShadow: isActive ? "none" : "none",
             }}
           >
             <span className="relative z-10">{labelFor(decade)}</span>

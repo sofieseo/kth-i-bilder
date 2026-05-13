@@ -50,7 +50,7 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
           onClick();
         }
       }}
-      className="relative w-full text-left p-2 pb-5 shadow-[0_12px_32px_-4px_rgba(0,0,0,0.18),0_4px_12px_-2px_rgba(0,0,0,0.10)] [transform:rotate(var(--photo-rotation))] hover:[transform:rotate(var(--photo-rotation))_translateY(-4px)_scale(1.02)] hover:shadow-[0_20px_44px_-6px_rgba(0,0,0,0.24),0_6px_16px_-3px_rgba(0,0,0,0.14)] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary flex flex-col cursor-pointer"
+      className="relative w-full text-left p-2 pb-8 shadow-[0_12px_32px_-4px_rgba(0,0,0,0.18),0_4px_12px_-2px_rgba(0,0,0,0.10)] [transform:rotate(var(--photo-rotation))] hover:[transform:rotate(var(--photo-rotation))_translateY(-4px)_scale(1.02)] hover:shadow-[0_20px_44px_-6px_rgba(0,0,0,0.24),0_6px_16px_-3px_rgba(0,0,0,0.14)] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary flex flex-col cursor-pointer"
       style={{ backgroundColor: paperColor, ['--photo-rotation' as any]: `${rotation}deg` }}
     >
       <div className="relative aspect-square bg-muted overflow-hidden">
@@ -96,7 +96,7 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
       <button
         onClick={(e) => { e.stopPropagation(); if (!loading) toggleLike(); }}
         aria-label={liked ? "Ta bort gillamarkering" : "Gilla foto"}
-        className="absolute bottom-1.5 left-2 z-10 inline-flex items-center gap-1 px-1 py-0.5 hover:bg-black/10 transition-colors"
+        className="absolute bottom-3 left-2 z-10 inline-flex items-center gap-1 px-1 py-0.5 hover:bg-black/10 transition-colors"
       >
         <Heart
           className="h-3.5 w-3.5"
@@ -114,7 +114,7 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
         )}
       </button>
       <p
-        className={`absolute right-2 whitespace-nowrap text-stone-600 ${photo.year == null ? "bottom-1.5 text-sm" : "bottom-1 text-base"}`}
+        className={`absolute right-2 whitespace-nowrap text-stone-600 ${photo.year == null ? "bottom-3 text-sm" : "bottom-2.5 text-base"}`}
         style={{ fontFamily: "'Caveat', cursive" }}
       >
         {photo.year ?? "Odaterad"}
