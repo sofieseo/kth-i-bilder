@@ -241,7 +241,7 @@ const Index = () => {
             backgroundSize: headerShrunk ? "150% auto" : "130% auto",
             backgroundPosition: headerShrunk ? "center 25%" : "center 85%",
             backgroundRepeat: "no-repeat",
-            backgroundColor: "#3d4f2f",
+            backgroundColor: "#7d8a6a",
             boxShadow: "0 8px 18px rgba(0, 0, 0, 0.55), inset 0 -1px 0 rgba(0, 0, 0, 0.7)",
           }}
         >
