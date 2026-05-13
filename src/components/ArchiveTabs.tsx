@@ -43,7 +43,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
     }
   }, [year]);
 
-  const tabColor = "#9AA8AB";
+  const tabColor = "#c4a373";
 
   return (
     <div
@@ -66,13 +66,13 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
                 : `${compact ? "h-8 px-2 pt-2 text-[15px]" : "h-[50px] px-2 pt-3 text-[18px]"}`
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
-              backgroundColor: "#9AA8AB",
-              color: "#1a2422",
+              backgroundColor: tabColor,
+              color: "#3a2a18",
               borderTopLeftRadius: "0",
               borderTopRightRadius: "12px 16px",
-              borderTop: "1px solid rgba(40, 55, 55, 0.45)",
-              borderLeft: "1px solid rgba(40, 55, 55, 0.35)",
-              borderRight: "1px solid rgba(40, 55, 55, 0.45)",
+              borderTop: "1px solid rgba(80, 55, 25, 0.35)",
+              borderLeft: "1px solid rgba(80, 55, 25, 0.25)",
+              borderRight: "1px solid rgba(80, 55, 25, 0.35)",
               borderBottom: "none",
               fontFamily: "'Caveat', cursive",
               opacity: 1,
