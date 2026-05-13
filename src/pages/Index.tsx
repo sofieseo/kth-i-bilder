@@ -193,18 +193,22 @@ const Index = () => {
       className="relative flex w-screen flex-col transition-colors duration-300"
       style={{
         height: "100dvh",
-        // Dark "room" backdrop behind the cabinet — deep neutral so the green pops
-        backgroundColor: "#1a1814",
+        // Classic archive manilla folder backdrop — warm brown kraft paper tone
+        backgroundImage: `url(${manilaFolderTexture})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundColor: "#c4a373",
       }}
     >
-      {/* Subtle room vignette so the cabinet feels lit from above */}
+      {/* Subtle vignette so the cabinet still feels grounded and the photos pop */}
       <div
         aria-hidden
         className="fixed inset-0 -z-10 pointer-events-none"
         style={{
           backgroundImage:
-            "radial-gradient(ellipse 120% 80% at 50% 0%, rgba(255, 255, 255, 0.04), transparent 60%), " +
-            "radial-gradient(ellipse 140% 100% at 50% 100%, rgba(0, 0, 0, 0.55), transparent 70%)",
+            "radial-gradient(ellipse 120% 80% at 50% 0%, rgba(255, 255, 255, 0.08), transparent 60%), " +
+            "radial-gradient(ellipse 140% 100% at 50% 100%, rgba(60, 40, 15, 0.35), transparent 70%)",
           opacity: 1,
         }}
       />
