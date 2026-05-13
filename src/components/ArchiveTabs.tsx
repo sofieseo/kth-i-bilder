@@ -43,7 +43,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
     }
   }, [year]);
 
-  const tabColor = "#c4a373";
+  const tabColor = "#9AA8AB";
 
   return (
     <div
@@ -67,19 +67,21 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
               backgroundColor: tabColor,
-              color: "#3a2a18",
+              color: "#1a2422",
               borderTopLeftRadius: "0",
               borderTopRightRadius: "12px 16px",
-              borderTop: isActive ? "1px solid transparent" : "1px solid rgba(80, 55, 25, 0.35)",
-              borderLeft: isActive ? "1px solid transparent" : "1px solid rgba(80, 55, 25, 0.25)",
-              borderRight: isActive ? "1px solid transparent" : "1px solid rgba(80, 55, 25, 0.35)",
+              borderTop: "1px solid rgba(40, 55, 55, 0.35)",
+              borderLeft: "1px solid rgba(40, 55, 55, 0.25)",
+              borderRight: "1px solid rgba(40, 55, 55, 0.35)",
               borderBottom: "none",
               fontFamily: "'Caveat', cursive",
               opacity: 1,
               zIndex: isActive ? 60 : 10,
               marginBottom: 0,
               paddingBottom: 0,
-              boxShadow: isActive ? "none" : "none",
+              boxShadow: isActive
+                ? "-3px 0 8px rgba(0, 0, 0, 0.25), 3px 0 8px rgba(0, 0, 0, 0.22)"
+                : "none",
             }}
           >
             <span className="relative z-10">{labelFor(decade)}</span>
