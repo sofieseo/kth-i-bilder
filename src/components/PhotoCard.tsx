@@ -50,7 +50,7 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
           onClick();
         }
       }}
-      className="relative w-full text-left p-2 pb-5 shadow-[0_8px_22px_-6px_rgba(60,40,15,0.18),0_3px_10px_-2px_rgba(60,40,15,0.10)] [transform:rotate(var(--photo-rotation))] hover:[transform:rotate(var(--photo-rotation))_translateY(-4px)_scale(1.02)] hover:shadow-[0_14px_32px_-8px_rgba(60,40,15,0.25),0_5px_14px_-3px_rgba(60,40,15,0.14)] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary flex flex-col cursor-pointer"
+      className="relative w-full text-left p-2 pb-5 shadow-[0_8px_24px_-6px_rgba(0,0,0,0.08),0_3px_8px_-2px_rgba(0,0,0,0.06)] [transform:rotate(var(--photo-rotation))] hover:[transform:rotate(var(--photo-rotation))_translateY(-4px)_scale(1.02)] hover:shadow-[0_14px_32px_-8px_rgba(0,0,0,0.12),0_5px_12px_-3px_rgba(0,0,0,0.08)] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary flex flex-col cursor-pointer"
       style={{ backgroundColor: paperColor, ['--photo-rotation' as any]: `${rotation}deg` }}
     >
       <div className="relative aspect-square bg-muted overflow-hidden">
