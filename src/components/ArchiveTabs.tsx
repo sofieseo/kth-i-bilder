@@ -68,6 +68,10 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
               backgroundColor: tabColor,
+              backgroundImage: `url(${tabBg})`,
+              backgroundSize: "300px auto",
+              backgroundRepeat: "repeat",
+              backgroundBlendMode: "multiply",
               color: "#3a2a18",
               borderTopLeftRadius: "0",
               borderTopRightRadius: "12px 16px",
