@@ -70,7 +70,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               backgroundColor: "#c4a373",
               backgroundImage: `url(${tabBg})`,
               backgroundSize: "200px auto",
-              backgroundPosition: "left top",
+              backgroundPosition: "center center",
               backgroundRepeat: "no-repeat",
               color: "#3a2a18",
               borderTopLeftRadius: "0",
