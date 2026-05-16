@@ -185,6 +185,7 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
             willChange: "transform, opacity",
           }}
         >
+          <div key={fadeKey} className="animate-fade-in">
           {loading && results.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-24">
               <Search className="h-10 w-10 animate-search-tilt mb-3" style={{ color: "#1a1208" }} />
@@ -219,6 +220,7 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
               </div>
             </>
           )}
+          </div>
         </div>
       </div>
 
