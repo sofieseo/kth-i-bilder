@@ -91,6 +91,8 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
   }, []);
 
   const [selectedPhoto, setSelectedPhoto] = useState<UnifiedPhoto | null>(null);
+  const [fadeKey, setFadeKey] = useState(year);
+  useEffect(() => { setFadeKey(year); }, [year]);
   // When a photo is opened from search, navigate within those search results instead of `results`
   const [navSet, setNavSet] = useState<UnifiedPhoto[] | null>(null);
   const deepLinkHandled = useRef(false);
