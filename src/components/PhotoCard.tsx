@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { ImageOff, EyeOff, CalendarOff, Heart } from "lucide-react";
+import { ImageOff, EyeOff, CalendarOff, Heart, Star } from "lucide-react";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { getPaperStyle } from "@/lib/paperColor";
@@ -13,6 +13,8 @@ interface PhotoCardProps {
   isAdmin?: boolean;
   onHide?: (id: string, imageUrl?: string) => void;
   onMarkUndated?: (id: string) => void;
+  isFavorite?: boolean;
+  onToggleFavorite?: (id: string, imageUrl?: string) => void;
 }
 
 // Deterministic, naturalistic rotation: ~65% straight, others lean ±0.3–0.8°
