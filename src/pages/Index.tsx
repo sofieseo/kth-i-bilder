@@ -13,6 +13,7 @@ import { usePhotoFetch } from "@/hooks/usePhotoFetch";
 import { useAdminMode } from "@/hooks/useAdminMode";
 import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
 import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
+import { useAdminFavorites } from "@/hooks/useAdminFavorites";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { getPaperStyle, getArchivePaperBeige } from "@/lib/paperColor";
 import archiveCabinetClean from "@/assets/archive-cabinet-clean.jpg";
@@ -26,6 +27,7 @@ const Index = () => {
   const { isAdmin, wantsAdmin } = useAdminMode();
   const { hiddenIds, hidePhoto, restorePhoto } = useHiddenPhotos();
   const { undatedIds, markAsUndated } = useUndatedPhotos();
+  const { favoriteIds, toggleFavorite } = useAdminFavorites();
   const queryClient = useQueryClient();
   const [showHidden, setShowHidden] = useState(false);
   const [showStats, setShowStats] = useState(false);
@@ -450,6 +452,8 @@ const Index = () => {
           isAdmin={isAdmin}
           onHidePhoto={handleHidePhoto}
           onMarkUndated={handleMarkUndated}
+          favoriteIds={favoriteIds}
+          onToggleFavorite={toggleFavorite}
           onSwipeDecade={(direction) => {
             const decades = [0, 1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020];
             const idx = decades.indexOf(year);

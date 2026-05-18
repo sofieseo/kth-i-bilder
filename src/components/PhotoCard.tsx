@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { ImageOff, EyeOff, CalendarOff, Heart } from "lucide-react";
+import { ImageOff, EyeOff, CalendarOff, Heart, Star } from "lucide-react";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { getPaperStyle } from "@/lib/paperColor";
@@ -13,6 +13,8 @@ interface PhotoCardProps {
   isAdmin?: boolean;
   onHide?: (id: string, imageUrl?: string) => void;
   onMarkUndated?: (id: string) => void;
+  isFavorite?: boolean;
+  onToggleFavorite?: (id: string, imageUrl?: string) => void;
 }
 
 // Deterministic, naturalistic rotation: ~65% straight, others lean ±0.3–0.8°
@@ -34,7 +36,7 @@ function getRotation(id: string): number {
   return Math.round(direction * magnitude * 10) / 10;
 }
 
-export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMarkUndated }: PhotoCardProps) {
+export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMarkUndated, isFavorite, onToggleFavorite }: PhotoCardProps) {
   const paperColor = getPaperStyle(decade).color;
   const rotation = getRotation(photo.id);
   const { count, liked, toggleLike, loading } = usePhotoLikes(photo.id, photo.imageUrl);
@@ -121,6 +123,30 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
       </p>
       {isAdmin && (
         <div className="absolute top-1 right-1 z-10 flex gap-1">
+          {onToggleFavorite && (
+            <TooltipProvider delayDuration={200}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onToggleFavorite(photo.id, photo.imageUrl ?? undefined); }}
+                    className="rounded-full bg-black/60 p-1 text-white hover:bg-yellow-500 transition-colors"
+                    aria-pressed={isFavorite}
+                  >
+                    <Star
+                      className="h-3.5 w-3.5"
+                      style={{
+                        color: isFavorite ? "#facc15" : "#fff",
+                        fill: isFavorite ? "#facc15" : "transparent",
+                      }}
+                    />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" className="text-xs">
+                  {isFavorite ? "Ta bort favoritmarkering" : "Markera som favorit"}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
           {onMarkUndated && photo.year != null && (
             <TooltipProvider delayDuration={200}>
               <Tooltip>

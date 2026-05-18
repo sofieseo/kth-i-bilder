@@ -12,6 +12,8 @@ interface PhotoGalleryProps {
   isAdmin?: boolean;
   onHidePhoto?: (id: string, imageUrl?: string) => void;
   onMarkUndated?: (id: string) => void;
+  favoriteIds?: Set<string>;
+  onToggleFavorite?: (id: string, imageUrl?: string) => void;
   openPhoto?: UnifiedPhoto | null;
   openPhotoNavSet?: UnifiedPhoto[] | null;
   onPhotoOpened?: () => void;
@@ -21,7 +23,7 @@ interface PhotoGalleryProps {
   scrollToTopSignal?: number;
 }
 
-export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onMarkUndated, openPhoto, openPhotoNavSet, onPhotoOpened, onLightboxClosed, onSwipeDecade, onScroll, scrollToTopSignal }: PhotoGalleryProps) {
+export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onMarkUndated, favoriteIds, onToggleFavorite, openPhoto, openPhotoNavSet, onPhotoOpened, onLightboxClosed, onSwipeDecade, onScroll, scrollToTopSignal }: PhotoGalleryProps) {
   const isMobile = useIsMobile();
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -255,6 +257,8 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
                     isAdmin={isAdmin}
                     onHide={onHidePhoto}
                     onMarkUndated={onMarkUndated}
+                    isFavorite={favoriteIds?.has(photo.id)}
+                    onToggleFavorite={onToggleFavorite}
                   />
                 ))}
               </div>
