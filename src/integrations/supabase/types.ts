@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_favorites: {
+        Row: {
+          api_id: string
+          created_at: string
+          id: string
+          image_url: string | null
+          note: string | null
+        }
+        Insert: {
+          api_id: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          note?: string | null
+        }
+        Update: {
+          api_id?: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          note?: string | null
+        }
+        Relationships: []
+      }
       api_cache: {
         Row: {
           data: Json
