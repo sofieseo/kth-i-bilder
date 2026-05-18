@@ -201,11 +201,12 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
     <>
       <div
         ref={scrollRef}
-        className="flex-1 overflow-y-auto px-2 sm:px-4 lg:px-8 xl:px-10 pb-6 pt-2 sm:pt-4"
+        className="flex-1 overflow-y-auto px-2 sm:px-4 lg:px-8 xl:px-10 pb-6 pt-2 sm:pt-4 select-none"
         onScroll={onScroll ? (e) => onScroll((e.target as HTMLDivElement).scrollTop) : undefined}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
+        onMouseDown={handleMouseDown}
       >
         <div
           style={{
