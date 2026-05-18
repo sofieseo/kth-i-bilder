@@ -257,6 +257,8 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
                     isAdmin={isAdmin}
                     onHide={onHidePhoto}
                     onMarkUndated={onMarkUndated}
+                    isFavorite={favoriteIds?.has(photo.id)}
+                    onToggleFavorite={onToggleFavorite}
                   />
                 ))}
               </div>
