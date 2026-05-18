@@ -36,7 +36,7 @@ function getRotation(id: string): number {
   return Math.round(direction * magnitude * 10) / 10;
 }
 
-export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMarkUndated }: PhotoCardProps) {
+export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020, isAdmin, onHide, onMarkUndated, isFavorite, onToggleFavorite }: PhotoCardProps) {
   const paperColor = getPaperStyle(decade).color;
   const rotation = getRotation(photo.id);
   const { count, liked, toggleLike, loading } = usePhotoLikes(photo.id, photo.imageUrl);
