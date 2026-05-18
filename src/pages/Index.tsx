@@ -13,6 +13,7 @@ import { usePhotoFetch } from "@/hooks/usePhotoFetch";
 import { useAdminMode } from "@/hooks/useAdminMode";
 import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
 import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
+import { useAdminFavorites } from "@/hooks/useAdminFavorites";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
 import { getPaperStyle, getArchivePaperBeige } from "@/lib/paperColor";
 import archiveCabinetClean from "@/assets/archive-cabinet-clean.jpg";
