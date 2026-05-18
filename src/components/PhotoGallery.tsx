@@ -40,39 +40,33 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
   const swipeHandled = useRef(false);
   const horizontalLocked = useRef(false);
   const [swipeDx, setSwipeDx] = useState(0);
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    if (!isMobile || !onSwipeDecade) return;
-    if (e.touches.length !== 1) return;
-    touchStartX.current = e.touches[0].clientX;
-    touchStartY.current = e.touches[0].clientY;
+
+  const beginSwipe = useCallback((x: number, y: number) => {
+    if (!onSwipeDecade) return;
+    touchStartX.current = x;
+    touchStartY.current = y;
     swipeHandled.current = false;
     horizontalLocked.current = false;
     setSwipeDx(0);
-  }, [isMobile, onSwipeDecade]);
+  }, [onSwipeDecade]);
 
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    if (!isMobile || !onSwipeDecade || swipeHandled.current) return;
+  const moveSwipe = useCallback((x: number, y: number) => {
+    if (!onSwipeDecade || swipeHandled.current) return;
     if (touchStartX.current == null || touchStartY.current == null) return;
-    const dx = e.touches[0].clientX - touchStartX.current;
-    const dy = e.touches[0].clientY - touchStartY.current;
-
-    // Lock to horizontal once intent is clear (avoid hijacking vertical scroll)
+    const dx = x - touchStartX.current;
+    const dy = y - touchStartY.current;
     if (!horizontalLocked.current) {
       if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy) * 1.4) {
         horizontalLocked.current = true;
       } else if (Math.abs(dy) > 12) {
-        // Vertical scroll wins — disable swipe for this gesture
         touchStartX.current = null;
         touchStartY.current = null;
         return;
       }
     }
-
     if (horizontalLocked.current) {
-      // Dampened follow with cap so the gallery softly follows the finger
       const capped = Math.max(-160, Math.min(160, dx * 0.55));
       setSwipeDx(capped);
-      // Commit the decade change once threshold passed
       if (Math.abs(dx) > 70) {
         onSwipeDecade(dx < 0 ? "next" : "prev");
         swipeHandled.current = true;
@@ -81,14 +75,59 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
         setSwipeDx(0);
       }
     }
-  }, [isMobile, onSwipeDecade]);
+  }, [onSwipeDecade]);
 
-  const handleTouchEnd = useCallback(() => {
+  const endSwipe = useCallback(() => {
     touchStartX.current = null;
     touchStartY.current = null;
     horizontalLocked.current = false;
     setSwipeDx(0);
   }, []);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    if (!isMobile || !onSwipeDecade) return;
+    if (e.touches.length !== 1) return;
+    beginSwipe(e.touches[0].clientX, e.touches[0].clientY);
+  }, [isMobile, onSwipeDecade, beginSwipe]);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!isMobile || !onSwipeDecade) return;
+    moveSwipe(e.touches[0].clientX, e.touches[0].clientY);
+  }, [isMobile, onSwipeDecade, moveSwipe]);
+
+  const handleTouchEnd = useCallback(() => {
+    endSwipe();
+  }, [endSwipe]);
+
+  // Desktop: mouse drag to swipe decades
+  const mouseDragging = useRef(false);
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    if (isMobile || !onSwipeDecade) return;
+    if (e.button !== 0) return;
+    const target = e.target as HTMLElement;
+    if (target.closest("button, a, input, textarea, [role='button']")) return;
+    mouseDragging.current = true;
+    beginSwipe(e.clientX, e.clientY);
+  }, [isMobile, onSwipeDecade, beginSwipe]);
+
+  useEffect(() => {
+    if (isMobile || !onSwipeDecade) return;
+    const onMove = (e: MouseEvent) => {
+      if (!mouseDragging.current) return;
+      moveSwipe(e.clientX, e.clientY);
+    };
+    const onUp = () => {
+      if (!mouseDragging.current) return;
+      mouseDragging.current = false;
+      endSwipe();
+    };
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+    };
+  }, [isMobile, onSwipeDecade, moveSwipe, endSwipe]);
 
   const [selectedPhoto, setSelectedPhoto] = useState<UnifiedPhoto | null>(null);
   const [fadeKey, setFadeKey] = useState(year);
@@ -162,11 +201,12 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
     <>
       <div
         ref={scrollRef}
-        className="flex-1 overflow-y-auto px-2 sm:px-4 lg:px-8 xl:px-10 pb-6 pt-2 sm:pt-4"
+        className="flex-1 overflow-y-auto px-2 sm:px-4 lg:px-8 xl:px-10 pb-6 pt-2 sm:pt-4 select-none"
         onScroll={onScroll ? (e) => onScroll((e.target as HTMLDivElement).scrollTop) : undefined}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
+        onMouseDown={handleMouseDown}
       >
         <div
           style={{
