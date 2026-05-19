@@ -260,6 +260,11 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
         <DialogContent
           className="!fixed !inset-0 !left-0 !top-0 !z-50 !flex !items-start !justify-center !gap-0 !w-screen !max-w-none !translate-x-0 !translate-y-0 !border-0 !bg-transparent !p-0 !shadow-none [&>button]:hidden"
           aria-describedby="search-palette-description"
+          onClick={(e) => {
+            if (e.target === e.currentTarget && window.innerWidth >= 640) {
+              handleOpenChange(false);
+            }
+          }}
         >
           <DialogTitle className="sr-only">Sök bland bilder</DialogTitle>
           <DialogDescription id="search-palette-description" className="sr-only">
