@@ -48,7 +48,7 @@ async function buildPhotoLookup(photoIds: string[]): Promise<Map<string, { image
   return map;
 }
 
-export function AdminStatsModal({ open, onClose }: AdminStatsModalProps) {
+export function AdminStatsModal({ open, onClose, onOpenPhoto }: AdminStatsModalProps) {
   const [stats, setStats] = useState<PhotoStat[]>([]);
   const [loading, setLoading] = useState(false);
   const [busyId, setBusyId] = useState<string | null>(null);
