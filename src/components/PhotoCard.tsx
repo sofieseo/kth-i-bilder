@@ -90,7 +90,7 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
               </p>
             )}
             <p className="text-[10px] text-stone-700 mt-0 line-clamp-1 leading-tight">
-              Källa: {photo.provider === photo.source ? photo.source : `${photo.provider}, ${photo.source}`}
+              {photo.provider === photo.source ? photo.source : `${photo.provider}, ${photo.source}`}
             </p>
           </div>
         );
