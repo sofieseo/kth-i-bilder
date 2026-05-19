@@ -85,7 +85,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               marginBottom: isActive ? -2 : 0,
               paddingBottom: isActive ? 2 : 0,
               boxShadow: isActive
-                ? "-3px 0 8px rgba(0, 0, 0, 0.25), 3px 0 8px rgba(0, 0, 0, 0.22)"
+                ? "-2px -1px 4px rgba(0, 0, 0, 0.12), 2px -1px 4px rgba(0, 0, 0, 0.12)"
                 : "none",
             }}
           >
