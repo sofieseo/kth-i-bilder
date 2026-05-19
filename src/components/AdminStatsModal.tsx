@@ -14,6 +14,7 @@ interface PhotoStat {
 interface AdminStatsModalProps {
   open: boolean;
   onClose: () => void;
+  onOpenPhoto?: (photoId: string, imageUrl: string | null, title: string | null) => void;
 }
 
 /** Build a map of photo_id → {image_url, title} from curated_photos + photo_likes/shares image_url */
