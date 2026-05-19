@@ -32,6 +32,7 @@ const Index = () => {
   const queryClient = useQueryClient();
   const [showHidden, setShowHidden] = useState(false);
   const [showStats, setShowStats] = useState(false);
+  const [showFavorites, setShowFavorites] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [clearingCache, setClearingCache] = useState(false);
   const [searchSelectedPhoto, setSearchSelectedPhoto] = useState<UnifiedPhoto | null>(null);
