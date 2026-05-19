@@ -284,50 +284,49 @@ const Index = () => {
                   </button>
                 )}
                 {isAdmin && (
-                  <>
-                    <button
-                      onClick={() => setShowStats(true)}
-                      className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-                      style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <button
+                        className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+                        style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
+                      >
+                        <Settings className="h-3.5 w-3.5" />
+                        Admin
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent
+                      align="end"
+                      className="rounded-none border-foreground/20"
+                      style={{ fontFamily: "'Courier Prime', monospace" }}
                     >
-                      <BarChart3 className="h-3.5 w-3.5" />
-                      Statistik
-                    </button>
-                    <button
-                      onClick={() => setShowFavorites(true)}
-                      className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-                      style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
-                    >
-                      <Star className="h-3.5 w-3.5" />
-                      Favoriter ({favoriteIds.size})
-                    </button>
-                    <button
-                      onClick={() => setShowHidden(true)}
-                      className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-                      style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
-                    >
-                      <EyeOff className="h-3.5 w-3.5" />
-                      Dolda ({hiddenIds.size})
-                    </button>
-                    <button
-                      onClick={handleClearCache}
-                      disabled={clearingCache}
-                      title={year === 0 ? "Rensa cache för odaterade" : `Rensa cache för ${Math.floor(year / 10) * 10}-talet`}
-                      className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors disabled:opacity-50"
-                      style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
-                    >
-                      <RefreshCw className={`h-3.5 w-3.5 ${clearingCache ? "animate-spin" : ""}`} />
-                      Rensa cache
-                    </button>
-                    <button
-                      onClick={handleLogout}
-                      className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
-                      style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
-                    >
-                      <LogOut className="h-3.5 w-3.5" />
-                      Logga ut
-                    </button>
-                  </>
+                      <DropdownMenuItem onClick={() => setShowStats(true)} className="rounded-none text-xs gap-2">
+                        <BarChart3 className="h-3.5 w-3.5" />
+                        Statistik
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => setShowFavorites(true)} className="rounded-none text-xs gap-2">
+                        <Star className="h-3.5 w-3.5" />
+                        Favoriter ({favoriteIds.size})
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => setShowHidden(true)} className="rounded-none text-xs gap-2">
+                        <EyeOff className="h-3.5 w-3.5" />
+                        Dolda ({hiddenIds.size})
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem
+                        onClick={handleClearCache}
+                        disabled={clearingCache}
+                        className="rounded-none text-xs gap-2"
+                      >
+                        <RefreshCw className={`h-3.5 w-3.5 ${clearingCache ? "animate-spin" : ""}`} />
+                        {year === 0 ? "Rensa cache (odaterade)" : `Rensa cache (${Math.floor(year / 10) * 10}-talet)`}
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem onClick={handleLogout} className="rounded-none text-xs gap-2">
+                        <LogOut className="h-3.5 w-3.5" />
+                        Logga ut
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 )}
               </div>
             </div>
