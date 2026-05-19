@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import archiveFolderBg from "@/assets/archive-folder-bg-large.jpg";
+import archiveFolderBg from "@/assets/archive-folder-bg.jpg";
 
 const DECADES: number[] = [0, 1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020];
 
@@ -69,9 +69,10 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             style={{
               backgroundColor: tabColor,
               backgroundImage: `url(${archiveFolderBg})`,
-              backgroundSize: "2400px auto",
-              backgroundPosition: "center center",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
+              backgroundAttachment: "fixed",
               color: "#3a2a18",
               borderTopLeftRadius: "0",
               borderTopRightRadius: "12px 16px",
