@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import tabBg from "@/assets/archive-folder-bg.jpg";
 
 const DECADES: number[] = [0, 1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020];
 
@@ -67,11 +66,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
                 : `${compact ? "h-8 px-2 pt-2 text-[15px]" : "h-[50px] px-2 pt-3 text-[18px]"}`
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
-              backgroundColor: "#c4a373",
-              backgroundImage: `url(${tabBg})`,
-              backgroundSize: "200px auto",
-              backgroundPosition: "center center",
-              backgroundRepeat: "no-repeat",
+              backgroundColor: tabColor,
               color: "#3a2a18",
               borderTopLeftRadius: "0",
               borderTopRightRadius: "12px 16px",
@@ -85,7 +80,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               marginBottom: isActive ? -2 : 0,
               paddingBottom: isActive ? 2 : 0,
               boxShadow: isActive
-                ? "-3px 0 8px rgba(0, 0, 0, 0.25), 3px 0 8px rgba(0, 0, 0, 0.22)"
+                ? "-2px -1px 4px rgba(0, 0, 0, 0.12), 2px -1px 4px rgba(0, 0, 0, 0.12)"
                 : "none",
             }}
           >
