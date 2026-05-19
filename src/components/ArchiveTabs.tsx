@@ -67,11 +67,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
                 : `${compact ? "h-8 px-2 pt-2 text-[15px]" : "h-[50px] px-2 pt-3 text-[18px]"}`
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
-              backgroundColor: "#c4a373",
-              backgroundImage: `url(${tabBg})`,
-              backgroundSize: "200px auto",
-              backgroundPosition: "center center",
-              backgroundRepeat: "no-repeat",
+              backgroundColor: tabColor,
               color: "#3a2a18",
               borderTopLeftRadius: "0",
               borderTopRightRadius: "12px 16px",
