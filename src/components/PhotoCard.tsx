@@ -85,11 +85,11 @@ export const PhotoCard = memo(function PhotoCard({ photo, onClick, decade = 2020
               {photo.title}
             </h3>
             {hasPhotographer && (
-              <p className="text-[10px] text-stone-700 mt-0.5 line-clamp-1 leading-tight">
+              <p className="text-[10px] text-stone-700 mt-1.5 line-clamp-1 leading-tight">
                 Foto: {photographer}
               </p>
             )}
-            <p className="text-[10px] text-stone-700 mt-0 line-clamp-1 leading-tight">
+            <p className={`text-[10px] text-stone-700 ${hasPhotographer ? "mt-0" : "mt-1.5"} line-clamp-1 leading-tight`}>
               {photo.provider === photo.source ? photo.source : `${photo.provider}, ${photo.source}`}
             </p>
           </div>
