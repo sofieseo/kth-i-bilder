@@ -1,5 +1,5 @@
 import { useMemo, useState, useRef, useEffect } from "react";
-import { EyeOff, BarChart3, LogIn, LogOut, RefreshCw, ArrowUp } from "lucide-react";
+import { EyeOff, BarChart3, LogIn, LogOut, RefreshCw, ArrowUp, Star } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { SearchPalette } from "@/components/SearchPalette";
 import { toast } from "sonner";
@@ -8,6 +8,7 @@ import { ArchiveTabs } from "@/components/ArchiveTabs";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { HiddenPhotosModal } from "@/components/HiddenPhotosModal";
 import { AdminStatsModal } from "@/components/AdminStatsModal";
+import { AdminFavoritesModal } from "@/components/AdminFavoritesModal";
 import { AdminLoginModal } from "@/components/AdminLoginModal";
 import { usePhotoFetch } from "@/hooks/usePhotoFetch";
 import { useAdminMode } from "@/hooks/useAdminMode";
@@ -31,6 +32,7 @@ const Index = () => {
   const queryClient = useQueryClient();
   const [showHidden, setShowHidden] = useState(false);
   const [showStats, setShowStats] = useState(false);
+  const [showFavorites, setShowFavorites] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [clearingCache, setClearingCache] = useState(false);
   const [searchSelectedPhoto, setSearchSelectedPhoto] = useState<UnifiedPhoto | null>(null);
@@ -285,6 +287,14 @@ const Index = () => {
                       Statistik
                     </button>
                     <button
+                      onClick={() => setShowFavorites(true)}
+                      className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+                      style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
+                    >
+                      <Star className="h-3.5 w-3.5" />
+                      Favoriter ({favoriteIds.size})
+                    </button>
+                    <button
                       onClick={() => setShowHidden(true)}
                       className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
                       style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
@@ -524,6 +534,34 @@ const Index = () => {
           setSearchNavSet(null);
           setSearchSelectedPhoto(photo);
           setShowStats(false);
+        }}
+      />
+      <AdminFavoritesModal
+        open={showFavorites}
+        onClose={() => setShowFavorites(false)}
+        onToggleFavorite={toggleFavorite}
+        onOpenPhoto={async (photoId, imageUrl, title) => {
+          const { fetchAllPhotosForSearch } = await import("@/data/fetchAllPhotosForSearch");
+          const all = await fetchAllPhotosForSearch().catch(() => []);
+          const found = all.find((p) => p.id === photoId);
+          const photo: UnifiedPhoto = found ?? ({
+            id: photoId,
+            title: title ?? "",
+            description: "",
+            year: null,
+            imageUrl: imageUrl ?? "",
+            imageUrlFull: imageUrl ?? "",
+            source: "manual",
+            provider: "",
+            originalLink: "",
+            photographer: null,
+            license: "",
+            place: "",
+            subjects: [],
+          } as unknown as UnifiedPhoto);
+          setSearchNavSet(null);
+          setSearchSelectedPhoto(photo);
+          setShowFavorites(false);
         }}
       />
       <AdminLoginModal open={showLogin} onClose={() => setShowLogin(false)} onSuccess={() => setShowLogin(false)} />
