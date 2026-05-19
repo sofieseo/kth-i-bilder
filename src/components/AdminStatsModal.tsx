@@ -14,6 +14,7 @@ interface PhotoStat {
 interface AdminStatsModalProps {
   open: boolean;
   onClose: () => void;
+  onOpenPhoto?: (photoId: string, imageUrl: string | null, title: string | null) => void;
 }
 
 /** Build a map of photo_id → {image_url, title} from curated_photos + photo_likes/shares image_url */
@@ -47,7 +48,7 @@ async function buildPhotoLookup(photoIds: string[]): Promise<Map<string, { image
   return map;
 }
 
-export function AdminStatsModal({ open, onClose }: AdminStatsModalProps) {
+export function AdminStatsModal({ open, onClose, onOpenPhoto }: AdminStatsModalProps) {
   const [stats, setStats] = useState<PhotoStat[]>([]);
   const [loading, setLoading] = useState(false);
   const [busyId, setBusyId] = useState<string | null>(null);
@@ -171,11 +172,18 @@ export function AdminStatsModal({ open, onClose }: AdminStatsModalProps) {
               {stats.map((s) => {
                 const photoUrl = `/?photo=${encodeURIComponent(s.photo_id)}`;
                 const isBusy = busyId?.startsWith(s.photo_id);
+                const handleOpen = (e: React.MouseEvent) => {
+                  if (onOpenPhoto) {
+                    e.preventDefault();
+                    onOpenPhoto(s.photo_id, s.image_url, s.title);
+                  }
+                };
                 return (
                   <li key={s.photo_id} className="flex items-center gap-3 rounded-md bg-white/5 px-3 py-2">
                     <a
                       href={photoUrl}
-                      target="_blank"
+                      onClick={handleOpen}
+                      target={onOpenPhoto ? undefined : "_blank"}
                       rel="noopener noreferrer"
                       className="shrink-0 hover:opacity-80 transition-opacity"
                       title="Öppna bilden"
@@ -194,7 +202,8 @@ export function AdminStatsModal({ open, onClose }: AdminStatsModalProps) {
                     </a>
                     <a
                       href={photoUrl}
-                      target="_blank"
+                      onClick={handleOpen}
+                      target={onOpenPhoto ? undefined : "_blank"}
                       rel="noopener noreferrer"
                       className="flex-1 min-w-0 hover:underline"
                       title="Öppna bilden"
