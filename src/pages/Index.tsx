@@ -8,6 +8,7 @@ import { ArchiveTabs } from "@/components/ArchiveTabs";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { HiddenPhotosModal } from "@/components/HiddenPhotosModal";
 import { AdminStatsModal } from "@/components/AdminStatsModal";
+import { AdminFavoritesModal } from "@/components/AdminFavoritesModal";
 import { AdminLoginModal } from "@/components/AdminLoginModal";
 import { usePhotoFetch } from "@/hooks/usePhotoFetch";
 import { useAdminMode } from "@/hooks/useAdminMode";
