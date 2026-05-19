@@ -1,5 +1,12 @@
 import { useMemo, useState, useRef, useEffect } from "react";
-import { EyeOff, BarChart3, LogIn, LogOut, RefreshCw, ArrowUp, Star } from "lucide-react";
+import { EyeOff, BarChart3, LogIn, LogOut, RefreshCw, ArrowUp, Star, Settings } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 import { useQueryClient } from "@tanstack/react-query";
 import { SearchPalette } from "@/components/SearchPalette";
 import { toast } from "sonner";
