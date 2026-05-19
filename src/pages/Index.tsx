@@ -287,6 +287,14 @@ const Index = () => {
                       Statistik
                     </button>
                     <button
+                      onClick={() => setShowFavorites(true)}
+                      className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
+                      style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
+                    >
+                      <Star className="h-3.5 w-3.5" />
+                      Favoriter ({favoriteIds.size})
+                    </button>
+                    <button
                       onClick={() => setShowHidden(true)}
                       className="ink-border flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors"
                       style={{ color: '#f0eee8', borderColor: 'rgba(240,238,232,0.55)', fontFamily: "'Courier Prime', monospace", backgroundColor: 'rgba(0,0,0,0.35)' }}
