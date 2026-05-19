@@ -49,8 +49,8 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
   return (
     <div
       ref={containerRef}
-      className={`flex items-end overflow-x-auto md:overflow-x-visible overflow-y-visible no-scrollbar relative md:w-full ${compact ? "pt-1" : "pt-2"}`}
-      style={{ scrollbarWidth: "none" }}
+      className={`flex items-end overflow-x-auto md:overflow-x-visible overflow-y-hidden no-scrollbar relative md:w-full ${compact ? "pt-1" : "pt-2"}`}
+      style={{ scrollbarWidth: "none", overscrollBehavior: "contain", touchAction: "pan-x" }}
     >
       {DECADES.map((decade, idx) => {
         const isActive = decade === year;
