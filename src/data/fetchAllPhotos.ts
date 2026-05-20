@@ -11,9 +11,10 @@ import { getManualPhotos } from "./manualPhotos";
 import { fetchWikimediaCommons } from "./wikimediaCommons";
 import { supabase } from "@/integrations/supabase/client";
 
+import { CACHE_SCHEMA_VERSION } from "./cacheVersion";
+
 const TIMEOUT_MS = 45_000;
 const CACHE_MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
-const CACHE_SCHEMA_VERSION = 8;
 
 /** Fetch year overrides for API photos that lack date metadata */
 async function loadYearOverrides(): Promise<Map<string, number>> {

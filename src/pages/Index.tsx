@@ -23,6 +23,7 @@ import { useHiddenPhotos } from "@/hooks/useHiddenPhotos";
 import { useUndatedPhotos } from "@/hooks/useUndatedPhotos";
 import { useAdminFavorites } from "@/hooks/useAdminFavorites";
 import type { UnifiedPhoto } from "@/data/fetchAllPhotos";
+import { CACHE_SCHEMA_VERSION } from "@/data/cacheVersion";
 import { getPaperStyle, getArchivePaperBeige } from "@/lib/paperColor";
 import archiveCabinetClean from "@/assets/archive-cabinet-clean.jpg";
 import labelHolder from "@/assets/label-holder.png";
@@ -116,9 +117,10 @@ const Index = () => {
     setClearingCache(true);
     try {
       // Always invalidate the undated bucket alongside the active decade
+      const v = CACHE_SCHEMA_VERSION;
       const keys = year === 0
-        ? ["7:0"]
-        : [`7:${Math.floor(year / 10) * 10}`, "7:0"];
+        ? [`${v}:0`]
+        : [`${v}:${Math.floor(year / 10) * 10}`, `${v}:0`];
       const { error } = await supabase
         .from("api_cache")
         .delete()
@@ -138,10 +140,11 @@ const Index = () => {
   /** Delete all api_cache rows whose decade key contains the given year bucket */
   const invalidateCacheForYear = async (photoYear: number | null) => {
     // Invalidate both the decade the photo belonged to and the undated bucket
-    const keys: string[] = ["7:0"]; // always invalidate undated
+    const v = CACHE_SCHEMA_VERSION;
+    const keys: string[] = [`${v}:0`]; // always invalidate undated
     if (photoYear != null) {
       const decade = Math.floor(photoYear / 10) * 10;
-      keys.push(`7:${decade}`);
+      keys.push(`${v}:${decade}`);
     }
     for (const key of keys) {
       await supabase.from("api_cache").delete().like("decade", `%${key}%`);
