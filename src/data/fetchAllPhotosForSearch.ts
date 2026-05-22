@@ -78,7 +78,7 @@ async function loadAllCuratedPhotos(): Promise<UnifiedPhoto[]> {
       subjects: row.subjects ?? [],
       license: row.license,
       place: row.place,
-      originalLink: row.original_link,
+      originalLink: typeof row.original_link === "string" ? row.original_link.replace(/^http:\/\/urn\.kb\.se\//i, "https://urn.kb.se/") : row.original_link,
       provider: row.provider as UnifiedPhoto["provider"],
       photographer: row.photographer ?? undefined,
     }));
