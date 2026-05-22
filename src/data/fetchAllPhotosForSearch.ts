@@ -2,6 +2,7 @@ import type { UnifiedPhoto } from "./types";
 import { supabase } from "@/integrations/supabase/client";
 import { getManualPhotos } from "./manualPhotos";
 import { deduplicatePhotos } from "./kthFilter";
+import { normalizeOriginalLink, normalizePhotoLinks } from "./linkUtils";
 
 import { CACHE_SCHEMA_VERSION } from "./cacheVersion";
 
@@ -48,7 +49,7 @@ async function loadApiCachePhotos(): Promise<UnifiedPhoto[]> {
       if (row.decade.includes("_q:")) continue;
       const arr = row.data as unknown as UnifiedPhoto[];
       if (Array.isArray(arr)) {
-        photos.push(...arr);
+          photos.push(...normalizePhotoLinks(arr));
       }
     }
     return photos;
@@ -78,7 +79,7 @@ async function loadAllCuratedPhotos(): Promise<UnifiedPhoto[]> {
       subjects: row.subjects ?? [],
       license: row.license,
       place: row.place,
-      originalLink: typeof row.original_link === "string" ? row.original_link.replace(/^http:\/\/urn\.kb\.se\//i, "https://urn.kb.se/") : row.original_link,
+      originalLink: normalizeOriginalLink(row.original_link),
       provider: row.provider as UnifiedPhoto["provider"],
       photographer: row.photographer ?? undefined,
     }));

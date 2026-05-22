@@ -10,6 +10,7 @@ import { getCuratedPhotos } from "./curatedPhotos";
 import { getManualPhotos } from "./manualPhotos";
 import { fetchWikimediaCommons } from "./wikimediaCommons";
 import { supabase } from "@/integrations/supabase/client";
+import { normalizePhotoLinks } from "./linkUtils";
 
 import { CACHE_SCHEMA_VERSION } from "./cacheVersion";
 
@@ -63,7 +64,7 @@ async function readCache(decade: string): Promise<UnifiedPhoto[] | null> {
     const age = Date.now() - new Date(data.updated_at).getTime();
     if (age > CACHE_MAX_AGE_MS) return null;
 
-    return data.data as unknown as UnifiedPhoto[];
+    return normalizePhotoLinks(data.data as unknown as UnifiedPhoto[]);
   } catch {
     return null;
   }
