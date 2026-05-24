@@ -22,11 +22,26 @@ function toSentenceCase(text: string): string {
   return base.replace(/(^\s*|[.!?]\s+)([a-zåäöé])/g, (_, p, c) => p + c.toUpperCase());
 }
 
+const CLOSE_ANIM_MS = 180;
+const SWIPE_THRESHOLD = 60;
+
 export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext, prevPreloadUrl, nextPreloadUrl }: PhotoLightboxProps) {
   const [copied, setCopied] = useState(false);
   const [showSwipeHint, setShowSwipeHint] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+  const [dragX, setDragX] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
+  const lockedAxis = useRef<"x" | "y" | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const previouslyFocused = useRef<HTMLElement | null>(null);
+
+  const requestClose = useCallback(() => {
+    if (isClosing) return;
+    setIsClosing(true);
+    window.setTimeout(() => onClose(), CLOSE_ANIM_MS);
+  }, [isClosing, onClose]);
 
   const buildShareUrl = () => {
     const url = new URL("https://kth-i-bilder.lovable.app/");
@@ -42,30 +57,60 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
-    // Log share event
     supabase.from("photo_shares").insert({ photo_id: photo.id, image_url: photo.imageUrl ?? null }).then(() => {});
   };
 
-  // Keyboard navigation
+  // Save focus, restore on unmount
+  useEffect(() => {
+    previouslyFocused.current = document.activeElement as HTMLElement | null;
+    // Move focus into dialog
+    const t = window.setTimeout(() => {
+      containerRef.current?.focus();
+    }, 0);
+    return () => {
+      window.clearTimeout(t);
+      const el = previouslyFocused.current;
+      if (el && typeof el.focus === "function") {
+        try { el.focus({ preventScroll: true } as FocusOptions); } catch { el.focus(); }
+      }
+    };
+  }, [photo.id]);
+
+  // Keyboard navigation + focus trap
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft" && onPrev && hasPrev) { e.preventDefault(); onPrev(); }
-      if (e.key === "ArrowRight" && onNext && hasNext) { e.preventDefault(); onNext(); }
-      if (e.key === "Escape") { e.preventDefault(); onClose(); }
+      if (e.key === "ArrowLeft" && onPrev && hasPrev) { e.preventDefault(); onPrev(); return; }
+      if (e.key === "ArrowRight" && onNext && hasNext) { e.preventDefault(); onNext(); return; }
+      if (e.key === "Escape") { e.preventDefault(); requestClose(); return; }
+      if (e.key === "Tab") {
+        const root = containerRef.current;
+        if (!root) return;
+        const focusables = root.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusables.length === 0) { e.preventDefault(); return; }
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        const active = document.activeElement as HTMLElement | null;
+        if (e.shiftKey && (active === first || !root.contains(active))) {
+          e.preventDefault(); last.focus();
+        } else if (!e.shiftKey && (active === last || !root.contains(active))) {
+          e.preventDefault(); first.focus();
+        }
+      }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [onPrev, onNext, hasPrev, hasNext, onClose]);
+  }, [onPrev, onNext, hasPrev, hasNext, requestClose]);
 
-  // Lock body scroll while lightbox is open (prevents iOS Safari from
-  // hijacking touch scroll for the underlying <main> scroller).
+  // Lock body scroll
   useEffect(() => {
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = prevOverflow; };
   }, []);
 
-  // Preload neighbor images so prev/next feels instant
+  // Preload neighbor images
   useEffect(() => {
     [prevPreloadUrl, nextPreloadUrl].forEach((url) => {
       if (!url) return;
@@ -75,7 +120,7 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
     });
   }, [prevPreloadUrl, nextPreloadUrl]);
 
-  // First-time swipe hint on mobile (touch + has navigation)
+  // First-time swipe hint
   useEffect(() => {
     if (!(hasPrev || hasNext)) return;
     const isTouch = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
@@ -94,21 +139,44 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
+    lockedAxis.current = null;
   }, []);
 
-  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
     if (touchStartX.current === null || touchStartY.current === null) return;
+    const dx = e.touches[0].clientX - touchStartX.current;
+    const dy = e.touches[0].clientY - touchStartY.current;
+    if (lockedAxis.current === null) {
+      if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+      lockedAxis.current = Math.abs(dx) > Math.abs(dy) * 1.2 ? "x" : "y";
+    }
+    if (lockedAxis.current !== "x") return;
+    // Resistance at edges where nav unavailable
+    let offset = dx;
+    if ((offset > 0 && !hasPrev) || (offset < 0 && !hasNext)) offset = offset * 0.25;
+    setIsDragging(true);
+    setDragX(offset);
+  }, [hasPrev, hasNext]);
+
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (touchStartX.current === null || touchStartY.current === null) {
+      setIsDragging(false); setDragX(0); return;
+    }
     const dx = e.changedTouches[0].clientX - touchStartX.current;
     const dy = e.changedTouches[0].clientY - touchStartY.current;
     const absDx = Math.abs(dx);
     const absDy = Math.abs(dy);
-    // Only trigger if horizontal swipe is dominant and > 50px
-    if (absDx > 50 && absDx > absDy * 1.5) {
-      if (dx > 0 && onPrev && hasPrev) onPrev();
-      if (dx < 0 && onNext && hasNext) onNext();
+    setIsDragging(false);
+    if (lockedAxis.current === "x" && absDx > SWIPE_THRESHOLD && absDx > absDy * 1.2) {
+      if (dx > 0 && onPrev && hasPrev) { setDragX(0); onPrev(); }
+      else if (dx < 0 && onNext && hasNext) { setDragX(0); onNext(); }
+      else setDragX(0);
+    } else {
+      setDragX(0);
     }
     touchStartX.current = null;
     touchStartY.current = null;
+    lockedAxis.current = null;
   }, [onPrev, onNext, hasPrev, hasNext]);
 
   return createPortal(
@@ -118,11 +186,13 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
       aria-label={photo.title}
       className="fixed inset-0 z-[2000] flex items-center justify-center p-0 sm:p-4"
       style={{ height: "100dvh" }}
-      onClick={onClose}
+      onClick={requestClose}
     >
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" aria-hidden="true" />
+      <div
+        className={`absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity duration-200 ${isClosing ? "opacity-0" : "opacity-100"}`}
+        aria-hidden="true"
+      />
 
-      {/* Desktop prev/next arrows — positioned just outside the lightbox edges (max-w-2xl = 672px → 336px half-width) */}
       {onPrev && hasPrev && (
         <button
           onClick={(e) => { e.stopPropagation(); onPrev(); }}
@@ -143,15 +213,24 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
       )}
 
       <div
-        className="relative z-10 w-full max-w-2xl sm:max-h-[90vh] max-sm:h-full overflow-y-auto overscroll-contain border-0 sm:border border-border shadow-2xl"
-        style={{ backgroundColor: "#f4f1ea", WebkitOverflowScrolling: "touch" }}
+        ref={containerRef}
+        tabIndex={-1}
+        className={`relative z-10 w-full max-w-2xl sm:max-h-[90vh] max-sm:h-full overflow-y-auto overscroll-contain border-0 sm:border border-border shadow-2xl outline-none ${isClosing ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}
+        style={{
+          backgroundColor: "#f4f1ea",
+          WebkitOverflowScrolling: "touch",
+          transform: `translateX(${dragX}px) scale(${isClosing ? 0.95 : 1})`,
+          transition: isDragging ? "none" : `transform ${CLOSE_ANIM_MS}ms ease-out, opacity ${CLOSE_ANIM_MS}ms ease-out`,
+        }}
         onClick={(e) => e.stopPropagation()}
         onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
         <button
-          onClick={onClose}
-          aria-label="Stäng"
+          onClick={requestClose}
+          aria-label="Stäng (Esc)"
+          title="Stäng (Esc)"
           className="sticky top-3 float-right mr-3 z-20 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
         >
           <X className="h-4 w-4" />
@@ -177,7 +256,6 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
           )}
         </div>
 
-        {/* Mobile prev/next bar below image */}
         {(hasPrev || hasNext) && (
           <div className="flex sm:hidden items-center justify-between px-4 py-2 border-t border-border" style={{ backgroundColor: "#f4f1ea" }}>
             <button
