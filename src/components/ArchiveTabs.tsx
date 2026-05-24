@@ -27,9 +27,11 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
       if (idx === -1) return;
       if (e.key === "ArrowLeft" && idx > 0) {
         e.preventDefault();
+        (document.activeElement as HTMLElement | null)?.blur?.();
         onChange(DECADES[idx - 1]);
       } else if (e.key === "ArrowRight" && idx < DECADES.length - 1) {
         e.preventDefault();
+        (document.activeElement as HTMLElement | null)?.blur?.();
         onChange(DECADES[idx + 1]);
       }
     };
