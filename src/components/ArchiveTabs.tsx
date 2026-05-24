@@ -27,9 +27,11 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
       if (idx === -1) return;
       if (e.key === "ArrowLeft" && idx > 0) {
         e.preventDefault();
+        (document.activeElement as HTMLElement | null)?.blur?.();
         onChange(DECADES[idx - 1]);
       } else if (e.key === "ArrowRight" && idx < DECADES.length - 1) {
         e.preventDefault();
+        (document.activeElement as HTMLElement | null)?.blur?.();
         onChange(DECADES[idx + 1]);
       }
     };
@@ -59,9 +61,9 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             key={decade}
             ref={isActive ? activeRef : undefined}
             type="button"
-            onClick={() => onChange(decade)}
+            onClick={(e) => { e.currentTarget.blur(); onChange(decade); }}
             aria-pressed={isActive}
-            className={`relative inline-flex h-16 shrink-0 items-start justify-center overflow-hidden leading-none md:shrink md:flex-1 md:min-w-0 transition-shadow duration-200 ease-out ${
+            className={`relative inline-flex h-16 shrink-0 items-start justify-center overflow-hidden leading-none md:shrink md:flex-1 md:min-w-0 transition-shadow duration-200 ease-out outline-none focus:outline-none focus-visible:outline-none ${
               isActive
                 ? `${compact ? "h-10 px-2 pt-2 text-[20px]" : "h-16 px-2 pt-3 text-[26px]"} font-bold`
                 : `${compact ? "h-8 px-2 pt-2 text-[17px]" : "h-[50px] px-2 pt-3 text-[21px]"}`
