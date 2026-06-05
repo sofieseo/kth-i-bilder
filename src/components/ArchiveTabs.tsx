@@ -74,7 +74,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
-              backgroundAttachment: "scroll",
+              backgroundAttachment: "fixed",
               color: "#3a2a18",
               borderTopLeftRadius: "0",
               borderTopRightRadius: "12px 16px",
