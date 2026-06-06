@@ -39,11 +39,23 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
     return () => window.removeEventListener("keydown", handler);
   }, [year, onChange]);
 
-  // Auto-scroll active tab into view (only relevant on mobile)
+  // Auto-scroll active tab into view horizontally within the tabs container only.
+  // Using element.scrollIntoView can scroll ancestors (and on first mobile paint
+  // it sometimes left the tab strip clipped). We compute scrollLeft manually instead.
   useEffect(() => {
-    if (activeRef.current && containerRef.current) {
-      activeRef.current.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-    }
+    const container = containerRef.current;
+    const active = activeRef.current;
+    if (!container || !active) return;
+    const doScroll = () => {
+      const cRect = container.getBoundingClientRect();
+      const aRect = active.getBoundingClientRect();
+      const offset = (aRect.left - cRect.left) - (container.clientWidth / 2 - active.offsetWidth / 2);
+      if (Math.abs(offset) < 2) return;
+      container.scrollTo({ left: container.scrollLeft + offset, behavior: "smooth" });
+    };
+    // Defer to next frame so layout is settled before measuring
+    const raf = requestAnimationFrame(doScroll);
+    return () => cancelAnimationFrame(raf);
   }, [year]);
 
   const tabColor = "#c4a373";
