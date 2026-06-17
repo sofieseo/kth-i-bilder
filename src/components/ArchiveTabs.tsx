@@ -71,9 +71,9 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             style={{
               backgroundColor: tabColor,
               backgroundImage: `url(${archiveFolderBg})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
+              backgroundSize: "auto 200%",
+              backgroundPosition: `${(idx * 37) % 100}% center`,
+              backgroundRepeat: "repeat",
               backgroundAttachment: "scroll",
               color: "#3a2a18",
               borderTopLeftRadius: "0",
