@@ -90,13 +90,14 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
       });
     };
 
-    img.onload = () => {
+    const handleImageLoad = () => {
       naturalWidth = img.naturalWidth || naturalWidth;
       naturalHeight = img.naturalHeight || naturalHeight;
       recalc();
     };
+    img.onload = handleImageLoad;
     img.src = archiveFolderBg;
-    if (img.complete) img.onload(null as unknown as Event);
+    if (img.complete) handleImageLoad();
 
     const folder = document.querySelector<HTMLElement>("[data-archive-folder-bg]");
     const resizeObserver = typeof ResizeObserver !== "undefined" ? new ResizeObserver(recalc) : null;
