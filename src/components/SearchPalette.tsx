@@ -272,7 +272,7 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
           </DialogDescription>
 
           <div
-            className="paper-aged header-paper mt-[12vh] w-[min(48rem,calc(100vw-2rem))] overflow-hidden border shadow-lg max-sm:mt-0 max-sm:min-h-0 max-sm:max-h-[90vh] max-sm:w-screen max-sm:max-w-[100vw] max-sm:border-0"
+            className="paper-aged header-paper mt-[12vh] w-[min(48rem,calc(100vw-2rem))] overflow-hidden border shadow-lg max-sm:mt-0 max-sm:min-h-0 max-sm:max-h-[90vh] max-sm:w-[calc(100vw-1rem)] max-sm:mx-2 max-sm:border-0"
             style={paperDialogStyle}
           >
             <div className="relative" style={inkTextStyle}>
