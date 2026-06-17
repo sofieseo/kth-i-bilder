@@ -117,7 +117,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
     };
   }, [year, compact]);
 
-  const tabColor = "#d4b territoryp88";
+  const tabColor = "#d4b88a";
 
   return (
     <div
