@@ -451,6 +451,7 @@ const Index = () => {
       </header>
 
       <main
+        data-archive-folder-bg
         className="flex flex-col flex-1 min-h-0 overflow-hidden relative isolate"
         style={{
           backgroundColor: "#c4a373",

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import archiveFolderBg from "@/assets/archive-folder-bg.jpg";
 
 const DECADES: number[] = [0, 1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020];
@@ -13,11 +13,16 @@ function labelFor(decade: number): string {
   return decade === 0 ? "ODAT." : String(decade);
 }
 
+type TabBackground = {
+  x: number;
+  y: number;
+};
+
 export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const activeRef = useRef<HTMLButtonElement | null>(null);
   const tabRefs = useRef<Map<number, HTMLButtonElement>>(new Map());
-  const [offsets, setOffsets] = useState<Record<number, number>>({});
+  const [tabBackgrounds, setTabBackgrounds] = useState<Record<number, TabBackground>>({});
   const [bgSize, setBgSize] = useState<{ w: number; h: number }>({ w: 0, h: 0 });
 
   // Keyboard navigation
@@ -49,40 +54,63 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
     }
   }, [year]);
 
-  // Compute shared-background offsets: each tab samples from a single viewport-wide image,
-  // mimicking the look of background-attachment: fixed (which is buggy on iOS in horizontally
-  // scrolling containers).
-  useEffect(() => {
+  // Align every tab to the archive folder's own background image. This keeps the original
+  // cut-from-the-folder look without using background-attachment: fixed, which is unstable on iOS.
+  useLayoutEffect(() => {
+    const container = containerRef.current;
+    const img = new Image();
+    let naturalWidth = 1600;
+    let naturalHeight = 1200;
+    let frame = 0;
+
     const recalc = () => {
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      // size image to cover viewport, like background-size: cover with background-attachment: fixed
-      const img = new Image();
-      img.src = archiveFolderBg;
-      const compute = () => {
-        const iw = img.naturalWidth || 1600;
-        const ih = img.naturalHeight || 1200;
-        const scale = Math.max(vw / iw, vh / ih);
-        const w = iw * scale;
-        const h = ih * scale;
-        setBgSize({ w, h });
-        const next: Record<number, number> = {};
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const folder = document.querySelector<HTMLElement>("[data-archive-folder-bg]");
+        if (!folder) return;
+
+        const folderRect = folder.getBoundingClientRect();
+        const scale = Math.max(folderRect.width / naturalWidth, folderRect.height / naturalHeight);
+        const w = naturalWidth * scale;
+        const h = naturalHeight * scale;
+        const imageLeft = folderRect.left + (folderRect.width - w) / 2;
+        const imageTop = folderRect.top + (folderRect.height - h) / 2;
+        const next: Record<number, TabBackground> = {};
+
         tabRefs.current.forEach((el, decade) => {
           const rect = el.getBoundingClientRect();
-          // background-position-x so the image stays anchored to the viewport
-          next[decade] = -rect.left - (vw - w) / 2;
+          next[decade] = {
+            x: imageLeft - rect.left,
+            y: imageTop - rect.top,
+          };
         });
-        setOffsets(next);
-      };
-      if (img.complete) compute();
-      else img.onload = compute;
+
+        setBgSize({ w, h });
+        setTabBackgrounds(next);
+      });
     };
+
+    const handleImageLoad = () => {
+      naturalWidth = img.naturalWidth || naturalWidth;
+      naturalHeight = img.naturalHeight || naturalHeight;
+      recalc();
+    };
+    img.onload = handleImageLoad;
+    img.src = archiveFolderBg;
+    if (img.complete) handleImageLoad();
+
+    const folder = document.querySelector<HTMLElement>("[data-archive-folder-bg]");
+    const resizeObserver = typeof ResizeObserver !== "undefined" ? new ResizeObserver(recalc) : null;
+    if (folder) resizeObserver?.observe(folder);
+    if (container) resizeObserver?.observe(container);
+
     recalc();
-    const container = containerRef.current;
     window.addEventListener("resize", recalc);
     window.addEventListener("scroll", recalc, true);
-    container?.addEventListener("scroll", recalc);
+    container?.addEventListener("scroll", recalc, { passive: true });
     return () => {
+      cancelAnimationFrame(frame);
+      resizeObserver?.disconnect();
       window.removeEventListener("resize", recalc);
       window.removeEventListener("scroll", recalc, true);
       container?.removeEventListener("scroll", recalc);
@@ -99,8 +127,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
     >
       {DECADES.map((decade, idx) => {
         const isActive = decade === year;
-        const offsetX = offsets[decade] ?? 0;
-        const offsetY = bgSize.h > 0 ? -(window.innerHeight - bgSize.h) / 2 : 0;
+        const background = tabBackgrounds[decade];
         return (
           <button
             key={decade}
@@ -121,7 +148,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
               backgroundColor: tabColor,
               backgroundImage: `url(${archiveFolderBg})`,
               backgroundSize: bgSize.w > 0 ? `${bgSize.w}px ${bgSize.h}px` : "cover",
-              backgroundPosition: `${offsetX}px ${offsetY}px`,
+              backgroundPosition: background ? `${background.x}px ${background.y}px` : "center",
               backgroundRepeat: "no-repeat",
               backgroundAttachment: "scroll",
               color: "#3a2a18",
