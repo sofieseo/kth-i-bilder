@@ -24,16 +24,6 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
   const tabRefs = useRef<Map<number, HTMLButtonElement>>(new Map());
   const [tabBackgrounds, setTabBackgrounds] = useState<Record<number, TabBackground>>({});
   const [bgSize, setBgSize] = useState<{ w: number; h: number }>({ w: 0, h: 0 });
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
 
   // Keyboard navigation
   useEffect(() => {
@@ -127,7 +117,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
     };
   }, [year, compact]);
 
-  const tabColor = "#bb8e5c";
+  const tabColor = "#b29267";
 
   return (
     <div
@@ -156,7 +146,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
               backgroundColor: tabColor,
-              backgroundImage: isMobile ? "none" : `url(${archiveFolderBg})`,
+              backgroundImage: `url(${archiveFolderBg})`,
               backgroundSize: bgSize.w > 0 ? `${bgSize.w}px ${bgSize.h}px` : "cover",
               backgroundPosition: background ? `${background.x}px ${background.y}px` : "center",
               backgroundRepeat: "no-repeat",
