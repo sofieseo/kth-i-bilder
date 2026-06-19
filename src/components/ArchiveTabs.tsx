@@ -156,7 +156,7 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
             } ${idx > 0 ? "-ml-2" : ""}`}
             style={{
               backgroundColor: tabColor,
-              backgroundImage: `url(${archiveFolderBg})`,
+              backgroundImage: isMobile ? "none" : `url(${archiveFolderBg})`,
               backgroundSize: bgSize.w > 0 ? `${bgSize.w}px ${bgSize.h}px` : "cover",
               backgroundPosition: background ? `${background.x}px ${background.y}px` : "center",
               backgroundRepeat: "no-repeat",
