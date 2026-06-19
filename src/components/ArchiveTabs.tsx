@@ -24,6 +24,16 @@ export function ArchiveTabs({ year, onChange, compact = false }: ArchiveTabsProp
   const tabRefs = useRef<Map<number, HTMLButtonElement>>(new Map());
   const [tabBackgrounds, setTabBackgrounds] = useState<Record<number, TabBackground>>({});
   const [bgSize, setBgSize] = useState<{ w: number; h: number }>({ w: 0, h: 0 });
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Keyboard navigation
   useEffect(() => {
