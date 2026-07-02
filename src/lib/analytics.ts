@@ -14,7 +14,7 @@ export function trackEvent(
   event_data: Record<string, unknown> = {}
 ): void {
   try {
-    void supabase.from("analytics_events").insert({ event_type, event_data });
+    void supabase.from("analytics_events").insert([{ event_type, event_data: event_data as any }]);
   } catch {
     // ignore
   }
