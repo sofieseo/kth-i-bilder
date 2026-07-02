@@ -65,6 +65,11 @@ const Index = () => {
     setScrollTop(0);
     setHeaderShrunkState(false);
     rawHandleYearChange(y);
+    if (y !== year) {
+      import("@/lib/analytics").then(({ trackEvent }) =>
+        trackEvent("tab_change", { year: y })
+      );
+    }
   };
   const [isDesktop, setIsDesktop] = useState(
     () => typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches
