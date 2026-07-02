@@ -166,6 +166,14 @@ export function PhotoGallery({ results, year, loading, isAdmin, onHidePhoto, onM
     const url = new URL(window.location.href);
     if (photo) {
       url.searchParams.set("photo", photo.id);
+      import("@/lib/analytics").then(({ trackEvent }) =>
+        trackEvent("photo_open", {
+          photo_id: photo.id,
+          title: photo.title ?? null,
+          year: photo.year ?? null,
+          source: photo.source ?? null,
+        })
+      );
     } else {
       url.searchParams.delete("photo");
     }

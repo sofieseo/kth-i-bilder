@@ -1,5 +1,5 @@
 import { useMemo, useState, useRef, useEffect } from "react";
-import { EyeOff, BarChart3, LogIn, LogOut, RefreshCw, ArrowUp, Star, Settings } from "lucide-react";
+import { EyeOff, BarChart3, LogIn, LogOut, RefreshCw, ArrowUp, Star, Settings, TrendingUp } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -16,6 +16,7 @@ import { PhotoGallery } from "@/components/PhotoGallery";
 import { HiddenPhotosModal } from "@/components/HiddenPhotosModal";
 import { AdminStatsModal } from "@/components/AdminStatsModal";
 import { AdminFavoritesModal } from "@/components/AdminFavoritesModal";
+import { AdminAnalyticsModal } from "@/components/AdminAnalyticsModal";
 import { AdminLoginModal } from "@/components/AdminLoginModal";
 import { usePhotoFetch } from "@/hooks/usePhotoFetch";
 import { useAdminMode } from "@/hooks/useAdminMode";
@@ -41,6 +42,7 @@ const Index = () => {
   const [showHidden, setShowHidden] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [showFavorites, setShowFavorites] = useState(false);
+  const [showAnalytics, setShowAnalytics] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [clearingCache, setClearingCache] = useState(false);
   const [searchSelectedPhoto, setSearchSelectedPhoto] = useState<UnifiedPhoto | null>(null);
@@ -65,6 +67,11 @@ const Index = () => {
     setScrollTop(0);
     setHeaderShrunkState(false);
     rawHandleYearChange(y);
+    if (y !== year) {
+      import("@/lib/analytics").then(({ trackEvent }) =>
+        trackEvent("tab_change", { year: y })
+      );
+    }
   };
   const [isDesktop, setIsDesktop] = useState(
     () => typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches
@@ -302,9 +309,13 @@ const Index = () => {
                       className="rounded-none border-foreground/20"
                       style={{ fontFamily: "'Courier Prime', monospace" }}
                     >
+                      <DropdownMenuItem onClick={() => setShowAnalytics(true)} className="rounded-none text-xs gap-2">
+                        <TrendingUp className="h-3.5 w-3.5" />
+                        Användning
+                      </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => setShowStats(true)} className="rounded-none text-xs gap-2">
                         <BarChart3 className="h-3.5 w-3.5" />
-                        Statistik
+                        Engagemang
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => setShowFavorites(true)} className="rounded-none text-xs gap-2">
                         <Star className="h-3.5 w-3.5" />
@@ -572,6 +583,33 @@ const Index = () => {
           setSearchNavSet(null);
           setSearchSelectedPhoto(photo);
           setShowFavorites(false);
+        }}
+      />
+      <AdminAnalyticsModal
+        open={showAnalytics}
+        onClose={() => setShowAnalytics(false)}
+        onOpenPhoto={async (photoId, imageUrl, title) => {
+          const { fetchAllPhotosForSearch } = await import("@/data/fetchAllPhotosForSearch");
+          const all = await fetchAllPhotosForSearch().catch(() => []);
+          const found = all.find((p) => p.id === photoId);
+          const photo: UnifiedPhoto = found ?? ({
+            id: photoId,
+            title: title ?? "",
+            description: "",
+            year: null,
+            imageUrl: imageUrl ?? "",
+            imageUrlFull: imageUrl ?? "",
+            source: "manual",
+            provider: "",
+            originalLink: "",
+            photographer: null,
+            license: "",
+            place: "",
+            subjects: [],
+          } as unknown as UnifiedPhoto);
+          setSearchNavSet(null);
+          setSearchSelectedPhoto(photo);
+          setShowAnalytics(false);
         }}
       />
       <AdminLoginModal open={showLogin} onClose={() => setShowLogin(false)} onSuccess={() => setShowLogin(false)} />

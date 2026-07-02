@@ -99,6 +99,19 @@ export function SearchPalette({ onSelect, year = 0, reopenSignal, light = false 
     return () => window.clearTimeout(timeout);
   }, [query]);
 
+  // Track meaningful search queries (>=2 chars), throttled to fire once
+  // per settled query.
+  useEffect(() => {
+    const q = submitted.trim();
+    if (q.length < 2) return;
+    const t = window.setTimeout(() => {
+      import("@/lib/analytics").then(({ trackEvent }) =>
+        trackEvent("search", { query: q, results: filtered.length })
+      );
+    }, 600);
+    return () => window.clearTimeout(t);
+  }, [submitted, filtered.length]);
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
