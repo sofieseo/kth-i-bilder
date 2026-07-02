@@ -1,5 +1,5 @@
 import { useMemo, useState, useRef, useEffect } from "react";
-import { EyeOff, BarChart3, LogIn, LogOut, RefreshCw, ArrowUp, Star, Settings } from "lucide-react";
+import { EyeOff, BarChart3, LogIn, LogOut, RefreshCw, ArrowUp, Star, Settings, TrendingUp } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
