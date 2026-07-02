@@ -309,9 +309,13 @@ const Index = () => {
                       className="rounded-none border-foreground/20"
                       style={{ fontFamily: "'Courier Prime', monospace" }}
                     >
+                      <DropdownMenuItem onClick={() => setShowAnalytics(true)} className="rounded-none text-xs gap-2">
+                        <TrendingUp className="h-3.5 w-3.5" />
+                        Användning
+                      </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => setShowStats(true)} className="rounded-none text-xs gap-2">
                         <BarChart3 className="h-3.5 w-3.5" />
-                        Statistik
+                        Engagemang
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => setShowFavorites(true)} className="rounded-none text-xs gap-2">
                         <Star className="h-3.5 w-3.5" />
