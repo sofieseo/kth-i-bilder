@@ -46,8 +46,10 @@ export function PhotoLightbox({ photo, onClose, onPrev, onNext, hasPrev, hasNext
   const buildShareUrl = () => {
     const url = new URL("https://kth-i-bilder.lovable.app/");
     url.searchParams.set("photo", photo.id);
-    const appYear = new URLSearchParams(window.location.search).get("year");
-    if (appYear) url.searchParams.set("year", appYear);
+    // Derive year from the photo itself so the recipient lands on the correct
+    // decade tab, regardless of which tab the sharer was viewing.
+    const decade = photo.year != null ? Math.floor(photo.year / 10) * 10 : 0;
+    if (decade !== 0) url.searchParams.set("year", String(decade));
     return url.toString();
   };
 
