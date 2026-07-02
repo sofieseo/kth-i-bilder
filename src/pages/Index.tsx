@@ -585,6 +585,33 @@ const Index = () => {
           setShowFavorites(false);
         }}
       />
+      <AdminAnalyticsModal
+        open={showAnalytics}
+        onClose={() => setShowAnalytics(false)}
+        onOpenPhoto={async (photoId, imageUrl, title) => {
+          const { fetchAllPhotosForSearch } = await import("@/data/fetchAllPhotosForSearch");
+          const all = await fetchAllPhotosForSearch().catch(() => []);
+          const found = all.find((p) => p.id === photoId);
+          const photo: UnifiedPhoto = found ?? ({
+            id: photoId,
+            title: title ?? "",
+            description: "",
+            year: null,
+            imageUrl: imageUrl ?? "",
+            imageUrlFull: imageUrl ?? "",
+            source: "manual",
+            provider: "",
+            originalLink: "",
+            photographer: null,
+            license: "",
+            place: "",
+            subjects: [],
+          } as unknown as UnifiedPhoto);
+          setSearchNavSet(null);
+          setSearchSelectedPhoto(photo);
+          setShowAnalytics(false);
+        }}
+      />
       <AdminLoginModal open={showLogin} onClose={() => setShowLogin(false)} onSuccess={() => setShowLogin(false)} />
     </div>
   );
